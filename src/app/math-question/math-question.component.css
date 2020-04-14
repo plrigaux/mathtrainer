@@ -1,0 +1,19 @@
+.mathQuestion {
+    padding: 0.5em;
+    font-size: 24px;
+    font-family: "Arial";
+}
+
+.mathAnswer {
+    font-size: 24px;
+    font-family: "Arial";
+    padding-left: 5px;
+}
+
+.wrong {
+    background-color: red;
+}
+
+.right {
+    background-color: limegreen;
+}
