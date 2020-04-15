@@ -1,6 +1,9 @@
 <h2>Question {{questionId}}</h2>
 <div class="mathQuestion">
     {{problem.question}}
-    <!--<input className={inputClass} onBlur={this.validateAnswer} type='number' size='3' />-->
-    <input [(ngModel)]="userInput" [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" type="number" (blur)="validateAnswer()"/>
+    <input [(ngModel)]="userInput" 
+    [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" 
+    type="number" 
+    (blur)="validateAnswer()"
+    (keyup.enter)="validateAnswer()"/>
 </div>

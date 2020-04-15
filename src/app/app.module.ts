@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { MathQuestionComponent } from './math-question/math-question.component';
 import { ProblemPanelComponent } from './problem-panel/problem-panel.component';
 import { FormsModule } from '@angular/forms';
+import { ConfigPanelComponent } from './config-panel/config-panel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MathQuestionComponent,
-    ProblemPanelComponent
+    ProblemPanelComponent,
+    ConfigPanelComponent
   ],
   imports: [
     BrowserModule,
