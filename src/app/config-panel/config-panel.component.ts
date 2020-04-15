@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from '../config';
+import { ConfigService } from '../config.service'
 
 @Component({
   selector: 'app-config-panel',
@@ -8,17 +9,23 @@ import { Config } from '../config';
 })
 
 export class ConfigPanelComponent implements OnInit {
-  config: Config = {
-    nbProblems: 10,
-    nbNumbers: 3
+  config: Config;
+
+  constructor(private configService: ConfigService) {
+
   }
-  constructor() { }
 
   ngOnInit(): void {
+    this.fetchConfigFromService();
   }
 
-  action():void {
+  action(): void {
     console.log("Action")
     console.log(this.config)
+  }
+
+  fetchConfigFromService(): void {
+    this.configService.getConfig().subscribe((config) => this.config = config);
+    //this.config = this.configService.getConfig();
   }
 }

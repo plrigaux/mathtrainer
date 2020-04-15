@@ -1,12 +1,9 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { MathProblem } from '../mathGenerator'
 import { MathQuestionComponent } from '../math-question/math-question.component';
-/*
-@NgModule({
-  declarations: [MathQuestionComponent],
-  exports:[MathQuestionComponent]
-})
-*/
+import { Config } from '../config';
+import { ConfigService } from '../config.service'
+
 @Component({
   selector: 'app-problem-panel',
   templateUrl: './problem-panel.component.html',
@@ -14,15 +11,22 @@ import { MathQuestionComponent } from '../math-question/math-question.component'
 })
 export class ProblemPanelComponent implements OnInit {
 
-  constructor() { }
-
+  config: Config;
   problems: MathProblem[];
 
-  ngOnInit(): void {
-    this.problems = new Array(10);
-    this.draw();
+  constructor(private configService: ConfigService) {
+
   }
 
+  ngOnInit(): void {
+    this.fetchConfigFromService();
+    this.problems = new Array(10);
+  }
+
+  fetchConfigFromService(): void {
+    this.configService.getConfig().subscribe((config) => this.config = config);
+  }
+/*
   draw() {
     console.log("Test this")
     var numbs : number[] = new Array(50);
@@ -55,6 +59,6 @@ export class ProblemPanelComponent implements OnInit {
       console.log(...draw)
       console.log(...numbs)
   }
-
+*/
 
 }

@@ -1,3 +1,8 @@
+<div>
+  <h3>Config</h3>
+  NnProb: {{config.nbProblems}}<br/>
+  NnProb: {{config.nbNumbers}}
+</div>
 <div *ngFor="let problem of problems; index as i">
   <app-math-question [questionId]='i'></app-math-question>
 </div>
