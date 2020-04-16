@@ -22,10 +22,13 @@ export class ConfigPanelComponent implements OnInit {
   action(): void {
     console.log("Action")
     console.log(this.config)
+    this.configService.configSource.next(this.config)
+
   }
 
   fetchConfigFromService(): void {
-    this.configService.getConfig().subscribe((config) => this.config = config);
-    //this.config = this.configService.getConfig();
+    this.configService.configSource.subscribe(
+      cf => { this.config = cf; }
+    );
   }
 }
