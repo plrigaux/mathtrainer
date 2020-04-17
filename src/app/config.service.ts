@@ -17,11 +17,6 @@ export class ConfigService {
   config : Observable<Config> = this.configSource.asObservable();
 
   constructor() { }
-  /*
-  getConfig(): Observable<Config> {
-    return of(CONFIG);
-  }
-  */
 
   updatedDataSelection(conf: Config) {
     this.configSource.next(conf);

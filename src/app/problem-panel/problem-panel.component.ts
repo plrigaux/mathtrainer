@@ -1,8 +1,8 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MathProblem } from '../mathGenerator'
-import { MathQuestionComponent } from '../math-question/math-question.component';
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
+//import { CONFIG } from '../mock-config';
 
 @Component({
   selector: 'app-problem-panel',
@@ -12,29 +12,39 @@ import { ConfigService } from '../config.service'
 
 export class ProblemPanelComponent implements OnInit {
 
-  config: Config;
+  cfg: Config;
   problems: MathProblem[];
 
   constructor(private configService: ConfigService) {
-    
+    //this.cfg = CONFIG;
   }
 
   ngOnInit(): void {
-    this.fetchConfigFromService();
-    //this.problems = new Array(this.config.nbProblems);
-  }
-
-  fetchConfigFromService(): void {
     this.configService.configSource.subscribe(
       cf => {
-        this.config = cf;
-        this.problems = new Array(this.config.nbProblems);
-        console.log("New conf");
-        console.log(this.config);
-        console.log(this.problems);
+        this.cfg = cf;
+        this.problems = new Array(this.cfg.nbProblems);
       }
     );
   }
+
+  ngOnDestroy(): void {
+    this.configService.configSource.unsubscribe()
+  }
+}
+
+
+/*
+  fetchConfigFromService(): void {
+    this.configService.configSource.subscribe(
+      cf => {
+        this.cfg = cf;
+        this.problems = new Array(this.cfg.nbProblems);
+      }
+    );
+  }
+  */
+
   /*
     draw() {
       console.log("Test this")
@@ -70,4 +80,4 @@ export class ProblemPanelComponent implements OnInit {
     }
   */
 
-}
+

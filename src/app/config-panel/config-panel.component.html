@@ -1,7 +1,11 @@
-<hr/>
-Number of numbers: <input [(ngModel)]="config.nbNumbers"  type=number />
-<br/>
-Number of problems: <input [(ngModel)]="config.nbProblems" type=number />
-<br/>
-<button (click)="action()">Action</button>
-<hr/>
+<hr /> Number of numbers: <input [(ngModel)]="config.nbNumbers" type=number />
+<br /> Number of problems: <input [(ngModel)]="config.nbProblems" type=number />
+<br />Math problem Type:
+<select [(ngModel)]="config.mathProblemTypes">
+    <option *ngFor="let mpt of MathProblemTypes.values()" [ngValue]="MathProblemTypes[mpt]">
+        {{mpt}}
+    </option>
+</select>
+<br /><button (click)="action()">Action</button>
+
+<hr />

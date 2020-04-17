@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
+import {MathProblemTypes} from '../mathProblemTypes'
 
 @Component({
   selector: 'app-config-panel',
@@ -10,6 +11,8 @@ import { ConfigService } from '../config.service'
 
 export class ConfigPanelComponent implements OnInit {
   config: Config;
+
+  MathProblemTypes = MathProblemTypes;
 
   constructor(private configService: ConfigService) {
 
@@ -23,7 +26,6 @@ export class ConfigPanelComponent implements OnInit {
     console.log("Action")
     console.log(this.config)
     this.configService.configSource.next(this.config)
-
   }
 
   fetchConfigFromService(): void {

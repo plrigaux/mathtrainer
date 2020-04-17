@@ -1,37 +1,53 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MathProblem } from '../mathGenerator.js'
+import { Component, OnInit, Input,SimpleChanges } from '@angular/core';
+import { MathProblem } from '../mathGenerator'
+import { Config } from '../config';
+import { ConfigService } from '../config.service'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-math-question',
   templateUrl: './math-question.component.html',
   styleUrls: ['./math-question.component.css']
 })
+
 export class MathQuestionComponent implements OnInit {
   userInput: number;
   right: boolean;
   wrong: boolean;
   problem: MathProblem;
+  myEventSubscription: Subscription;
 
-  constructor() {
+  constructor(private configService: ConfigService) {
     this.right = false;
     this.wrong = false;
   }
 
   @Input() questionId: number;
+  config: Config;
 
   ngOnInit(): void {
-    this.problem = MathProblem.generateProblem(3);
+    this.myEventSubscription = this.configService.configSource.subscribe(
+      cf => {
+        this.config = cf;
+        this.problem = MathProblem.generateProblem(this.config);
+      }
+    );
   }
 
+  ngOnDestroy(): void {
+    this.myEventSubscription.unsubscribe()
+  }
+  
   validateAnswer(): void {
-    console.log("User Input: " + this.userInput);
-
     let answer = this.problem.getAnswer();
+    console.log(`User Input: ${this.userInput} Answer: ${answer}`);
+
+
 
     if (this.userInput == answer) {
       this.right = true;
       this.wrong = false;
-    } 
+    }
     else if (this.userInput == null) {
       this.right = false;
       this.wrong = false;
@@ -40,6 +56,7 @@ export class MathQuestionComponent implements OnInit {
       this.right = false;
       this.wrong = true;
     }
+    console.log("Config " + this.config.nbNumbers);
   }
 
 }
