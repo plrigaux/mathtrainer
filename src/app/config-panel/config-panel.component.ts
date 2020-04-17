@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
-import {MathProblemTypes} from '../mathProblemTypes'
+import {mathProplemActions, MathProblemTypesMap} from '../mathProblemTypes'
 
 @Component({
   selector: 'app-config-panel',
@@ -12,10 +12,15 @@ import {MathProblemTypes} from '../mathProblemTypes'
 export class ConfigPanelComponent implements OnInit {
   config: Config;
 
-  MathProblemTypes = MathProblemTypes;
+  //MathProblemTypes = MathProblemTypes;
+  mathProplemActions : any = mathProplemActions;
+  mathProplemActionsKeys : string[];
 
   constructor(private configService: ConfigService) {
-
+    this.mathProplemActionsKeys = Object.keys(mathProplemActions);
+    console.log("this.mathProplemActionsKeys") 
+    console.log(this.mathProplemActionsKeys )
+    console.log(mathProplemActions)
   }
 
   ngOnInit(): void {
@@ -25,12 +30,12 @@ export class ConfigPanelComponent implements OnInit {
   action(): void {
     console.log("Action")
     console.log(this.config)
-    this.configService.configSource.next(this.config)
+    this.configService.configSource.next({...this.config})
   }
 
   fetchConfigFromService(): void {
     this.configService.configSource.subscribe(
-      cf => { this.config = cf; }
+      cf => { this.config = {...cf}; }
     );
   }
 }

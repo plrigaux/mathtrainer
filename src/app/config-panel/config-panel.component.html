@@ -2,7 +2,7 @@
 <br /> Number of problems: <input [(ngModel)]="config.nbProblems" type=number />
 <br />Math problem Type:
 <select [(ngModel)]="config.mathProblemTypes">
-    <option *ngFor="let mpt of MathProblemTypes.values()" [ngValue]="MathProblemTypes[mpt]">
+    <option *ngFor="let mpt of mathProplemActionsKeys" [ngValue]="mpt">
         {{mpt}}
     </option>
 </select>

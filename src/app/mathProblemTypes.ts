@@ -14,35 +14,55 @@ export namespace MathProblemTypes {
         );
     }
 
-    export function getStr(id : number) {
+    export function getStr(id: number) {
         return Object.keys(MathProblemTypes)[id + 4]
     }
 }
 
-export const MPT = {
-    ADDITION: {
+export interface MathProblemTypesData {
+    name: string;
+    code: number;
+    op: string;
+    opFunc: (value: number[]) => number;
+}
+
+export type MathProblemTypesKey = "ADDITION" | "SUBTRACTION" | "MULTIPICATION" | "DIVISION";
+
+export type MathProblemTypesMap = Record<MathProblemTypesKey, MathProblemTypesData>;
+
+
+export const mathProplemActions: MathProblemTypesMap = {
+    "ADDITION": {
         name: "ADDITION",
         code: MathProblemTypes.ADDITION,
         op: "+",
-        func: (a: number, b: number) => a + b
+        opFunc: (value: number[]) => {
+            return 3;}
+        
     },
-    SUBTRACTION: {
+    "SUBTRACTION": {
         name: "SUBTRACTION",
         code: MathProblemTypes.SUBTRACTION,
         op: "-",
-        func: (a: number, b: number) => a - b
+        opFunc: (value: number[]) => {
+            return 3;}
     },
-    MULTIPICATION: {
+    "MULTIPICATION": {
         name: "MULTIPICATION",
         code: MathProblemTypes.MULTIPICATION,
         op: "x",
-        func: (a: number, b: number) => a * b
+        opFunc: (value: number[]) => {
+            return 3;}
     },
-    DIVISION: {
+    "DIVISION": {
         name: "DIVISION",
         code: MathProblemTypes.DIVISION,
         op: "/",
-        func: (a: number, b: number) => a / b
+        opFunc: (value: number[]) => {
+            return 3;}
     }
 }
+
+
+
 

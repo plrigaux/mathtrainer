@@ -30,6 +30,9 @@ export class MathQuestionComponent implements OnInit {
       cf => {
         this.config = cf;
         this.problem = MathProblem.generateProblem(this.config);
+        this.right = false;
+        this.wrong = false;
+        this.userInput = null;
       }
     );
   }

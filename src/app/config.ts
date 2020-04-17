@@ -1,7 +1,13 @@
-import {MathProblemTypes} from './mathProblemTypes'
+import {MathProblemTypesKey} from './mathProblemTypes'
 
 export interface Config {
     nbProblems: number;
     nbNumbers: number;
-    mathProblemTypes : MathProblemTypes;
+    mathProblemTypes : MathProblemTypesKey;
+}
+
+export const CONFIG: Config = {
+    nbNumbers: 2,
+    nbProblems: 10,
+    mathProblemTypes: "ADDITION"
 }

@@ -1,5 +1,5 @@
 import { Config } from './config'
-import { MathProblemTypes, MPT } from './mathProblemTypes';
+import { MathProblemTypes, mathProplemActions, MathProblemTypesData, MathProblemTypesKey } from './mathProblemTypes';
 
 export class MathProblem {
 
@@ -14,10 +14,10 @@ export class MathProblem {
 
     getAnswer(): number {
 
-        let key = MathProblemTypes.getStr(this.config.mathProblemTypes);
-        let fc = MPT[key].func;
-
-        let val = this.values.reduce(fc, 0)
+        //let key = MathProblemTypes.getStr(this.config.mathProblemTypes);
+        var mptd : MathProblemTypesData = mathProplemActions[this.config.mathProblemTypes];
+        
+        let val = mptd.opFunc(this.values);
 
         return val;
     }
@@ -27,34 +27,11 @@ export class MathProblem {
         mp.values = MathProblem.getListofRandomInt(config.nbNumbers)
 
 
-        let op : string;
-/*
-        switch (config.mathProblemTypes) {
-            case MathProblemTypes.ADDITION:
-                op = '+'
-                break;
-            case MathProblemTypes.SUBTRACTION:
-                op = '-'
-                break;
-            case MathProblemTypes.MULTIPICATION:
-                op = 'x'
-                break;
-            case MathProblemTypes.DIVISION:
-                op = '/'
-                break;
-            default:
-        }
+        // let key = MathProblemTypes.getStr(config.mathProblemTypes)
 
-        console.log(MathProblemTypes);
-        console.log(MathProblemTypes.SUBTRACTION);
-        console.log(MathProblemTypes.getStr(MathProblemTypes.SUBTRACTION));
-        console.log(MPT);
-        console.log(MPT[MathProblemTypes.SUBTRACTION]);
-*/
-        let key = MathProblemTypes.getStr(config.mathProblemTypes)
-        op = MPT[key].op
+        var mptd : MathProblemTypesData = mathProplemActions[config.mathProblemTypes];
 
-        mp.question = mp.values.join(` ${op} `) + " = "
+        mp.question = mp.values.join(` ${mptd.op} `) + " = "
         mp.config = config;
 
         return mp

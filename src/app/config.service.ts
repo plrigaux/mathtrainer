@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 //import { Observable, of } from 'rxjs';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Config } from './config';
-import { CONFIG } from './mock-config'
+import { Config, CONFIG } from './config';
 
 
 @Injectable({
