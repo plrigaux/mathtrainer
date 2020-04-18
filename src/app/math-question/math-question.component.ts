@@ -14,12 +14,14 @@ export class MathQuestionComponent implements OnInit {
   userInput: number;
   right: boolean;
   wrong: boolean;
+  stacked: boolean;
   problem: MathProblem;
   myEventSubscription: Subscription;
 
   constructor(private configService: ConfigService) {
     this.right = false;
     this.wrong = false;
+    this.stacked = true;
   }
 
   @Input() questionId: number;

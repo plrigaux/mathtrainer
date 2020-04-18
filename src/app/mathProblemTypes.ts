@@ -1,7 +1,7 @@
 export enum MathProblemTypes {
     ADDITION,
     SUBTRACTION,
-    MULTIPICATION,
+    MULTIPLICATION,
     DIVISION
 }
 
@@ -26,7 +26,7 @@ export interface MathProblemTypesData {
     opFunc: (value: number[]) => number;
 }
 
-export type MathProblemTypesKey = "ADDITION" | "SUBTRACTION" | "MULTIPICATION" | "DIVISION";
+export type MathProblemTypesKey = "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
 
 export type MathProblemTypesMap = Record<MathProblemTypesKey, MathProblemTypesData>;
 
@@ -37,7 +37,8 @@ export const mathProplemActions: MathProblemTypesMap = {
         code: MathProblemTypes.ADDITION,
         op: "+",
         opFunc: (value: number[]) => {
-            return 3;}
+            return value.reduce((a, b) => a + b, 0);
+        }
         
     },
     "SUBTRACTION": {
@@ -45,21 +46,24 @@ export const mathProplemActions: MathProblemTypesMap = {
         code: MathProblemTypes.SUBTRACTION,
         op: "-",
         opFunc: (value: number[]) => {
-            return 3;}
+            return value.reduce((total, num) => total - num);
+        }
     },
-    "MULTIPICATION": {
-        name: "MULTIPICATION",
-        code: MathProblemTypes.MULTIPICATION,
+    "MULTIPLICATION": {
+        name: "MULTIPLICATION",
+        code: MathProblemTypes.MULTIPLICATION,
         op: "x",
         opFunc: (value: number[]) => {
-            return 3;}
+            return value.reduce((total, num) => total * num);
+        }
     },
     "DIVISION": {
         name: "DIVISION",
         code: MathProblemTypes.DIVISION,
-        op: "/",
+        op: "÷",
         opFunc: (value: number[]) => {
-            return 3;}
+            return value.reduce((total, num) => total / num);
+        }
     }
 }
 

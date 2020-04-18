@@ -6,6 +6,7 @@ export class MathProblem {
     question: String;
     values: number[];
     config: Config;
+    mptd: MathProblemTypesData;
 
     constructor() {
         this.values = []
@@ -14,9 +15,8 @@ export class MathProblem {
 
     getAnswer(): number {
 
-        //let key = MathProblemTypes.getStr(this.config.mathProblemTypes);
-        var mptd : MathProblemTypesData = mathProplemActions[this.config.mathProblemTypes];
-        
+        var mptd: MathProblemTypesData = mathProplemActions[this.config.mathProblemTypes];
+
         let val = mptd.opFunc(this.values);
 
         return val;
@@ -24,24 +24,43 @@ export class MathProblem {
 
     static generateProblem(config: Config): MathProblem {
         var mp = new MathProblem()
-        mp.values = MathProblem.getListofRandomInt(config.nbNumbers)
+        mp.values = MathProblem.getListofRandomInt(config)
 
+        mp.mptd = mathProplemActions[config.mathProblemTypes];
 
-        // let key = MathProblemTypes.getStr(config.mathProblemTypes)
+        let q = ""
+        q += '<span class="equation">'
 
-        var mptd : MathProblemTypesData = mathProplemActions[config.mathProblemTypes];
+        let first = true;
+        for (let index = 0; index < mp.values.length; ++index) {
+            if (!first) {
+                q += `<span class="operator">${mp.mptd.op}</span>`;
+            } else {
+                first = false;
+            }
+            q += `<span class="number">${mp.values[index]}</span>`
+        }
 
-        mp.question = mp.values.join(` ${mptd.op} `) + " = "
+        q += '<span class="equals">=</span>'
+        q += '</span>'
+
+        mp.question = q; //mp.values.join(` ${mptd.op} `) + " = "
         mp.config = config;
 
         return mp
     }
 
-    static getListofRandomInt(num: number): number[] {
+    static getListofRandomInt(config: Config): number[] {
         var values: number[] = []
-        for (var i = 0; i < num; i++) {
+        for (var i = 0; i < config.nbNumbers; i++) {
             var value = Math.floor(Math.random() * 10)
             values.push(value)
+        }
+
+        if (config.mathProblemTypes === "SUBTRACTION") {
+            //Keep the result positive
+            values.sort();
+            values.reverse();
         }
 
         return values

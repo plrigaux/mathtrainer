@@ -1,9 +1,14 @@
 <h2>Question {{questionId}}</h2>
 <div class="mathQuestion">
-    {{problem.question}}
-    <input [(ngModel)]="userInput" 
-    [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" 
-    type="number" 
-    (blur)="validateAnswer()"
-    (keyup.enter)="validateAnswer()"/>
+    <span  [ngClass]="{'equation':true, 'stacked': stacked}">
+        <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
+            <span class="number">{{num}}</span>
+            <span *ngIf="last==false" class="operator">{{problem.mptd.op}}</span>
+        </ng-template>
+        <span class="equals">=</span>
+        <input [(ngModel)]="userInput" [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}"
+        type="text"
+        (blur)="validateAnswer()" 
+        (keyup.enter)="validateAnswer()" />
+    </span> 
 </div>

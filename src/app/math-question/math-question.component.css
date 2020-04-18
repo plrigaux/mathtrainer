@@ -1,13 +1,20 @@
 .mathQuestion {
     padding: 0.5em;
     font-size: 24px;
-    font-family: "Arial";
+
 }
 
 .mathAnswer {
     font-size: 24px;
     font-family: "Arial";
     padding-left: 5px;
+    width: 2em;
+    
+}
+
+.equation.stacked .mathAnswer {
+    text-align: right;
+    margin-top: 5px;
 }
 
 .wrong {
@@ -16,4 +23,30 @@
 
 .right {
     background-color: limegreen;
+}
+
+.equation.stacked {
+    display: inline-block;
+}
+
+.equation.stacked .number {
+    display: block;
+    margin-left: 1em;
+    /* space for the operator */
+    text-align: right;
+}
+
+.equation.stacked .operator {
+    float: left;
+}
+
+.equation.stacked .equals {
+    display: block;
+    height: 0;
+    border-bottom: solid 1px black;
+    overflow: hidden;
+}
+
+.equation * {
+    margin-left: 0.3em;
 }
