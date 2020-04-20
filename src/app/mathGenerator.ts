@@ -1,4 +1,4 @@
-import { Config } from './config'
+import { Config, GenerateRange } from './config'
 import { MathProblemTypes, mathProplemActions, MathProblemTypesData, MathProblemTypesKey } from './mathProblemTypes';
 
 export class MathProblem {
@@ -53,16 +53,27 @@ export class MathProblem {
     static getListofRandomInt(config: Config): number[] {
         var values: number[] = []
         for (var i = 0; i < config.nbNumbers; i++) {
-            var value = Math.floor(Math.random() * 10)
+            let rg : GenerateRange = config.generateRange[i];
+            let min : number = rg?.min || 0;
+            let max : number = rg?.max || 10;
+            let value = MathProblem.getRandomIntInclusive(min, max)
             values.push(value)
         }
 
         if (config.mathProblemTypes === "SUBTRACTION") {
+            console.log(config);
+            console.log(values)
             //Keep the result positive
-            values.sort();
-            values.reverse();
+            values.sort((a,b) => b - a);
+            console.log(values)
         }
 
         return values
+    }
+
+    static getRandomIntInclusive(min: number, max: number) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
     }
 }
