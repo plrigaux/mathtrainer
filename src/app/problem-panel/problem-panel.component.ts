@@ -7,7 +7,7 @@ import { ConfigService } from '../config.service'
 @Component({
   selector: 'app-problem-panel',
   templateUrl: './problem-panel.component.html',
-  styleUrls: ['./problem-panel.component.css']
+  styleUrls: ['./problem-panel.component.scss']
 })
 
 export class ProblemPanelComponent implements OnInit {

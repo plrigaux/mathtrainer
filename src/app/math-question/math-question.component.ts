@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-math-question',
   templateUrl: './math-question.component.html',
-  styleUrls: ['./math-question.component.css']
+  styleUrls: ['./math-question.component.scss']
 })
 
 export class MathQuestionComponent implements OnInit {
