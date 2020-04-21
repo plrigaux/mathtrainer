@@ -54,9 +54,8 @@ export class MathProblem {
         var values: number[] = []
         for (var i = 0; i < config.nbNumbers; i++) {
             let rg : GenerateRange = config.generateRange[i];
-            let min : number = rg?.min || 0;
-            let max : number = rg?.max || 10;
-            let value = MathProblem.getRandomIntInclusive(min, max)
+
+            let value = MathProblem.getRandomIntInclusive( rg?.min, rg?.max)
             values.push(value)
         }
 
@@ -71,7 +70,7 @@ export class MathProblem {
         return values
     }
 
-    static getRandomIntInclusive(min: number, max: number) {
+    static getRandomIntInclusive(min: number = 1, max: number = 10) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 

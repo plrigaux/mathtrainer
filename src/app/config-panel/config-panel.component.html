@@ -1,11 +1,27 @@
-<hr /> Number of numbers: <input [(ngModel)]="config.nbNumbers" type=number />
-<br /> Number of problems: <input [(ngModel)]="config.nbProblems" type=number />
-<br />Math problem Type:
-<select [(ngModel)]="config.mathProblemTypes">
-    <option *ngFor="let mpt of mathProplemActionsKeys" [ngValue]="mpt">
-        {{mpt}}
-    </option>
-</select>
-<br /><button (click)="action()">Action</button>
+<hr />
+<mat-form-field>
+    <mat-label>Number of numbers:</mat-label>
+    <input matInput [(ngModel)]="config.nbNumbers" type=number />
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Number of problems:</mat-label>
+    <input matInput [(ngModel)]="config.nbProblems" type=number />
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Math problem Type:</mat-label>
+    <mat-select [(ngModel)]="config.mathProblemTypes">
+        <mat-option *ngFor="let mpt of mathProplemActionsKeys" [value]="mpt">
+            {{mpt}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<br /><button mat-flat-button color="accent" (click)="action()">Action</button>
+<mat-slider min="1" max="100" step="1" value="1"></mat-slider>
 
+<!-- <button mat-raised-button>Basic</button>
+<button mat-raised-button color="primary">Primary</button>
+<button mat-raised-button color="accent">Accent</button>
+<button mat-raised-button color="warn">Warn</button>
+<button mat-raised-button disabled>Disabled</button>
+<a mat-raised-button href="https://www.google.com/" target="_blank">Link</a> -->
 <hr />
