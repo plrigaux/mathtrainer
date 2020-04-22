@@ -1,7 +1,7 @@
-<div>
+<!-- <div>
     <h3>Config</h3>
     NnProb: {{cfg.nbProblems}}<br/> NnProb: {{cfg.nbNumbers}}
-</div>
+</div> -->
 <div *ngFor="let problem of problems; index as i">
     <app-math-question [questionId]='i+1'></app-math-question>
 </div>
