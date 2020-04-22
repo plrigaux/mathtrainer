@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Hi </h1>
+<div mat-dialog-content>
+  <p>Number of numbers:</p>
+  <mat-form-field>
+    <mat-label>Number of numbers:</mat-label>
+    <input matInput [(ngModel)]="config.nbNumbers" type='number' />
+  </mat-form-field>
+  <p>Number of problems:</p>
+  <mat-form-field>
+    <mat-label>Number of problems:</mat-label>
+    <input matInput [(ngModel)]="config.nbProblems" type=number />
+  </mat-form-field>
+  <p>Math problem Type:</p>
+  <mat-form-field>
+    <mat-label>Math problem Type:</mat-label>
+    <mat-select [(ngModel)]="config.mathProblemTypes">
+      <mat-option *ngFor="let mpt of mathProplemActionsKeys" [value]="mpt">
+        {{mpt}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p>Equation Orientation</p>
+  <mat-radio-group aria-label="Select an option" [(ngModel)]="config.stacked">
+    <mat-radio-button [value]="true" >Vertical</mat-radio-button> &nbsp;
+    <mat-radio-button [value]="false">Horizontal</mat-radio-button>
+  </mat-radio-group>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="cancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="apply()" cdkFocusInitial>Apply</button>
+</div>

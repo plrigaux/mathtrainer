@@ -35,6 +35,7 @@ export class MathQuestionComponent implements OnInit {
         this.right = false;
         this.wrong = false;
         this.userInput = null;
+        this.stacked = cf.stacked;
       }
     );
   }
@@ -46,8 +47,6 @@ export class MathQuestionComponent implements OnInit {
   validateAnswer(): void {
     let answer = this.problem.getAnswer();
     console.log(`User Input: ${this.userInput} Answer: ${answer}`);
-
-
 
     if (this.userInput == answer) {
       this.right = true;
@@ -61,6 +60,7 @@ export class MathQuestionComponent implements OnInit {
       this.right = false;
       this.wrong = true;
     }
+
     console.log("Config " + this.config.nbNumbers);
   }
 

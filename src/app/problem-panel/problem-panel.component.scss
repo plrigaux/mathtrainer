@@ -5,8 +5,9 @@
 }
 
 //TODO investigate why this config can't be on the child component
-:host > div  {
-    //flex    :1 1 auto;
+:host > div {
+    //flex: 1 1 0;
+    flex-basis: auto; // investigate to have the same size
     border: 1px red solid;
     margin: 0.5em;
     padding: 0.5em;

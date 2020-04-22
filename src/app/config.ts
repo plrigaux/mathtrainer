@@ -10,11 +10,13 @@ export interface Config {
     nbNumbers: number;
     mathProblemTypes: MathProblemTypesKey;
     generateRange: GenerateRange[];
+    stacked: boolean;
 }
 
 export const CONFIG: Config = {
     nbNumbers: 2,
     nbProblems: 20,
     mathProblemTypes: "SUBTRACTION",
-    generateRange: [{ min: 10, max: 110 }, { min: 1, max: 9 }]
+    generateRange: [{ min: 10, max: 110 }, { min: 1, max: 9 }],
+    stacked: true
 }

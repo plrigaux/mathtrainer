@@ -51,13 +51,17 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
+import { ConfigDialogOpenerComponent } from './config-dialog-opener/config-dialog-opener.component';
+import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MathQuestionComponent,
     ProblemPanelComponent,
-    ConfigPanelComponent
+    ConfigPanelComponent,
+    ConfigDialogOpenerComponent,
+    ConfigDialogComponent
   ],
   imports: [
     BrowserModule,
