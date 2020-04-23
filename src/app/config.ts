@@ -20,3 +20,5 @@ export const CONFIG: Config = {
     generateRange: [{ min: 10, max: 110 }, { min: 1, max: 9 }],
     stacked: true
 }
+
+export const STOREKEY: string = "MATH_CONFIG";

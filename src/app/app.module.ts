@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { MathQuestionComponent } from './math-question/math-question.component';
 import { ProblemPanelComponent } from './problem-panel/problem-panel.component';
 import { FormsModule } from '@angular/forms';
-import { ConfigPanelComponent } from './config-panel/config-panel.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {A11yModule} from '@angular/cdk/a11y';
@@ -59,7 +58,6 @@ import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
     AppComponent,
     MathQuestionComponent,
     ProblemPanelComponent,
-    ConfigPanelComponent,
     ConfigDialogOpenerComponent,
     ConfigDialogComponent
   ],
