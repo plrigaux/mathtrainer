@@ -24,6 +24,8 @@
     <mat-radio-button [value]="true" >Vertical</mat-radio-button> &nbsp;
     <mat-radio-button [value]="false">Horizontal</mat-radio-button>
   </mat-radio-group>
+  <p></p>
+  <mat-checkbox labelPosition="before" [(ngModel)]="config.realTimeValidation" [value]="true" >Realtime Validation</mat-checkbox>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button (click)="cancel()">Cancel</button>

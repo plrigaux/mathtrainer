@@ -1,11 +1,11 @@
-:host {
+.problems {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
 }
 
 //TODO investigate why this config can't be on the child component
-:host > div {
+.problems > div {
     //flex: 1 1 0;
     flex-basis: auto; // investigate to have the same size
     border: 1px red solid;

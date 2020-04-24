@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigDialogComponent } from "../config-dialog/config-dialog.component"
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Config, CONFIG, STOREKEY } from '../config';
+import { MatDialog } from '@angular/material/dialog';
+import { Config, MATH_EXERCICISES_STORE } from '../config';
 import { ConfigService } from '../config.service'
 
 
@@ -42,7 +42,7 @@ export class ConfigDialogOpenerComponent implements OnInit {
       if (results) {
         this.config = { ...results }
         this.configService.configSource.next({ ...this.config })
-        localStorage.setItem(STOREKEY, JSON.stringify(this.config));
+        localStorage.setItem(MATH_EXERCICISES_STORE, JSON.stringify(this.config));
       }
     });
   }

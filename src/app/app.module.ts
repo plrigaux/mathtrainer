@@ -7,6 +7,9 @@ import { MathQuestionComponent } from './math-question/math-question.component';
 import { ProblemPanelComponent } from './problem-panel/problem-panel.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfigDialogOpenerComponent } from './config-dialog-opener/config-dialog-opener.component';
+import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
+import { FinishValidateComponent } from './finish-validate/finish-validate.component';
 
 import {A11yModule} from '@angular/cdk/a11y';
 import {ClipboardModule} from '@angular/cdk/clipboard';
@@ -50,8 +53,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
-import { ConfigDialogOpenerComponent } from './config-dialog-opener/config-dialog-opener.component';
-import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
     MathQuestionComponent,
     ProblemPanelComponent,
     ConfigDialogOpenerComponent,
-    ConfigDialogComponent
+    ConfigDialogComponent,
+    FinishValidateComponent
   ],
   imports: [
     BrowserModule,

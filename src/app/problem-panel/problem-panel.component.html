@@ -1,3 +1,6 @@
-<div *ngFor="let problem of problems; index as i">
-    <app-math-question [questionId]='i+1'></app-math-question>
+<div class="problems">
+    <div *ngFor="let problem of problems; index as i">
+        <app-math-question [questionId]='i+1'></app-math-question>
+    </div>
 </div>
+<app-finish-validate></app-finish-validate>

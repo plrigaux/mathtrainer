@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 //import { Observable, of } from 'rxjs';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Config, CONFIG, STOREKEY } from './config';
+import { Config, CONFIG, MATH_EXERCICISES_STORE } from './config';
 
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ConfigService {
 
   constructor() { 
 
-    let storedData = localStorage.getItem(STOREKEY);
+    let storedData = localStorage.getItem(MATH_EXERCICISES_STORE);
     let sdObject: object;
 
     sdObject = (storedData == null)? {} : JSON.parse(storedData);
@@ -26,7 +26,7 @@ export class ConfigService {
     console.log("storedData")
 
     let cf = {...CONFIG, ...sdObject};
-    console.log(this.config);
+    console.log(cf);
 
     
     this.configSource = new BehaviorSubject<Config>(cf);

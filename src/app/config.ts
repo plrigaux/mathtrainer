@@ -11,6 +11,7 @@ export interface Config {
     mathProblemTypes: MathProblemTypesKey;
     generateRange: GenerateRange[];
     stacked: boolean;
+    realTimeValidation: boolean;
 }
 
 export const CONFIG: Config = {
@@ -18,7 +19,8 @@ export const CONFIG: Config = {
     nbProblems: 20,
     mathProblemTypes: "SUBTRACTION",
     generateRange: [{ min: 10, max: 110 }, { min: 1, max: 9 }],
-    stacked: true
+    stacked: true,
+    realTimeValidation: true
 }
 
-export const STOREKEY: string = "MATH_CONFIG";
+export const MATH_EXERCICISES_STORE: string = "MATH_CONFIG";

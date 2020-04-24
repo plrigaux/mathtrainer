@@ -9,6 +9,7 @@
         <input [(ngModel)]="userInput" [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}"
             type="text"
             (blur)="validateAnswer()"
-            (keyup.enter)="validateAnswer()" />
+            (keyup.enter)="validateAnswer()" 
+            (keydown)="isNumberKey($event)" />
     </span>
 </div>

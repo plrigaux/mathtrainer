@@ -1,8 +1,10 @@
-import { Component, OnInit, Input,SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { MathProblem } from '../mathGenerator'
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { Subscription } from 'rxjs';
+
+const regexNumVal = /^[0-9,-\.]$/g
 
 @Component({
   selector: 'app-math-question',
@@ -43,7 +45,7 @@ export class MathQuestionComponent implements OnInit {
   ngOnDestroy(): void {
     this.myEventSubscription.unsubscribe()
   }
-  
+
   validateAnswer(): void {
     let answer = this.problem.getAnswer();
     console.log(`User Input: ${this.userInput} Answer: ${answer}`);
@@ -62,6 +64,12 @@ export class MathQuestionComponent implements OnInit {
     }
 
     console.log("Config " + this.config.nbNumbers);
+  }
+
+  isNumberKey(evt: KeyboardEvent): boolean {
+    //console.log(evt.key)
+    //return regexNumVal.test(evt.key);
+    return true;
   }
 
 }
