@@ -33,7 +33,7 @@ export class ConfigService {
     this.config = this.configSource.asObservable();
   }
 
-  updatedDataSelection(conf: Config) {
-    this.configSource.next(conf);
-  }
+  // updatedDataSelection(conf: Config) {
+  //   this.configSource.next(conf);
+  // }
 }

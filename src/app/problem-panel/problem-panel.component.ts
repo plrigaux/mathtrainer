@@ -21,8 +21,7 @@ export class ProblemPanelComponent implements OnInit {
   ngOnInit(): void {
     this.configService.configSource.subscribe(
       cf => {
-        this.cfg = cf;
-        this.problems = new Array(this.cfg.nbProblems);
+        this.problems = new Array(cf.nbProblems >= 1 ? cf.nbProblems : 1); //TODO make an universal function
       }
     );
   }

@@ -3,6 +3,7 @@ import { MathProblem } from '../mathGenerator'
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { Subscription } from 'rxjs';
+import { ValidateAllService } from '../validate-all.service'
 
 const regexNumVal = /^[0-9,-\.]$/g
 
@@ -18,9 +19,9 @@ export class MathQuestionComponent implements OnInit {
   wrong: boolean;
   stacked: boolean;
   problem: MathProblem;
-  myEventSubscription: Subscription;
+  myEventSubscriptions: Subscription[] = [];
 
-  constructor(private configService: ConfigService) {
+  constructor(private configService: ConfigService, private validateAllService: ValidateAllService) {
     this.right = false;
     this.wrong = false;
     this.stacked = true;
@@ -30,7 +31,7 @@ export class MathQuestionComponent implements OnInit {
   config: Config;
 
   ngOnInit(): void {
-    this.myEventSubscription = this.configService.configSource.subscribe(
+    this.myEventSubscriptions.push(this.configService.configSource.subscribe(
       cf => {
         this.config = cf;
         this.problem = MathProblem.generateProblem(this.config);
@@ -39,11 +40,15 @@ export class MathQuestionComponent implements OnInit {
         this.userInput = null;
         this.stacked = cf.stacked;
       }
-    );
+    ));
+
+    this.myEventSubscriptions.push(this.validateAllService.getValidation().subscribe({
+      next: (v) => v.push('Math question ID:' + this.questionId)
+    }));
   }
 
   ngOnDestroy(): void {
-    this.myEventSubscription.unsubscribe()
+    this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   validateAnswer(): void {

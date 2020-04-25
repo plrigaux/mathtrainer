@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../config.service'
 import { Subscription } from 'rxjs';
+import { ValidateAllService } from '../validate-all.service'
 
 @Component({
   selector: 'app-finish-validate',
@@ -13,7 +14,7 @@ export class FinishValidateComponent implements OnInit {
   isDisabled: boolean;
   tooltipMsg: string;
 
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService, private validateAllService: ValidateAllService) { }
 
   ngOnInit(): void {
     this.myEventSubscription = this.configService.configSource.subscribe(
@@ -26,6 +27,8 @@ export class FinishValidateComponent implements OnInit {
           this.tooltipMsg = "Validate all your answers!"
         }
       })
+
+      
   }
   
   ngOnDestroy(): void {
@@ -34,5 +37,10 @@ export class FinishValidateComponent implements OnInit {
   
   validate(): void {
     console.log("Is Validation disabled: " + this.isDisabled);
+
+    let test : string[] = []
+    this.validateAllService.updateValidation(test);
+
+    test.forEach(v => console.log("Pizza: " + v));
   }
 }
