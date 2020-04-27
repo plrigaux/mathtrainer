@@ -3,7 +3,7 @@ import { MathProblem } from '../mathGenerator'
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { Subscription } from 'rxjs';
-import { ValidateAllService } from '../validate-all.service'
+import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 
 const regexNumVal = /^[0-9,-\.]$/g
 
@@ -39,16 +39,36 @@ export class MathQuestionComponent implements OnInit {
         this.wrong = false;
         this.userInput = null;
         this.stacked = cf.stacked;
+
       }
     ));
 
     this.myEventSubscriptions.push(this.validateAllService.getValidation().subscribe({
-      next: (v) => v.push('Math question ID:' + this.questionId)
+      next: (v) => {
+        this.validateAnswer()
+        let mqv: MathQuestionValidation = {
+          id: this.questionId,
+          correct: this.right
+        }
+        v.push(mqv)
+        console.log('Delay mqi ' + this.questionId + " vl " + v.length)
+      },
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => {
+        console.log("This is the end");
+      }
     }));
   }
 
   ngOnDestroy(): void {
     this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+
+  validateAnswerRealTime(): void {
+    if (this.config.realTimeValidation === true) {
+      this.validateAnswer();
+    }
   }
 
   validateAnswer(): void {
@@ -72,9 +92,11 @@ export class MathQuestionComponent implements OnInit {
   }
 
   isNumberKey(evt: KeyboardEvent): boolean {
-    //console.log(evt.key)
+    console.log(evt)
+    this.right = false;
+    this.wrong = false;
     //return regexNumVal.test(evt.key);
-    return true;
+    return false;
   }
 
 }

@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+
+export interface MathQuestionValidation {
+  id : number;
+  correct: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
 })
-
-
 export class ValidateAllService {
 
-  myValidation = new Subject<string[]>();
+  myValidation = new Subject<MathQuestionValidation[]>();
 
   constructor() { }
 
-  getValidation(): Observable<string[]> {
+  getValidation(): Observable<MathQuestionValidation[]> {
     return this.myValidation.asObservable();
   }
 
-  updateValidation(validation: string[]): void {
+  updateValidation(validation: MathQuestionValidation[]): void {
     this.myValidation.next(validation);
   }
 }

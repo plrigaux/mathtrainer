@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../config.service'
 import { Subscription } from 'rxjs';
-import { ValidateAllService } from '../validate-all.service'
+import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 
 @Component({
   selector: 'app-finish-validate',
@@ -38,9 +38,11 @@ export class FinishValidateComponent implements OnInit {
   validate(): void {
     console.log("Is Validation disabled: " + this.isDisabled);
 
-    let test : string[] = []
+    //TODO see if below is the proper way
+    let test : MathQuestionValidation[] = []
     this.validateAllService.updateValidation(test);
-
-    test.forEach(v => console.log("Pizza: " + v));
+    //this.validateAllService.myValidation.complete();
+    console.log("test " + test.length);
+    test.forEach(v => console.log(`Question ${v.id} Results ${v.correct}`));
   }
 }

@@ -8,8 +8,8 @@
         <span class="equals">=</span>
         <input [(ngModel)]="userInput" [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}"
             type="number"
-            (blur)="validateAnswer()"
-            (keyup.enter)="validateAnswer()" 
-            (keydown)="isNumberKey($event)" />
+            (blur)="validateAnswerRealTime()"
+            (keyup.enter)="validateAnswerRealTime()" 
+            (keypress)="isNumberKey($event)" />
     </span>
 </div>
