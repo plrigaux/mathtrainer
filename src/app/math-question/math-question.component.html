@@ -7,9 +7,10 @@
         </ng-template>
         <span class="equals">=</span>
         <input [(ngModel)]="userInput" [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}"
-            type="number"
+            type="text"
             (blur)="validateAnswerRealTime()"
             (keyup.enter)="validateAnswerRealTime()" 
-            (keypress)="isNumberKey($event)" />
+            (keypress)="isNumberKey($event)"
+            (change)="checkChange($event)" />
     </span>
 </div>

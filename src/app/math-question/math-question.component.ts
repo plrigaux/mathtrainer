@@ -5,7 +5,7 @@ import { ConfigService } from '../config.service'
 import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 
-const regexNumVal = /^[0-9,-\.]$/g
+const regexNumVal = /[0-9,-\.]/
 
 @Component({
   selector: 'app-math-question',
@@ -92,11 +92,29 @@ export class MathQuestionComponent implements OnInit {
   }
 
   isNumberKey(evt: KeyboardEvent): boolean {
-    console.log(evt)
-    this.right = false;
-    this.wrong = false;
-    //return regexNumVal.test(evt.key);
-    return false;
+      
+    const key = evt.key
+    const test = regexNumVal.test(evt.key);
+    console.log(`Key ${key} test ${test}`)
+
+    return test;
+    //return true;
   }
 
+  checkChange(event : Event) {
+    console.log("Change!")
+    console.log(event)
+    console.log((event.target as HTMLInputElement).value)
+    
+    const inputValue :string = (event.target as HTMLInputElement).value
+
+    if (inputValue == "") {
+      this.clearFormat();
+    }
+  }
+
+  clearFormat() : void {
+    this.right = false;
+    this.wrong = false;
+  }
 }
