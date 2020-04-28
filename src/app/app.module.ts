@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigDialogOpenerComponent } from './config-dialog-opener/config-dialog-opener.component';
 import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
 import { FinishValidateComponent } from './finish-validate/finish-validate.component';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 import {A11yModule} from '@angular/cdk/a11y';
 import {ClipboardModule} from '@angular/cdk/clipboard';
@@ -64,7 +66,8 @@ import {MatTreeModule} from '@angular/material/tree';
     ConfigDialogComponent,
     FinishValidateComponent
   ],
-  imports: [
+  imports: [LoggerModule.forRoot({/*serverLoggingUrl: '/api/logs',*/ level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

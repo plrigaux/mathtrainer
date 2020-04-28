@@ -1,3 +1,6 @@
+// Import library functions for theme creation.
+@import "~@angular/material/theming";
+
 .problems {
     display: flex;
     flex-wrap: wrap;
@@ -8,7 +11,7 @@
 .problems > div {
     //flex: 1 1 0;
     flex-basis: auto; // investigate to have the same size
-    border: 1px red solid;
+    border: 1px mat-color($mat-pink, lighter) solid;
     margin: 0.5em;
     padding: 0.5em;
 }

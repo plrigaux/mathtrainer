@@ -4,6 +4,7 @@ import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
+import { NGXLogger } from 'ngx-logger';
 
 const regexNumVal = /[0-9,-\.]/
 
@@ -14,21 +15,22 @@ const regexNumVal = /[0-9,-\.]/
 })
 
 export class MathQuestionComponent implements OnInit {
-  userInput: number;
+  value: number;
   right: boolean;
   wrong: boolean;
   stacked: boolean;
   problem: MathProblem;
   myEventSubscriptions: Subscription[] = [];
+  config: Config;
+  @Input() readonly questionId: number;
 
-  constructor(private configService: ConfigService, private validateAllService: ValidateAllService) {
+  constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
+    private logger: NGXLogger) {
     this.right = false;
     this.wrong = false;
     this.stacked = true;
+    
   }
-
-  @Input() questionId: number;
-  config: Config;
 
   ngOnInit(): void {
     this.myEventSubscriptions.push(this.configService.configSource.subscribe(
@@ -37,7 +39,7 @@ export class MathQuestionComponent implements OnInit {
         this.problem = MathProblem.generateProblem(this.config);
         this.right = false;
         this.wrong = false;
-        this.userInput = null;
+        this.value = null;
         this.stacked = cf.stacked;
 
       }
@@ -51,13 +53,17 @@ export class MathQuestionComponent implements OnInit {
           correct: this.right
         }
         v.push(mqv)
-        console.log('Delay mqi ' + this.questionId + " vl " + v.length)
+        this.logger.debug('Delay mqi ' + this.questionId + " vl " + v.length)
       },
       error: err => console.error('Observer got an error: ' + err),
       complete: () => {
-        console.log("This is the end");
+        this.logger.debug("This is the end");
       }
     }));
+  }
+
+  get name() : string {
+    return "mqid_" + this.questionId
   }
 
   ngOnDestroy(): void {
@@ -73,13 +79,13 @@ export class MathQuestionComponent implements OnInit {
 
   validateAnswer(): void {
     let answer = this.problem.getAnswer();
-    console.log(`User Input: ${this.userInput} Answer: ${answer}`);
+    this.logger.debug(`User Input: ${this.value} Answer: ${answer}`);
 
-    if (this.userInput == answer) {
+    if (this.value == answer) {
       this.right = true;
       this.wrong = false;
     }
-    else if (this.userInput == null) {
+    else if (this.value == null) {
       this.right = false;
       this.wrong = false;
     }
@@ -88,32 +94,32 @@ export class MathQuestionComponent implements OnInit {
       this.wrong = true;
     }
 
-    console.log("Config " + this.config.nbNumbers);
+    this.logger.debug("Config " + this.config.nbNumbers);
   }
 
   isNumberKey(evt: KeyboardEvent): boolean {
-      
+
     const key = evt.key
     const test = regexNumVal.test(evt.key);
-    console.log(`Key ${key} test ${test}`)
+    this.logger.trace(`Key ${key} test ${test}`)
 
     return test;
     //return true;
   }
 
-  checkChange(event : Event) {
-    console.log("Change!")
-    console.log(event)
-    console.log((event.target as HTMLInputElement).value)
-    
-    const inputValue :string = (event.target as HTMLInputElement).value
+  checkChange(event: Event) {
+    this.logger.debug("Change!")
+    this.logger.debug(event)
+    this.logger.debug((event.target as HTMLInputElement).value)
+
+    const inputValue: string = (event.target as HTMLInputElement).value
 
     if (inputValue == "") {
       this.clearFormat();
     }
   }
 
-  clearFormat() : void {
+  clearFormat(): void {
     this.right = false;
     this.wrong = false;
   }

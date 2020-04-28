@@ -6,11 +6,18 @@
             <span *ngIf="last==false" class="operator">{{problem.mptd.op}}</span>
         </ng-template>
         <span class="equals">=</span>
-        <input [(ngModel)]="userInput" [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}"
+
+        <input [(ngModel)]="value"
+            [name]="name"
+            [value]=""
+            [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}"
             type="text"
             (blur)="validateAnswerRealTime()"
-            (keyup.enter)="validateAnswerRealTime()" 
+            (keyup.enter)="validateAnswerRealTime()"
             (keypress)="isNumberKey($event)"
             (change)="checkChange($event)" />
+        <!-- <button mat-button *ngIf="value" mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+        </button> -->
     </span>
 </div>
