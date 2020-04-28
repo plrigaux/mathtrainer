@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatRadioChange } from '@angular/material/radio';
+
+const MQ_THEME : string = "MQ_THEME";
 
 @Component({
   selector: 'app-root',
@@ -7,14 +10,39 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Trainer for Camellia';
+  previoustheme: string = null;
+  currentTheme: string = null;
+  myname: string = "myname"
 
-  constructor() { }
+  public themes = [
+    { value: 'default-theme', label: "Default" },
+    { value: 'dark-theme', label: "Dark" },
+    { value: 'light-theme', label: "Light" },
+    { value: 'purple-green', label: "Purple Green" },
+    { value: 'indigo-pink', label: "indigo Pink" },
+    { value: 'deeppurple-amber', label: "Deeppurple Amber" },
+    { value: 'pink-bluegrey', label: "Pink Bluegrey" },
+  ]
 
-  private previoustheme: string = null;
+  constructor() { 
+    let currentThemeStorage = localStorage.getItem(MQ_THEME);
 
-  onSetTheme(theme) {
+    this.currentTheme = (currentThemeStorage == null)? null : JSON.parse(currentThemeStorage);
+    console.log(`MQ_THEME json ${currentThemeStorage}  val: ${this.currentTheme}`);
+    this.setTheme();
+  }
+
+  setTheme() {
     document.body.classList.remove(this.previoustheme);
-    document.body.classList.add(theme);
-    this.previoustheme = theme;
+    document.body.classList.add(this.currentTheme);
+    this.previoustheme = this.currentTheme;
+    localStorage.setItem(MQ_THEME, JSON.stringify(this.currentTheme));
+  }
+
+  menuThemeRadioChange(event: MatRadioChange) {
+    console.log(event);
+    //console.log(`currentTheme: ${this.currentTheme}`);
+    this.currentTheme = event.value
+    this.setTheme();
   }
 }
