@@ -18,10 +18,10 @@ export class AppComponent {
     { value: 'default-theme', label: "Default" },
     { value: 'dark-theme', label: "Dark" },
     { value: 'light-theme', label: "Light" },
-    { value: 'purple-green', label: "Purple Green" },
-    { value: 'indigo-pink', label: "indigo Pink" },
-    { value: 'deeppurple-amber', label: "Deeppurple Amber" },
-    { value: 'pink-bluegrey', label: "Pink Bluegrey" },
+    { value: 'deeppurple-amber', label: "Deep Purple & Amber" },
+    { value: 'indigo-pink', label: "Indigo & Pink" },
+    { value: 'pink-bluegrey', label: "Pink & Blue-grey" },
+    { value: 'purple-green', label: "Purple & Green" },
   ]
 
   constructor() { 

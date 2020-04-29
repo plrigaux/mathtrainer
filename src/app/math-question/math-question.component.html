@@ -1,23 +1,26 @@
-<h2 class="mat-h2">Question {{questionId}}</h2>
-<div class="mathQuestion">
-    <span [ngClass]="{'equation':true, 'stacked': stacked}">
-        <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
-            <span class="number">{{num}}</span>
-            <span *ngIf="last==false" class="operator">{{problem.mptd.op}}</span>
-        </ng-template>
-        <span class="equals">=</span>
 
-        <input [(ngModel)]="value"
-            [name]="name"
-            [value]=""
-            [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}"
-            type="text"
-            (blur)="validateAnswerRealTime()"
-            (keyup.enter)="validateAnswerRealTime()"
-            (keypress)="isNumberKey($event)"
-            (change)="checkChange($event)" />
-        <!-- <button mat-button *ngIf="value" mat-icon-button aria-label="Clear" (click)="value=''">
+    <div class="mathQuestionWrapper">
+        <h2 class="mat-h2">Question {{questionId}}</h2>
+        <div class="mathQuestion">
+            <span [ngClass]="{'equation':true, 'stacked': stacked}">
+                <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
+                    <span class="number">{{num}}</span>
+                    <span *ngIf="last==false" class="operator">{{problem.mptd.op}}</span>
+                </ng-template>
+                <span class="equals">=</span>
+
+                <input [(ngModel)]="value"
+                    [name]="name"
+                    [value]=""
+                    [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}"
+                    type="text"
+                    (blur)="validateAnswerRealTime()"
+                    (keyup.enter)="validateAnswerRealTime()"
+                    (keypress)="isNumberKey($event)"
+                    (change)="checkChange($event)" />
+                <!-- <button mat-button *ngIf="value" mat-icon-button aria-label="Clear" (click)="value=''">
             <mat-icon>close</mat-icon>
         </button> -->
-    </span>
-</div>
+            </span>
+        </div>
+    </div>

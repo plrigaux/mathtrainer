@@ -1,20 +1,47 @@
-
 // Import library functions for theme creation.
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
+@import "../../assets/styles/themes_variables.scss";
 
-// Include non-theme styles for core.
-@include mat-core();
+$test: mat-color($mat-green, 500);
+//TODO investigate why this config can't be on the child component
+
+@mixin math-question-theme($theme) {
+    // Extract the palettes you need from the theme definition.
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+
+    .mathQuestionWrapper {
+        //flex: 1 1 0;
+        flex-basis: auto; // investigate to have the same size
+        border-width: 2px;
+        border-style: solid;
+        border-color: mat-color($accent);
+        margin: 0.5em;
+        padding: 0.5em;
+        border-radius: 15px;
+    }
+}
+
+@each $thclass, $th in $all_themes {
+    @if $thclass == "" {
+        @include math-question-theme($th);
+    } @else {
+        :host-context(.#{$thclass}) {
+            @include math-question-theme($th);
+        }
+    }
+}
 
 .mathQuestion {
-    padding  : 0.5em;
+    padding: 0.5em;
     font-size: 24px;
 }
 
 .mathAnswer {
-    font-size   : 24px;
+    font-size: 24px;
     //font-family : "Arial";
     padding-left: 5px;
-    width       : 3em;
+    width: 3em;
 }
 
 .equation.stacked .mathAnswer {
@@ -35,7 +62,7 @@
 }
 
 .equation.stacked .number {
-    display    : block;
+    display: block;
     margin-left: 1em;
     /* space for the operator */
     text-align: right;
@@ -48,15 +75,14 @@
 $primary: mat-palette($mat-amber);
 
 .equation.stacked .equals {
-    display      : block;
-    height       : 0;
+    display: block;
+    height: 0;
     padding-bottom: 3px;
     border-bottom: solid 2px;
     //border-color: mat-color($primary);
-    overflow     : hidden;
+    overflow: hidden;
 }
 
 .equation * {
     margin-left: 0.3em;
 }
-
