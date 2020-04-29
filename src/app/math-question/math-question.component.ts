@@ -29,19 +29,14 @@ export class MathQuestionComponent implements OnInit {
     this.right = false;
     this.wrong = false;
     this.stacked = true;
-    
   }
 
   ngOnInit(): void {
     this.myEventSubscriptions.push(this.configService.configSource.subscribe(
       cf => {
         this.config = cf;
-        this.problem = MathProblem.generateProblem(this.config);
-        this.right = false;
-        this.wrong = false;
-        this.value = null;
         this.stacked = cf.stacked;
-
+        this.reset();
       }
     ));
 
@@ -122,5 +117,12 @@ export class MathQuestionComponent implements OnInit {
   clearFormat(): void {
     this.right = false;
     this.wrong = false;
+  }
+
+  reset() {
+    this.problem = MathProblem.generateProblem(this.config);
+    this.right = false;
+    this.wrong = false;
+    this.value = null;
   }
 }
