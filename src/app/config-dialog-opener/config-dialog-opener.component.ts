@@ -31,7 +31,7 @@ export class ConfigDialogOpenerComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfigDialogComponent, {
-      width: '300px',
+      width: '400px',
       data: this.config
     });
 

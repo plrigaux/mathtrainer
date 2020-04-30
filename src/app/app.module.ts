@@ -55,6 +55,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
+import { ConfigDialogRangesComponent } from './config-dialog-ranges/config-dialog-ranges.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import {MatTreeModule} from '@angular/material/tree';
     ProblemPanelComponent,
     ConfigDialogOpenerComponent,
     ConfigDialogComponent,
-    FinishValidateComponent
+    FinishValidateComponent,
+    ConfigDialogRangesComponent
   ],
   imports: [LoggerModule.forRoot({/*serverLoggingUrl: '/api/logs',*/ level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
     HttpClientModule,

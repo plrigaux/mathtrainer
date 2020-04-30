@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Hi Hello</h1>
+<div mat-dialog-content>
+    <p>Number of numbers: {{config.nbNumbers}}</p>
+
+    <table mat-table [dataSource]="dataSource">
+
+        <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> Equation number </th>
+            <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="min">
+            <th mat-header-cell *matHeaderCellDef> Min Value </th>
+            <td mat-cell *matCellDef="let element; let i = index">
+                <mat-form-field>
+                    <mat-label>Min value</mat-label>
+                    <input matInput [(ngModel)]="dataSource[i].min" type="number" />
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="max">
+            <th mat-header-cell *matHeaderCellDef> Max Value </th>
+            <td mat-cell *matCellDef="let element; let i = index">
+                <mat-form-field>
+                    <mat-label>Max value</mat-label>
+                    <input matInput [(ngModel)]="dataSource[i].max" type="number" name="'max_' + i" id="'max_' + i" required  />
+                    
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="apply()" cdkFocusInitial>Apply</button>
+</div>

@@ -2,9 +2,6 @@
 @import "~@angular/material/theming";
 @import "../../assets/styles/themes_variables.scss";
 
-$test: mat-color($mat-green, 500);
-//TODO investigate why this config can't be on the child component
-
 @mixin math-question-theme($theme) {
     // Extract the palettes you need from the theme definition.
     $primary: map-get($theme, primary);
