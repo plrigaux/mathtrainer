@@ -123,6 +123,14 @@
               "devServerTarget": "mathexercises:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://plrigaux.github.io/mathtrainer/",
+            "name": "Math trainer",
+            "email": "plr@noreply.com"
+          }
         }
       }
     }
