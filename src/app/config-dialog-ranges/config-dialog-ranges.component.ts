@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config, GenerateRange } from '../config';
 import { mathProplemActions } from '../mathProblemTypes'
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-config-dialog-ranges',
@@ -16,13 +16,16 @@ export class ConfigDialogRangesComponent implements OnInit {
   config: Config;
 
   displayedColumns: string[] = ['min', 'max'];
-  dataSource = [];
+  dataSource : GenerateRange[] = [];
 
   valueFormControl = new FormControl('', { updateOn: 'blur' });
 
+  myGroup: FormGroup;
+
   constructor(
     public dialogRef: MatDialogRef<ConfigDialogRangesComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Config) {
+    @Inject(MAT_DIALOG_DATA) public data: Config,
+    private formBuilder: FormBuilder) {
 
     this.mathProplemActions = mathProplemActions;
     this.mathProplemActionsKeys = Object.keys(mathProplemActions);
@@ -32,26 +35,36 @@ export class ConfigDialogRangesComponent implements OnInit {
 
     this.config = { ...data };
 
+    this.myGroup = this.formBuilder.group({
+      arr: this.formBuilder.array([])
+    });
+
+    let arr = this.myGroup.get('arr') as FormArray;
+
     for (let i = 0; i < this.config.nbNumbers; i++) {
 
       let gr: GenerateRange = this.config.generateRange[i]
 
-      let min = 0;
-      let max = 10;
-
-      if (gr) {
-        min = gr.min;
-        max = gr.max;
-      }
-
-      let elem: GenerateRange = {
-        min: min,
-        max: max
+      let elem: GenerateRange = gr || {
+        min: 0,
+        max: 10
       }
 
       this.dataSource.push(elem);
+
+      arr.push(
+        this.formBuilder.group({
+          min: [elem.min, [Validators.required]],
+          max: [elem.max, [Validators.required]]
+        })
+      );
+
     }
     console.log(this.dataSource);
+
+
+
+
   }
 
 

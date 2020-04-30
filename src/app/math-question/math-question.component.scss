@@ -29,6 +29,34 @@
     }
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+    //width: 100%;
+}
+
+.mat-button {
+    position: absolute;
+    position: top right;
+    z-index: 2;
+}
+
+.mat-button mat-icon {
+    color:grey;
+    font-size: smaller;
+}
+
+.answerField {
+    position: relative;
+}
+
 .mathQuestion {
     padding: 0.5em;
     font-size: 24px;

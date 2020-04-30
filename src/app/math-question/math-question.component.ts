@@ -77,14 +77,17 @@ export class MathQuestionComponent implements OnInit {
     this.logger.debug(`User Input: ${this.value} Answer: ${answer}`);
 
     if (this.value == answer) {
+      console.log("R")
       this.right = true;
       this.wrong = false;
     }
+    //WARN works only if number, Need to consider string cases
     else if (this.value == null) {
-      this.right = false;
-      this.wrong = false;
+      console.log("void")
+      this.clearInput();
     }
     else {
+      console.log("W")
       this.right = false;
       this.wrong = true;
     }
@@ -103,20 +106,21 @@ export class MathQuestionComponent implements OnInit {
   }
 
   checkChange(event: Event) {
-    this.logger.debug("Change!")
+    
     this.logger.debug(event)
     this.logger.debug((event.target as HTMLInputElement).value)
 
     const inputValue: string = (event.target as HTMLInputElement).value
-
-    if (inputValue == "") {
-      this.clearFormat();
+    this.logger.debug(`Change! val="${inputValue}"`)
+    if (inputValue == "" ) {
+      this.clearInput();
     }
   }
 
-  clearFormat(): void {
+  clearInput(): void {
     this.right = false;
     this.wrong = false;
+    this.value = null;
   }
 
   reset() {
