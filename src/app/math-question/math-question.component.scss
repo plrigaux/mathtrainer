@@ -14,7 +14,7 @@
         border-style: solid;
         border-color: mat-color($accent);
         margin: 0.5em;
-        padding: 0.5em;
+        padding: 1em;
         border-radius: 15px;
     }
 }
@@ -55,10 +55,11 @@ input[type="number"] {
 
 .answerField {
     position: relative;
+    display: inline;
 }
 
 .mathQuestion {
-    padding: 0.5em;
+    //padding: 0.5em;
     font-size: 24px;
 }
 
@@ -67,6 +68,7 @@ input[type="number"] {
     //font-family : "Arial";
     padding-left: 5px;
     width: 3em;
+    text-align: right;
 }
 
 .equation.stacked .mathAnswer {
@@ -108,6 +110,6 @@ $primary: mat-palette($mat-amber);
     overflow: hidden;
 }
 
-.equation * {
+.equation :not(:first-child) { //avoid the margin left when stacked
     margin-left: 0.3em;
 }
