@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config, GenerateRange } from '../config';
 import { mathProplemActions } from '../mathProblemTypes'
-import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormArray, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'app-config-dialog-ranges',
@@ -15,17 +15,16 @@ export class ConfigDialogRangesComponent implements OnInit {
   mathProplemActionsKeys: string[];
   config: Config;
 
-  displayedColumns: string[] = ['min', 'max'];
-  dataSource : GenerateRange[] = [];
+  displayedColumns: string[] = ["position", 'min', 'max'];
 
   valueFormControl = new FormControl('', { updateOn: 'blur' });
 
-  myGroup: FormGroup;
+  equationRangeForm: FormGroup;
+  numbers: FormArray;
 
   constructor(
     public dialogRef: MatDialogRef<ConfigDialogRangesComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Config,
-    private formBuilder: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: Config) {
 
     this.mathProplemActions = mathProplemActions;
     this.mathProplemActionsKeys = Object.keys(mathProplemActions);
@@ -34,12 +33,12 @@ export class ConfigDialogRangesComponent implements OnInit {
     console.log(data);
 
     this.config = { ...data };
+    this.numbers = new FormArray([])
+    this.equationRangeForm = new FormGroup({ numbers: this.numbers });
 
-    this.myGroup = this.formBuilder.group({
-      arr: this.formBuilder.array([])
-    });
 
-    let arr = this.myGroup.get('arr') as FormArray;
+
+    let arr = this.equationRangeForm.get('arr') as FormArray;
 
     for (let i = 0; i < this.config.nbNumbers; i++) {
 
@@ -50,21 +49,15 @@ export class ConfigDialogRangesComponent implements OnInit {
         max: 10
       }
 
-      this.dataSource.push(elem);
-
-      arr.push(
-        this.formBuilder.group({
-          min: [elem.min, [Validators.required]],
-          max: [elem.max, [Validators.required]]
-        })
+      this.numbers.push(
+        new FormGroup({
+          min: new FormControl(elem.min, [Validators.required, Validators.min(0)]),
+          max: new FormControl(elem.max, [Validators.required, Validators.min(0)])
+        }, { validators: minBiggerThanMaxValidator })
       );
 
     }
-    console.log(this.dataSource);
-
-
-
-
+    //console.log(this.dataSource);
   }
 
 
@@ -76,14 +69,34 @@ export class ConfigDialogRangesComponent implements OnInit {
   }
 
   apply(): void {
+    let results: GenerateRange[] = []
 
+    this.numbers.controls.forEach(element => {
+      results.push({
+        min: +element.value.min,
+        max: +element.value.max
+      });
+    });
 
-    console.log(this.dataSource);
-
-    this.dialogRef.close(this.dataSource);
+    console.log(results)
+    this.dialogRef.close(results);
   }
 
   setRanges(): void {
 
   }
+
+  minBiggerThanMaxTest(i: number): boolean {
+    return this.numbers.controls[i].errors?.minBiggerThanMax;  
+  }
 }
+
+/** A hero's name can't match the hero's alter ego */
+export const minBiggerThanMaxValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  console.log(control);
+  const min: number = +control.value.min;
+  const max: number = +control.value.max;
+  console.log(`min ${min} max ${max}`);
+
+  return min > max ? { 'minBiggerThanMax': true } : null;
+};

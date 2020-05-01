@@ -2,62 +2,65 @@
 <div mat-dialog-content>
     <p>Number of numbers: {{config.nbNumbers}}</p>
 
-    <table mat-table [dataSource]="dataSource">
 
-        <!--- Note that these columns can be defined in any order.
+    <form [formGroup]="equationRangeForm">
+        <table mat-table [dataSource]="numbers.controls" formArrayName="numbers">
+
+            <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-        <!-- Position Column -->
-        <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> Equation number </th>
-            <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
-        </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> Position </th>
+                <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="min">
-            <th mat-header-cell *matHeaderCellDef> Min Value </th>
-            <td mat-cell *matCellDef="let element; let i = index">
-                <mat-form-field>
-                    <mat-label>Min value</mat-label>
-                    <input matInput [(ngModel)]="dataSource[i].min" type="number" />
-                </mat-form-field>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="min">
+                <th mat-header-cell *matHeaderCellDef> Min Value </th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]='i'>
+                    <mat-form-field>
+                        <input matInput type="text" formControlName="min" placeholder="min value">
+                        <mat-error *ngIf="numbers.controls[i].getError('required', 'min')">
+                            Max value is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="numbers.controls[i].getError('min', 'min')">
+                            Min value is <strong>0</strong>
+                        </mat-error>
+                        <mat-error [formGroupName]='i' *ngIf="minBiggerThanMaxTest(i)">
+                            Min shall be smaller than Max
+                        </mat-error>
+                    </mat-form-field>
+                
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="max">
-            <th mat-header-cell *matHeaderCellDef> Max Value </th>
-            <td mat-cell *matCellDef="let element; let i = index">
-                <mat-form-field>
-                    <mat-label>Max value</mat-label>
-                    <input matInput [(ngModel)]="dataSource[i].max" type="number" name="'max_' + i" id="'max_' + i" required   />
-                    <!-- 
-                        #max_ + i="ngModel"  />
-                        <mat-error *ngIf="'max_' + i .errors.required">
-                        Max value is <strong>required</strong>
-                    </mat-error>  -->
-                </mat-form-field>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="max">
+                <th mat-header-cell *matHeaderCellDef> Max Value </th>
+                <td mat-cell *matCellDef="let element; let i = index" [formGroupName]='i'>
+                    <mat-form-field>
+                        <input matInput type="text" formControlName="max" placeholder="max value">
+                        <mat-error *ngIf="numbers.controls[i].getError('required', 'max')">
+                            Max value is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="numbers.controls[i].getError('min', 'max')">
+                            Min value is <strong>0</strong>
+                        </mat-error>
+                        <mat-error *ngIf="numbers.controls[i].errors?.minBiggerThanMax">
+                            Min shall be smaller than Max
+                        </mat-error>
+                    </mat-form-field>
+                </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </form>
+
+    <div> Valid: {{ equationRangeForm.valid ? '👍' : '👎' }} </div>
 </div>
-<!--
-<form formGroup="myGroup">
-	<table class="shop-table table-responsive" cellspacing="0">
-		<tbody formArrayName="arr">
-			 <tr class="cart_item" *ngFor="let a of this.myGroup.get('arr')['controls']; let i= index;">
-				<td class="product-quantity" [formGroupName]="i">
-					<div class="quantity buttons_added">
-						<input formControlName="min">
-            <p *ngIf="a.hasError('required', 'min')">Required!</p>
-					</div>
-				</td> 
-			</tr>
-		</tbody>
-	</table>
-</form>-->
+
 <div mat-dialog-actions>
     <button mat-raised-button (click)="cancel()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="apply()" cdkFocusInitial>Apply</button>
+    <button mat-raised-button color="primary" (click)="apply()" cdkFocusInitial [disabled]="!equationRangeForm.valid">Apply</button>
 </div>
