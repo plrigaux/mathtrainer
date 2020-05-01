@@ -2,7 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config, GenerateRange } from '../config';
 import { mathProplemActions } from '../mathProblemTypes'
-import { FormControl, Validators, FormGroup, FormArray, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormArray, ValidationErrors, ValidatorFn, FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-config-dialog-ranges',
@@ -21,16 +22,17 @@ export class ConfigDialogRangesComponent implements OnInit {
 
   equationRangeForm: FormGroup;
   numbers: FormArray;
-
+  parentErrorStateMatcher = new ParentErrorStateMatcher();
+  
   constructor(
     public dialogRef: MatDialogRef<ConfigDialogRangesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Config) {
 
     this.mathProplemActions = mathProplemActions;
     this.mathProplemActionsKeys = Object.keys(mathProplemActions);
-    console.log("data");
+    //console.log("data");
 
-    console.log(data);
+    //console.log(data);
 
     this.config = { ...data };
     this.numbers = new FormArray([])
@@ -93,10 +95,21 @@ export class ConfigDialogRangesComponent implements OnInit {
 
 /** A hero's name can't match the hero's alter ego */
 export const minBiggerThanMaxValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-  console.log(control);
-  const min: number = +control.value.min;
-  const max: number = +control.value.max;
-  console.log(`min ${min} max ${max}`);
+  //console.log(control);
+  const min: number = +control.get('min').value;
+  const max: number = +control.get('max').value;
+  //console.log(`min ${min} max ${max}`);
 
   return min > max ? { 'minBiggerThanMax': true } : null;
 };
+
+export class ParentErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+      const isSubmitted = !!(form && form.submitted);
+      const controlTouched = !!(control && (control.dirty || control.touched));
+      const controlInvalid = !!(control && control.invalid);
+      const parentInvalid = !!(control && control.parent && control.parent.invalid && (control.parent.dirty || control.parent.touched));
+
+      return isSubmitted || (controlTouched && (controlInvalid || parentInvalid));
+  }
+}

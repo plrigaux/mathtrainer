@@ -19,18 +19,17 @@
                 <th mat-header-cell *matHeaderCellDef> Min Value </th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroupName]='i'>
                     <mat-form-field>
-                        <input matInput type="text" formControlName="min" placeholder="min value">
+                        <input matInput type="text" formControlName="min" placeholder="min value" [errorStateMatcher]="parentErrorStateMatcher">
                         <mat-error *ngIf="numbers.controls[i].getError('required', 'min')">
-                            Max value is <strong>required</strong>
+                            Min value is <strong>required</strong>
                         </mat-error>
                         <mat-error *ngIf="numbers.controls[i].getError('min', 'min')">
-                            Min value is <strong>0</strong>
+                            Min value shall be greatter than <strong>0</strong>
                         </mat-error>
-                        <mat-error [formGroupName]='i' *ngIf="minBiggerThanMaxTest(i)">
+                        <mat-error *ngIf="minBiggerThanMaxTest(i)">
                             Min shall be smaller than Max
                         </mat-error>
                     </mat-form-field>
-                
                 </td>
             </ng-container>
 
@@ -38,15 +37,15 @@
                 <th mat-header-cell *matHeaderCellDef> Max Value </th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroupName]='i'>
                     <mat-form-field>
-                        <input matInput type="text" formControlName="max" placeholder="max value">
+                        <input matInput type="text" formControlName="max" placeholder="max value" [errorStateMatcher]="parentErrorStateMatcher">
                         <mat-error *ngIf="numbers.controls[i].getError('required', 'max')">
                             Max value is <strong>required</strong>
                         </mat-error>
                         <mat-error *ngIf="numbers.controls[i].getError('min', 'max')">
-                            Min value is <strong>0</strong>
+                            Max value shall be greatter than <strong>0</strong>
                         </mat-error>
-                        <mat-error *ngIf="numbers.controls[i].errors?.minBiggerThanMax">
-                            Min shall be smaller than Max
+                        <mat-error *ngIf="minBiggerThanMaxTest(i)">
+                            Max shall be bigger than Min
                         </mat-error>
                     </mat-form-field>
                 </td>
@@ -56,8 +55,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </form>
-
-    <div> Valid: {{ equationRangeForm.valid ? '👍' : '👎' }} </div>
+    <!-- <div> Valid: {{ equationRangeForm.valid ? '👍' : '👎' }} </div> -->
 </div>
 
 <div mat-dialog-actions>

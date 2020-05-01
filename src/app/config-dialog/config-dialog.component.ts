@@ -1,10 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config } from '../config';
-import { ConfigService } from '../config.service'
 import { mathProplemActions } from '../mathProblemTypes'
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigDialogRangesComponent } from '../config-dialog-ranges/config-dialog-ranges.component';
 
 @Component({
@@ -18,6 +16,8 @@ export class ConfigDialogComponent implements OnInit {
   mathProplemActionsKeys: string[];
   config: Config;
 
+  configForm: FormGroup;
+
   constructor(
     public dialogRef: MatDialogRef<ConfigDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Config,
@@ -30,6 +30,17 @@ export class ConfigDialogComponent implements OnInit {
     console.log(data);
 
     this.config = { ...data };
+
+    this.configForm = new FormGroup({
+
+      nbNumbers: new FormControl(this.config.nbNumbers, [Validators.required, Validators.min(2)]),
+      nbProblems: new FormControl(this.config.nbProblems, [Validators.required, Validators.min(1)]),
+      mathProblemTypes: new FormControl(this.config.mathProblemTypes, []),
+      realTimeValidation: new FormControl(this.config.realTimeValidation, []),
+      stacked: new FormControl(this.config.stacked, [])
+
+    });
+
   }
 
 
@@ -41,10 +52,19 @@ export class ConfigDialogComponent implements OnInit {
   }
 
   apply(): void {
+
+    Object.assign(this.config, this.configForm.value);
+
+    console.log('result');
+    console.log(this.config);
+    console.log(JSON.stringify(this.config));
+    console.log(JSON.stringify([1, 3, 4, 5]));
+    console.log(JSON.stringify([{ name: "asdf" }, { name: "asdf" }, { name: "asdf" }]));
+    
     this.dialogRef.close(this.config);
   }
 
-  setRanges() : void {
+  setRanges(): void {
     const dialogRef = this.dialog.open(ConfigDialogRangesComponent, {
       width: '500px',
       data: this.config
@@ -55,8 +75,14 @@ export class ConfigDialogComponent implements OnInit {
       console.log(results);
 
       if (results) {
-        this.config.generateRange = { ...results }
+        this.config.generateRange = results;
       }
     });
+  }
+
+  testpizza(val: any): boolean {
+
+    console.log(val.errors);
+    return true;
   }
 }
