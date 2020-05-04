@@ -59,7 +59,6 @@ import { MatTreeModule } from '@angular/material/tree';
 import { ConfigDialogRangesComponent } from './config-dialog-ranges/config-dialog-ranges.component';
 import { FormPanelComponent } from './form-panel/form-panel.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

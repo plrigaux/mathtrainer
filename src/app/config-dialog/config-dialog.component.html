@@ -30,7 +30,7 @@
       <mat-label>Math problem Type:</mat-label>
       <mat-select formControlName="mathProblemTypes">
         <mat-option *ngFor="let mpt of mathProplemActionsKeys" [value]="mpt">
-          {{mpt}}
+          {{mathProplemActions[mpt].name}} <strong>{{mathProplemActions[mpt].op}} </strong>
         </mat-option>
       </mat-select>
     </mat-form-field>
