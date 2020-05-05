@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 
-const MQ_THEME : string = "MQ_THEME";
+const MQ_THEME: string = "MQ_THEME";
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,10 @@ export class AppComponent {
   previoustheme: string = null;
   currentTheme: string = null;
   myname: string = "myname"
+  equationOrientation: any[] = [
+    { code: "VERTICAL", label: "Vertical" },
+    { code: "HORIZONTAL", label: "Horizontal" }]
+  selectedEquationOrientation: string = "VERTICAL";
 
   public themes = [
     { value: 'default-theme', label: "Default" },
@@ -24,10 +28,10 @@ export class AppComponent {
     { value: 'purple-green', label: "Purple & Green" },
   ]
 
-  constructor() { 
+  constructor() {
     let currentThemeStorage = localStorage.getItem(MQ_THEME);
 
-    this.currentTheme = (currentThemeStorage == null)? null : JSON.parse(currentThemeStorage);
+    this.currentTheme = (currentThemeStorage == null) ? null : JSON.parse(currentThemeStorage);
     console.log(`MQ_THEME json ${currentThemeStorage}  val: ${this.currentTheme}`);
     this.setTheme();
   }

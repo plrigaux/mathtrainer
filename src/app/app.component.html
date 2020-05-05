@@ -14,12 +14,22 @@
 </div>
 
 <mat-menu #menu="matMenu">
+  <app-config-dialog-opener></app-config-dialog-opener>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
+    <span>Reset</span>
+  </button>
   <button mat-menu-item [matMenuTriggerFor]="menuTheme">
     <mat-icon>color_lens</mat-icon>
     <span>Themes</span>
   </button>
-  <mat-divider></mat-divider>
-  <app-config-dialog-opener></app-config-dialog-opener>
+  <button mat-menu-item [matMenuTriggerFor]="menuEquationOrientation">
+    <span>Equation Orientation</span>
+  </button>
+  <mat-checkbox class="mat-menu-item" labelPosition="before" value="true">
+    Realtime Validation
+  </mat-checkbox>
 </mat-menu>
 
 
@@ -27,5 +37,12 @@
   <mat-radio-group mat-menu-item *ngFor="let theme of themes" aria-label="Select an option" class="menu-radio-group"
     [ngModel]="currentTheme" (change)="menuThemeRadioChange($event)">
     <mat-radio-button [value]="theme.value">{{theme.label}}</mat-radio-button>
+  </mat-radio-group>
+</mat-menu>
+
+<mat-menu #menuEquationOrientation="matMenu">
+  <mat-radio-group mat-menu-item *ngFor="let orientation of equationOrientation" aria-label="Select an option"
+    class="menu-radio-group" [ngModel]="selectedEquationOrientation">
+    <mat-radio-button [value]="orientation.code">{{orientation.label}}</mat-radio-button>
   </mat-radio-group>
 </mat-menu>
