@@ -34,15 +34,19 @@
 
 
 <mat-menu #menuTheme="matMenu">
-  <mat-radio-group mat-menu-item *ngFor="let theme of themes" aria-label="Select an option" class="menu-radio-group"
-    [ngModel]="currentTheme" (change)="menuThemeRadioChange($event)">
-    <mat-radio-button [value]="theme.value">{{theme.label}}</mat-radio-button>
+  <mat-radio-group aria-label="Select an option" class="menu-radio-group" [(ngModel)]="currentTheme"
+    (change)="menuThemeRadioChange($event)">
+    <div mat-menu-item *ngFor="let theme of themes">
+      <mat-radio-button [value]="theme.value">{{theme.label}}</mat-radio-button>
+    </div>
   </mat-radio-group>
 </mat-menu>
 
 <mat-menu #menuEquationOrientation="matMenu">
-  <mat-radio-group mat-menu-item *ngFor="let orientation of equationOrientation" aria-label="Select an option"
-    class="menu-radio-group" [ngModel]="selectedEquationOrientation">
-    <mat-radio-button [value]="orientation.code">{{orientation.label}}</mat-radio-button>
+  <mat-radio-group  aria-label="Select an option"
+    class="menu-radio-group" [(ngModel)]="selectedEquationOrientation">
+    <div mat-menu-item *ngFor="let orientation of equationOrientation">
+      <mat-radio-button [value]="orientation.code">{{orientation.label}}</mat-radio-button>
+    </div>
   </mat-radio-group>
 </mat-menu>

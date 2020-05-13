@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { ResetService} from './reset.service';
+import { ConfigService } from './config.service'
 
 const MQ_THEME: string = "MQ_THEME";
 
@@ -9,17 +10,18 @@ const MQ_THEME: string = "MQ_THEME";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Trainer for Camellia';
   previoustheme: string = null;
   currentTheme: string = null;
   myname: string = "myname"
-  equationOrientation: any[] = [
+
+  readonly equationOrientation: any[] = [
     { code: "VERTICAL", label: "Vertical" },
     { code: "HORIZONTAL", label: "Horizontal" }]
   selectedEquationOrientation: string = "VERTICAL";
 
-  public themes = [
+  public readonly themes = [
     { value: 'default-theme', label: "Default" },
     { value: 'dark-theme', label: "Dark" },
     { value: 'light-theme', label: "Light" },
@@ -29,12 +31,20 @@ export class AppComponent {
     { value: 'purple-green', label: "Purple & Green" },
   ]
 
-  constructor(private resetService : ResetService) {
+  constructor(private resetService : ResetService, private configSrv : ConfigService) {
     let currentThemeStorage = localStorage.getItem(MQ_THEME);
 
     this.currentTheme = (currentThemeStorage == null) ? null : JSON.parse(currentThemeStorage);
     console.log(`MQ_THEME json ${currentThemeStorage}  val: ${this.currentTheme}`);
     this.setTheme();
+  }
+
+  ngOnInit(): void {
+    this.configSrv.configSource.subscribe({
+      next : cfg => {
+        this.selectedEquationOrientation = cfg.stacked ? "VERTICAL" : "HORIZONTAL";
+      }
+    })
   }
 
   setTheme() {
@@ -47,7 +57,7 @@ export class AppComponent {
   menuThemeRadioChange(event: MatRadioChange) {
     console.log(event);
     //console.log(`currentTheme: ${this.currentTheme}`);
-    this.currentTheme = event.value
+    //this.currentTheme = event.value
     this.setTheme();
   }
 
