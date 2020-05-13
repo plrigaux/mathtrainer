@@ -13,7 +13,7 @@ import { Config, CONFIG, MATH_EXERCICISES_STORE } from './config';
 export class ConfigService {
 
   configSource : BehaviorSubject<Config>;
-  config : Observable<Config>;
+  //config : Observable<Config>;
 
   constructor() { 
 
@@ -30,10 +30,6 @@ export class ConfigService {
 
     
     this.configSource = new BehaviorSubject<Config>(cf);
-    this.config = this.configSource.asObservable();
+    //this.config = this.configSource.asObservable();
   }
-
-  // updatedDataSelection(conf: Config) {
-  //   this.configSource.next(conf);
-  // }
 }

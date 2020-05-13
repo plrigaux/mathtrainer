@@ -12,32 +12,44 @@ import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 
 export class ProblemPanelComponent implements OnInit {
 
-  cfg: Config;
+  //cfg: Config;
   problems: MathProblem[];
   
   panelForm: FormGroup;
   answersFormArray: FormArray;
   constructor(private configService: ConfigService) {
 
-    this.panelForm = new FormGroup({
-      answers : new FormArray([])
-    })
+    // this.panelForm = new FormGroup({
+    //   answers : new FormArray([])
+    // })
 
-    this.answersFormArray = this.panelForm.get('answers') as FormArray;
+   
 
     console.log(this.answersFormArray)
     //this.answersFormArray.push(new FormControl());
+    this.clearForm();
   }
 
   ngOnInit(): void {
     this.configService.configSource.subscribe(
       cf => {
         this.problems = new Array(cf.nbProblems >= 1 ? cf.nbProblems : 1); //TODO make an universal function
+        for(let i = this.answersFormArray.length; i > this.problems.length; ) {
+          this.answersFormArray.removeAt(--i);
+          console.log("FA: " + this.answersFormArray.length);
+        }
       }
     );
   }
 
   ngOnDestroy(): void {
     this.configService.configSource.unsubscribe()
+  }
+
+  clearForm() {
+    this.panelForm = new FormGroup({
+      answers : new FormArray([])
+    })
+    this.answersFormArray = this.panelForm.get('answers') as FormArray;
   }
 }

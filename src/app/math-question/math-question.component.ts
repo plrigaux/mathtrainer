@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { MathProblem } from '../mathGenerator'
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
+import { ResetService } from '../reset.service'
 import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 import { NGXLogger } from 'ngx-logger';
@@ -29,20 +30,28 @@ export class MathQuestionComponent implements OnInit {
   controlIndex: number;
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
-    private logger: NGXLogger) {
+    private logger: NGXLogger,
+    private resetService : ResetService) {
     this.right = false;
     this.wrong = false;
     this.stacked = true;
 
-    this.answer = new FormControl('',Validators.required);
+    
 
   }
 
   ngOnInit(): void {
-    
-    this.answers.push(this.answer);
+    console.log("QID " + this.questionId);
 
-    this.controlIndex = this.answers.length - 1;
+    if (this.questionId > this.answers.length ) {
+      this.answer = new FormControl('',Validators.required);
+      this.answers.push(this.answer);
+      this.controlIndex = this.answers.length - 1;
+    } else {
+      this.controlIndex = this.questionId - 1;
+      this.answer = this.answers.at(this.controlIndex) as FormControl;
+    }
+    
     //console.log(this.answers)
     //console.log(`Control index= ${this.controlIndex}`)
     this.myEventSubscriptions.push(this.configService.configSource.subscribe(
@@ -68,6 +77,11 @@ export class MathQuestionComponent implements OnInit {
         this.logger.debug("This is the end");
       }
     }));
+
+    this.myEventSubscriptions.push(this.resetService.obs.subscribe({
+      next : () => {this.reset()}
+    }));
+    
   }
 
   get name(): string {
@@ -76,6 +90,8 @@ export class MathQuestionComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
+
+    //this.answers.removeAt(this.controlIndex);
   }
 
 
@@ -141,6 +157,7 @@ export class MathQuestionComponent implements OnInit {
     this.right = false;
     this.wrong = false;
     this.answer.setValue(null);
+    this.logger.debug(`FA ${this.answers.length}`);
   }
 
   get answers() {

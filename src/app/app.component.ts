@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { ResetService} from './reset.service';
 
 const MQ_THEME: string = "MQ_THEME";
 
@@ -28,7 +29,7 @@ export class AppComponent {
     { value: 'purple-green', label: "Purple & Green" },
   ]
 
-  constructor() {
+  constructor(private resetService : ResetService) {
     let currentThemeStorage = localStorage.getItem(MQ_THEME);
 
     this.currentTheme = (currentThemeStorage == null) ? null : JSON.parse(currentThemeStorage);
@@ -51,6 +52,7 @@ export class AppComponent {
   }
 
   reset() {
-    
+    console.log("RESET");
+    this.resetService.obs.next();    
   }
 }
