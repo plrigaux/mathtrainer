@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { MathProblem } from '../mathGenerator'
-import { Config } from '../config';
+import { Config, OrientationTypesKey } from '../config';
 import { ConfigService } from '../config.service'
 import { ResetService } from '../reset.service'
 import { Subscription } from 'rxjs';
@@ -35,9 +35,6 @@ export class MathQuestionComponent implements OnInit {
     this.right = false;
     this.wrong = false;
     this.stacked = true;
-
-    
-
   }
 
   ngOnInit(): void {
@@ -54,10 +51,10 @@ export class MathQuestionComponent implements OnInit {
     
     //console.log(this.answers)
     //console.log(`Control index= ${this.controlIndex}`)
-    this.myEventSubscriptions.push(this.configService.configSource.subscribe(
+    this.myEventSubscriptions.push(this.configService.subscribe(
       cf => {
         this.config = cf;
-        this.stacked = cf.stacked;
+        this.stacked = cf.orientation == "VERTICAL";
         this.reset();
       }
     ));

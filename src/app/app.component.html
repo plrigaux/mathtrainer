@@ -27,7 +27,7 @@
   <button mat-menu-item [matMenuTriggerFor]="menuEquationOrientation">
     <span>Equation Orientation</span>
   </button>
-  <mat-checkbox class="mat-menu-item" labelPosition="before" value="true">
+  <mat-checkbox class="mat-menu-item" labelPosition="before" [(ngModel)]="realtimeValidation" (change)='realtimeValidationChange($event)'>
     Realtime Validation
   </mat-checkbox>
 </mat-menu>
@@ -44,8 +44,8 @@
 
 <mat-menu #menuEquationOrientation="matMenu">
   <mat-radio-group  aria-label="Select an option"
-    class="menu-radio-group" [(ngModel)]="selectedEquationOrientation">
-    <div mat-menu-item *ngFor="let orientation of equationOrientation">
+    class="menu-radio-group" [(ngModel)]="selectedEquationOrientation" (change)='menuEquationOrientationChange()'>
+    <div mat-menu-item *ngFor="let orientation of equationOrientations">
       <mat-radio-button [value]="orientation.code">{{orientation.label}}</mat-radio-button>
     </div>
   </mat-radio-group>

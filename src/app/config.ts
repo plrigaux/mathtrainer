@@ -5,21 +5,32 @@ export interface GenerateRange {
     max: number;
 }
 
+export type OrientationTypesKey = "VERTICAL" | "HORIZONTAL";
+
+export interface EquationOrientation {
+    code: OrientationTypesKey;
+    label: string;
+};
+
+export const EquationOrientations: EquationOrientation[] = [
+    { code: "VERTICAL", label: "Vertical" },
+    { code: "HORIZONTAL", label: "Horizontal" }];
+
 export interface Config {
     nbProblems: number;
     nbNumbers: number;
     mathProblemTypes: MathProblemTypesKey;
     generateRange: GenerateRange[];
-    stacked: boolean;
+    orientation: OrientationTypesKey;
     realTimeValidation: boolean;
 }
 
 export const CONFIG: Config = {
     nbNumbers: 2,
     nbProblems: 20,
-    mathProblemTypes: "SUBTRACTION",
+    mathProblemTypes: "ADDITION",
     generateRange: [{ min: 10, max: 110 }, { min: 1, max: 9 }],
-    stacked: true,
+    orientation: "VERTICAL",
     realTimeValidation: true
 }
 

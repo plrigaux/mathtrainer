@@ -17,7 +17,7 @@ export class FinishValidateComponent implements OnInit {
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService) { }
 
   ngOnInit(): void {
-    this.myEventSubscription = this.configService.configSource.subscribe(
+    this.myEventSubscription = this.configService.subscribe(
       cf => {
         this.isDisabled = cf.realTimeValidation;
         console.log("Is Validation disabled: " + this.isDisabled);
@@ -27,8 +27,6 @@ export class FinishValidateComponent implements OnInit {
           this.tooltipMsg = "Validate all your answers!"
         }
       })
-
-      
   }
   
   ngOnDestroy(): void {

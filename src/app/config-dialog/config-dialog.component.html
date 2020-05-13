@@ -35,9 +35,8 @@
       </mat-select>
     </mat-form-field>
     <p>Equation Orientation</p>
-    <mat-radio-group aria-label="Select an option" formControlName="stacked">
-      <mat-radio-button [value]="true">Vertical</mat-radio-button> &nbsp;
-      <mat-radio-button [value]="false">Horizontal</mat-radio-button>
+    <mat-radio-group aria-label="Select an option" formControlName="orientation">
+      <mat-radio-button *ngFor="let orientation of equationOrientations" [value]="orientation.code">{{orientation.label}}</mat-radio-button>
     </mat-radio-group>
     <p></p>
     <mat-checkbox labelPosition="before" formControlName="realTimeValidation" [value]="true">

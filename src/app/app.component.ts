@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { ResetService} from './reset.service';
 import { ConfigService } from './config.service'
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations} from './config';
 
 const MQ_THEME: string = "MQ_THEME";
 
@@ -14,12 +16,11 @@ export class AppComponent implements OnInit {
   title = 'Trainer for Camellia';
   previoustheme: string = null;
   currentTheme: string = null;
-  myname: string = "myname"
+  myname: string = "myname";
+  realtimeValidation : boolean;
 
-  readonly equationOrientation: any[] = [
-    { code: "VERTICAL", label: "Vertical" },
-    { code: "HORIZONTAL", label: "Horizontal" }]
-  selectedEquationOrientation: string = "VERTICAL";
+  equationOrientations : EquationOrientation[] = EquationOrientations;
+  selectedEquationOrientation: OrientationTypesKey;
 
   public readonly themes = [
     { value: 'default-theme', label: "Default" },
@@ -40,9 +41,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.configSrv.configSource.subscribe({
+    this.configSrv.subscribe({
       next : cfg => {
-        this.selectedEquationOrientation = cfg.stacked ? "VERTICAL" : "HORIZONTAL";
+        this.selectedEquationOrientation = cfg.orientation;
+        this.realtimeValidation = cfg.realTimeValidation;
       }
     })
   }
@@ -59,6 +61,14 @@ export class AppComponent implements OnInit {
     //console.log(`currentTheme: ${this.currentTheme}`);
     //this.currentTheme = event.value
     this.setTheme();
+  }
+
+  realtimeValidationChange(event:MatCheckboxChange) {
+
+  }
+
+  menuEquationOrientationChange() {
+
   }
 
   reset() {

@@ -31,7 +31,7 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.configService.configSource.subscribe(
+    this.configService.subscribe(
       cf => {
         this.problems = new Array(cf.nbProblems >= 1 ? cf.nbProblems : 1); //TODO make an universal function
         for(let i = this.answersFormArray.length; i > this.problems.length; ) {
@@ -43,7 +43,7 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.configService.configSource.unsubscribe()
+    this.configService.unsubscribe()
   }
 
   clearForm() {
