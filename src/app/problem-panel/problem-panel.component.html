@@ -1,7 +1,9 @@
-<div class="problems">
+<form [formGroup]="panelForm">
+  <div class="problems" >
     <div *ngFor="let problem of problems; index as i">
-        <app-math-question [questionId]='i+1'></app-math-question>
+      <app-math-question [questionId]='i+1' [panelForm]='panelForm' ></app-math-question>
     </div>
-</div>
-<br/>
-<app-finish-validate></app-finish-validate>
+  </div>
+  <br />
+  <app-finish-validate></app-finish-validate>
+</form>

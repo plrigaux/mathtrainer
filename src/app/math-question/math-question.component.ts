@@ -5,6 +5,7 @@ import { ConfigService } from '../config.service'
 import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 import { NGXLogger } from 'ngx-logger';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 const regexNumVal = /[0-9,-\.]/
 
@@ -15,23 +16,35 @@ const regexNumVal = /[0-9,-\.]/
 })
 
 export class MathQuestionComponent implements OnInit {
-  value: number;
+  //value: number;
   right: boolean;
   wrong: boolean;
   stacked: boolean;
   problem: MathProblem;
   myEventSubscriptions: Subscription[] = [];
   config: Config;
+  answer: FormControl;
   @Input() readonly questionId: number;
+  @Input() readonly panelForm: FormGroup;
+  controlIndex: number;
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private logger: NGXLogger) {
     this.right = false;
     this.wrong = false;
     this.stacked = true;
+
+    this.answer = new FormControl('',Validators.required);
+
   }
 
   ngOnInit(): void {
+    
+    this.answers.push(this.answer);
+
+    this.controlIndex = this.answers.length - 1;
+    //console.log(this.answers)
+    //console.log(`Control index= ${this.controlIndex}`)
     this.myEventSubscriptions.push(this.configService.configSource.subscribe(
       cf => {
         this.config = cf;
@@ -57,7 +70,7 @@ export class MathQuestionComponent implements OnInit {
     }));
   }
 
-  get name() : string {
+  get name(): string {
     return "mqid_" + this.questionId
   }
 
@@ -74,15 +87,15 @@ export class MathQuestionComponent implements OnInit {
 
   validateAnswer(): void {
     let answer = this.problem.getAnswer();
-    this.logger.debug(`User Input: ${this.value} Answer: ${answer}`);
+    this.logger.debug(`User Input: ${this.answer.value} Answer: ${answer}`);
 
-    if (this.value == answer) {
+    if (this.answer.value == answer) {
       console.log("R")
       this.right = true;
       this.wrong = false;
     }
     //WARN works only if number, Need to consider string cases
-    else if (this.value == null) {
+    else if (this.answer.value == null) {
       console.log("void")
       this.clearInput();
     }
@@ -106,13 +119,13 @@ export class MathQuestionComponent implements OnInit {
   }
 
   checkChange(event: Event) {
-    
+
     this.logger.debug(event)
     this.logger.debug((event.target as HTMLInputElement).value)
 
     const inputValue: string = (event.target as HTMLInputElement).value
     this.logger.debug(`Change! val="${inputValue}"`)
-    if (inputValue == "" ) {
+    if (inputValue == "") {
       this.clearInput();
     }
   }
@@ -120,13 +133,21 @@ export class MathQuestionComponent implements OnInit {
   clearInput(): void {
     this.right = false;
     this.wrong = false;
-    this.value = null;
+    this.answer.setValue(null);
   }
 
   reset() {
     this.problem = MathProblem.generateProblem(this.config);
     this.right = false;
     this.wrong = false;
-    this.value = null;
+    this.answer.setValue(null);
+  }
+
+  get answers() {
+    return this.panelForm.get('answers') as FormArray;
+  }
+
+  answerControl() {
+    return this.answers.at(this.controlIndex) as FormControl;
   }
 }
