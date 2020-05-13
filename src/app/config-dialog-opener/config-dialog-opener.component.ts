@@ -25,7 +25,7 @@ export class ConfigDialogOpenerComponent implements OnInit {
   ngOnInit(): void {
 
     this.configService.subscribe(
-      cf => { this.config = { ...cf }; }
+      cfi => { this.config = cfi.config; }
     );
   }
 
@@ -41,7 +41,7 @@ export class ConfigDialogOpenerComponent implements OnInit {
 
       if (results) {
         this.config = { ...results }
-        this.configService.next({ ...this.config })
+        this.configService.next(this.config, true)
       }
     });
   }

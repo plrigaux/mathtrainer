@@ -18,8 +18,8 @@ export class FinishValidateComponent implements OnInit {
 
   ngOnInit(): void {
     this.myEventSubscription = this.configService.subscribe(
-      cf => {
-        this.isDisabled = cf.realTimeValidation;
+      cfi => {
+        this.isDisabled = cfi.config.realTimeValidation;
         console.log("Is Validation disabled: " + this.isDisabled);
         if (this.isDisabled) {
           this.tooltipMsg = "Your answers are validated in real time."

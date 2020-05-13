@@ -8,11 +8,14 @@ import { Config, CONFIG, MATH_EXERCICISES_STORE } from './config';
   providedIn: 'root'
 })
 
+export class ConfigServiceInfo {
+  config: Config;
+  needReset: boolean;
+}
 
+export class ConfigService {
 
-export class ConfigService implements Subscribable<Config> {
-
-  private configSource: BehaviorSubject<Config>;
+  private configSource: BehaviorSubject<ConfigServiceInfo>;
   //private configObservable: Observable<Config>;
 
   constructor() {
@@ -29,13 +32,13 @@ export class ConfigService implements Subscribable<Config> {
     console.log(cf);
 
 
-    this.configSource = new BehaviorSubject<Config>(cf);
+    this.configSource = new BehaviorSubject<ConfigServiceInfo>({config: cf, needReset: true});
     //this.configObservable = this.configSource.asObservable();
   }
 
 
-  subscribe(observer?: PartialObserver<Config>): Subscription;
-  subscribe(next?: (value: Config) => void, error?: (error: any) => void, complete?: () => void): Subscription;
+  subscribe(observer?: PartialObserver<ConfigServiceInfo>): Subscription;
+  subscribe(next?: (value: ConfigServiceInfo) => void, error?: (error: any) => void, complete?: () => void): Subscription;
   subscribe(generatorOrNext?: any, error?: any, complete?: any): Subscription {
     return this.configSource.subscribe(generatorOrNext, error, complete);
   }
@@ -44,8 +47,8 @@ export class ConfigService implements Subscribable<Config> {
     this.configSource.unsubscribe();
   }
 
-  next(value: Config) {
-    this.configSource.next(value);
+  next(value: Config, needReset: boolean) {
+    this.configSource.next({config: value, needReset: needReset});
     localStorage.setItem(MATH_EXERCICISES_STORE, JSON.stringify(value));
   }
 }

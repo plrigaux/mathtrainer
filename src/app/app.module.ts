@@ -13,6 +13,7 @@ import { ConfigDialogOpenerComponent } from './config-dialog-opener/config-dialo
 import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
 import { FinishValidateComponent } from './finish-validate/finish-validate.component';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { ConfigService } from './config.service';
 
 import { A11yModule } from '@angular/cdk/a11y';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -121,7 +122,7 @@ import { FormPanelComponent } from './form-panel/form-panel.component';
     PortalModule,
     ScrollingModule,
   ],
-  providers: [],
+  providers: [ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

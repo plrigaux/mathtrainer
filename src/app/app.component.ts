@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { ResetService} from './reset.service';
+import { ResetService } from './reset.service';
 import { ConfigService } from './config.service'
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations} from './config';
+import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from './config';
 
-const MQ_THEME: string = "MQ_THEME";
+//const MQ_THEME: string = "MQ_THEME";
 
 @Component({
   selector: 'app-root',
@@ -15,12 +15,10 @@ const MQ_THEME: string = "MQ_THEME";
 export class AppComponent implements OnInit {
   title = 'Trainer for Camellia';
   previoustheme: string = null;
-  currentTheme: string = null;
+  //currentTheme: string = null;
   myname: string = "myname";
-  realtimeValidation : boolean;
-
-  equationOrientations : EquationOrientation[] = EquationOrientations;
-  selectedEquationOrientation: OrientationTypesKey;
+  config: Config;
+  equationOrientations: EquationOrientation[] = EquationOrientations;
 
   public readonly themes = [
     { value: 'default-theme', label: "Default" },
@@ -32,47 +30,47 @@ export class AppComponent implements OnInit {
     { value: 'purple-green', label: "Purple & Green" },
   ]
 
-  constructor(private resetService : ResetService, private configSrv : ConfigService) {
-    let currentThemeStorage = localStorage.getItem(MQ_THEME);
+  constructor(private resetService: ResetService, private configSrv: ConfigService) {
 
-    this.currentTheme = (currentThemeStorage == null) ? null : JSON.parse(currentThemeStorage);
-    console.log(`MQ_THEME json ${currentThemeStorage}  val: ${this.currentTheme}`);
-    this.setTheme();
   }
 
   ngOnInit(): void {
     this.configSrv.subscribe({
-      next : cfg => {
-        this.selectedEquationOrientation = cfg.orientation;
-        this.realtimeValidation = cfg.realTimeValidation;
+      next: cfgi => {
+        this.config = cfgi.config;
+        this.setTheme();
       }
     })
   }
 
   setTheme() {
+    if (this.previoustheme == this.config.theme) {
+      return;
+    }
+
     document.body.classList.remove(this.previoustheme);
-    document.body.classList.add(this.currentTheme);
-    this.previoustheme = this.currentTheme;
-    localStorage.setItem(MQ_THEME, JSON.stringify(this.currentTheme));
+    document.body.classList.add(this.config.theme);
+    this.previoustheme = this.config.theme;
   }
 
   menuThemeRadioChange(event: MatRadioChange) {
     console.log(event);
     //console.log(`currentTheme: ${this.currentTheme}`);
     //this.currentTheme = event.value
+    this.configSrv.next(this.config, false);
     this.setTheme();
   }
 
-  realtimeValidationChange(event:MatCheckboxChange) {
-
+  realTimeValidationChange(event: MatCheckboxChange) {
+    this.configSrv.next(this.config, false);
   }
 
   menuEquationOrientationChange() {
-
+    this.configSrv.next(this.config, false);
   }
 
   reset() {
     console.log("RESET");
-    this.resetService.obs.next();    
+    this.resetService.obs.next();
   }
 }

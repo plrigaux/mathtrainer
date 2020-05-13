@@ -31,7 +31,7 @@ export class MathQuestionComponent implements OnInit {
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private logger: NGXLogger,
-    private resetService : ResetService) {
+    private resetService: ResetService) {
     this.right = false;
     this.wrong = false;
     this.stacked = true;
@@ -40,22 +40,24 @@ export class MathQuestionComponent implements OnInit {
   ngOnInit(): void {
     console.log("QID " + this.questionId);
 
-    if (this.questionId > this.answers.length ) {
-      this.answer = new FormControl('',Validators.required);
+    if (this.questionId > this.answers.length) {
+      this.answer = new FormControl('', Validators.required);
       this.answers.push(this.answer);
       this.controlIndex = this.answers.length - 1;
     } else {
       this.controlIndex = this.questionId - 1;
       this.answer = this.answers.at(this.controlIndex) as FormControl;
     }
-    
+
     //console.log(this.answers)
     //console.log(`Control index= ${this.controlIndex}`)
     this.myEventSubscriptions.push(this.configService.subscribe(
-      cf => {
-        this.config = cf;
-        this.stacked = cf.orientation == "VERTICAL";
-        this.reset();
+      cfsi => {
+        this.config = cfsi.config;
+        this.stacked = this.config.orientation == "VERTICAL";
+        if (cfsi.needReset) {
+          this.reset();
+        }
       }
     ));
 
@@ -76,9 +78,9 @@ export class MathQuestionComponent implements OnInit {
     }));
 
     this.myEventSubscriptions.push(this.resetService.obs.subscribe({
-      next : () => {this.reset()}
+      next: () => { this.reset() }
     }));
-    
+
   }
 
   get name(): string {

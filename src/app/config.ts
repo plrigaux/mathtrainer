@@ -23,15 +23,17 @@ export interface Config {
     generateRange: GenerateRange[];
     orientation: OrientationTypesKey;
     realTimeValidation: boolean;
+    theme: string;
 }
 
 export const CONFIG: Config = {
     nbNumbers: 2,
     nbProblems: 20,
     mathProblemTypes: "ADDITION",
-    generateRange: [{ min: 10, max: 110 }, { min: 1, max: 9 }],
+    generateRange: [{ min: 10, max: 30 }, { min: 1, max: 9 }],
     orientation: "VERTICAL",
-    realTimeValidation: true
+    realTimeValidation: true,
+    theme: "pink-bluegrey"
 }
 
 export const MATH_EXERCICISES_STORE: string = "MATH_CONFIG";

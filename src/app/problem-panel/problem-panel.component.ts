@@ -32,8 +32,8 @@ export class ProblemPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.configService.subscribe(
-      cf => {
-        this.problems = new Array(cf.nbProblems >= 1 ? cf.nbProblems : 1); //TODO make an universal function
+      cfsi => {
+        this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
         for(let i = this.answersFormArray.length; i > this.problems.length; ) {
           this.answersFormArray.removeAt(--i);
           console.log("FA: " + this.answersFormArray.length);
