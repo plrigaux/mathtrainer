@@ -1,9 +1,8 @@
-<form [formGroup]="panelForm">
-  <div class="problems" >
-    <div *ngFor="let problem of problems; index as i">
-      <app-math-question [questionId]='i+1' [panelForm]='panelForm' ></app-math-question>
-    </div>
+<mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+<div class="problems">
+  <div *ngFor="let problem of problems; index as i">
+    <app-math-question [questionId]='i+1' [panelForm]='panelForm'></app-math-question>
   </div>
-  <br />
-  <app-finish-validate></app-finish-validate>
-</form>
+</div>
+<br />
+<app-finish-validate></app-finish-validate>

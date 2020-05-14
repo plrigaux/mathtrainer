@@ -3,6 +3,7 @@ import { MathProblem } from '../mathGenerator'
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { MathQuestionService, MathQuestionNotifier } from '../math-question.service';
 
 @Component({
   selector: 'app-problem-panel',
@@ -17,17 +18,15 @@ export class ProblemPanelComponent implements OnInit {
   
   panelForm: FormGroup;
   answersFormArray: FormArray;
-  constructor(private configService: ConfigService) {
+  progress: number;
+  successCount: number;
 
-    // this.panelForm = new FormGroup({
-    //   answers : new FormArray([])
-    // })
-
-   
-
+  constructor(private configService: ConfigService, private mathQuestionService: MathQuestionService) {
     console.log(this.answersFormArray)
     //this.answersFormArray.push(new FormControl());
     this.clearForm();
+    this.progress = 0;
+    this.successCount = 0;
   }
 
   ngOnInit(): void {
@@ -38,12 +37,29 @@ export class ProblemPanelComponent implements OnInit {
           this.answersFormArray.removeAt(--i);
           console.log("FA: " + this.answersFormArray.length);
         }
+
+        //reset state
+        if (cfsi.needReset) {
+          this.progress = 0;
+          this.successCount = 0;
+        }
       }
+    );
+
+    this.mathQuestionService.observable.subscribe( notification => {
+      if (notification.success) {
+        this.successCount++;
+        this.progress = Math.round(( this.successCount / this.problemsCount) * 100);
+
+        console.log(`SC: ${this.successCount} PR: ${this.progress}`);
+      }
+    }
     );
   }
 
   ngOnDestroy(): void {
     this.configService.unsubscribe()
+    this.mathQuestionService.unsubscribe()
   }
 
   clearForm() {
@@ -51,5 +67,9 @@ export class ProblemPanelComponent implements OnInit {
       answers : new FormArray([])
     })
     this.answersFormArray = this.panelForm.get('answers') as FormArray;
+  }
+
+  get problemsCount() : number {
+    return this.problems.length;
   }
 }

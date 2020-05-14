@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 import { NGXLogger } from 'ngx-logger';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MathQuestionService, MathQuestionNotifier } from '../math-question.service';
 
 const regexNumVal = /[0-9,-\.]/
 
@@ -31,7 +32,7 @@ export class MathQuestionComponent implements OnInit {
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private logger: NGXLogger,
-    private resetService: ResetService) {
+    private resetService: ResetService, private mathQuestionService: MathQuestionService) {
     this.right = false;
     this.wrong = false;
     this.stacked = true;
@@ -108,6 +109,7 @@ export class MathQuestionComponent implements OnInit {
       console.log("R")
       this.right = true;
       this.wrong = false;
+      this.mathQuestionService.next(name, true);
     }
     //WARN works only if number, Need to consider string cases
     else if (this.answer.value == null) {
