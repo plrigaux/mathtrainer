@@ -1,5 +1,5 @@
-<div class="mathQuestionWrapper">
-  <h2 class="mat-h2">Question {{questionId}}</h2>
+<div class="content">
+  <h2 class="mat-h2">Question&nbsp;{{questionId}}</h2>
   <div class="mathQuestion" [formGroup]="panelForm">
     <span [ngClass]="{'equation':true, 'stacked': stacked}">
       <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
@@ -18,11 +18,9 @@
         </button>
         <input formControlName={{controlIndex}} [name]="name"
           [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" type="number"
-          (blur)="validateAnswerRealTime()" 
-          (keyup.enter)="validateAnswerRealTime()" (keypress)="isNumberKey($event)"
+          (blur)="validateAnswerRealTime()" (keyup.enter)="validateAnswerRealTime()" (keypress)="isNumberKey($event)"
           (change)="checkChange($event)" />
       </div>
     </span>
   </div>
-
 </div>

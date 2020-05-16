@@ -72,4 +72,8 @@ export class ProblemPanelComponent implements OnInit {
   get problemsCount() : number {
     return this.problems.length;
   }
+
+  padding(padSize : number) : any[] {
+    return new Array(padSize); 
+  }
 }
