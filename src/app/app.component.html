@@ -9,9 +9,10 @@
 
 
 </mat-toolbar>
-<div id="contentPanel">
-  <app-problem-panel></app-problem-panel>
+<div id="contentPanel" [@routeAnimation]="getAnimationData(routerOutlet)">
+  <router-outlet #routerOutlet="outlet"></router-outlet>
 </div>
+
 
 <mat-menu #menu="matMenu">
   <app-config-dialog-opener></app-config-dialog-opener>
@@ -27,7 +28,8 @@
   <button mat-menu-item [matMenuTriggerFor]="menuEquationOrientation">
     <span>Equation Orientation</span>
   </button>
-  <mat-checkbox class="mat-menu-item" labelPosition="before" [(ngModel)]="config.realTimeValidation" (change)='realTimeValidationChange($event)'>
+  <mat-checkbox class="mat-menu-item" labelPosition="before" [(ngModel)]="config.realTimeValidation"
+    (change)='realTimeValidationChange($event)'>
     Realtime Validation
   </mat-checkbox>
 </mat-menu>
@@ -43,7 +45,7 @@
 </mat-menu>
 
 <mat-menu #menuEquationOrientation="matMenu">
-  <mat-radio-group  aria-label="Select an option"
+  <mat-radio-group aria-label="Select an option"
     class="menu-radio-group" [(ngModel)]="config.orientation" (change)='menuEquationOrientationChange()'>
     <div mat-menu-item *ngFor="let orientation of equationOrientations">
       <mat-radio-button [value]="orientation.code">{{orientation.label}}</mat-radio-button>

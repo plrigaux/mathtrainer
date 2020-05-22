@@ -59,6 +59,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { ConfigDialogRangesComponent } from './config-dialog-ranges/config-dialog-ranges.component';
 import { FormPanelComponent } from './form-panel/form-panel.component';
+import { WorkoutPanelComponent } from './workout-panel/workout-panel.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { FormPanelComponent } from './form-panel/form-panel.component';
     ConfigDialogComponent,
     FinishValidateComponent,
     ConfigDialogRangesComponent,
-    FormPanelComponent
+    FormPanelComponent,
+    WorkoutPanelComponent,
+    PageNotFoundComponent
   ],
   imports: [LoggerModule.forRoot({/*serverLoggingUrl: '/api/logs',*/ level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR }),
     HttpClientModule,
