@@ -1,1 +1,17 @@
-<p>workout-panel works!</p>
+<div class="main-div">
+  <mat-card class="z-depth center" flex="50">Simple card
+    <button mat-raised-button color="accent">Start!</button>
+    <div class="mathQuestion" >
+      <span [ngClass]="{'equation':true, 'stacked': stacked}">
+        <ng-template ngFor let-num [ngForOf]="currentTask.values" let-i="index" let-last="last">
+          <span class="number">{{num}}</span>
+          <span *ngIf="last==false" class="operator">{{currentTask.operator}}</span>
+        </ng-template>
+        <span class="equals">=</span>
+        <div class="answerField" formArrayName="answers">
+          <input id="answerField" name="answerField" autofocus="autofocus" autocomplete="off" placeholder="?" (keypress)="typeKey($event)" (keyup)="check()">
+        </div>
+      </span>
+    </div>
+  </mat-card>
+</div>

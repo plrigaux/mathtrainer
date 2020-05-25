@@ -7,19 +7,21 @@ export class MathProblem {
     values: number[];
     config: Config;
     mptd: MathProblemTypesData;
+    answer: number;
 
     constructor() {
         this.values = []
-        this.question = ""
+        this.question = "";
+        this.answer = null;
     }
 
     getAnswer(): number {
+        if (this.answer == null) {
+            var mptd: MathProblemTypesData = mathProplemActions[this.config.mathProblemTypes];
+            this.answer = mptd.opFunc(this.values);
+        }
 
-        var mptd: MathProblemTypesData = mathProplemActions[this.config.mathProblemTypes];
-
-        let val = mptd.opFunc(this.values);
-
-        return val;
+        return this.answer;
     }
 
     static generateProblem(config: Config): MathProblem {
@@ -53,9 +55,9 @@ export class MathProblem {
     static getListofRandomInt(config: Config): number[] {
         var values: number[] = []
         for (var i = 0; i < config.nbNumbers; i++) {
-            let rg : GenerateRange = config.generateRange[i];
+            let rg: GenerateRange = config.generateRange[i];
 
-            let value = MathProblem.getRandomIntInclusive( rg?.min, rg?.max)
+            let value = MathProblem.getRandomIntInclusive(rg?.min, rg?.max)
             values.push(value)
         }
 
@@ -63,7 +65,7 @@ export class MathProblem {
             console.log(config);
             console.log(values)
             //Keep the result positive
-            values.sort((a,b) => b - a);
+            values.sort((a, b) => b - a);
             console.log(values)
         }
 

@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { MathProblem } from '../mathGenerator'
-import { Config, OrientationTypesKey } from '../config';
+import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { ResetService } from '../reset.service'
 import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 import { NGXLogger } from 'ngx-logger';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MathQuestionService, MathQuestionNotifier } from '../math-question.service';
+import { MathQuestionService } from '../math-question.service';
 
 const regexNumVal = /[0-9,-\.]/
 
