@@ -1,22 +1,75 @@
 .flexbox-parent {
-    //@include display-flex;
-    //background: #FFD54F;
-    overflow: hidden;
-    width: 100%;
-    padding: 3px;
-    min-height: 550px;
-    max-height: 1000px;
-    justify-content: center;
-    align-items: baseline;
-  }
-  .center{
-    width: 75%;
-    margin: 10px auto;
-  }
-  
-  .main-div{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  //@include display-flex;
+  //background: #FFD54F;
+  overflow: hidden;
+  width: 100%;
+  padding: 3px;
+  min-height: 550px;
+  max-height: 1000px;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.center {
+  width: 75%;
+  margin: 10px auto;
+}
+
+.main-div {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$equation-font-size: 48px;
+
+.mathQuestion {
+  //padding: 0.5em;
+  font-size: $equation-font-size;
+}
+
+input {
+  font-size: $equation-font-size;
+  text-align: right;
+  margin-top: 5px;
+  width: 4em;
+}
+
+.number{
+  line-height: $equation-font-size * 1.25;
+  //vertical-align: middle;
+}
+
+.equation.stacked .mathAnswer {
+  text-align: right;
+  margin-top: 5px;
+}
+
+.equation.stacked {
+  display: inline-block;
+}
+
+.equation.stacked .number {
+  display: block;
+  margin-left: 1em;
+  // space for the operator
+  text-align: right;
+}
+
+.equation.stacked .operator {
+  float: left;
+}
+
+.equation.stacked .equals {
+  display: block;
+  height: 0;
+  padding-bottom: 3px;
+  border-bottom: solid 2px;
+  //border-color: mat-color($primary);
+  overflow: hidden;
+}
+
+.equation :not(:first-child) { //avoid the margin left when stacked
+  margin-left: 0.5em;
+}

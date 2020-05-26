@@ -8,10 +8,8 @@
           <span *ngIf="last==false" class="operator">{{currentTask.operator}}</span>
         </ng-template>
         <span class="equals">=</span>
-        <div class="answerField" formArrayName="answers">
-          <input id="answerField" name="answerField" autofocus="autofocus" autocomplete="off" placeholder="?" (keypress)="typeKey($event)" (keyup)="check()">
-        </div>
-      </span>
+           <input id="answerField" name="answerField" autofocus="autofocus" autocomplete="off" placeholder="?" (keypress)="typeKey($event)" (keyup)="check()" type="text">
+       </span>
     </div>
   </mat-card>
-</div>
+</div> 
