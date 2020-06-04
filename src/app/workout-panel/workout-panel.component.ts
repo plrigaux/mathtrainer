@@ -2,21 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import { Config } from '../config';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../config.service'
-import { WorkTask } from './worktask'
+import { WorkTask  } from './worktask'
 import { MathProblem } from '../mathGenerator'
+
+
+enum WorkoutStatus {
+  Begin,
+  Work,
+  Finish
+}
 
 @Component({
   selector: 'app-workout-panel',
   templateUrl: './workout-panel.component.html',
   styleUrls: ['./workout-panel.component.scss']
 })
-
 export class WorkoutPanelComponent implements OnInit {
+
+
   config: Config;
   stacked: boolean;
   myEventSubscriptions: Subscription[] = [];
   tasks: WorkTask[];
   currentTask: WorkTask;
+  userInput: string;
+  index: number;
+  WorkoutStatusEnum = WorkoutStatus;
+  status: WorkoutStatus;
+  progress: number = 0;
 
   constructor(private configService: ConfigService) { }
 
@@ -31,6 +44,8 @@ export class WorkoutPanelComponent implements OnInit {
         }
       }
     ));
+    this.userInput = ""
+    this.status = WorkoutStatus.Begin;
   }
 
   initTasks() {
@@ -42,18 +57,43 @@ export class WorkoutPanelComponent implements OnInit {
       task.problem = MathProblem.generateProblem(this.config);
     }
 
-    this.currentTask = this.tasks[0];
+
   }
 
   ngOnDestroy(): void {
     this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  typeKey(event) {
-  
+  typeKey(event: KeyboardEvent) {
+    console.log("typeKey");
+    console.log(event);
   }
 
-  check() {
+  check(event: KeyboardEvent) {
+    this.userInput = (<HTMLInputElement>event.target).value;
+    console.log(`check ui: '${this.userInput}'`);
+    console.log(event);
 
+    let uInput = parseInt(this.userInput);
+
+    if (uInput == this.currentTask.answer) {
+      this.index = this.index + 1;
+      if (this.index >= this.tasks.length) {
+        this.currentTask = null;
+        this.status = WorkoutStatus.Finish;
+        this.progress = 100;
+      } else {
+        this.currentTask = this.tasks[this.index];
+        (<HTMLInputElement>event.target).value = "";
+        this.progress = (this.index / this.tasks.length) * 100;
+      }
+    }
+  }
+
+  start() {
+    this.index = 0;
+    this.currentTask = this.tasks[this.index];
+    this.status = WorkoutStatus.Work;
+    this.progress = 0;
   }
 }

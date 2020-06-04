@@ -5,15 +5,16 @@ export class WorkTask {
     time: number;
     userAnswer: number[];
 
-    get answer() : number {
+    get answer(): number {
         return this.problem.getAnswer();
     };
 
-    get values() : number[] {
+    get values(): number[] {
         return this.problem.values
     }
 
-    get operator() : string {
+    get operator(): string {
         return this.problem.mptd.op;
     }
 }
+
