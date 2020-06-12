@@ -3,7 +3,7 @@ import { MathProblemTypes, mathProplemActions, MathProblemTypesData, MathProblem
 
 export class MathProblem {
 
-    question: String;
+    questionStr: String;
     values: number[];
     config: Config;
     mptd: MathProblemTypesData;
@@ -11,7 +11,7 @@ export class MathProblem {
 
     constructor() {
         this.values = []
-        this.question = "";
+        this.questionStr = null;
         this.answer = null;
     }
 
@@ -24,29 +24,48 @@ export class MathProblem {
         return this.answer;
     }
 
+    get question() {
+        if (this.questionStr == null) {
+            let q = ""
+            let first = true;
+            for (let index = 0; index < this.values.length; ++index) {
+                if (!first) {
+                    q += " " + this.mptd.op + " ";
+                } else {
+                    first = false;
+                }
+                q += this.values[index]
+            }
+            q += ' = '
+            this.questionStr = q;
+        }
+
+        return this.questionStr;
+    }
+
     static generateProblem(config: Config): MathProblem {
         var mp = new MathProblem()
         mp.values = MathProblem.getListofRandomInt(config)
 
         mp.mptd = mathProplemActions[config.mathProblemTypes];
-
-        let q = ""
-        q += '<span class="equation">'
-
-        let first = true;
-        for (let index = 0; index < mp.values.length; ++index) {
-            if (!first) {
-                q += `<span class="operator">${mp.mptd.op}</span>`;
-            } else {
-                first = false;
-            }
-            q += `<span class="number">${mp.values[index]}</span>`
-        }
-
-        q += '<span class="equals">=</span>'
-        q += '</span>'
-
-        mp.question = q; //mp.values.join(` ${mptd.op} `) + " = "
+        /*
+                let q = ""
+                q += '<span class="equation">'
+        
+                let first = true;
+                for (let index = 0; index < mp.values.length; ++index) {
+                    if (!first) {
+                        q += `<span class="operator">${mp.mptd.op}</span>`;
+                    } else {
+                        first = false;
+                    }
+                    q += `<span class="number">${mp.values[index]}</span>`
+                }
+        
+                q += '<span class="equals">=</span>'
+                q += '</span>'
+        */
+        //mp.question = q; //mp.values.join(` ${mptd.op} `) + " = "
         mp.config = config;
 
         return mp

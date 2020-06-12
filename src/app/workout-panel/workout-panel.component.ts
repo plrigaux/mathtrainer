@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
 import { Config } from '../config';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../config.service'
@@ -18,7 +18,7 @@ enum WorkoutStatus {
   styleUrls: ['./workout-panel.component.scss']
 })
 export class WorkoutPanelComponent implements OnInit {
-
+  @ViewChild('answerField') answerField: ElementRef; 
 
   config: Config;
   stacked: boolean;
@@ -38,7 +38,6 @@ export class WorkoutPanelComponent implements OnInit {
       cfsi => {
         this.config = cfsi.config;
         this.stacked = this.config.orientation == "VERTICAL";
-        this.initTasks();
         if (cfsi.needReset) {
           //this.reset();
         }
@@ -70,30 +69,41 @@ export class WorkoutPanelComponent implements OnInit {
   }
 
   check(event: KeyboardEvent) {
-    this.userInput = (<HTMLInputElement>event.target).value;
     console.log(`check ui: '${this.userInput}'`);
     console.log(event);
 
     let uInput = parseInt(this.userInput);
 
     if (uInput == this.currentTask.answer) {
-      this.index = this.index + 1;
+      this.currentTask.setEndTime();
+      this.index++;
       if (this.index >= this.tasks.length) {
         this.currentTask = null;
         this.status = WorkoutStatus.Finish;
         this.progress = 100;
       } else {
-        this.currentTask = this.tasks[this.index];
-        (<HTMLInputElement>event.target).value = "";
-        this.progress = (this.index / this.tasks.length) * 100;
+        this.setCurrentTask();
       }
     }
   }
 
-  start() {
+  start()  : void {
+    this.initTasks();
     this.index = 0;
-    this.currentTask = this.tasks[this.index];
     this.status = WorkoutStatus.Work;
-    this.progress = 0;
+    this.setCurrentTask()
+    //TODO set focus on input
+    this.setFocus();
   }
+
+  setCurrentTask() : void {
+    this.currentTask = this.tasks[this.index];
+    this.userInput = "";
+    this.progress = (this.index / this.tasks.length) * 100;
+    this.currentTask.setStartTime();
+  }
+
+  setFocus() { 
+    setTimeout(() => this.answerField.nativeElement.focus()); 
+  } 
 }

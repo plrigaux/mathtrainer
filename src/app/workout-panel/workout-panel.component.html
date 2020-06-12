@@ -12,12 +12,30 @@
           <span *ngIf="last==false" class="operator">{{currentTask.operator}}</span>
         </ng-template>
         <span class="equals">=</span>
-        <input id="answerField" name="answerField" autofocus="autofocus" autocomplete="off" placeholder="?"
-          (keypress)="typeKey($event)" (keyup)="check($event)" type="number">
+        <input #answerField [(ngModel)]="userInput" autofocus="autofocus" autocomplete="off" placeholder="?"
+          (keypress)="typeKey($event)" (keyup)="check($event)" type="number" autofocus />
       </span>
     </div>
     <div *ngIf="status == WorkoutStatusEnum.Finish">
-      Finish<br />
+      Finish!<br />
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>equation</th>
+            <th>answer</th>
+            <th>time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasks,let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{task.problem.question}}</td>
+            <td>{{task.answer}}</td>
+            <td>{{task.getTimeInSec()}} sec.</td>
+          </tr>
+        </tbody>
+        </table>
       <button mat-raised-button color="accent" (click)="start()">Start!</button>
     </div>
   </mat-card>
