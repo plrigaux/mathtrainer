@@ -18,7 +18,7 @@
             <ng-container matColumnDef="min">
                 <th mat-header-cell *matHeaderCellDef> Min Value </th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroupName]='i'>
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <input matInput type="text" formControlName="min" placeholder="min value" [errorStateMatcher]="parentErrorStateMatcher">
                         <mat-error *ngIf="numbers.controls[i].getError('required', 'min')">
                             Min value is <strong>required</strong>
@@ -36,7 +36,7 @@
             <ng-container matColumnDef="max">
                 <th mat-header-cell *matHeaderCellDef> Max Value </th>
                 <td mat-cell *matCellDef="let element; let i = index" [formGroupName]='i'>
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <input matInput type="text" formControlName="max" placeholder="max value" [errorStateMatcher]="parentErrorStateMatcher">
                         <mat-error *ngIf="numbers.controls[i].getError('required', 'max')">
                             Max value is <strong>required</strong>

@@ -1,8 +1,7 @@
 <h1 mat-dialog-title>Hi Hello</h1>
 <div mat-dialog-content>
   <form [formGroup]="configForm">
-    <p>Number of numbers:</p>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Number of numbers:</mat-label>
       <input matInput class="form-control" type='number'  formControlName="nbNumbers" />
       <mat-error *ngIf="configForm.get('nbNumbers').errors?.required">
@@ -14,8 +13,7 @@
     </mat-form-field>
     &nbsp;
     <button mat-raised-button (click)="setRanges()" color="accent">Set ranges</button>
-    <p>Number of problems:</p>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Number of problems:</mat-label>
       <input matInput class="form-control" type='number'  formControlName="nbProblems" />
       <mat-error *ngIf="configForm.get('nbProblems').errors?.required">
@@ -26,7 +24,7 @@
       </mat-error>
     </mat-form-field>
     <p>Math problem Type:</p>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Math problem Type:</mat-label>
       <mat-select formControlName="mathProblemTypes">
         <mat-option *ngFor="let mpt of mathProplemActionsKeys" [value]="mpt">
