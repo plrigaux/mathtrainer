@@ -13,6 +13,7 @@ export class ConfigServiceInfo {
   needReset: boolean;
 }
 
+@Injectable()
 export class ConfigService {
 
   private configSource: BehaviorSubject<ConfigServiceInfo>;
