@@ -1,4 +1,4 @@
-import { MathProblem } from '../mathGenerator'
+import { MathProblem } from '../math-generator/mathGenerator'
 
 export class WorkTask {
     problem: MathProblem;

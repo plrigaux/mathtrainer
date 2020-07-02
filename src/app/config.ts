@@ -1,9 +1,6 @@
-import { MathProblemTypesKey } from './mathProblemTypes'
+import { MathProblemTypes, GenerateRange } from './math-generator/mathProblemTypes'
 
-export interface GenerateRange {
-    min: number;
-    max: number;
-}
+
 
 export type OrientationTypesKey = "VERTICAL" | "HORIZONTAL";
 
@@ -19,7 +16,7 @@ export const EquationOrientations: EquationOrientation[] = [
 export interface Config {
     nbProblems: number;
     nbNumbers: number;
-    mathProblemTypes: MathProblemTypesKey;
+    mathProblemTypes: MathProblemTypes;
     generateRange: GenerateRange[];
     orientation: OrientationTypesKey;
     realTimeValidation: boolean;
@@ -29,7 +26,7 @@ export interface Config {
 export const CONFIG: Config = {
     nbNumbers: 2,
     nbProblems: 20,
-    mathProblemTypes: "ADDITION",
+    mathProblemTypes: MathProblemTypes.ADDITION,
     generateRange: [{ min: 10, max: 30 }, { min: 1, max: 9 }],
     orientation: "VERTICAL",
     realTimeValidation: true,

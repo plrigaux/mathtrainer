@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config, EquationOrientation, EquationOrientations } from '../config';
-import { mathProplemActions } from '../mathProblemTypes'
+import { mathProplemActions } from '../math-generator/mathProblemTypes'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigDialogRangesComponent } from '../config-dialog-ranges/config-dialog-ranges.component';
 

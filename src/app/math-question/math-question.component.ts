@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { MathProblem } from '../mathGenerator'
+import { MathProblem } from '../math-generator/mathGenerator'
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { ResetService } from '../reset.service'

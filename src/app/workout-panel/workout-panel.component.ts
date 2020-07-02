@@ -3,7 +3,7 @@ import { Config } from '../config';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../config.service'
 import { WorkTask  } from './worktask'
-import { MathProblem } from '../mathGenerator'
+import { MathProblem } from '../math-generator/mathGenerator'
 
 
 enum WorkoutStatus {

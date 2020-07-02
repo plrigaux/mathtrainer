@@ -1,10 +1,10 @@
 export enum MathProblemTypes {
-    ADDITION,
-    SUBTRACTION,
-    MULTIPLICATION,
-    DIVISION
+    ADDITION = "ADDITION",
+    SUBTRACTION = "SUBTRACTION",
+    MULTIPLICATION = "MULTIPLICATION",
+    DIVISION = "DIVISION"
 }
-
+/*
 export namespace MathProblemTypes {
 
     export function values() {
@@ -18,21 +18,21 @@ export namespace MathProblemTypes {
         return Object.keys(MathProblemTypes)[id + 4]
     }
 }
-
+*/
 export interface MathProblemTypesData {
     name: string;
-    code: number;
+    code: string;
     op: string;
     opFunc: (value: number[]) => number;
 }
 
-export type MathProblemTypesKey = "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
+//export type MathProblemTypesKey = "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
 
-export type MathProblemTypesMap = Record<MathProblemTypesKey, MathProblemTypesData>;
+export type MathProblemTypesMap = Record<MathProblemTypes, MathProblemTypesData>;
 
 
 export const mathProplemActions: MathProblemTypesMap = {
-    "ADDITION": {
+    "ADDITION" : {
         name: "Addition",
         code: MathProblemTypes.ADDITION,
         op: "+",
@@ -67,6 +67,22 @@ export const mathProplemActions: MathProblemTypesMap = {
     }
 }
 
+export interface GenerateRange {
+    min: number;
+    max: number;
+}
 
+export enum Relation {
+    LESS,
+    LESS_EQUALS,
+    EQUALS,
+    GREATER_EQUALS,
+    GREATER,
+    NOT_EQUALS
+}
 
+export interface Answer {
+    value: number;
+    relation: Relation;
+}
 

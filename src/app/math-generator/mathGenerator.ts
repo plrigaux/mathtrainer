@@ -1,5 +1,5 @@
-import { Config, GenerateRange } from './config'
-import { MathProblemTypes, mathProplemActions, MathProblemTypesData, MathProblemTypesKey } from './mathProblemTypes';
+import { Config } from '../config'
+import { MathProblemTypes, mathProplemActions, MathProblemTypesData, GenerateRange, Answer } from './mathProblemTypes';
 
 export class MathProblem {
 
@@ -72,22 +72,26 @@ export class MathProblem {
     }
 
     static getListofRandomInt(config: Config): number[] {
+        return MathProblem.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
+    }
+
+    static getListofRandomNumber(generateRange : GenerateRange[], mathProblemTypes : MathProblemTypes, answer : Answer): number[] {
         var values: number[] = []
-        for (var i = 0; i < config.nbNumbers; i++) {
-            let rg: GenerateRange = config.generateRange[i];
+
+        var values: number[] = []
+        for (var i = 0; i < generateRange.length; i++) {
+            let rg : GenerateRange = generateRange[i];
 
             let value = MathProblem.getRandomIntInclusive(rg?.min, rg?.max)
             values.push(value)
         }
 
-        if (config.mathProblemTypes === "SUBTRACTION") {
-            console.log(config);
+        if (mathProblemTypes === MathProblemTypes.SUBTRACTION) {
             console.log(values)
             //Keep the result positive
             values.sort((a, b) => b - a);
             console.log(values)
         }
-
         return values
     }
 
