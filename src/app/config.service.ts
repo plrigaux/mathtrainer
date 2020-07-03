@@ -3,17 +3,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription, Subscribable, PartialObserver } from 'rxjs';
 import { Config, CONFIG, MATH_EXERCICISES_STORE } from './config';
 
-
-@Injectable({
-  providedIn: 'root'
-})
-
 export class ConfigServiceInfo {
   config: Config;
   needReset: boolean;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ConfigService {
 
   private configSource: BehaviorSubject<ConfigServiceInfo>;

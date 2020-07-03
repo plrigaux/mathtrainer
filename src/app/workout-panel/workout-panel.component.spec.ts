@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorkoutPanelComponent } from './workout-panel.component';
+import { ConfigService } from '../config.service'
 
 describe('WorkoutPanelComponent', () => {
   let component: WorkoutPanelComponent;
@@ -8,7 +9,8 @@ describe('WorkoutPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WorkoutPanelComponent ]
+      declarations: [ WorkoutPanelComponent ],
+      providers: [ConfigService]
     })
     .compileComponents();
   }));

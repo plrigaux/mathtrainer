@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MathProblem } from '../math-generator/mathGenerator'
-import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MathQuestionService, MathQuestionNotifier } from '../math-question.service';
