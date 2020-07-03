@@ -1,16 +1,22 @@
 import { MathProblem } from './mathGenerator';
 import { GenerateRange, MathProblemTypes, Relation } from './mathProblemTypes';
+import { Injectable } from '@angular/core';
 
-class Worksheets {
+@Injectable({
+    providedIn: 'root'
+})
+export class Worksheets {
 
-    addSingleDigitNumber() {
+
+
+    addSingleDigitNumber() : number [] {
 
         let generateRange: GenerateRange[] = [
             { min: 0, max: 10 },
             { min: 0, max: 10 }
         ];
 
-        MathProblem.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION, null);
+        return MathProblem.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION, null);
     }
 
     addSingleDigitNumberSum10orLess() {
@@ -20,9 +26,9 @@ class Worksheets {
         ];
 
         let answer = {
-            value : 10,
-            relation : Relation.LESS
-        }
+            value: 10,
+            relation: Relation.LESS
+        };
 
         MathProblem.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION, answer);
     }
