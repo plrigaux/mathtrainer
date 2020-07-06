@@ -5,20 +5,19 @@ export class MathProblem {
 
     questionStr: String;
     values: number[];
-    config: Config;
     mptd: MathProblemTypesData;
     answer: number;
 
-    constructor() {
-        this.values = []
+    constructor(values: number[], mathProblemType : MathProblemTypes) {
+        this.values = values;
         this.questionStr = null;
         this.answer = null;
+        this.mptd = mathProplemActions[mathProblemType]
     }
 
     getAnswer(): number {
         if (this.answer == null) {
-            var mptd: MathProblemTypesData = mathProplemActions[this.config.mathProblemTypes];
-            this.answer = mptd.opFunc(this.values);
+            this.answer = this.mptd.opFunc(this.values);
         }
 
         return this.answer;
@@ -44,38 +43,10 @@ export class MathProblem {
     }
 
     static generateProblem(config: Config): MathProblem {
-        var mp = new MathProblem()
-        mp.values = MathProblem.getListofRandomInt(config)
-
-        mp.mptd = mathProplemActions[config.mathProblemTypes];
-        /*
-                let q = ""
-                q += '<span class="equation">'
-        
-                let first = true;
-                for (let index = 0; index < mp.values.length; ++index) {
-                    if (!first) {
-                        q += `<span class="operator">${mp.mptd.op}</span>`;
-                    } else {
-                        first = false;
-                    }
-                    q += `<span class="number">${mp.values[index]}</span>`
-                }
-        
-                q += '<span class="equals">=</span>'
-                q += '</span>'
-        */
-        //mp.question = q; //mp.values.join(` ${mptd.op} `) + " = "
-        mp.config = config;
-
-        return mp
+          return MathProblem.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
     }
 
-    static getListofRandomInt(config: Config): number[] {
-        return MathProblem.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
-    }
-
-    static getListofRandomNumber(generateRange : GenerateRange[], mathProblemTypes : MathProblemTypes, answer : Answer): number[] {
+    static getListofRandomNumber(generateRange : GenerateRange[], mathProblemTypes : MathProblemTypes, answer : Answer = null): MathProblem {
         var values: number[] = []
 
         var values: number[] = []
@@ -92,7 +63,8 @@ export class MathProblem {
             values.sort((a, b) => b - a);
             console.log(values)
         }
-        return values
+
+        return new MathProblem(values, mathProblemTypes);
     }
 
     static getRandomIntInclusive(min: number = 1, max: number = 10) {

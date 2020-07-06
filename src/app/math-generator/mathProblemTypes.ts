@@ -82,7 +82,8 @@ export enum Relation {
 }
 
 export interface Answer {
-    value: number;
+    min: number;
+    max: number;
     relation: Relation;
 }
 
