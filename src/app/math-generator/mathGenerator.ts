@@ -57,6 +57,7 @@ export class MathProblem {
             values.push(value)
         }
 
+        //Avoid negative for substraction
         if (mathProblemTypes === MathProblemTypes.SUBTRACTION) {
             console.log(values)
             //Keep the result positive
@@ -68,8 +69,9 @@ export class MathProblem {
     }
 
     static getRandomIntInclusive(min: number = 1, max: number = 10) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+        //min = Math.ceil(min);
+        //max = Math.floor(max);
+        let val = max - min + 1
+        return Math.floor(Math.random() * val) + min; //The maximum is inclusive and the minimum is inclusive 
     }
 }

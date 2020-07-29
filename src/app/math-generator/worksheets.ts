@@ -22,8 +22,9 @@ export class Worksheets {
     //Adding two single-digit numbers - sum 10 or less
     addSingleDigitNumberSum10orLess() : MathProblem {
         let generateRange: GenerateRange[] = [
-            { min: 0, max: 10 },
-            { min: 0, max: 10 }
+            { min: 2, max: 10 }
+            //,
+            //{ min: 0, max: 10 }
         ];
 
         let answer : Answer = {
@@ -32,7 +33,22 @@ export class Worksheets {
             relation: Relation.LESS_EQUALS
         };
 
-        return MathProblem.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION, answer);
+
+        let mp : MathProblem = MathProblem.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION, answer);
+
+        let answerVal = mp.values[0];
+
+        generateRange = [
+            { min: 0, max: answerVal }
+        ];
+
+        mp = MathProblem.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION, answer);
+
+        let otherVal : number = answerVal - mp.values[0];
+        
+        mp.values.push(otherVal);
+
+        return mp;
     }
 
     //Add a 2-digit number and a 1-digit number mentally - within the same ten
