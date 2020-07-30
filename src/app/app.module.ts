@@ -61,6 +61,7 @@ import { ConfigDialogRangesComponent } from './config-dialog-ranges/config-dialo
 import { FormPanelComponent } from './form-panel/form-panel.component';
 import { WorkoutPanelComponent } from './workout-panel/workout-panel.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ConfigDialogRangesComponent,
     FormPanelComponent,
     WorkoutPanelComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MainPageComponent
   ],
   imports: [LoggerModule.forRoot({/*serverLoggingUrl: '/api/logs',*/ level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR }),
     HttpClientModule,
