@@ -3,8 +3,8 @@
   <mat-card class="z-depth center" flex="50">
     <div class="progressBar">
       <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-      <div *ngIf="tasks">
-        {{index}} of {{tasks.length}}
+      <div *ngIf="tasks && index < tasks.length">
+        {{index + 1}} of {{tasks.length}}
       </div>
     </div>
     <button mat-raised-button color="accent" *ngIf="status == WorkoutStatusEnum.Begin" (click)="start()">Start!</button>
