@@ -3,9 +3,10 @@ import { MathProblem } from '../math-generator/mathGenerator'
 export class WorkTask {
     problem: MathProblem;
     time: number;
-    userAnswer: number[];
+    //userAnswer: number[];
     startTime: number;
     endTime: number;
+    errors: number;
     
     get answer(): number {
         return this.problem.getAnswer();
@@ -34,5 +35,7 @@ export class WorkTask {
     getTimeInSec() : string {
          return (this.getTime() / 1000).toFixed(1);
     }
+
+
 }
 

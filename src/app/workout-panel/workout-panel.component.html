@@ -3,6 +3,9 @@
   <mat-card class="z-depth center" flex="50">
     <div class="progressBar">
       <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+      <div *ngIf="tasks">
+        {{index}} of {{tasks.length}}
+      </div>
     </div>
     <button mat-raised-button color="accent" *ngIf="status == WorkoutStatusEnum.Begin" (click)="start()">Start!</button>
     <div class="mathQuestion" *ngIf="status == WorkoutStatusEnum.Work">
@@ -25,6 +28,7 @@
             <th>equation</th>
             <th>answer</th>
             <th>time</th>
+            <th>mistakes</th>
           </tr>
         </thead>
         <tbody>
@@ -33,9 +37,10 @@
             <td>{{task.problem.question}}</td>
             <td>{{task.answer}}</td>
             <td>{{task.getTimeInSec()}} sec.</td>
+            <td>{{task.errors}}</td>
           </tr>
         </tbody>
-        </table>
+      </table>
       <button mat-raised-button color="accent" (click)="start()">Start!</button>
     </div>
   </mat-card>

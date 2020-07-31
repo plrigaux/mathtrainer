@@ -54,9 +54,8 @@ export class WorkoutPanelComponent implements OnInit {
       let task = new WorkTask();
       this.tasks[i] = task;
       task.problem = MathProblem.generateProblem(this.config);
+      task.errors = 0;
     }
-
-
   }
 
   ngOnDestroy(): void {
@@ -83,6 +82,14 @@ export class WorkoutPanelComponent implements OnInit {
         this.progress = 100;
       } else {
         this.setCurrentTask();
+      }
+    } else {
+      //calculate errors
+      let answerLength = this.currentTask.answer.toString().length;
+      let userInputLength = uInput.toString().length;
+
+      if (answerLength == userInputLength) {
+        this.currentTask.errors++;
       }
     }
   }

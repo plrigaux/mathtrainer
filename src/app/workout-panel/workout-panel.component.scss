@@ -1,3 +1,35 @@
+@import "~@angular/material/theming";
+@import "../../assets/styles/themes_variables.scss";
+
+$equation-font-size: 48px;
+
+@mixin math-question-theme($theme) {
+    // Extract the palettes you need from the theme definition.
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+
+    .mathQuestion {
+        border-width: 2px;
+        border-style: solid;
+        border-color: mat-color($accent);
+        margin: 0.5em;
+        padding: 1em;
+        border-radius: 15px;
+        font-size: $equation-font-size;
+    }
+}
+
+@each $thclass, $th in $all_themes {
+  @if $thclass == "" {
+      @include math-question-theme($th);
+  } @else {
+      :host-context(.#{$thclass}) {
+          @include math-question-theme($th);
+      }
+  }
+}
+
+
 .flexbox-parent {
   //@include display-flex;
   //background: #FFD54F;
@@ -20,13 +52,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-$equation-font-size: 48px;
-
-.mathQuestion {
-  //padding: 0.5em;
-  font-size: $equation-font-size;
 }
 
 input {
