@@ -9,7 +9,7 @@ export class WorkTask {
     errors: number;
     
     get answer(): number {
-        return this.problem.getAnswer();
+        return this.problem.answer;
     };
 
     get values(): number[] {

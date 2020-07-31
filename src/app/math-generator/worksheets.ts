@@ -1,4 +1,4 @@
-import { MathProblem } from './mathGenerator';
+import { MathProblem, MathGenerator } from './mathGenerator';
 import { GenerateRange, MathProblemTypes, Relation, Answer } from './mathProblemTypes';
 import { Injectable } from '@angular/core';
 
@@ -16,44 +16,71 @@ export class Worksheets {
             { min: 0, max: 10 }
         ];
 
-        return MathProblem.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
+        return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
     }
 
     //Adding two single-digit numbers - sum 10 or less
-    addSingleDigitNumberSum10orLess() : MathProblem {
-        let generateRange: GenerateRange[] = [
-            { min: 2, max: 10 }
-            //,
-            //{ min: 0, max: 10 }
-        ];
-
-        let answer : Answer = {
-            min: 0,
-            max: 10,
-            relation: Relation.LESS_EQUALS
-        };
+    addTowSingleDigitNumberSum10orLess() : MathProblem {
 
 
-        let mp : MathProblem = MathProblem.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION, answer);
+        let answer : number = MathGenerator.getRandomIntInclusive(2, 9);
 
-        let answerVal = mp.values[0];
+        let answerValStr = answer.toString();
 
-        generateRange = [
-            { min: 0, max: answerVal }
-        ];
+        let unit = answerValStr[answerValStr.length - 1]
 
-        mp = MathProblem.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION, answer);
-
-        let otherVal : number = answerVal - mp.values[0];
+        let number2 : number = MathGenerator.getRandomIntInclusive(0, parseInt(unit, 10));
+        let number1 : number = answer - number2;
         
-        mp.values.push(otherVal);
+        let mp : MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2]);
+        
+        mp.shuffle();
 
         return mp;
     }
 
     //Add a 2-digit number and a 1-digit number mentally - within the same ten
+    addDoubleDigitWithSingleDigitNumberSum10orLess() : MathProblem {
+        let answer : number = MathGenerator.getRandomIntInclusive(10, 99);
+
+        let answerValStr = answer.toString();
+
+        let unit = answerValStr[answerValStr.length - 1]
+
+        let number2 : number = MathGenerator.getRandomIntInclusive(0, parseInt(unit, 10));
+        let number1 : number = answer - number2;
+        
+        let mp : MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2]);
+        
+        mp.shuffle();
+
+        return mp;
+    }
 
     //Add a 2-digit number and a 1-digit number in columns
+    addTowDoubleDigitNumberNoCarry() : MathProblem {
+
+
+        let answerUnit : number = MathGenerator.getRandomIntInclusive(0, 9);
+        let answerTen : number = MathGenerator.getRandomIntInclusive(1, 9);
+
+        
+        let answer : number = MathGenerator.getRandomIntInclusive(10, 99);
+
+        let answerValStr = answer.toString();
+
+        let unit = answerValStr[answerValStr.length - 1]
+
+        let number2 : number = MathGenerator.getRandomIntInclusive(0, parseInt(unit, 10));
+        let number1 : number = answer - number2;
+        
+        let mp : MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2]);
+        
+        mp.shuffle();
+
+        return mp;
+    }
 //Add two 2-digit numbers in columns - no carrying
+
 
 }

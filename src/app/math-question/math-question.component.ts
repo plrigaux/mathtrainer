@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { MathProblem } from '../math-generator/mathGenerator'
+import { MathProblem, MathGenerator } from '../math-generator/mathGenerator'
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { ResetService } from '../reset.service'
@@ -102,7 +102,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   validateAnswer(): void {
-    let answer = this.problem.getAnswer();
+    let answer = this.problem.answer;
     this.logger.debug(`User Input: ${this.answer.value} Answer: ${answer}`);
 
     if (this.answer.value == answer) {
@@ -154,7 +154,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   reset() {
-    this.problem = MathProblem.generateProblem(this.config);
+    this.problem = MathGenerator.generateProblem(this.config);
     this.right = false;
     this.wrong = false;
     this.answer.setValue(null);

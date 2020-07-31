@@ -3,7 +3,7 @@ import { Config } from '../config';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../config.service'
 import { WorkTask  } from './worktask'
-import { MathProblem } from '../math-generator/mathGenerator'
+import { MathGenerator } from '../math-generator/mathGenerator'
 
 
 enum WorkoutStatus {
@@ -53,7 +53,7 @@ export class WorkoutPanelComponent implements OnInit {
     for (let i = 0; i < this.config.nbProblems; i++) {
       let task = new WorkTask();
       this.tasks[i] = task;
-      task.problem = MathProblem.generateProblem(this.config);
+      task.problem = MathGenerator.generateProblem(this.config);
       task.errors = 0;
     }
   }

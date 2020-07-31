@@ -46,10 +46,10 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < 5; ++i) {
-    it('add Single Digit Number Sum 10 or Less', () => {
-      let mathProblem: MathProblem = component.addSingleDigitNumberSum10orLess();
-      console.log("" + mathProblem.question + mathProblem.getAnswer())
-      expect(mathProblem.getAnswer()).toBeLessThanOrEqual(10);
+    it('add Two Single Digit Numbers with Sum 10 or Less', () => {
+      let mathProblem: MathProblem = component.addTowSingleDigitNumberSum10orLess();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.answer).toBeLessThanOrEqual(10);
 
       expect(mathProblem.values.length).toEqual(2);
 
@@ -57,7 +57,35 @@ describe('Worksheets', () => {
       TestHelper.isBetweenInbound(mathProblem.values[1], 0, 10);
     });
   }
+
+  for (var i = 0; i < 5; ++i) {
+    it('add a Single Digit Number with a Double digit Number No Carry', () => {
+      let mathProblem: MathProblem = component.addDoubleDigitWithSingleDigitNumberSum10orLess();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      //expect(mathProblem.getAnswer()).toBeLessThanOrEqual(10);
+
+      expect(mathProblem.values.length).toEqual(2);
+
+      let max = Math.max(...mathProblem.values);
+
+      let min = Math.min(...mathProblem.values);
+
+      //2 digits
+      TestHelper.isBetweenInbound(max, 10, 99);
+      
+      //1 digit
+      TestHelper.isBetweenInbound(min, 0, 9);
+
+      //No carry
+      let maxten = max.toString()[0]
+      let answerten = mathProblem.answer.toString()[0]
+
+      expect(answerten).toEqual(maxten);
+    });
+  }
 });
+
+
 
 class TestHelper {
 

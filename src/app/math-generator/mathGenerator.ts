@@ -1,26 +1,87 @@
 import { Config } from '../config'
 import { MathProblemTypes, mathProplemActions, MathProblemTypesData, GenerateRange, Answer } from './mathProblemTypes';
+//import { MathProblem } from './mathProblem';
+
+export class MathGenerator {
+
+    static generateProblem(config: Config): MathProblem {
+        return MathGenerator.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
+    }
+
+    static getListofRandomNumber(generateRange: GenerateRange[], mathProblemTypes: MathProblemTypes, answer: Answer = null): MathProblem {
+        var values: number[] = []
+
+        var values: number[] = []
+        for (var i = 0; i < generateRange.length; i++) {
+            let rg: GenerateRange = generateRange[i];
+
+            let value = MathGenerator.getRandomIntInclusive(rg?.min, rg?.max)
+            values.push(value)
+        }
+
+        //Avoid negative for substraction
+        if (mathProblemTypes === MathProblemTypes.SUBTRACTION) {
+            console.log(values)
+            //Keep the result positive
+            values.sort((a, b) => b - a);
+            console.log(values)
+        }
+
+        return new MathProblem(mathProblemTypes, values);
+    }
+
+    static getRandomIntInclusive(min: number = 1, max: number = 10) {
+        //min = Math.ceil(min);
+        //max = Math.floor(max);
+        let val = max - min + 1
+        return Math.floor(Math.random() * val) + min; //The maximum is inclusive and the minimum is inclusive 
+    }
+
+    static shuffle(array: any[]) {
+        let currentIndex: number = array.length
+        let temporaryValue: number;
+        let randomIndex: number;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+    static toArray(a: number, b: number): number[] {
+        return [a, b];
+    }
+}
 
 export class MathProblem {
 
     questionStr: String;
     values: number[];
     mptd: MathProblemTypesData;
-    answer: number;
+    private _answer: number;
 
-    constructor(values: number[], mathProblemType : MathProblemTypes) {
+    constructor(mathProblemType: MathProblemTypes, values: number[]) {
         this.values = values;
         this.questionStr = null;
-        this.answer = null;
+        this._answer = null;
         this.mptd = mathProplemActions[mathProblemType]
     }
 
-    getAnswer(): number {
-        if (this.answer == null) {
-            this.answer = this.mptd.opFunc(this.values);
+    get answer(): number {
+        if (this._answer == null) {
+            this._answer = this.mptd.opFunc(this.values);
         }
-
-        return this.answer;
+        return this._answer;
     }
 
     get question() {
@@ -42,36 +103,15 @@ export class MathProblem {
         return this.questionStr;
     }
 
-    static generateProblem(config: Config): MathProblem {
-          return MathProblem.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
+    shuffle() : void {
+        this.values = MathGenerator.shuffle(this.values);
     }
 
-    static getListofRandomNumber(generateRange : GenerateRange[], mathProblemTypes : MathProblemTypes, answer : Answer = null): MathProblem {
-        var values: number[] = []
-
-        var values: number[] = []
-        for (var i = 0; i < generateRange.length; i++) {
-            let rg : GenerateRange = generateRange[i];
-
-            let value = MathProblem.getRandomIntInclusive(rg?.min, rg?.max)
-            values.push(value)
-        }
-
-        //Avoid negative for substraction
-        if (mathProblemTypes === MathProblemTypes.SUBTRACTION) {
-            console.log(values)
-            //Keep the result positive
-            values.sort((a, b) => b - a);
-            console.log(values)
-        }
-
-        return new MathProblem(values, mathProblemTypes);
+    orderAssending() : void {
+        this.values.sort((a, b) => a - b);
     }
 
-    static getRandomIntInclusive(min: number = 1, max: number = 10) {
-        //min = Math.ceil(min);
-        //max = Math.floor(max);
-        let val = max - min + 1
-        return Math.floor(Math.random() * val) + min; //The maximum is inclusive and the minimum is inclusive 
+    orderDescending() : void {
+        this.values.sort((a, b) => b - a);
     }
 }
