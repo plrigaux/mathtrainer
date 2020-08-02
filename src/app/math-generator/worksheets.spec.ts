@@ -58,8 +58,8 @@ describe('Worksheets', () => {
     });
   }
 
-  for (var i = 0; i < 5; ++i) {
-    it('add a Single Digit Number with a Double digit Number No Carry', () => {
+  for (var i = 0; i < 8; ++i) {
+    fit('add a Single Digit Number with a Double digit Number No Carry', () => {
       let mathProblem: MathProblem = component.addDoubleDigitWithSingleDigitNumberSum10orLess();
       console.log("" + mathProblem.question + mathProblem.answer)
       //expect(mathProblem.getAnswer()).toBeLessThanOrEqual(10);
@@ -72,7 +72,7 @@ describe('Worksheets', () => {
 
       //2 digits
       TestHelper.isBetweenInbound(max, 10, 99);
-      
+
       //1 digit
       TestHelper.isBetweenInbound(min, 0, 9);
 
@@ -82,6 +82,19 @@ describe('Worksheets', () => {
 
       expect(answerten).toEqual(maxten);
     });
+  }
+
+  for (var i = 0; i < 5; ++i) {
+    it('add Tow Double Digit Numbers No Carry', () => {
+      let mathProblem: MathProblem = component.addTowDoubleDigitNumbersNoCarry();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.values.length).toEqual(2);
+
+      TestHelper.isBetweenInbound(mathProblem.values[0], 0, 99);
+      TestHelper.isBetweenInbound(mathProblem.values[1], 0, 99);
+
+
+    });                             
   }
 });
 

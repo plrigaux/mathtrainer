@@ -7,9 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class Worksheets {
 
-
-
-    addSingleDigitNumber() : MathProblem {
+    addSingleDigitNumber(): MathProblem {
 
         let generateRange: GenerateRange[] = [
             { min: 0, max: 10 },
@@ -20,67 +18,90 @@ export class Worksheets {
     }
 
     //Adding two single-digit numbers - sum 10 or less
-    addTowSingleDigitNumberSum10orLess() : MathProblem {
-
-
-        let answer : number = MathGenerator.getRandomIntInclusive(2, 9);
-
-        let answerValStr = answer.toString();
-
-        let unit = answerValStr[answerValStr.length - 1]
-
-        let number2 : number = MathGenerator.getRandomIntInclusive(0, parseInt(unit, 10));
-        let number1 : number = answer - number2;
-        
-        let mp : MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2]);
-        
-        mp.shuffle();
-
-        return mp;
+    addTowSingleDigitNumberSum10orLess(): MathProblem {
+        return this.addTowXDigitNumbersNoCarry(1);
     }
 
     //Add a 2-digit number and a 1-digit number mentally - within the same ten
-    addDoubleDigitWithSingleDigitNumberSum10orLess() : MathProblem {
-        let answer : number = MathGenerator.getRandomIntInclusive(10, 99);
+    addDoubleDigitWithSingleDigitNumberSum10orLess(): MathProblem {
 
-        let answerValStr = answer.toString();
+        let prog = {
+            answer: [{ min: 1, max: 9 }, { min: 0, max: 9 }],
+            number: [{ min: 0, max: 0 }, { min: 1, max: 9 }]
+        };
 
-        let unit = answerValStr[answerValStr.length - 1]
+        let xDigit = 2;
 
-        let number2 : number = MathGenerator.getRandomIntInclusive(0, parseInt(unit, 10));
-        let number1 : number = answer - number2;
-        
-        let mp : MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2]);
-        
+        let answer: number = 0;
+        let number2: number = 0;
+
+        for (let i = 0; i < xDigit;) {
+
+            //let min = i == 0 ? 1 : 0;
+
+            let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
+            let n = MathGenerator.getRandomIntInclusive(prog.number[i].min, prog.number[i].max);
+
+            if (a < n) {
+                let tmp = a;
+                a = n;
+                n = tmp;
+            }
+
+            let pow = xDigit - ++i;
+            answer += a * (10 ** pow);
+            number2 += n * (10 ** pow);
+        }
+
+        let number1: number = answer - number2;
+
+        let mp: MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2]);
+
         mp.shuffle();
 
         return mp;
+
+        //return this.addTowXDigitNumbersNoCarry(1);
     }
 
     //Add a 2-digit number and a 1-digit number in columns
-    addTowDoubleDigitNumberNoCarry() : MathProblem {
+    addTowDoubleDigitNumbersNoCarry(): MathProblem {
+        return this.addTowXDigitNumbersNoCarry(2);
+    }
 
+    //Add a 2-digit number and a 1-digit number in columns
+    addTowXDigitNumbersNoCarry(xDigit: number): MathProblem {
 
-        let answerUnit : number = MathGenerator.getRandomIntInclusive(0, 9);
-        let answerTen : number = MathGenerator.getRandomIntInclusive(1, 9);
+        let answer: number = 0;
+        let number2: number = 0;
 
-        
-        let answer : number = MathGenerator.getRandomIntInclusive(10, 99);
+        for (let i = 0; i < xDigit;) {
 
-        let answerValStr = answer.toString();
+            let min = i == 0 ? 1 : 0;
 
-        let unit = answerValStr[answerValStr.length - 1]
+            let a = MathGenerator.getRandomIntInclusive(min, 9);
+            let n = MathGenerator.getRandomIntInclusive(min, 9);
 
-        let number2 : number = MathGenerator.getRandomIntInclusive(0, parseInt(unit, 10));
-        let number1 : number = answer - number2;
-        
-        let mp : MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2]);
-        
+            if (a < n) {
+                let tmp = a;
+                a = n;
+                n = tmp;
+            }
+
+            let pow = xDigit - ++i;
+            answer += a * (10 ** pow);
+            number2 += n * (10 ** pow);
+        }
+
+        let number1: number = answer - number2;
+
+        let mp: MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2]);
+
         mp.shuffle();
 
         return mp;
     }
-//Add two 2-digit numbers in columns - no carrying
+    //Add two 2-digit numbers in columns - no carrying
 
 
 }
