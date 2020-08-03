@@ -8,6 +8,7 @@ import { MathProblem } from './mathGenerator';
 describe('Worksheets', () => {
   let component: Worksheets;
   let fixture: ComponentFixture<Worksheets>;
+  const iteration: number = 8;
   /*
     beforeEach(async(() => {
       TestBed.configureTestingModule({
@@ -36,7 +37,7 @@ describe('Worksheets', () => {
     expect(component).toBeTruthy();
   });
 
-  for (var i = 0; i < 5; ++i) {
+  for (var i = 0; i < iteration; ++i) {
     it('add Single Digit Number', () => {
       let num = component.addSingleDigitNumber().values;
       expect(num.length).toEqual(2);
@@ -45,7 +46,7 @@ describe('Worksheets', () => {
     });
   }
 
-  for (var i = 0; i < 5; ++i) {
+  for (var i = 0; i < iteration; ++i) {
     it('add Two Single Digit Numbers with Sum 10 or Less', () => {
       let mathProblem: MathProblem = component.addTowSingleDigitNumberSum10orLess();
       console.log("" + mathProblem.question + mathProblem.answer)
@@ -58,8 +59,8 @@ describe('Worksheets', () => {
     });
   }
 
-  for (var i = 0; i < 8; ++i) {
-    fit('add a Single Digit Number with a Double digit Number No Carry', () => {
+  for (var i = 0; i < iteration; ++i) {
+    it('add a Single Digit Number with a Double digit Number No Carry', () => {
       let mathProblem: MathProblem = component.addDoubleDigitWithSingleDigitNumberSum10orLess();
       console.log("" + mathProblem.question + mathProblem.answer)
       //expect(mathProblem.getAnswer()).toBeLessThanOrEqual(10);
