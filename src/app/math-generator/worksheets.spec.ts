@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Worksheets } from './worksheets';
 import { MathProblem } from './mathGenerator';
+import { MathProblemTypes } from './mathProblemTypes';
 
 
 
@@ -39,10 +40,26 @@ describe('Worksheets', () => {
 
   for (var i = 0; i < iteration; ++i) {
     it('add Single Digit Number', () => {
-      let num = component.addSingleDigitNumber().values;
+      let mathProblem: MathProblem = component.addSingleDigitNumber();
+      let num = mathProblem.values;
+
       expect(num.length).toEqual(2);
       TestHelper.isBetweenInbound(num[0], 0, 10);
       TestHelper.isBetweenInbound(num[1], 0, 10);
+    });
+  }
+
+  for (var i = 0; i < iteration; ++i) {
+    it('add Single Digit Number no Carry', () => {
+
+      let mathProblem: MathProblem = component.addSingleDigitNumberNoCarry();
+      let num = mathProblem.values;
+
+      expect(num.length).toEqual(2);
+
+      TestHelper.isBetweenInbound(num[0], 0, 10);
+      TestHelper.isBetweenInbound(num[1], 0, 10);
+      TestHelper.isBetweenInbound(mathProblem.answer, 1, 10);
     });
   }
 
@@ -85,7 +102,7 @@ describe('Worksheets', () => {
     });
   }
 
-  for (var i = 0; i < 5; ++i) {
+  for (var i = 0; i < iteration; ++i) {
     it('add Tow Double Digit Numbers No Carry', () => {
       let mathProblem: MathProblem = component.addTowDoubleDigitNumbersNoCarry();
       console.log("" + mathProblem.question + mathProblem.answer)
@@ -95,7 +112,41 @@ describe('Worksheets', () => {
       TestHelper.isBetweenInbound(mathProblem.values[1], 0, 99);
 
 
-    });                             
+    });
+  }
+
+  for (var i = 0; i < iteration; ++i) {
+    it('add Tow Numbers Answer bellow 20', () => {
+      let mathProblem: MathProblem = component.addTwoNumbersAnswerBellow20();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.values.length).toEqual(2);
+
+      TestHelper.isBetweenInbound(mathProblem.answer, 0, 19);
+    });
+  }
+
+  for (var i = 0; i < iteration; ++i) {
+    it('add Two Numbers Answer Betwen 10 and 20', () => {
+      let mathProblem: MathProblem = component.addTwoNumbersAnswerBetwen10And20();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.values.length).toEqual(2);
+      expect(mathProblem.mptd.code).toBe(MathProblemTypes.ADDITION);
+
+      TestHelper.isBetweenInbound(mathProblem.answer, 10, 20);
+    });
+  }
+
+  
+  for (var i = 0; i < iteration; ++i) {
+    fit('Subtract a one-digit number from a two-digit number - without regrouping', () => {
+      let mathProblem: MathProblem = component.subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.values.length).toEqual(2);
+
+      expect(mathProblem.mptd.code).toBe(MathProblemTypes.SUBTRACTION);
+
+      TestHelper.isBetweenInbound(mathProblem.values[1], 0, 9);
+    });
   }
 });
 

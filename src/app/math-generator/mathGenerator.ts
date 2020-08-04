@@ -27,7 +27,7 @@ export class MathGenerator {
             console.log(values)
         }
 
-        return new MathProblem(mathProblemTypes, values);
+        return new MathProblem(mathProblemTypes, null, values);
     }
 
     static getRandomIntInclusive(min: number = 1, max: number = 10) {
@@ -70,10 +70,10 @@ export class MathProblem {
     mptd: MathProblemTypesData;
     private _answer: number;
 
-    constructor(mathProblemType: MathProblemTypes, values: number[]) {
+    constructor(mathProblemType: MathProblemTypes, answer : number , values: number[]) {
         this.values = values;
         this.questionStr = null;
-        this._answer = null;
+        this._answer = answer;
         this.mptd = mathProplemActions[mathProblemType]
     }
 
