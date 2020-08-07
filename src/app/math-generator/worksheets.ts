@@ -118,6 +118,16 @@ export class Worksheets {
 
 
     //Subtraction facts - numbers up to 10
+    subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping(): MathProblem {
+
+        let prog = {
+            answer: [{ min: 1, max: 9 }],
+            number: [{ min: 0, max: 9 }],
+            mathProblemType: MathProblemTypes.SUBTRACTION
+        };
+
+        return this.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
+    }
     //Subtract multiples of 10
     //Subtract a one-digit number from a two-digit number - without regrouping
     subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping(): MathProblem {
@@ -128,7 +138,7 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
-
+/*
         let answer: number = 0;
         let number2: number = 0;
         let xDigit = prog.answer.length;
@@ -136,7 +146,10 @@ export class Worksheets {
         for (let i = 0; i < xDigit;) {
 
             let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
+
+
             let val = i == 0 ? prog.number[i].max : a;
+
             let n = MathGenerator.getRandomIntInclusive(prog.number[i].min, val);
 
             let pow = xDigit - ++i;
@@ -151,10 +164,12 @@ export class Worksheets {
         //mp.shuffle();
 
         return mp;
-
+*/
+        return this.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
     }
-    //Subtract a one-digit number from a two-digit number - with regrouping
 
+
+    //Subtract a one-digit number from a two-digit number - with regrouping
     subtractOneDigitNumberFromTwoDigitNumberWithRegrouping(): MathProblem {
 
         let prog = {
@@ -188,6 +203,7 @@ export class Worksheets {
         return mp;
 
     }
+
     //Subtract two two-digit numbers - without regrouping
     subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping(): MathProblem {
 
@@ -197,6 +213,10 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
+        return this.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
+    }
+
+    subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog: WorksheetProgram): MathProblem {
 
         let answer: number = 0;
         let number2: number = 0;
@@ -205,7 +225,12 @@ export class Worksheets {
         for (let i = 0; i < xDigit;) {
 
             let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
-            let val = i == 0 ? prog.number[i].max : a;
+            let val = prog.number[i].max;
+            //last
+            if (i + 1 >= xDigit) {
+                val = a;
+            }
+
             let n = MathGenerator.getRandomIntInclusive(prog.number[i].min, val);
 
             let pow = xDigit - ++i;
@@ -217,10 +242,7 @@ export class Worksheets {
 
         let mp: MathProblem = new MathProblem(prog.mathProblemType, number1, [answer, number2]);
 
-        //mp.shuffle();
-
         return mp;
-
     }
 
     //Subtract two two-digit numbers - with regrouping
@@ -240,14 +262,14 @@ export class Worksheets {
         for (let i = 0; i < xDigit;) {
 
             let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
-            let val : number;
-            let valmax : number;
+            let val: number;
+            let valmax: number;
             if (i == 0) {
                 val = prog.number[i].min
                 valmax = a - 1
-            } else { 
+            } else {
                 val = a + 1
-                valmax =  prog.number[i].max;
+                valmax = prog.number[i].max;
             };
             let n = MathGenerator.getRandomIntInclusive(val, valmax);
 

@@ -158,6 +158,28 @@ describe('Worksheets', () => {
     });
   }
 
+  //Subtraction facts - numbers up to 10
+  for (var i = 0; i < iteration; ++i) {
+    fit('Subtract a one-digit number from a one-digit number', () => {
+      let mathProblem: MathProblem = component.  subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.values.length).toEqual(2);
+
+      expect(mathProblem.mptd.code).toBe(MathProblemTypes.SUBTRACTION);
+
+      let number1 = mathProblem.values[0];
+      let number2 = mathProblem.values[1];
+
+      TestHelper.isBetweenInbound(number1, 0, 9);
+      TestHelper.isBetweenInbound(number2, 0, 9);
+
+      let answerTen = mathProblem.answer < 10 ? 0 : parseInt(mathProblem.answer.toString()[0]);
+      let number1Ten = parseInt(number1.toString()[0]);
+
+      expect(mathProblem.answer >= 0).toBe(true);
+    });
+  }
+
   for (var i = 0; i < iteration; ++i) {
     fit('Subtract a one-digit number from a two-digit number - with regrouping', () => {
       let mathProblem: MathProblem = component.subtractOneDigitNumberFromTwoDigitNumberWithRegrouping();
