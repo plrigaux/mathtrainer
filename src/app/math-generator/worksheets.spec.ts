@@ -145,9 +145,62 @@ describe('Worksheets', () => {
 
       expect(mathProblem.mptd.code).toBe(MathProblemTypes.SUBTRACTION);
 
-      TestHelper.isBetweenInbound(mathProblem.values[1], 0, 9);
+      let number1 = mathProblem.values[0];
+      let number2 = mathProblem.values[1];
+
+      TestHelper.isBetweenInbound(number1, 10, 99);
+      TestHelper.isBetweenInbound(number2, 0, 9);
+
+      let answerTen = parseInt(mathProblem.answer.toString()[0]);
+      let number1Ten = parseInt(number1.toString()[0]);
+
+      expect(number1Ten - answerTen).toBe(0)
     });
   }
+
+  for (var i = 0; i < iteration; ++i) {
+    fit('Subtract a one-digit number from a two-digit number - with regrouping', () => {
+      let mathProblem: MathProblem = component.subtractOneDigitNumberFromTwoDigitNumberWithRegrouping();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.values.length).toEqual(2);
+
+      expect(mathProblem.mptd.code).toBe(MathProblemTypes.SUBTRACTION);
+
+      let number1 = mathProblem.values[0];
+      let number2 = mathProblem.values[1];
+
+      TestHelper.isBetweenInbound(number1, 10, 99);
+      TestHelper.isBetweenInbound(number2, 0, 9);
+
+      let answerTen = mathProblem.answer < 10 ? 0 : parseInt(mathProblem.answer.toString()[0]);
+      let number1Ten = parseInt(number1.toString()[0]);
+
+      expect(number1Ten - answerTen).toBe(1, `Test Failed! ${number1Ten} - ${answerTen} != 1`);
+    });
+  }
+
+  for (var i = 0; i < iteration; ++i) {
+    fit('Subtract two two-digit numbers - with regrouping', () => {
+      let mathProblem: MathProblem = component.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.values.length).toEqual(2);
+
+      expect(mathProblem.mptd.code).toBe(MathProblemTypes.SUBTRACTION);
+
+      let number1 = mathProblem.values[0];
+      let number2 = mathProblem.values[1];
+
+      TestHelper.isBetweenInbound(number1, 10, 99);
+      TestHelper.isBetweenInbound(number2, 10, 99);
+
+      let answerTen = mathProblem.answer < 10 ? 0 : parseInt(mathProblem.answer.toString()[0]);
+      let number1Ten = parseInt(number1.toString()[0]);
+      let number2Ten = parseInt(number2.toString()[0]);
+
+      expect(number1Ten - number2Ten).toBe(answerTen + 1, `Test Failed! ${number1Ten} - ${number2Ten} != ${answerTen} + 1`);
+    });
+  }
+
 });
 
 
