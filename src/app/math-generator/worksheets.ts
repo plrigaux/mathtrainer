@@ -34,11 +34,11 @@ export class Worksheets {
     }
 
     //Add a 2-digit number and a 1-digit number mentally - within the same ten
-    addDoubleDigitWithSingleDigitNumberSum10orLess(): MathProblem {
+    addDoubleDigitWithSingleDigitNumberNoCarry(): MathProblem {
 
         let prog = {
             answer: [{ min: 1, max: 9 }, { min: 0, max: 9 }],
-            number: [{ min: 0, max: 0 }, { min: 1, max: 9 }],
+            number: [{ min: 0, max: 0 }, { min: 0, max: 9 }],
             mathProblemType: MathProblemTypes.ADDITION
         };
 
@@ -68,6 +68,33 @@ export class Worksheets {
     }
 
     addTowXDigitNumbersNoCarryProg(prog: WorksheetProgram): MathProblem {
+
+        let answer: number = 0;
+        let number2: number = 0;
+        let xDigit = prog.answer.length;
+
+        for (let i = 0; i < xDigit;) {
+            let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
+            
+            let valmax = Math.min(a, prog.number[i].max)
+            let n = MathGenerator.getRandomIntInclusive(prog.number[i].min, valmax);
+
+            let pow = xDigit - ++i;
+            answer += a * (10 ** pow);
+            number2 += n * (10 ** pow);
+        }
+
+        let number1: number = answer - number2;
+
+        let mp: MathProblem = new MathProblem(prog.mathProblemType, answer, [number1, number2]);
+
+        //mp.shuffle();
+
+        return mp;
+    }
+
+    //TODO test
+    addTowXDigitNumbersWithCarry(prog: WorksheetProgram): MathProblem {
 
         let answer: number = 0;
         let number2: number = 0;
@@ -138,33 +165,6 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
-/*
-        let answer: number = 0;
-        let number2: number = 0;
-        let xDigit = prog.answer.length;
-
-        for (let i = 0; i < xDigit;) {
-
-            let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
-
-
-            let val = i == 0 ? prog.number[i].max : a;
-
-            let n = MathGenerator.getRandomIntInclusive(prog.number[i].min, val);
-
-            let pow = xDigit - ++i;
-            answer += a * (10 ** pow);
-            number2 += n * (10 ** pow);
-        }
-
-        let number1: number = answer - number2;
-
-        let mp: MathProblem = new MathProblem(prog.mathProblemType, number1, [answer, number2]);
-
-        //mp.shuffle();
-
-        return mp;
-*/
         return this.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
     }
 
@@ -178,30 +178,7 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
-
-        let answer: number = 0;
-        let number2: number = 0;
-        let xDigit = prog.answer.length;
-
-        for (let i = 0; i < xDigit;) {
-
-            let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
-            let val = i == 0 ? prog.number[i].max : a + 1;
-            let n = MathGenerator.getRandomIntInclusive(val, prog.number[i].max);
-
-            let pow = xDigit - ++i;
-            answer += a * (10 ** pow);
-            number2 += n * (10 ** pow);
-        }
-
-        let number1: number = answer - number2;
-
-        let mp: MathProblem = new MathProblem(prog.mathProblemType, number1, [answer, number2]);
-
-        //mp.shuffle();
-
-        return mp;
-
+        return this.subtractXDigitNumberFromXDigitNumberWithRegrouping(prog);
     }
 
     //Subtract two two-digit numbers - without regrouping
@@ -216,35 +193,6 @@ export class Worksheets {
         return this.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
     }
 
-    subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog: WorksheetProgram): MathProblem {
-
-        let answer: number = 0;
-        let number2: number = 0;
-        let xDigit = prog.answer.length;
-
-        for (let i = 0; i < xDigit;) {
-
-            let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
-            let val = prog.number[i].max;
-            //last
-            if (i + 1 >= xDigit) {
-                val = a;
-            }
-
-            let n = MathGenerator.getRandomIntInclusive(prog.number[i].min, val);
-
-            let pow = xDigit - ++i;
-            answer += a * (10 ** pow);
-            number2 += n * (10 ** pow);
-        }
-
-        let number1: number = answer - number2;
-
-        let mp: MathProblem = new MathProblem(prog.mathProblemType, number1, [answer, number2]);
-
-        return mp;
-    }
-
     //Subtract two two-digit numbers - with regrouping
     subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping(): MathProblem {
 
@@ -254,7 +202,18 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
+        return this.subtractXDigitNumberFromXDigitNumberWithRegrouping(prog);
+    }
 
+    subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog: WorksheetProgram): MathProblem {
+        return this.subtractXDigitNumberFromXDigitNumber(prog, false);
+    }
+
+    subtractXDigitNumberFromXDigitNumberWithRegrouping(prog: WorksheetProgram): MathProblem {
+        return this.subtractXDigitNumberFromXDigitNumber(prog, true);
+    }
+
+    subtractXDigitNumberFromXDigitNumber(prog: WorksheetProgram, withRegrouping: boolean): MathProblem {
         let answer: number = 0;
         let number2: number = 0;
         let xDigit = prog.answer.length;
@@ -262,16 +221,22 @@ export class Worksheets {
         for (let i = 0; i < xDigit;) {
 
             let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
-            let val: number;
-            let valmax: number;
-            if (i == 0) {
-                val = prog.number[i].min
-                valmax = a - 1
+            let valmin: number = prog.number[i].min;
+            let valmax: number = prog.number[i].max;
+
+            if (withRegrouping) {
+                if (i == 0) { //is first
+                    valmax = Math.min(prog.number[i].max, a - 1);
+                } else {
+                    valmin = a + 1
+                };
             } else {
-                val = a + 1
-                valmax = prog.number[i].max;
-            };
-            let n = MathGenerator.getRandomIntInclusive(val, valmax);
+                if (i + 1 >= xDigit) { // is last
+                    valmax = a;
+                } 
+            }
+
+            let n = MathGenerator.getRandomIntInclusive(valmin, valmax);
 
             let pow = xDigit - ++i;
             answer += a * (10 ** pow);
@@ -282,10 +247,7 @@ export class Worksheets {
 
         let mp: MathProblem = new MathProblem(prog.mathProblemType, number1, [answer, number2]);
 
-        //mp.shuffle();
-
         return mp;
-
     }
 }
 

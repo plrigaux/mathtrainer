@@ -77,8 +77,8 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    it('add a Single Digit Number with a Double digit Number No Carry', () => {
-      let mathProblem: MathProblem = component.addDoubleDigitWithSingleDigitNumberSum10orLess();
+    fit('add a Single Digit Number with a Double digit Number No Carry', () => {
+      let mathProblem: MathProblem = component.addDoubleDigitWithSingleDigitNumberNoCarry();
       console.log("" + mathProblem.question + mathProblem.answer)
       //expect(mathProblem.getAnswer()).toBeLessThanOrEqual(10);
 
@@ -103,7 +103,7 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    it('add Tow Double Digit Numbers No Carry', () => {
+    fit('add Tow Double Digit Numbers No Carry', () => {
       let mathProblem: MathProblem = component.addTowDoubleDigitNumbersNoCarry();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -138,7 +138,7 @@ describe('Worksheets', () => {
 
   
   for (var i = 0; i < iteration; ++i) {
-    fit('Subtract a one-digit number from a two-digit number - without regrouping', () => {
+    it('Subtract a one-digit number from a two-digit number - without regrouping', () => {
       let mathProblem: MathProblem = component.subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -160,7 +160,7 @@ describe('Worksheets', () => {
 
   //Subtraction facts - numbers up to 10
   for (var i = 0; i < iteration; ++i) {
-    fit('Subtract a one-digit number from a one-digit number', () => {
+    it('Subtract a one-digit number from a one-digit number', () => {
       let mathProblem: MathProblem = component.  subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -181,7 +181,7 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    fit('Subtract a one-digit number from a two-digit number - with regrouping', () => {
+    it('Subtract a one-digit number from a two-digit number - with regrouping', () => {
       let mathProblem: MathProblem = component.subtractOneDigitNumberFromTwoDigitNumberWithRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -202,7 +202,7 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    fit('Subtract two two-digit numbers - with regrouping', () => {
+    it('Subtract two two-digit numbers - with regrouping', () => {
       let mathProblem: MathProblem = component.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
