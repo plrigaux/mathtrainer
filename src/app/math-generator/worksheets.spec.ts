@@ -77,7 +77,7 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    fit('add a Single Digit Number with a Double digit Number No Carry', () => {
+    it('add a Single Digit Number with a Double digit Number No Carry', () => {
       let mathProblem: MathProblem = component.addDoubleDigitWithSingleDigitNumberNoCarry();
       console.log("" + mathProblem.question + mathProblem.answer)
       //expect(mathProblem.getAnswer()).toBeLessThanOrEqual(10);
@@ -103,7 +103,7 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    fit('add Tow Double Digit Numbers No Carry', () => {
+    it('add Tow Double Digit Numbers No Carry', () => {
       let mathProblem: MathProblem = component.addTowDoubleDigitNumbersNoCarry();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -111,9 +111,33 @@ describe('Worksheets', () => {
       TestHelper.isBetweenInbound(mathProblem.values[0], 0, 99);
       TestHelper.isBetweenInbound(mathProblem.values[1], 0, 99);
 
+      let va1unit = mathProblem.values[0] % 10
+      let va2unit = mathProblem.values[1] % 10
 
+      //No carry on unit
+      expect(va1unit + va2unit).toBeLessThan(10, `${va1unit} + ${va2unit} NOT less than 10`);
     });
   }
+
+  for (var i = 0; i < iteration; ++i) {
+    fit('add Tow Double Digit Numbers With Carry', () => {
+      let mathProblem: MathProblem = component.addTowDigitNumberWithTowDigitNumberWithCarry();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.values.length).toEqual(2);
+
+      expect(mathProblem.mptd.code).toBe(MathProblemTypes.ADDITION);
+
+      TestHelper.isBetweenInbound(mathProblem.values[0], 0, 99);
+      TestHelper.isBetweenInbound(mathProblem.values[1], 0, 99);
+
+      let va1unit = mathProblem.values[0] % 10
+      let va2unit = mathProblem.values[1] % 10
+
+      //With carry on unit
+      expect(va1unit + va2unit).toBeGreaterThanOrEqual(10, `${va1unit} + ${va2unit} NOT greater or equal than 10`);
+    });
+  }
+
 
   for (var i = 0; i < iteration; ++i) {
     it('add Tow Numbers Answer bellow 20', () => {
@@ -136,7 +160,7 @@ describe('Worksheets', () => {
     });
   }
 
-  
+
   for (var i = 0; i < iteration; ++i) {
     it('Subtract a one-digit number from a two-digit number - without regrouping', () => {
       let mathProblem: MathProblem = component.subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping();
@@ -161,7 +185,7 @@ describe('Worksheets', () => {
   //Subtraction facts - numbers up to 10
   for (var i = 0; i < iteration; ++i) {
     it('Subtract a one-digit number from a one-digit number', () => {
-      let mathProblem: MathProblem = component.  subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping();
+      let mathProblem: MathProblem = component.subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
 
@@ -233,4 +257,6 @@ class TestHelper {
     expect(val >= min).toBe(true, `Test Failed! ${val} is not between ${min} and ${max}! ${val} not greater equals than ${min}`);
     expect(val <= max).toBe(true, `Test Failed! ${val} is not between ${min} and ${max}! ${val} not smaller equals than ${max}`);
   }
+
+
 }

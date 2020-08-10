@@ -93,6 +93,15 @@ export class Worksheets {
         return mp;
     }
 
+    addTowDigitNumberWithTowDigitNumberWithCarry(): MathProblem {
+        let prog = {
+            answer: [{ min: 1, max: 9 }, { min: 0, max: 8 }],
+            number: [{ min: 1, max: 9 }, { min: 0, max: 9 }],
+            mathProblemType: MathProblemTypes.ADDITION
+        };
+
+        return this.addTowXDigitNumbersWithCarry(prog);
+    }
     //TODO test
     addTowXDigitNumbersWithCarry(prog: WorksheetProgram): MathProblem {
 
@@ -103,7 +112,18 @@ export class Worksheets {
         for (let i = 0; i < xDigit;) {
 
             let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
-            let n = MathGenerator.getRandomIntInclusive(prog.number[i].min, a);
+
+            let valmin : number = prog.number[i].min;
+            let valmax : number = prog.number[i].max;
+
+            if ( i + 1 >= xDigit ) {
+                valmin = a + 1;
+            } else {
+                valmax = Math.min(a - 1, prog.number[i].max)
+                valmin = Math.min(valmin, valmax)
+            }
+
+            let n = MathGenerator.getRandomIntInclusive(valmin, valmax);
 
             let pow = xDigit - ++i;
             answer += a * (10 ** pow);
