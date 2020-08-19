@@ -48,6 +48,8 @@ input[type="number"] {
     margin-left: 1em;
     /* space for the operator */
     text-align: right;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 .equation.stacked .operator {

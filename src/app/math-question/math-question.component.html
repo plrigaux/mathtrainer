@@ -19,7 +19,7 @@
         <input formControlName={{controlIndex}} [name]="name"
           [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" type="number"
           (blur)="validateAnswerRealTime()" (keyup.enter)="validateAnswerRealTime()" (keypress)="isNumberKey($event)"
-          (change)="checkChange($event)" />
+          (change)="checkChange($event)" (keypress)="typeKey($event)" (keyup)="check($event)"/>
       </div>
     </span>
   </div>

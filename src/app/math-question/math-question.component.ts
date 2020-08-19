@@ -147,6 +147,17 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 
+  typeKey(event: KeyboardEvent) {
+    console.log("typeKey");
+    console.log(event);
+  }
+
+  check(event: KeyboardEvent) {
+    console.log("check");
+    console.log(event);
+    this.validateAnswerRealTime();
+  }
+
   clearInput(): void {
     this.right = false;
     this.wrong = false;

@@ -6,95 +6,105 @@ import { Worksheets } from './worksheets'
 export class WorksheetsMap {
     private static i: number = 0
     private static values: WorksheetsItem[] = [
-        {
-            label: "Add Single Digit Number NoCarry",
-            func: Worksheets.addSingleDigitNumberNoCarry,
-            mathProblemType: MathProblemTypes.ADDITION,
-            code: "" + WorksheetsMap.i++
-        },
-        {
-            label: "Add Single Digit Number NoCarry",
-            func: Worksheets.addSingleDigitNumberNoCarry,
-            mathProblemType: MathProblemTypes.ADDITION,
-            code: "" + WorksheetsMap.i++
-        },
-        {
-            label: "Adding two single-digit numbers - sum 10 or less",
-            func: Worksheets.addTowSingleDigitNumberSum10orLess,
-            mathProblemType: MathProblemTypes.ADDITION,
-            code: "" + WorksheetsMap.i++
-        },
-        {
-            label: "Add a 2-digit number and a 1-digit number mentally - within the same ten",
-            func: Worksheets.addDoubleDigitWithSingleDigitNumberNoCarry,
-            mathProblemType: MathProblemTypes.ADDITION,
-            code: "" + WorksheetsMap.i++
+        WorksheetsMap.generateMapItem(
+            "Add Single Digit Number NoCarry",
+            Worksheets.addSingleDigitNumberNoCarry,
+            MathProblemTypes.ADDITION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Add Single Digit Number NoCarry",
+            Worksheets.addSingleDigitNumberNoCarry,
+            MathProblemTypes.ADDITION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Adding two single-digit numbers - sum 10 or less",
+            Worksheets.addTowSingleDigitNumberSum10orLess,
+            MathProblemTypes.ADDITION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Add a 2-digit number and a 1-digit number mentally - within the same ten",
+            Worksheets.addDoubleDigitWithSingleDigitNumberNoCarry,
+            MathProblemTypes.ADDITION
 
-        },
-        {
-            label: "Add a 2-digit number and a 1-digit number in columns",
-            func: Worksheets.addTowDoubleDigitNumbersNoCarry,
-            mathProblemType: MathProblemTypes.ADDITION,
-            code: "" + WorksheetsMap.i++
+        ),
+        WorksheetsMap.generateMapItem(
+            "Add a 2-digit number and a 1-digit number in columns",
+            Worksheets.addTowDoubleDigitNumbersNoCarry,
+            MathProblemTypes.ADDITION
 
-        }, {
-            label: "Add Tow Digit Number With Tow Digit Number With Carry",
-            func: Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry,
-            mathProblemType: MathProblemTypes.ADDITION,
-            code: "" + WorksheetsMap.i++
-        }, {
-            label: "Add Two Numbers Answer Bellow 20",
-            func: Worksheets.addTwoNumbersAnswerBellow20,
-            mathProblemType: MathProblemTypes.ADDITION,
-            code: "" + WorksheetsMap.i++
-        },
-        {
-            label: "Subtraction facts - numbers up to 10",
-            func: Worksheets.subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping,
-            mathProblemType: MathProblemTypes.SUBTRACTION,
-            code: "" + WorksheetsMap.i++
-        },
-        {
-            label: "Subtract a one-digit number from a two-digit number - without regrouping",
-            func: Worksheets.subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping,
-            mathProblemType: MathProblemTypes.SUBTRACTION,
-            code: "" + WorksheetsMap.i++
-        },
-        {
-            label: "Subtract multiples of 10",
-            func: Worksheets.subtractMultiplesOf10,
-            mathProblemType: MathProblemTypes.SUBTRACTION,
-            code: "" + WorksheetsMap.i++
-        },
-        {
-            label: "Subtract a one-digit number from a two-digit number - with regrouping",
-            func: Worksheets.subtractOneDigitNumberFromTwoDigitNumberWithRegrouping,
-            mathProblemType: MathProblemTypes.SUBTRACTION,
-            code: "" + WorksheetsMap.i++
-        },
-        {
-            label: "Subtract two two-digit numbers - without regrouping",
-            func: Worksheets.subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping,
-            mathProblemType: MathProblemTypes.SUBTRACTION,
-            code: "" + WorksheetsMap.i++
-        },
-        {
-            label: "Subtract two two-digit numbers - with regrouping",
-            func: Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
-            mathProblemType: MathProblemTypes.SUBTRACTION,
-            code: "" + WorksheetsMap.i++
-        }
+        ),
+        WorksheetsMap.generateMapItem(
+            "Add Tow Digit Number With Tow Digit Number With Carry",
+            Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry,
+            MathProblemTypes.ADDITION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Add Two Numbers Answer Bellow 20",
+            Worksheets.addTwoNumbersAnswerBellow20,
+            MathProblemTypes.ADDITION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Subtraction facts - numbers up to 10",
+            Worksheets.subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping,
+            MathProblemTypes.SUBTRACTION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Subtract a one-digit number from a two-digit number - without regrouping",
+            Worksheets.subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping,
+            MathProblemTypes.SUBTRACTION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Subtract multiples of 10",
+            Worksheets.subtractMultiplesOf10,
+            MathProblemTypes.SUBTRACTION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Subtract a one-digit number from a two-digit number - with regrouping",
+            Worksheets.subtractOneDigitNumberFromTwoDigitNumberWithRegrouping,
+            MathProblemTypes.SUBTRACTION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Subtract two two-digit numbers - without regrouping",
+            Worksheets.subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping,
+            MathProblemTypes.SUBTRACTION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Subtract two two-digit numbers - with regrouping",
+            Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
+            MathProblemTypes.SUBTRACTION
+        )
 
     ];
 
     static getWorksheetsItem(): WorksheetsItem[] {
         return this.values;
     }
+/*
+    private static generateMap() {
+        WorksheetsMap.generateMapItem(
+            "Subtract two two-digit numbers - with regrouping",
+            Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
+            MathProblemTypes.SUBTRACTION
+        );
+    }
+*/
+    private static generateMapItem(label: string,
+        func: () => MathProblem, mathProblemType: MathProblemTypes): WorksheetsItem {
+
+        return {
+            label: label,
+            func: func,
+            funcName: func.name,
+            mathProblemType: mathProblemType,
+            code: mathProblemType + "_" + WorksheetsMap.i++
+        }
+    }
 }
 
 export interface WorksheetsItem {
     label: string
     func: () => MathProblem
+    funcName: string
     mathProblemType: MathProblemTypes
     code: string
 }
