@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigDialogComponent } from "../config-dialog/config-dialog.component"
 import { MatDialog } from '@angular/material/dialog';
-import { Config, MATH_EXERCICISES_STORE } from '../config';
+import { Config } from '../config';
 import { ConfigService } from '../config.service'
 
 
@@ -16,7 +16,6 @@ import { ConfigService } from '../config.service'
 export class ConfigDialogOpenerComponent implements OnInit {
 
   config: Config;
-
 
   constructor(public dialog: MatDialog, private configService: ConfigService) {
 

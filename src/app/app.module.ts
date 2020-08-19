@@ -62,6 +62,7 @@ import { FormPanelComponent } from './form-panel/form-panel.component';
 import { WorkoutPanelComponent } from './workout-panel/workout-panel.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { ArrayFilterPipe } from './array-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { MainPageComponent } from './main-page/main-page.component';
     FormPanelComponent,
     WorkoutPanelComponent,
     PageNotFoundComponent,
-    MainPageComponent
+    MainPageComponent,
+    ArrayFilterPipe
   ],
   imports: [LoggerModule.forRoot({/*serverLoggingUrl: '/api/logs',*/ level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR }),
     HttpClientModule,

@@ -1,13 +1,15 @@
 import { MathProblem, MathGenerator } from './mathGenerator';
 import { GenerateRange, MathProblemTypes, Relation, Answer } from './mathProblemTypes';
 import { Injectable } from '@angular/core';
+import { Config } from '../config';
 
 @Injectable({
     providedIn: 'root'
 })
 export class Worksheets {
 
-    addSingleDigitNumber(): MathProblem {
+
+    static addSingleDigitNumber(): MathProblem {
 
         let generateRange: GenerateRange[] = [
             { min: 0, max: 10 },
@@ -17,7 +19,7 @@ export class Worksheets {
         return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
     }
 
-    addSingleDigitNumberNoCarry(): MathProblem {
+    static addSingleDigitNumberNoCarry(): MathProblem {
 
         let prog = {
             answer: [{ min: 1, max: 9 }],
@@ -25,16 +27,16 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.ADDITION
         };
 
-        return this.addTowXDigitNumbersNoCarryProg(prog);
+        return Worksheets.addTowXDigitNumbersNoCarryProg(prog);
     }
 
     //Adding two single-digit numbers - sum 10 or less
-    addTowSingleDigitNumberSum10orLess(): MathProblem {
-        return this.addTowXDigitNumbersNoCarry(1);
+    static addTowSingleDigitNumberSum10orLess(): MathProblem {
+        return Worksheets.addTowXDigitNumbersNoCarry(1);
     }
 
     //Add a 2-digit number and a 1-digit number mentally - within the same ten
-    addDoubleDigitWithSingleDigitNumberNoCarry(): MathProblem {
+    static addDoubleDigitWithSingleDigitNumberNoCarry(): MathProblem {
 
         let prog = {
             answer: [{ min: 1, max: 9 }, { min: 0, max: 9 }],
@@ -42,16 +44,16 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.ADDITION
         };
 
-        return this.addTowXDigitNumbersNoCarryProg(prog);
+        return Worksheets.addTowXDigitNumbersNoCarryProg(prog);
     }
 
     //Add a 2-digit number and a 1-digit number in columns
-    addTowDoubleDigitNumbersNoCarry(): MathProblem {
-        return this.addTowXDigitNumbersNoCarry(2);
+    static addTowDoubleDigitNumbersNoCarry(): MathProblem {
+        return Worksheets.addTowXDigitNumbersNoCarry(2);
     }
 
     //Add a 2-digit number and a 1-digit number in columns
-    addTowXDigitNumbersNoCarry(xDigit: number): MathProblem {
+    static addTowXDigitNumbersNoCarry(xDigit: number): MathProblem {
         let prog = new WorksheetProgram(xDigit, MathProblemTypes.ADDITION);
 
         for (let i = 0; i < xDigit; ++i) {
@@ -64,10 +66,10 @@ export class Worksheets {
             prog.number[i] = instruction;
         }
 
-        return this.addTowXDigitNumbersNoCarryProg(prog);
+        return Worksheets.addTowXDigitNumbersNoCarryProg(prog);
     }
 
-    addTowXDigitNumbersNoCarryProg(prog: WorksheetProgram): MathProblem {
+    static addTowXDigitNumbersNoCarryProg(prog: WorksheetProgram): MathProblem {
 
         let answer: number = 0;
         let number2: number = 0;
@@ -93,17 +95,17 @@ export class Worksheets {
         return mp;
     }
 
-    addTowDigitNumberWithTowDigitNumberWithCarry(): MathProblem {
+    static addTowDigitNumberWithTowDigitNumberWithCarry(): MathProblem {
         let prog = {
             answer: [{ min: 1, max: 9 }, { min: 0, max: 8 }],
             number: [{ min: 1, max: 9 }, { min: 0, max: 9 }],
             mathProblemType: MathProblemTypes.ADDITION
         };
 
-        return this.addTowXDigitNumbersWithCarry(prog);
+        return Worksheets.addTowXDigitNumbersWithCarry(prog);
     }
     //TODO test
-    addTowXDigitNumbersWithCarry(prog: WorksheetProgram): MathProblem {
+    static addTowXDigitNumbersWithCarry(prog: WorksheetProgram): MathProblem {
 
         let answer: number = 0;
         let number2: number = 0;
@@ -139,7 +141,7 @@ export class Worksheets {
         return mp;
     }
 
-    addTwoNumbersAnswerBellow20(): MathProblem {
+    static addTwoNumbersAnswerBellow20(): MathProblem {
         let answer = MathGenerator.getRandomIntInclusive(2, 19);
         let number2 = MathGenerator.getRandomIntInclusive(0, answer);
 
@@ -151,7 +153,7 @@ export class Worksheets {
         return mp;
     }
 
-    addTwoNumbersAnswerBetwen10And20(): MathProblem {
+    static addTwoNumbersAnswerBetwen10And20(): MathProblem {
         let answer = MathGenerator.getRandomIntInclusive(10, 20);
         let number2 = MathGenerator.getRandomIntInclusive(0, answer);
 
@@ -163,9 +165,8 @@ export class Worksheets {
         return mp;
     }
 
-
     //Subtraction facts - numbers up to 10
-    subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping(): MathProblem {
+    static subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping(): MathProblem {
 
         let prog = {
             answer: [{ min: 1, max: 9 }],
@@ -173,11 +174,11 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
-        return this.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
+        return Worksheets.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
     }
     //Subtract multiples of 10
     //Subtract a one-digit number from a two-digit number - without regrouping
-    subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping(): MathProblem {
+    static subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping(): MathProblem {
 
         let prog = {
             answer: [{ min: 1, max: 9 }, { min: 0, max: 9 }],
@@ -185,12 +186,11 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
-        return this.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
+        return Worksheets.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
     }
 
-
     //Subtract a one-digit number from a two-digit number - with regrouping
-    subtractOneDigitNumberFromTwoDigitNumberWithRegrouping(): MathProblem {
+    static subtractOneDigitNumberFromTwoDigitNumberWithRegrouping(): MathProblem {
 
         let prog = {
             answer: [{ min: 1, max: 9 }, { min: 0, max: 8 }],
@@ -198,11 +198,11 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
-        return this.subtractXDigitNumberFromXDigitNumberWithRegrouping(prog);
+        return Worksheets.subtractXDigitNumberFromXDigitNumberWithRegrouping(prog);
     }
 
     //Subtract two two-digit numbers - without regrouping
-    subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping(): MathProblem {
+    static subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping(): MathProblem {
 
         let prog = {
             answer: [{ min: 1, max: 9 }, { min: 0, max: 9 }],
@@ -210,11 +210,11 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
-        return this.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
+        return Worksheets.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
     }
 
     //Subtract two two-digit numbers - with regrouping
-    subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping(): MathProblem {
+    static subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping(): MathProblem {
 
         let prog = {
             answer: [{ min: 2, max: 9 }, { min: 0, max: 8 }],
@@ -222,18 +222,18 @@ export class Worksheets {
             mathProblemType: MathProblemTypes.SUBTRACTION
         };
 
-        return this.subtractXDigitNumberFromXDigitNumberWithRegrouping(prog);
+        return Worksheets.subtractXDigitNumberFromXDigitNumberWithRegrouping(prog);
     }
 
-    subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog: WorksheetProgram): MathProblem {
-        return this.subtractXDigitNumberFromXDigitNumber(prog, false);
+    static subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog: WorksheetProgram): MathProblem {
+        return Worksheets.subtractXDigitNumberFromXDigitNumber(prog, false);
     }
 
-    subtractXDigitNumberFromXDigitNumberWithRegrouping(prog: WorksheetProgram): MathProblem {
-        return this.subtractXDigitNumberFromXDigitNumber(prog, true);
+    static subtractXDigitNumberFromXDigitNumberWithRegrouping(prog: WorksheetProgram): MathProblem {
+        return Worksheets.subtractXDigitNumberFromXDigitNumber(prog, true);
     }
 
-    subtractXDigitNumberFromXDigitNumber(prog: WorksheetProgram, withRegrouping: boolean): MathProblem {
+    static subtractXDigitNumberFromXDigitNumber(prog: WorksheetProgram, withRegrouping: boolean): MathProblem {
         let answer: number = 0;
         let number2: number = 0;
         let xDigit = prog.answer.length;
@@ -279,7 +279,7 @@ export class WorksheetProgram {
     constructor(xDigit: number, mathProblemType: MathProblemTypes) {
         this.answer = new Array(xDigit);
         this.number = new Array(xDigit);
-        this.mathProblemType = mathProblemType;
+        mathProblemType = mathProblemType;
     }
 }
 

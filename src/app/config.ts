@@ -1,5 +1,5 @@
 import { MathProblemTypes, GenerateRange } from './math-generator/mathProblemTypes'
-
+import { WorksheetsItem } from './math-generator/worksheetsMap'
 
 
 export type OrientationTypesKey = "VERTICAL" | "HORIZONTAL";
@@ -21,6 +21,7 @@ export interface Config {
     orientation: OrientationTypesKey;
     realTimeValidation: boolean;
     theme: string;
+    generator: WorksheetsItem;
 }
 
 export const CONFIG: Config = {
@@ -30,7 +31,8 @@ export const CONFIG: Config = {
     generateRange: [{ min: 10, max: 30 }, { min: 1, max: 9 }],
     orientation: "VERTICAL",
     realTimeValidation: true,
-    theme: "pink-bluegrey"
+    theme: "pink-bluegrey",
+    generator: null
 }
 
 export const MATH_EXERCICISES_STORE: string = "MATH_CONFIG";

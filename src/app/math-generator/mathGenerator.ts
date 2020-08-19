@@ -5,7 +5,12 @@ import { MathProblemTypes, mathProplemActions, MathProblemTypesData, GenerateRan
 export class MathGenerator {
 
     static generateProblem(config: Config): MathProblem {
-        return MathGenerator.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
+
+        if (config.generator == null) {
+            return MathGenerator.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
+        } else {
+            return config.generator.func();
+        }
     }
 
     static getListofRandomNumber(generateRange: GenerateRange[], mathProblemTypes: MathProblemTypes, answer: Answer = null): MathProblem {
@@ -70,7 +75,7 @@ export class MathProblem {
     mptd: MathProblemTypesData;
     private _answer: number;
 
-    constructor(mathProblemType: MathProblemTypes, answer : number , values: number[]) {
+    constructor(mathProblemType: MathProblemTypes, answer: number, values: number[]) {
         this.values = values;
         this.questionStr = null;
         this._answer = answer;
@@ -103,15 +108,15 @@ export class MathProblem {
         return this.questionStr;
     }
 
-    shuffle() : void {
+    shuffle(): void {
         this.values = MathGenerator.shuffle(this.values);
     }
 
-    orderAssending() : void {
+    orderAssending(): void {
         this.values.sort((a, b) => a - b);
     }
 
-    orderDescending() : void {
+    orderDescending(): void {
         this.values.sort((a, b) => b - a);
     }
 }
