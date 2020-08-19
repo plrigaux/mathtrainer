@@ -24,15 +24,19 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.exercises = WorksheetsMap.getWorksheetsItem();
-
+/*
     this.myEventSubscriptions.push(this.configService.subscribe(
       cfi => { this.config = cfi.config; }
-    ));
+    ));*/
+
+    this.configService.subscribe(
+      cfi => { this.config = cfi.config; }
+    )
   }
 
   ngOnDestroy(): void {
-    this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
-    this.myEventSubscriptions = [];
+    //this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
+    //this.myEventSubscriptions = [];
   }
 
 

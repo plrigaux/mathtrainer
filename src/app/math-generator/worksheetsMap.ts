@@ -62,7 +62,7 @@ export class WorksheetsMap {
         },
         {
             label: "Subtract multiples of 10",
-            func: null,
+            func: Worksheets.subtractMultiplesOf10,
             mathProblemType: MathProblemTypes.SUBTRACTION,
             code: "" + WorksheetsMap.i++
         },

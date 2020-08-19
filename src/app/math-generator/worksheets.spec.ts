@@ -120,7 +120,7 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    fit('add Tow Double Digit Numbers With Carry', () => {
+    it('add Tow Double Digit Numbers With Carry', () => {
       let mathProblem: MathProblem = Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -172,6 +172,8 @@ describe('Worksheets', () => {
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];
 
+      expect(mathProblem.answer).toBeGreaterThanOrEqual(0, `${number1} - ${number2} NOT greater or equals than 0`);
+      
       TestHelper.isBetweenInbound(number1, 10, 99);
       TestHelper.isBetweenInbound(number2, 0, 9);
 
@@ -184,7 +186,7 @@ describe('Worksheets', () => {
 
   //Subtraction facts - numbers up to 10
   for (var i = 0; i < iteration; ++i) {
-    it('Subtract a one-digit number from a one-digit number', () => {
+    fit('Subtract a one-digit number from a one-digit number', () => {
       let mathProblem: MathProblem = Worksheets.subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -205,7 +207,25 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    it('Subtract a one-digit number from a two-digit number - with regrouping', () => {
+    fit('subtract Multiples Of 10', () => {
+      let mathProblem: MathProblem = Worksheets.subtractMultiplesOf10();
+      console.log("" + mathProblem.question + mathProblem.answer)
+      expect(mathProblem.values.length).toEqual(2);
+
+      TestHelper.isBetweenInbound(mathProblem.values[0], 10, 90);
+      TestHelper.isBetweenInbound(mathProblem.values[1], 10, 90);
+
+      let val1 = mathProblem.values[0];
+      let val2 = mathProblem.values[1];
+
+      expect(val1 % 10).toBe(0, `${val1} NOT multibl of 10`);
+      expect(val2 % 10).toBe(0, `${val2} NOT multibl of 10`);
+      expect(mathProblem.answer).toBeGreaterThanOrEqual(0, `${val1} - ${val2} NOT greater or equals than 0`);
+    });
+  }
+
+  for (var i = 0; i < iteration; ++i) {
+    fit('Subtract a one-digit number from a two-digit number - with regrouping', () => {
       let mathProblem: MathProblem = Worksheets.subtractOneDigitNumberFromTwoDigitNumberWithRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -215,18 +235,20 @@ describe('Worksheets', () => {
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];
 
+      expect(mathProblem.answer).toBeGreaterThanOrEqual(0, `${number1} - ${number2} NOT greater or equals than 0`);
+
       TestHelper.isBetweenInbound(number1, 10, 99);
       TestHelper.isBetweenInbound(number2, 0, 9);
 
       let answerTen = mathProblem.answer < 10 ? 0 : parseInt(mathProblem.answer.toString()[0]);
       let number1Ten = parseInt(number1.toString()[0]);
 
-      expect(number1Ten - answerTen).toBe(1, `Test Failed! ${number1Ten} - ${answerTen} != 1`);
+      expect(number1Ten - answerTen).toBe(1, `Not different ten! number1Ten ${number1Ten} - answerTen ${answerTen} != 1`);
     });
   }
 
   for (var i = 0; i < iteration; ++i) {
-    it('Subtract two two-digit numbers - with regrouping', () => {
+    fit('Subtract two two-digit numbers - with regrouping', () => {
       let mathProblem: MathProblem = Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -235,6 +257,8 @@ describe('Worksheets', () => {
 
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];
+
+      expect(mathProblem.answer).toBeGreaterThanOrEqual(0, `${number1} - ${number2} NOT greater or equals than 0`);
 
       TestHelper.isBetweenInbound(number1, 10, 99);
       TestHelper.isBetweenInbound(number2, 10, 99);

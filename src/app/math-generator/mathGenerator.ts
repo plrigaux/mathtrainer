@@ -9,7 +9,12 @@ export class MathGenerator {
         if (config.generator == null) {
             return MathGenerator.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
         } else {
-            return config.generator.func();
+            try {
+                return config.generator.func();
+            } catch (error) {
+                console.error(error)
+                console.log(config)
+            }
         }
     }
 
