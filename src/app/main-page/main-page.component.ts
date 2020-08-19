@@ -28,7 +28,7 @@ export class MainPageComponent implements OnInit {
     this.myEventSubscriptions.push(this.configService.subscribe(
       cfi => { this.config = cfi.config; }
     ));*/
-
+//TODO investigate
     this.configService.subscribe(
       cfi => { this.config = cfi.config; }
     )

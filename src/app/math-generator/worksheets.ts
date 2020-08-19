@@ -268,7 +268,7 @@ export class Worksheets {
                 }
 
                 if (withRegrouping) {
-                    if (a === n) { //if equals there are no regroupping
+                    if (a === n) { //if equals, it will go bellow 0 
                         ++a;
                     }
                 }
