@@ -18,8 +18,11 @@
         </button>
         <input formControlName={{controlIndex}} [name]="name"
           [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" type="number"
-          (blur)="validateAnswerRealTime()" (keyup.enter)="validateAnswerRealTime()" (keypress)="isNumberKey($event)"
-          (change)="checkChange($event)" (keypress)="typeKey($event)" (keyup)="check($event)"/>
+          (blur)="validateAnswerRealTime(false)" 
+          (keyup.enter)="validateAnswerRealTime(false)" 
+          (keypress)="isNumberKey($event)"
+          (change)="checkChange($event)" 
+          (keyup)="check($event)"/>
       </div>
     </span>
   </div>

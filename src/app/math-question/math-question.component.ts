@@ -64,7 +64,7 @@ export class MathQuestionComponent implements OnInit {
 
     this.myEventSubscriptions.push(this.validateAllService.getValidation().subscribe({
       next: (v) => {
-        this.validateAnswer()
+        this.validateAnswer(false)
         let mqv: MathQuestionValidation = {
           id: this.questionId,
           correct: this.right
@@ -95,31 +95,37 @@ export class MathQuestionComponent implements OnInit {
   }
 
 
-  validateAnswerRealTime(): void {
+  validateAnswerRealTime(infocus :boolean): void {
     if (this.config.realTimeValidation === true) {
-      this.validateAnswer();
+      this.validateAnswer(infocus);
     }
   }
 
-  validateAnswer(): void {
+  validateAnswer(infocus :boolean): void {
     let answer = this.problem.answer;
     this.logger.debug(`User Input: ${this.answer.value} Answer: ${answer}`);
 
-    if (this.answer.value == answer) {
+    if (this.answer.value === answer) {
       console.log("R")
       this.right = true;
       this.wrong = false;
-      this.mathQuestionService.next(name, true);
+      this.mathQuestionService.next(this.questionId.toString(), true);
     }
     //WARN works only if number, Need to consider string cases
     else if (this.answer.value == null) {
       console.log("void")
       this.clearInput();
     }
+    else if (infocus) {
+      console.log("Infocus")
+      this.right = false;
+      this.wrong = false;
+    }
     else {
       console.log("W")
       this.right = false;
       this.wrong = true;
+      this.mathQuestionService.next(this.questionId.toString(), false);
     }
 
     this.logger.debug("Config " + this.config.nbNumbers);
@@ -155,7 +161,7 @@ export class MathQuestionComponent implements OnInit {
   check(event: KeyboardEvent) {
     console.log("check");
     console.log(event);
-    this.validateAnswerRealTime();
+    this.validateAnswerRealTime(true);
   }
 
   clearInput(): void {

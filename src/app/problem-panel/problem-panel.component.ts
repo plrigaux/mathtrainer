@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit}  from '@angular/core';
 import { MathProblem } from '../math-generator/mathGenerator'
 import { ConfigService } from '../config.service'
-import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
-import { MathQuestionService, MathQuestionNotifier } from '../math-question.service';
+import { FormGroup, FormArray } from '@angular/forms';
+import { MathQuestionService } from '../math-question.service';
 
 @Component({
   selector: 'app-problem-panel',
@@ -11,14 +11,13 @@ import { MathQuestionService, MathQuestionNotifier } from '../math-question.serv
 })
 
 export class ProblemPanelComponent implements OnInit {
-
-  //cfg: Config;
   problems: MathProblem[];
-  
+
   panelForm: FormGroup;
   answersFormArray: FormArray;
   progress: number;
   successCount: number;
+  answerMap = new Map();
 
   constructor(private configService: ConfigService, private mathQuestionService: MathQuestionService) {
     console.log(this.answersFormArray)
@@ -32,7 +31,7 @@ export class ProblemPanelComponent implements OnInit {
     this.configService.subscribe(
       cfsi => {
         this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
-        for(let i = this.answersFormArray.length; i > this.problems.length; ) {
+        for (let i = this.answersFormArray.length; i > this.problems.length;) {
           this.answersFormArray.removeAt(--i);
           console.log("FA: " + this.answersFormArray.length);
         }
@@ -45,13 +44,21 @@ export class ProblemPanelComponent implements OnInit {
       }
     );
 
-    this.mathQuestionService.observable.subscribe( notification => {
-      if (notification.success) {
+    this.mathQuestionService.observable.subscribe(notification => {
+      let val = this.answerMap.get(notification.id)
+      console.log(notification)
+      console.log(val)
+      if ((val === undefined || val === false) && notification.success) {
         this.successCount++;
-        this.progress = Math.round(( this.successCount / this.problemsCount) * 100);
+        this.progress = Math.round((this.successCount / this.problemsCount) * 100);
 
         console.log(`SC: ${this.successCount} PR: ${this.progress}`);
+      } else if ( val === true && notification.success === false) {
+        this.successCount--;
+        this.progress = Math.round((this.successCount / this.problemsCount) * 100);
       }
+
+      this.answerMap.set(notification.id, notification.success);
     }
     );
   }
@@ -63,16 +70,16 @@ export class ProblemPanelComponent implements OnInit {
 
   clearForm() {
     this.panelForm = new FormGroup({
-      answers : new FormArray([])
+      answers: new FormArray([])
     })
     this.answersFormArray = this.panelForm.get('answers') as FormArray;
   }
 
-  get problemsCount() : number {
+  get problemsCount(): number {
     return this.problems.length;
   }
 
-  padding(padSize : number) : any[] {
-    return new Array(padSize); 
+  padding(padSize: number): any[] {
+    return new Array(padSize);
   }
 }
