@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Directive } from '@angular/core';
 import { MathProblem, MathGenerator } from '../math-generator/mathGenerator'
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
@@ -11,13 +11,19 @@ import { MathQuestionService } from '../math-question.service';
 
 const regexNumVal = /[0-9,-\.]/
 
+
+@Directive({selector: 'input'})
+export class InputF {
+  @Input() name : string;
+}
+
 @Component({
   selector: 'app-math-question',
   templateUrl: './math-question.component.html',
   styleUrls: ['./math-question.component.scss']
 })
-
 export class MathQuestionComponent implements OnInit {
+
   //value: number;
   right: boolean;
   wrong: boolean;
@@ -29,6 +35,7 @@ export class MathQuestionComponent implements OnInit {
   @Input() readonly questionId: number;
   @Input() readonly panelForm: FormGroup;
   controlIndex: number;
+  @ViewChild("inputReference", {static: false}) inputRef: ElementRef;
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private logger: NGXLogger,
@@ -95,13 +102,13 @@ export class MathQuestionComponent implements OnInit {
   }
 
 
-  validateAnswerRealTime(infocus :boolean): void {
+  validateAnswerRealTime(infocus: boolean): void {
     if (this.config.realTimeValidation === true) {
       this.validateAnswer(infocus);
     }
   }
 
-  validateAnswer(infocus :boolean): void {
+  validateAnswer(infocus: boolean): void {
     let answer = this.problem.answer;
     this.logger.debug(`User Input: ${this.answer.value} Answer: ${answer}`);
 
@@ -184,5 +191,15 @@ export class MathQuestionComponent implements OnInit {
 
   answerControl() {
     return this.answers.at(this.controlIndex) as FormControl;
+  }
+
+  notRight(): boolean {
+    return !this.right
+  }
+
+  focus() {
+    console.log(this.name);
+    console.log(this.inputRef);
+    this.inputRef.nativeElement.focus();
   }
 }

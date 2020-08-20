@@ -1,8 +1,9 @@
-import { Component, OnInit}  from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { MathProblem } from '../math-generator/mathGenerator'
 import { ConfigService } from '../config.service'
 import { FormGroup, FormArray } from '@angular/forms';
-import { MathQuestionService } from '../math-question.service';
+import { MathQuestionService, MathQuestionNotifier } from '../math-question.service';
+import { MathQuestionComponent } from '../math-question/math-question.component'
 
 @Component({
   selector: 'app-problem-panel',
@@ -12,12 +13,12 @@ import { MathQuestionService } from '../math-question.service';
 
 export class ProblemPanelComponent implements OnInit {
   problems: MathProblem[];
-
+  @ViewChildren(MathQuestionComponent) private mathQuestionComponents: QueryList<MathQuestionComponent>;
   panelForm: FormGroup;
   answersFormArray: FormArray;
   progress: number;
   successCount: number;
-  answerMap = new Map();
+  answerMap : Map<string, boolean> = new Map();
 
   constructor(private configService: ConfigService, private mathQuestionService: MathQuestionService) {
     console.log(this.answersFormArray)
@@ -45,22 +46,40 @@ export class ProblemPanelComponent implements OnInit {
     );
 
     this.mathQuestionService.observable.subscribe(notification => {
-      let val = this.answerMap.get(notification.id)
-      console.log(notification)
-      console.log(val)
-      if ((val === undefined || val === false) && notification.success) {
-        this.successCount++;
-        this.progress = Math.round((this.successCount / this.problemsCount) * 100);
+      this.manageNotification(notification);
+    });
+  }
 
-        console.log(`SC: ${this.successCount} PR: ${this.progress}`);
-      } else if ( val === true && notification.success === false) {
-        this.successCount--;
-        this.progress = Math.round((this.successCount / this.problemsCount) * 100);
+  private manageNotification(notification : MathQuestionNotifier) : void {
+    let val = this.answerMap.get(notification.id)
+    console.log(notification)
+    console.log(val)
+    
+    if ((val === undefined || val === false) && notification.success) {
+      this.successCount++;
+      this.progress = Math.round((this.successCount / this.problemsCount) * 100);
+
+      console.log(`SC: ${this.successCount} PR: ${this.progress}`);
+
+      let mq = this.mathQuestionComponents.find(mq => mq.notRight());
+      if (mq !== undefined) {
+        mq.focus();
       }
-
-      this.answerMap.set(notification.id, notification.success);
+    } else if (val === true && notification.success === false) {
+      this.successCount--;
+      this.progress = Math.round((this.successCount / this.problemsCount) * 100);
     }
-    );
+    this.answerMap.set(notification.id, notification.success);
+  }
+
+  ngAfterViewInit() {
+    /*let list : MathQuestionComponent[] = this.mathQuestionComponents.toArray();
+    for(let i = 0; i < list.length; ++i) {
+      let mq = list[i];
+      console.log(mq.name);
+    } 
+*/
+    this.mathQuestionComponents.forEach(mq => console.log(mq.name));
   }
 
   ngOnDestroy(): void {

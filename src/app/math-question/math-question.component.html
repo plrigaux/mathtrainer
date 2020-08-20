@@ -16,7 +16,7 @@
             </path>
           </svg>
         </button>
-        <input formControlName={{controlIndex}} [name]="name"
+        <input formControlName={{controlIndex}} [name]="name" #inputReference
           [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" type="number"
           (blur)="validateAnswerRealTime(false)" 
           (keyup.enter)="validateAnswerRealTime(false)" 
