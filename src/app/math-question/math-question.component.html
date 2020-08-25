@@ -8,7 +8,7 @@
       </ng-template>
       <span class="equals">=</span>
       <div class="answerField" formArrayName="answers">
-        <button mat-button *ngIf="answer.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearInput()">
+        <button mat-button *ngIf="answerFC.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearInput()">
           <!-- <mat-icon>add_circle</mat-icon> -->
           <svg class="deleteIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
             <path
@@ -20,7 +20,7 @@
           [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" type="number"
           (blur)="validateAnswerRealTime(false)" 
           (keyup.enter)="validateAnswerRealTime(false)" 
-          (keypress)="isNumberKey($event)"
+          (keydown)="preventUpDown($event)"
           (change)="checkChange($event)" 
           (keyup)="check($event)"/>
       </div>

@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs'
 
+export enum QuestionStatus {
+  RIGHT,
+  WRONG,
+  EMPTY
+}
+
 export class MathQuestionNotifier {
-  success: boolean;
+  status: QuestionStatus;
+  index: number;
   id: string;
 }
 
@@ -21,7 +28,7 @@ export class MathQuestionService {
     this.observable.unsubscribe();
   }
 
-  next(id: string, success: boolean) {
-    this.observable.next({ id: id, success: success });
+  next(id: string, index : number, status: QuestionStatus) {
+    this.observable.next({ id: id, index: index, status: status });
   }
 }

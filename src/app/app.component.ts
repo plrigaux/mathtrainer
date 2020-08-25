@@ -4,7 +4,7 @@ import { ResetService } from './reset.service';
 import { ConfigService } from './config.service'
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from './config';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 
 //const MQ_THEME: string = "MQ_THEME";
 
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     { value: 'purple-green', label: "Purple & Green" },
   ]
 
-  constructor(private resetService: ResetService, private configSrv: ConfigService) {
+  constructor(private resetService: ResetService, private configSrv : ConfigService, private router: Router) {
 
   }
 
@@ -77,5 +77,9 @@ export class AppComponent implements OnInit {
 
   getAnimationData(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+  }
+
+  goHome() : void {
+    this.router.navigate(['/']);
   }
 }

@@ -16,6 +16,11 @@
 
 
 <mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="goHome()">
+    <mat-icon>home</mat-icon>
+    <span>Home</span>
+  </button>
+  <mat-divider></mat-divider>
   <app-config-dialog-opener></app-config-dialog-opener>
   <mat-divider></mat-divider>
   <button mat-menu-item (click)="reset()">
