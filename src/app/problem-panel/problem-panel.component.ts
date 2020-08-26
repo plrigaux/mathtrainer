@@ -64,25 +64,14 @@ export class ProblemPanelComponent implements OnInit {
 
           console.log(`SC: ${this.successCount} PR: ${this.progress}`);
 
-          let arr = this.mathQuestionComponents.toArray();
+          let array = this.mathQuestionComponents.toArray();
 
           let mqc: MathQuestionComponent;
 
-          for (let i = 0; i < arr.length; ++i) {
-            let mq = arr[i];
-            
-            //find the next one first
-            if (i > notification.index) {
-              if (mq.notRight()) {
-                mqc = mq;
-                break;
-              }
-            } else {
-              //take the firs beffore if no after
-              if (mq.notRight() && mqc === undefined) {
-                mqc = mq;
-              }
-            }
+          mqc = this.runOverCommponents(notification.index + 1, array.length, array)
+
+          if (mqc === undefined) {
+            mqc = this.runOverCommponents(0, notification.index, array)
           }
 
           if (mqc !== undefined) {
@@ -99,6 +88,16 @@ export class ProblemPanelComponent implements OnInit {
     }
 
     this.answerMap.set(notification.id, notification.status);
+  }
+
+  private runOverCommponents(i: number, limit: number, arr: MathQuestionComponent[]): MathQuestionComponent {
+    while (i < limit) {
+      let mq = arr[i];
+      if (mq.notRight()) {
+        return mq;
+      }
+      ++i
+    }
   }
 
   private decreaseProgress(currentStatus: QuestionStatus): void {

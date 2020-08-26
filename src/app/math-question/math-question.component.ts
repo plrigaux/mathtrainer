@@ -8,21 +8,51 @@ import { ValidateAllService, MathQuestionValidation } from '../validate-all.serv
 import { NGXLogger } from 'ngx-logger';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MathQuestionService, QuestionStatus } from '../math-question.service';
+import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 
 const regexNumVal = /[0-9,-\.]/
 
-
-
 @Component({
   selector: 'app-math-question',
+  
+  animations: [
+    trigger('answerStatus', [
+      state(QuestionStatus.RIGHT, style({ backgroundColor: 'limegreen' })),
+      state(QuestionStatus.WRONG, style({ backgroundColor: 'red' })),
+      state(QuestionStatus.EMPTY, style({ backgroundColor: 'white' })),
+
+      transition('* => ' + QuestionStatus.RIGHT +"", [
+        animate('2s', keyframes([
+          style({ backgroundColor: "white", color:"red" }),
+          style({ backgroundColor: "red", color:"blue" }),
+          style({ backgroundColor: "limegreen", color:"orange" })
+        ]))
+        
+        /*animate('2s', keyframes([
+          style({ backgroundColor: 'blue', offset: 0}),
+          style({ backgroundColor: 'red', offset: 0.8}),
+          style({ backgroundColor: 'orange', offset: 1.0})
+        ])),*/
+      ]),
+      transition('* => ' + QuestionStatus.WRONG, [
+        animate('0.5s')/*
+        animate('2s', keyframes([
+          style({ backgroundColor: 'orange', offset: 0}),
+          style({ backgroundColor: 'red', offset: 0.2}),
+          style({ backgroundColor: 'blue', offset: 1.0})
+        ]))*/
+      ])
+    ])
+  ],
   templateUrl: './math-question.component.html',
-  styleUrls: ['./math-question.component.scss']
+  styleUrls: ['./math-question.component.scss'],
 })
 export class MathQuestionComponent implements OnInit {
 
   //value: number;
-  right: boolean;
-  wrong: boolean;
+  //right: boolean;
+  //wrong: boolean;
+  status: QuestionStatus;
   stacked: boolean;
   problem: MathProblem;
   private myEventSubscriptions: Subscription[] = [];
@@ -36,8 +66,9 @@ export class MathQuestionComponent implements OnInit {
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private logger: NGXLogger,
     private resetService: ResetService, private mathQuestionService: MathQuestionService) {
-    this.right = false;
-    this.wrong = false;
+    //this.right = false;
+    //this.wrong = false;
+    this.status = QuestionStatus.EMPTY
     this.stacked = true;
   }
 
@@ -70,7 +101,7 @@ export class MathQuestionComponent implements OnInit {
         this.validateAnswer(false)
         let mqv: MathQuestionValidation = {
           id: this.questionId,
-          correct: this.right
+          correct: this.status === QuestionStatus.RIGHT
         }
         v.push(mqv)
         this.logger.debug('Delay mqi ' + this.questionId + " vl " + v.length)
@@ -110,8 +141,9 @@ export class MathQuestionComponent implements OnInit {
 
     if (this.answerFC.value === answer) {
       console.log("R")
-      this.right = true;
-      this.wrong = false;
+      //this.right = true;
+      //this.wrong = false;
+      this.status = QuestionStatus.RIGHT;
       this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.RIGHT);
     }
     //WARN works only if number, Need to consider string cases
@@ -121,14 +153,16 @@ export class MathQuestionComponent implements OnInit {
     }
     else if (infocus) {
       console.log("Infocus")
-      this.right = false;
-      this.wrong = false;
+      //this.right = false;
+      //this.wrong = false;
+      this.status = QuestionStatus.EMPTY;
       this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.EMPTY);
     }
     else {
       console.log("W")
-      this.right = false;
-      this.wrong = true;
+      //this.right = false;
+      //this.wrong = true;
+      this.status = QuestionStatus.WRONG;
       this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.WRONG);
     }
 
@@ -170,16 +204,18 @@ export class MathQuestionComponent implements OnInit {
   }
 
   setVoid() {
-    this.right = false;
-    this.wrong = false;
+    //this.right = false;
+    //this.wrong = false;
+    this.status = QuestionStatus.EMPTY;
     this.answerFC.setValue(null);
     this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.EMPTY);
   }
 
   reset() {
     this.problem = MathGenerator.generateProblem(this.config);
-    this.right = false;
-    this.wrong = false;
+    //this.right = false;
+    //this.wrong = false;
+    this.status = QuestionStatus.EMPTY;
     this.answerFC.setValue(null);
     this.logger.debug(`FA ${this.answers.length}`);
   }
@@ -193,7 +229,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   notRight(): boolean {
-    return !this.right
+    return this.status !== QuestionStatus.RIGHT;
   }
 
   focus() {

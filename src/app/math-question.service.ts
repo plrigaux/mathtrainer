@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs'
 
 export enum QuestionStatus {
-  RIGHT,
-  WRONG,
-  EMPTY
+  RIGHT = "RIGHT",
+  WRONG = "WRONG",
+  EMPTY = "EMPTY"
 }
 
 export class MathQuestionNotifier {
