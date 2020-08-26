@@ -1,6 +1,6 @@
 <div class="content">
   <h2 class="mat-h2">Question&nbsp;{{questionId}}</h2>
-  <div [@answerStatus]="status" class="mathQuestion" [formGroup]="panelForm">
+  <div class="mathQuestion" [formGroup]="panelForm">
     <span [ngClass]="{'equation':true, 'stacked': stacked}">
       <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
         <span class="number">{{num}}</span>
