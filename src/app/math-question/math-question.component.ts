@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Directive } from '@angular/core';
-import { MathProblem, MathGenerator } from '../math-generator/mathGenerator'
+import { MathGenerator } from '../math-generator/mathGenerator'
+import { MathProblem } from "../math-generator/mathProblem";
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
 import { ResetService } from '../reset.service'
@@ -14,20 +15,20 @@ const regexNumVal = /[0-9,-\.]/
 
 @Component({
   selector: 'app-math-question',
-  
+
   animations: [
     trigger('answerStatus', [
       state(QuestionStatus.RIGHT, style({ backgroundColor: 'limegreen' })),
       state(QuestionStatus.WRONG, style({ backgroundColor: 'red' })),
       state(QuestionStatus.EMPTY, style({ backgroundColor: 'white' })),
 
-      transition('* => ' + QuestionStatus.RIGHT +"", [
+      transition('* => ' + QuestionStatus.RIGHT + "", [
         animate('2s', keyframes([
-          style({ backgroundColor: "white", color:"red" }),
-          style({ backgroundColor: "red", color:"blue" }),
-          style({ backgroundColor: "limegreen", color:"orange" })
+          style({ backgroundColor: "white", color: "red" }),
+          style({ backgroundColor: "red", color: "blue" }),
+          style({ backgroundColor: "limegreen", color: "orange" })
         ]))
-        
+
         /*animate('2s', keyframes([
           style({ backgroundColor: 'blue', offset: 0}),
           style({ backgroundColor: 'red', offset: 0.8}),
@@ -54,7 +55,7 @@ export class MathQuestionComponent implements OnInit {
   //wrong: boolean;
   status: QuestionStatus;
   stacked: boolean;
-  problem: MathProblem;
+  private _problem: MathProblem;
   private myEventSubscriptions: Subscription[] = [];
   private config: Config;
   answerFC: FormControl;
@@ -66,8 +67,6 @@ export class MathQuestionComponent implements OnInit {
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private logger: NGXLogger,
     private resetService: ResetService, private mathQuestionService: MathQuestionService) {
-    //this.right = false;
-    //this.wrong = false;
     this.status = QuestionStatus.EMPTY
     this.stacked = true;
   }
@@ -84,46 +83,56 @@ export class MathQuestionComponent implements OnInit {
       this.answerFC = this.answers.at(this.controlIndex) as FormControl;
     }
 
-    //console.log(this.answers)
-    //console.log(`Control index= ${this.controlIndex}`)
-    this.myEventSubscriptions.push(this.configService.subscribe(
-      cfsi => {
-        this.config = cfsi.config;
-        this.stacked = this.config.orientation == "VERTICAL";
-        if (cfsi.needReset) {
-          this.reset();
+    this.myEventSubscriptions.push(
+      this.configService.subscribe(
+        cfsi => {
+          this.config = cfsi.config;
+          this.stacked = this.config.orientation == "VERTICAL";
+          if (cfsi.needReset) {
+            this.reset();
+          }
         }
-      }
-    ));
+      )
+    );
 
-    this.myEventSubscriptions.push(this.validateAllService.getValidation().subscribe({
-      next: (v) => {
-        this.validateAnswer(false)
-        let mqv: MathQuestionValidation = {
-          id: this.questionId,
-          correct: this.status === QuestionStatus.RIGHT
+    this.myEventSubscriptions.push(
+      this.validateAllService.getValidation().subscribe({
+        next: (v) => {
+          this.validateAnswer(false)
+          let mqv: MathQuestionValidation = {
+            id: this.questionId,
+            correct: this.status === QuestionStatus.RIGHT
+          }
+          v.push(mqv)
+          this.logger.debug('Delay mqi ' + this.questionId + " vl " + v.length)
+        },
+        error: err => console.error('Observer got an error: ' + err),
+        complete: () => {
+          this.logger.debug("This is the end");
         }
-        v.push(mqv)
-        this.logger.debug('Delay mqi ' + this.questionId + " vl " + v.length)
-      },
-      error: err => console.error('Observer got an error: ' + err),
-      complete: () => {
-        this.logger.debug("This is the end");
-      }
-    }));
+      })
+    );
 
-    this.myEventSubscriptions.push(this.resetService.obs.subscribe({
-      next: () => { this.reset() }
-    }));
-
+    this.myEventSubscriptions.push(
+      this.resetService.obs.subscribe({
+        next: () => { this.reset() }
+      })
+    );
   }
 
   get name(): string {
     return "mqid_" + this.questionId
   }
 
+  get problem() {
+    return this._problem;
+  }
+
   ngOnDestroy(): void {
-    this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
+    this.myEventSubscriptions.forEach(subscription => {
+      console.log(`subscription.unsubscribe() ${subscription}`)
+      subscription.unsubscribe()
+    });
 
     //this.answers.removeAt(this.controlIndex);
   }
@@ -141,8 +150,6 @@ export class MathQuestionComponent implements OnInit {
 
     if (this.answerFC.value === answer) {
       console.log("R")
-      //this.right = true;
-      //this.wrong = false;
       this.status = QuestionStatus.RIGHT;
       this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.RIGHT);
     }
@@ -160,8 +167,6 @@ export class MathQuestionComponent implements OnInit {
     }
     else {
       console.log("W")
-      //this.right = false;
-      //this.wrong = true;
       this.status = QuestionStatus.WRONG;
       this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.WRONG);
     }
@@ -204,17 +209,16 @@ export class MathQuestionComponent implements OnInit {
   }
 
   setVoid() {
-    //this.right = false;
-    //this.wrong = false;
     this.status = QuestionStatus.EMPTY;
     this.answerFC.setValue(null);
     this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.EMPTY);
   }
 
   reset() {
-    this.problem = MathGenerator.generateProblem(this.config);
-    //this.right = false;
-    //this.wrong = false;
+    this._problem = MathGenerator.generateProblem(this.config);
+    console.log("PROBLEM !!!");
+    console.log(this._problem);
+    console.log(this.config);
     this.status = QuestionStatus.EMPTY;
     this.answerFC.setValue(null);
     this.logger.debug(`FA ${this.answers.length}`);

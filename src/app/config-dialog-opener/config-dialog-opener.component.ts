@@ -3,7 +3,7 @@ import { ConfigDialogComponent } from "../config-dialog/config-dialog.component"
 import { MatDialog } from '@angular/material/dialog';
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
-
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,18 +14,21 @@ import { ConfigService } from '../config.service'
 
 
 export class ConfigDialogOpenerComponent implements OnInit {
-
-  config: Config;
+  private myEventSubscriptions : Subscription[] = [];
+  private config: Config;
 
   constructor(public dialog: MatDialog, private configService: ConfigService) {
 
   }
 
   ngOnInit(): void {
-
-    this.configService.subscribe(
+    this.myEventSubscriptions.push(this.configService.subscribe(
       cfi => { this.config = cfi.config; }
-    );
+    ));
+  }
+
+  ngOnDestroy(): void {
+    this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   openDialog(): void {

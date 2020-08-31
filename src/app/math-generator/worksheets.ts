@@ -1,4 +1,5 @@
-import { MathProblem, MathGenerator } from './mathGenerator';
+import { MathGenerator } from './mathGenerator';
+import { MathProblem } from "./mathProblem";
 import { GenerateRange, MathProblemTypes, Relation, Answer } from './mathProblemTypes';
 import { Injectable } from '@angular/core';
 import { Config } from '../config';
@@ -351,7 +352,7 @@ export class WorksheetProgram {
     constructor(xDigit: number, mathProblemType: MathProblemTypes) {
         this.answer = new Array(xDigit);
         this.number = new Array(xDigit);
-        mathProblemType = mathProblemType;
+        this.mathProblemType = mathProblemType;
     }
 }
 

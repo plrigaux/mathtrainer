@@ -1,4 +1,4 @@
-import { MathProblem } from '../math-generator/mathGenerator'
+import { MathProblem } from "../math-generator/mathProblem";
 
 export class WorkTask {
     problem: MathProblem;
@@ -17,7 +17,7 @@ export class WorkTask {
     }
 
     get operator(): string {
-        return this.problem.mptd.op;
+        return this.problem.mathProplemActions.operator;
     }
 
     setStartTime() {

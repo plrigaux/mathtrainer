@@ -4,7 +4,7 @@
     <span [ngClass]="{'equation':true, 'stacked': stacked}">
       <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
         <span class="number">{{num}}</span>
-        <span *ngIf="last==false" class="operator">{{problem.mptd.op}}</span>
+        <span *ngIf="last==false" class="operator">{{problem.mathProplemActions.operator}}</span>
       </ng-template>
       <span class="equals">=</span>
       <div class="answerField" formArrayName="answers">

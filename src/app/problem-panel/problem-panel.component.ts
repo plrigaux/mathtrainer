@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { MathProblem } from '../math-generator/mathGenerator'
+import { MathProblem } from "../math-generator/mathProblem";
 import { ConfigService } from '../config.service'
 import { FormGroup, FormArray } from '@angular/forms';
 import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../math-question.service';
 import { MathQuestionComponent } from '../math-question/math-question.component'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-problem-panel',
@@ -19,6 +20,7 @@ export class ProblemPanelComponent implements OnInit {
   progress: number;
   successCount: number;
   answerMap: Map<string, QuestionStatus> = new Map();
+  private substriptions: Subscription[] = [];
 
   constructor(private configService: ConfigService, private mathQuestionService: MathQuestionService) {
     console.log(this.answersFormArray)
@@ -29,25 +31,29 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.configService.subscribe(
-      cfsi => {
-        this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
-        for (let i = this.answersFormArray.length; i > this.problems.length;) {
-          this.answersFormArray.removeAt(--i);
-          console.log("FA: " + this.answersFormArray.length);
-        }
+    this.substriptions.push(
+      this.configService.subscribe(
+        cfsi => {
+          this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
+          for (let i = this.answersFormArray.length; i > this.problems.length;) {
+            this.answersFormArray.removeAt(--i);
+            console.log("FA: " + this.answersFormArray.length);
+          }
 
-        //reset state
-        if (cfsi.needReset) {
-          this.progress = 0;
-          this.successCount = 0;
+          //reset state
+          if (cfsi.needReset) {
+            this.progress = 0;
+            this.successCount = 0;
+          }
         }
-      }
+      )
     );
 
-    this.mathQuestionService.observable.subscribe(notification => {
-      this.manageNotification(notification);
-    });
+    this.substriptions.push(
+      this.mathQuestionService.observable.subscribe(notification => {
+        this.manageNotification(notification);
+      })
+    );
   }
 
   private manageNotification(notification: MathQuestionNotifier): void {
@@ -116,8 +122,7 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.configService.unsubscribe()
-    this.mathQuestionService.unsubscribe()
+    this.substriptions.forEach(substription => substription.unsubscribe());
   }
 
   clearForm() {

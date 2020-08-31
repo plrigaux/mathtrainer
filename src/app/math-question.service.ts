@@ -25,10 +25,12 @@ export class MathQuestionService {
   }
 
   unsubscribe() {
-    this.observable.unsubscribe();
+    if (this.observable) {
+      this.observable.unsubscribe();
+    }
   }
 
-  next(id: string, index : number, status: QuestionStatus) {
+  next(id: string, index: number, status: QuestionStatus) {
     this.observable.next({ id: id, index: index, status: status });
   }
 }

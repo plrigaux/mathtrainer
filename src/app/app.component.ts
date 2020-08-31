@@ -5,7 +5,7 @@ import { ConfigService } from './config.service'
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from './config';
 import { RouterOutlet, Router } from '@angular/router';
-
+import { Subscription } from 'rxjs';
 //const MQ_THEME: string = "MQ_THEME";
 
 @Component({
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   myname: string = "myname";
   config: Config;
   equationOrientations: EquationOrientation[] = EquationOrientations;
+  private myEventSubscriptions : Subscription[] = []; 
 
   public readonly themes = [
     { value: 'default-theme', label: "Default" },
@@ -36,12 +37,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.configSrv.subscribe({
+    this.myEventSubscriptions.push( this.configSrv.subscribe({
       next: cfgi => {
         this.config = cfgi.config;
         this.setTheme();
       }
-    })
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   setTheme() {

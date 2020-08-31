@@ -54,7 +54,9 @@ export class ConfigService {
   }
 
   unsubscribe() {
-    this.configSource.unsubscribe();
+    if (this.configSource) {
+      this.configSource.unsubscribe();
+    }
   }
 
   next(value: Config, needReset: boolean) {

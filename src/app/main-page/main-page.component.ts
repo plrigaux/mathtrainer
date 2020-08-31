@@ -14,9 +14,9 @@ import { Subscription } from 'rxjs';
 export class MainPageComponent implements OnInit {
 
   exercises: WorksheetsItem[];
-  worksheetsItem : WorksheetsItem = null;
-  config: Config;
-  myEventSubscriptions: Subscription[] = [];
+  private worksheetsItem : WorksheetsItem = null;
+  private config: Config;
+  private myEventSubscriptions: Subscription[] = [];
 
   constructor(private router: Router, private configService: ConfigService) {
 
@@ -37,8 +37,8 @@ export class MainPageComponent implements OnInit {
   ngOnDestroy(): void {
     //this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
     //this.myEventSubscriptions = [];
+    console.log("DEStroy !!!!!!!!!!!!");
   }
-
 
   goToProblems() {
     this.setUpConfig();

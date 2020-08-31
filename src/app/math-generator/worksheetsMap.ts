@@ -1,4 +1,4 @@
-import { MathProblem } from './mathGenerator';
+import { MathProblem } from "./mathProblem";
 import { MathProblemTypes } from './mathProblemTypes';
 import { Worksheets } from './worksheets'
 
@@ -89,7 +89,8 @@ export class WorksheetsMap {
     }
 */
     private static generateMapItem(label: string,
-        func: () => MathProblem, mathProblemType: MathProblemTypes): WorksheetsItem {
+        func: () => MathProblem, 
+        mathProblemType: MathProblemTypes): WorksheetsItem {
 
         return {
             label: label,

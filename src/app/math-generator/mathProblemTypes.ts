@@ -22,7 +22,7 @@ export namespace MathProblemTypes {
 export interface MathProblemTypesData {
     name: string;
     code: string;
-    op: string;
+    operator: string;
     opFunc: (value: number[]) => number;
 }
 
@@ -35,7 +35,7 @@ export const mathProplemActions: MathProblemTypesMap = {
     "ADDITION" : {
         name: "Addition",
         code: MathProblemTypes.ADDITION,
-        op: "+",
+        operator: "+",
         opFunc: (value: number[]) => {
             return value.reduce((a, b) => a + b, 0);
         }
@@ -44,7 +44,7 @@ export const mathProplemActions: MathProblemTypesMap = {
     "SUBTRACTION": {
         name: "Subtraction",
         code: MathProblemTypes.SUBTRACTION,
-        op: "-",
+        operator: "-",
         opFunc: (value: number[]) => {
             return value.reduce((total, num) => total - num);
         }
@@ -52,7 +52,7 @@ export const mathProplemActions: MathProblemTypesMap = {
     "MULTIPLICATION": {
         name: "Multiplication",
         code: MathProblemTypes.MULTIPLICATION,
-        op: "x",
+        operator: "x",
         opFunc: (value: number[]) => {
             return value.reduce((total, num) => total * num);
         }
@@ -60,7 +60,7 @@ export const mathProplemActions: MathProblemTypesMap = {
     "DIVISION": {
         name: "Division",
         code: MathProblemTypes.DIVISION,
-        op: "÷",
+        operator: "÷",
         opFunc: (value: number[]) => {
             return value.reduce((total, num) => total / num);
         }

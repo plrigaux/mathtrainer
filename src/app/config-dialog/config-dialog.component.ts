@@ -70,6 +70,7 @@ export class ConfigDialogComponent implements OnInit {
       data: this.config
     });
 
+    //TODO check the subscription unsubscribe
     dialogRef.afterClosed().subscribe(results => {
       console.log('The dialog was closed');
       console.log(results);
