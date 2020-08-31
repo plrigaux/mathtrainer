@@ -63,6 +63,7 @@ import { WorkoutPanelComponent } from './workout-panel/workout-panel.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { ArrayFilterPipe } from './array-filter.pipe';
+import { TestFeaturesComponent } from './test-features/test-features.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { ArrayFilterPipe } from './array-filter.pipe';
     WorkoutPanelComponent,
     PageNotFoundComponent,
     MainPageComponent,
-    ArrayFilterPipe
+    ArrayFilterPipe,
+    TestFeaturesComponent
   ],
   imports: [LoggerModule.forRoot({/*serverLoggingUrl: '/api/logs',*/ level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR }),
     HttpClientModule,
