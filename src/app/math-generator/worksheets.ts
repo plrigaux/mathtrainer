@@ -58,15 +58,23 @@ export class Worksheets {
         let prog = new WorksheetProgram(xDigit, MathProblemTypes.ADDITION);
 
         for (let i = 0; i < xDigit; ++i) {
+            let first = i === 0;
+
             let instruction: WorksheetProgramInstruction = {
-                min: i == 0 ? 1 : 0,
+                min: 0,
                 max: 9
             }
 
             prog.answer[i] = instruction;
-            prog.number[i] = instruction;
-        }
+            prog.number[i] = { ...instruction };
 
+            if (first) {
+                prog.answer[i].min = 2;
+                prog.number[i].min = 1;
+            } else {
+                prog.answer[i].min = 1;
+            }
+        }
         return Worksheets.addTowXDigitNumbersNoCarryProg(prog);
     }
 
@@ -76,11 +84,16 @@ export class Worksheets {
         let number2: number = 0;
         let xDigit = prog.answer.length;
 
+
         for (let i = 0; i < xDigit;) {
+            let first = i == 0;
+
             let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
 
-            let valmax = Math.min(a, prog.number[i].max)
-            let n = MathGenerator.getRandomIntInclusive(prog.number[i].min, valmax);
+            let valmax = Math.min(first ? a - 1 : a, prog.number[i].max)
+            let valmin = first ? 1 : prog.number[i].min
+
+            let n = MathGenerator.getRandomIntInclusive(valmin, valmax);
 
             let pow = xDigit - ++i;
             answer += a * (10 ** pow);
@@ -98,7 +111,7 @@ export class Worksheets {
 
     static addTowDigitNumberWithTowDigitNumberWithCarry(): MathProblem {
         let prog = {
-            answer: [{ min: 1, max: 9 }, { min: 0, max: 8 }],
+            answer: [{ min: 3, max: 9 }, { min: 0, max: 8 }],
             number: [{ min: 1, max: 9 }, { min: 0, max: 9 }],
             mathProblemType: MathProblemTypes.ADDITION
         };
@@ -113,17 +126,20 @@ export class Worksheets {
         let xDigit = prog.answer.length;
 
         for (let i = 0; i < xDigit;) {
+            let first = i === 0;
+            let last = i + 1 >= xDigit;
 
             let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
 
             let valmin: number = prog.number[i].min;
             let valmax: number = prog.number[i].max;
 
-            if (i + 1 >= xDigit) {
+            if (first) {
+                valmax = Math.min(a - 2, prog.number[i].max)
+            } if (last) {
                 valmin = a + 1;
             } else {
                 valmax = Math.min(a - 1, prog.number[i].max)
-                valmin = Math.min(valmin, valmax)
             }
 
             let n = MathGenerator.getRandomIntInclusive(valmin, valmax);
@@ -281,7 +297,7 @@ export class Worksheets {
                         let tmp = a;
                         a = n
                         n = tmp
-                    } 
+                    }
                 } else {
                     if (a < n) {
                         let tmp = a;

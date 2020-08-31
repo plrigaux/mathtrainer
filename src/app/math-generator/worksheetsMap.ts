@@ -34,7 +34,7 @@ export class WorksheetsMap {
 
         ),
         WorksheetsMap.generateMapItem(
-            "Add Tow Digit Number With Tow Digit Number With Carry",
+            "Add a 2 digit number with a 2 digit number with carry",
             Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry,
             MathProblemTypes.ADDITION
         ),
