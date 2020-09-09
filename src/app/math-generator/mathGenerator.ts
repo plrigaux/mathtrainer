@@ -1,22 +1,43 @@
 import { Config } from '../config'
 import { MathProblemTypes, GenerateRange, Answer } from './mathProblemTypes';
 import { MathProblem } from './mathProblem';
+import { WorksheetsItem, WorksheetsMap } from './worksheetsMap';
+//import { Worksheets } from './worksheets';
 
 export class MathGenerator {
 
     static generateProblem(config: Config): MathProblem {
+        return MathGenerator.generateProblemNext(config, 0);
+    }
 
-        if (config.generators == null || config.generators.size === 0) {
-            //return MathGenerator.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
-            return null;
-        } else {
-            try {
-                return config.generators.values().next().value.func();
-            } catch (error) {
-                console.error(error)
-                console.log(config)
+    static generateProblemNext(config: Config, index: number): MathProblem {
+        //TODO Change this!!!!!!!!!!!!!!!
+        //console.log("//TODO Change this!!!!!!!!!!!!!!!")
+
+        let it: Iterator<WorksheetsItem> = config.generators.values();
+
+        let itres: IteratorResult<WorksheetsItem> = it.next()
+        let idx = 0
+        let mp : WorksheetsItem = null;
+        while (!itres.done) {
+            mp = itres.value;
+            console.log(mp.funcName)
+            if (++idx >= index) {
+                break;
             }
+
+            itres = it.next()
+            if (itres.done) {
+                it = config.generators.values();
+                itres = it.next();
+                console.log(itres.done)
+            } 
         }
+        console.log(mp)
+        if (mp == null) {
+            return MathGenerator.default();
+        }
+        return mp.func();
     }
 
     static getListofRandomNumber(generateRange: GenerateRange[], mathProblemTypes: MathProblemTypes, answer: Answer = null): MathProblem {
@@ -50,6 +71,16 @@ export class MathGenerator {
 
     static toArray(a: number, b: number): number[] {
         return [a, b];
+    }
+
+    static default(): MathProblem {
+
+        let generateRange: GenerateRange[] = [
+            { min: 1, max: 1 },
+            { min: 1, max: 1 }
+        ];
+
+        return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
     }
 }
 

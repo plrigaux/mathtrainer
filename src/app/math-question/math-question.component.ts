@@ -215,7 +215,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   reset() {
-    this._problem = MathGenerator.generateProblem(this.config);
+    this._problem = MathGenerator.generateProblemNext(this.config, this.questionId);
     console.log("PROBLEM !!!");
     console.log(this._problem);
     console.log(this.config);

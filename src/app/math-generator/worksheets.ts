@@ -2,7 +2,6 @@ import { MathGenerator } from './mathGenerator';
 import { MathProblem } from "./mathProblem";
 import { GenerateRange, MathProblemTypes, Relation, Answer } from './mathProblemTypes';
 import { Injectable } from '@angular/core';
-import { Config } from '../config';
 
 @Injectable({
     providedIn: 'root'
