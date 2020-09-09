@@ -8,7 +8,7 @@ export class MathGenerator {
 
         if (config.generators == null || config.generators.size === 0) {
             //return MathGenerator.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
-return null;
+            return null;
         } else {
             try {
                 return config.generators.values().next().value.func();

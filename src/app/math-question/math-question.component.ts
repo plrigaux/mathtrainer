@@ -23,7 +23,7 @@ const regexNumVal = /[0-9,-\.]/
       state(QuestionStatus.EMPTY, style({ backgroundColor: 'white' })),
 
       transition('* => ' + QuestionStatus.RIGHT + "", [
-        animate('2s', keyframes([
+        animate('1s', keyframes([
           style({ backgroundColor: "white", color: "red" }),
           style({ backgroundColor: "red", color: "blue" }),
           style({ backgroundColor: "limegreen", color: "orange" })
