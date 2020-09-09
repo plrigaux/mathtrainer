@@ -8,7 +8,6 @@
   "files": [
     "src/main.ts",
     "src/polyfills.ts",
-    "./src/app/math-generator/MathProblem.1.ts"
   ],
   "include": [
     "src/**/*.d.ts"
