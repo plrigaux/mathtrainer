@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { WorksheetsMap, WorksheetsItem } from '../math-generator/worksheetsMap'
 import { MathProblemTypes } from '../math-generator/mathProblemTypes';
 import { ConfigService } from '../config.service'
 import { Config } from '../config';
 import { Subscription } from 'rxjs';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-main-page',
@@ -14,9 +15,10 @@ import { Subscription } from 'rxjs';
 export class MainPageComponent implements OnInit {
 
   exercises: WorksheetsItem[];
-  private worksheetsItem : WorksheetsItem = null;
+  private worksheetsItem: WorksheetsItem = null;
   private config: Config;
   private myEventSubscriptions: Subscription[] = [];
+  @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
 
   constructor(private router: Router, private configService: ConfigService) {
 
@@ -24,11 +26,11 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.exercises = WorksheetsMap.getWorksheetsItem();
-/*
-    this.myEventSubscriptions.push(this.configService.subscribe(
-      cfi => { this.config = cfi.config; }
-    ));*/
-//TODO investigate
+    /*
+        this.myEventSubscriptions.push(this.configService.subscribe(
+          cfi => { this.config = cfi.config; }
+        ));*/
+    //TODO investigate
     this.configService.subscribe(
       cfi => { this.config = cfi.config; }
     )
@@ -71,7 +73,7 @@ export class MainPageComponent implements OnInit {
     return item.mathProblemType === MathProblemTypes.SUBTRACTION
   }
 
-  checkboxChange(checked: boolean, item : WorksheetsItem) {
+  checkboxChange(checked: boolean, item: WorksheetsItem) {
     console.log(checked);
     console.log(item);
 
@@ -80,5 +82,11 @@ export class MainPageComponent implements OnInit {
     } else {
       this.worksheetsItem = null;
     }
+  }
+
+  unCheckAll() {
+    this.checkboxes.forEach((element) => {
+      element.checked = false
+    });
   }
 }
