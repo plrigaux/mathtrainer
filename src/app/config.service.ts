@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 //import { Observable, of } from 'rxjs';
 import { BehaviorSubject, Subscription, Subscribable, PartialObserver } from 'rxjs';
-import { Config, CONFIG, MATH_EXERCICISES_STORE } from './config';
-import { WorksheetsMap } from './math-generator/worksheetsMap';
+import { Config, CONFIG, MATH_EXERCICISES_STORE, GENERATORS_KEY } from './config';
+import { WorksheetsItem } from './math-generator/worksheetsMap';
 import { Worksheets } from './math-generator/worksheets';
+import { stringify } from '@angular/compiler/src/util';
 
 export class ConfigServiceInfo {
   config: Config;
@@ -28,19 +29,36 @@ export class ConfigService {
     console.log(storedData)
     console.log("storedData")
 
-    let cf = { ...CONFIG, ...sdObject };
+    let cf = { ...CONFIG };
 
-    if (cf.generator != null) {
-      let func = Worksheets[cf.generator.funcName]
+    for (const key of Object.keys(CONFIG)) {
+      cf[key] = sdObject[key];
+      //console.log(`${cf[key]} = ${sdObject[key]}`);
+    }
+    
+    let generatorsObj = sdObject[GENERATORS_KEY];
 
-      if (func === undefined) {
-        cf.generator = null;
-      } else {
-        cf.generator.func = func;
+    if (generatorsObj !== undefined) {
+      let map: Map<string, WorksheetsItem> = new Map();
+
+      for (const value of Object.values(generatorsObj)) {
+
+        let worksheetsItem : WorksheetsItem = value as WorksheetsItem
+
+        let func = Worksheets[worksheetsItem.funcName]
+
+        if (func === undefined) {
+          console.warn(`"${worksheetsItem.funcName}" not in Worksheets`);
+        } else {
+          worksheetsItem.func = func;
+          map.set(worksheetsItem.code, worksheetsItem);
+        }
       }
+      cf[GENERATORS_KEY] = map;
     }
 
     console.log(cf);
+
 
     this.configSource = new BehaviorSubject<ConfigServiceInfo>({ config: cf, needReset: true });
     //this.configObservable = this.configSource.asObservable();
@@ -59,20 +77,28 @@ export class ConfigService {
     }
   }
 
-  next(value: Config, needReset: boolean) {
-    this.configSource.next({ config: value, needReset: needReset });
+  next(config: Config, needReset: boolean) {
+    this.configSource.next({ config: config, needReset: needReset });
 
+    let cf: Record<string, any> = {  };
     //copy
-    let cf = { ...value };
-
-    if (cf.generator != null) {
-      console.log(cf.generator.func);
-      console.log(cf.generator.func.name);
+    for (const key of Object.keys(CONFIG)) {
+      cf[key] = config[key];
+      //console.log(`${cf[key]} = ${sdObject[key]}`);
     }
+
+    //transform map to object
+    let generatorsObj: Object = {}
+    config.generators.forEach((val, key) => {
+      generatorsObj[key] = val;
+    });
+
+    cf[GENERATORS_KEY] = generatorsObj;
 
     let json = JSON.stringify(cf);
 
     console.log("json config")
+    console.log(config)
     console.log(json)
 
 

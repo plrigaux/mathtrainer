@@ -6,11 +6,12 @@ export class MathGenerator {
 
     static generateProblem(config: Config): MathProblem {
 
-        if (config.generator == null) {
-            return MathGenerator.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
+        if (config.generators == null || config.generators.size === 0) {
+            //return MathGenerator.getListofRandomNumber(config.generateRange, config.mathProblemTypes, null);
+return null;
         } else {
             try {
-                return config.generator.func();
+                return config.generators.values().next().value.func();
             } catch (error) {
                 console.error(error)
                 console.log(config)

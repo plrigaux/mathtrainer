@@ -15,7 +15,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 export class MainPageComponent implements OnInit {
 
   exercises: WorksheetsItem[];
-  private worksheetsItem: WorksheetsItem = null;
+  private worksheetsItem: Map<string, WorksheetsItem> = new Map();
   private config: Config;
   private myEventSubscriptions: Subscription[] = [];
   @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
@@ -26,19 +26,19 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.exercises = WorksheetsMap.getWorksheetsItem();
-    /*
-        this.myEventSubscriptions.push(this.configService.subscribe(
-          cfi => { this.config = cfi.config; }
-        ));*/
-    //TODO investigate
-    this.configService.subscribe(
+
+    this.myEventSubscriptions.push(this.configService.subscribe(
       cfi => { this.config = cfi.config; }
-    )
+    ));
+    //TODO investigate
+    /*this.configService.subscribe(
+      cfi => { this.config = cfi.config; }
+    )*/
   }
 
   ngOnDestroy(): void {
-    //this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
-    //this.myEventSubscriptions = [];
+    this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
+    this.myEventSubscriptions = [];
     console.log("DEStroy !!!!!!!!!!!!");
   }
 
@@ -53,10 +53,10 @@ export class MainPageComponent implements OnInit {
   }
 
   setUpConfig() {
-    this.config.generator = this.worksheetsItem
-    if (this.worksheetsItem != null) {
-      this.config.mathProblemTypes = this.worksheetsItem.mathProblemType;
-    }
+    this.config.generators = new Map(this.worksheetsItem)
+    /*if (this.worksheetsItem.size > 0) {
+      this.config.mathProblemTypes = this.worksheetsItem.values().next().value;
+    }*/
     this.configService.next(this.config, true)
   }
 
@@ -78,14 +78,14 @@ export class MainPageComponent implements OnInit {
     console.log(item);
 
     if (checked) {
-      this.worksheetsItem = item;
+      this.worksheetsItem.set(item.code, item);
     } else {
-      this.worksheetsItem = null;
+      this.worksheetsItem.delete(item.code);
     }
   }
 
   unCheckAll() {
-    this.checkboxes.forEach((element) => {
+    this.checkboxes.forEach(element => {
       element.checked = false
     });
   }

@@ -16,23 +16,24 @@ export const EquationOrientations: EquationOrientation[] = [
 export interface Config {
     nbProblems: number;
     nbNumbers: number;
-    mathProblemTypes: MathProblemTypes;
+    //mathProblemTypes: MathProblemTypes;
     generateRange: GenerateRange[];
     orientation: OrientationTypesKey;
     realTimeValidation: boolean;
     theme: string;
-    generator: WorksheetsItem;
+    generators: Map<string, WorksheetsItem>;
 }
 
 export const CONFIG: Config = {
     nbNumbers: 2,
     nbProblems: 20,
-    mathProblemTypes: MathProblemTypes.ADDITION,
+    //mathProblemTypes: MathProblemTypes.ADDITION,
     generateRange: [{ min: 10, max: 30 }, { min: 1, max: 9 }],
     orientation: "VERTICAL",
     realTimeValidation: true,
     theme: "pink-bluegrey",
-    generator: null
+    generators: new Map()
 }
 
 export const MATH_EXERCICISES_STORE: string = "MATH_CONFIG";
+export const GENERATORS_KEY: string = "generators";

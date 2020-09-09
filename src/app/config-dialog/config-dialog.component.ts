@@ -35,7 +35,7 @@ export class ConfigDialogComponent implements OnInit {
 
       nbNumbers: new FormControl(this.config.nbNumbers, [Validators.required, Validators.min(2)]),
       nbProblems: new FormControl(this.config.nbProblems, [Validators.required, Validators.min(1)]),
-      mathProblemTypes: new FormControl(this.config.mathProblemTypes, []),
+      //mathProblemTypes: new FormControl(this.config.mathProblemTypes, []),
       realTimeValidation: new FormControl(this.config.realTimeValidation, []),
       orientation: new FormControl(this.config.orientation, [])
 
