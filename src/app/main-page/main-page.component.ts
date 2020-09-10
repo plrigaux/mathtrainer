@@ -15,7 +15,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 export class MainPageComponent implements OnInit {
 
   exercises: WorksheetsItem[];
-  private worksheetsItem: Map<string, WorksheetsItem> = new Map();
+  private worksheetsItems: Map<string, WorksheetsItem> = new Map();
   private config: Config;
   private myEventSubscriptions: Subscription[] = [];
   @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
@@ -28,12 +28,13 @@ export class MainPageComponent implements OnInit {
     this.exercises = WorksheetsMap.getWorksheetsItem();
 
     this.myEventSubscriptions.push(this.configService.subscribe(
-      cfi => { this.config = cfi.config; }
+      cfi => {
+        this.config = cfi.config;
+        this.config.generators.forEach(worksheetsItem => {
+          this.fillMap(true, worksheetsItem);
+        });
+      }
     ));
-    //TODO investigate
-    /*this.configService.subscribe(
-      cfi => { this.config = cfi.config; }
-    )*/
   }
 
   ngOnDestroy(): void {
@@ -53,10 +54,7 @@ export class MainPageComponent implements OnInit {
   }
 
   setUpConfig() {
-    this.config.generators = new Map(this.worksheetsItem)
-    /*if (this.worksheetsItem.size > 0) {
-      this.config.mathProblemTypes = this.worksheetsItem.values().next().value;
-    }*/
+    this.config.generators = new Map(this.worksheetsItems)
     this.configService.next(this.config, true)
   }
 
@@ -77,16 +75,27 @@ export class MainPageComponent implements OnInit {
     console.log(checked);
     console.log(item);
 
+    this.fillMap(checked, item);
+  }
+
+  private fillMap(checked: boolean, item: WorksheetsItem) {
     if (checked) {
-      this.worksheetsItem.set(item.code, item);
+      this.worksheetsItems.set(item.code, item);
     } else {
-      this.worksheetsItem.delete(item.code);
+      this.worksheetsItems.delete(item.code);
     }
+    console.log(this.worksheetsItems)
   }
 
   unCheckAll() {
     this.checkboxes.forEach(element => {
       element.checked = false
     });
+    this.worksheetsItems.clear();
+  }
+
+  isSelected(worksheetsItem: WorksheetsItem): boolean {
+    let selected = this.config.generators.has(worksheetsItem.code);
+    return selected;
   }
 }

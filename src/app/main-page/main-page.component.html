@@ -1,7 +1,7 @@
 <h1>Additions</h1>
 <ul>
     <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterAdditions">
-        <mat-checkbox (change)="checkboxChange($event.checked, worksheetsItem)">{{worksheetsItem.label}}</mat-checkbox>
+        <mat-checkbox [checked]="isSelected(worksheetsItem)" (change)="checkboxChange($event.checked, worksheetsItem)">{{worksheetsItem.label}}</mat-checkbox>
     </li>
 </ul>
 
@@ -9,7 +9,7 @@
 
 <ul>
     <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterSubtraction">
-        <mat-checkbox (change)="checkboxChange($event.checked, worksheetsItem)" >{{worksheetsItem.label}}</mat-checkbox>
+        <mat-checkbox [checked]="isSelected(worksheetsItem)" (change)="checkboxChange($event.checked, worksheetsItem)" >{{worksheetsItem.label}}</mat-checkbox>
     </li>
 </ul>
 

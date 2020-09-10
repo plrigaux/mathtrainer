@@ -21,7 +21,7 @@ export class MathGenerator {
         let mp : WorksheetsItem = null;
         while (!itres.done) {
             mp = itres.value;
-            console.log(mp.funcName)
+            //console.log(mp.funcName)
             if (++idx >= index) {
                 break;
             }
@@ -30,7 +30,7 @@ export class MathGenerator {
             if (itres.done) {
                 it = config.generators.values();
                 itres = it.next();
-                console.log(itres.done)
+                //console.log(itres.done)
             } 
         }
         console.log(mp)
