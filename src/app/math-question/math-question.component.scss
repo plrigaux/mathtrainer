@@ -1,3 +1,6 @@
+@import "~@angular/material/theming";
+@import "../../assets/styles/themes_variables.scss";
+
 .content {
     margin: auto;
     width: max-content;
@@ -67,7 +70,8 @@ input[type="number"] {
     overflow: hidden;
 }
 
-.equation :not(:first-child):not(input) { //avoid the margin left when stacked
+.equation :not(:first-child):not(input) {
+    //avoid the margin left when stacked
     margin-left: 0.3em;
 }
 
@@ -82,14 +86,37 @@ input[type="number"] {
     margin-left: 0;
 }
 
+@mixin math-question-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
 
+    .mathAnswer:focus {
+        //box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        //    padding: 3px 0px 3px 3px;
+        //    margin: 5px 1px 3px 0px;
+        //  border: 1px solid rgba(81, 203, 238, 1);
+        background-color: lightyellow;
+        outline-color: mat-color($accent);
+        outline-width: 15px;
+    }
+}
+
+@each $thclass, $th in $all_themes {
+    @if $thclass == "" {
+        @include math-question-theme($th);
+    } @else {
+        :host-context(.#{$thclass}) {
+            @include math-question-theme($th);
+        }
+    }
+}
 //// Input delete
 .deleteIcon {
     fill: grey;
     width: 16px;
     height: 16px;
     cursor: pointer;
-  
+
     margin: 0 5px 0 -6px;
     -webkit-tap-highlight-color: transparent;
 }
