@@ -29,10 +29,16 @@ export class ConfigService {
     console.log(storedData)
     console.log("storedData")
 
-    let cf = { ...CONFIG };
+    let cf : Config = {} as Config;
 
     for (const key of Object.keys(CONFIG)) {
-      cf[key] = sdObject[key];
+      let val = sdObject[key];
+      
+      if (val === undefined) {
+        val = CONFIG[key];
+      }
+
+      cf[key] = val;
       //console.log(`${cf[key]} = ${sdObject[key]}`);
     }
     
