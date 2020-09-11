@@ -4,7 +4,8 @@ import { Subject } from 'rxjs'
 export enum QuestionStatus {
   RIGHT = "RIGHT",
   WRONG = "WRONG",
-  EMPTY = "EMPTY"
+  EMPTY = "EMPTY",
+  FOCUS = "FOCUS"
 }
 
 export class MathQuestionNotifier {

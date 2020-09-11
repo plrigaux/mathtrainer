@@ -15,38 +15,16 @@ const regexNumVal = /[0-9,-\.]/
 
 @Component({
   selector: 'app-math-question',
-
+  templateUrl: './math-question.component.html',
+  styleUrls: ['./math-question.component.scss'],
   animations: [
     trigger('answerStatus', [
       state(QuestionStatus.RIGHT, style({ backgroundColor: 'limegreen' })),
       state(QuestionStatus.WRONG, style({ backgroundColor: 'red' })),
       state(QuestionStatus.EMPTY, style({ backgroundColor: 'white' })),
-
-      transition('* => ' + QuestionStatus.RIGHT + "", [
-        animate('1s', keyframes([
-          style({ backgroundColor: "white", color: "red" }),
-          style({ backgroundColor: "red", color: "blue" }),
-          style({ backgroundColor: "limegreen", color: "orange" })
-        ]))
-
-        /*animate('2s', keyframes([
-          style({ backgroundColor: 'blue', offset: 0}),
-          style({ backgroundColor: 'red', offset: 0.8}),
-          style({ backgroundColor: 'orange', offset: 1.0})
-        ])),*/
-      ]),
-      transition('* => ' + QuestionStatus.WRONG, [
-        animate('0.5s')/*
-        animate('2s', keyframes([
-          style({ backgroundColor: 'orange', offset: 0}),
-          style({ backgroundColor: 'red', offset: 0.2}),
-          style({ backgroundColor: 'blue', offset: 1.0})
-        ]))*/
-      ])
+      state(QuestionStatus.FOCUS, style({ backgroundColor: 'lightyellow' })),
     ])
   ],
-  templateUrl: './math-question.component.html',
-  styleUrls: ['./math-question.component.scss'],
 })
 export class MathQuestionComponent implements OnInit {
 
@@ -240,5 +218,13 @@ export class MathQuestionComponent implements OnInit {
     console.log("focus " + this.name);
     console.log(this.inputRef);
     this.inputRef.nativeElement.focus();
+  }
+
+  onBlur() {
+    this.validateAnswerRealTime(false);
+  }
+ 
+  onFocus() {
+    this.status = QuestionStatus.FOCUS;
   }
 }
