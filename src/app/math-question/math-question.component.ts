@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Directive } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { MathGenerator } from '../math-generator/mathGenerator'
 import { MathProblem } from "../math-generator/mathProblem";
 import { Config } from '../config';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 import { NGXLogger } from 'ngx-logger';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MathQuestionService, QuestionStatus } from '../math-question.service';
+import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 
 const regexNumVal = /[0-9,-\.]/
@@ -40,12 +40,14 @@ export class MathQuestionComponent implements OnInit {
   answerFC: FormControl;
   @Input() readonly questionId: number;
   @Input() readonly panelForm: FormGroup;
+  @Output() messageEvent = new EventEmitter<MathQuestionNotifier>();
   controlIndex: number;
   @ViewChild("inputReference", { static: false }) private inputRef: ElementRef;
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private logger: NGXLogger,
-    private resetService: ResetService, private mathQuestionService: MathQuestionService) {
+    private resetService: ResetService, 
+    /*private mathQuestionService: MathQuestionService*/) {
     this.status = QuestionStatus.EMPTY
     this.stacked = true;
   }
@@ -130,7 +132,8 @@ export class MathQuestionComponent implements OnInit {
     if (this.answerFC.value === answer) {
       console.log("R")
       this.status = QuestionStatus.RIGHT;
-      this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.RIGHT);
+      //this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.RIGHT);
+      this.informParent();
     }
     //WARN works only if number, Need to consider string cases
     else if (this.answerFC.value == null) {
@@ -142,12 +145,15 @@ export class MathQuestionComponent implements OnInit {
       //this.right = false;
       //this.wrong = false;
       this.status = QuestionStatus.EMPTY;
-      this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.EMPTY);
+      this.messageEvent.emit()
+      //this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.EMPTY);
+      this.informParent();
     }
     else {
       console.log("W")
       this.status = QuestionStatus.WRONG;
-      this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.WRONG);
+      //this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.WRONG);
+      this.informParent();
     }
 
     this.logger.debug("Config " + this.config.nbNumbers);
@@ -190,7 +196,8 @@ export class MathQuestionComponent implements OnInit {
   setVoid() {
     this.status = QuestionStatus.EMPTY;
     this.answerFC.setValue(null);
-    this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.EMPTY);
+    //this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.EMPTY);
+    this.informParent();
   }
 
   reset() {
@@ -231,5 +238,15 @@ export class MathQuestionComponent implements OnInit {
 
   notEmpty() : boolean {
     return this.status == QuestionStatus.WRONG || this.status == QuestionStatus.RIGHT;
+  }
+
+  private informParent() {
+    let notification : MathQuestionNotifier = {
+      status : this.status,
+      id: this.questionId.toString(),
+      index : this.controlIndex
+    }
+    console.log("sent notification -->" + notification)
+    this.messageEvent.emit(notification);
   }
 }

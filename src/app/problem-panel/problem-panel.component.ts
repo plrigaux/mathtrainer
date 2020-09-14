@@ -22,7 +22,9 @@ export class ProblemPanelComponent implements OnInit {
   answerMap: Map<string, QuestionStatus> = new Map();
   private substriptions: Subscription[] = [];
 
-  constructor(private configService: ConfigService, private mathQuestionService: MathQuestionService) {
+  constructor(private configService: ConfigService,
+    //private mathQuestionService: MathQuestionService
+  ) {
     console.log(this.answersFormArray)
     //this.answersFormArray.push(new FormControl());
     this.clearForm();
@@ -48,12 +50,13 @@ export class ProblemPanelComponent implements OnInit {
         }
       )
     );
-
-    this.substriptions.push(
-      this.mathQuestionService.observable.subscribe(notification => {
-        this.manageNotification(notification);
-      })
-    );
+    /*
+        this.substriptions.push(
+          this.mathQuestionService.observable.subscribe(notification => {
+            this.manageNotification(notification);
+          })
+        );
+    */
   }
 
   private manageNotification(notification: MathQuestionNotifier): void {
@@ -138,5 +141,14 @@ export class ProblemPanelComponent implements OnInit {
 
   padding(padSize: number): any[] {
     return new Array(padSize);
+  }
+
+  receiveMessage(notification: MathQuestionNotifier) {
+    console.log("notification -->");
+    console.log(notification);
+
+    if (notification !== undefined) { // todo unvestigate
+      this.manageNotification(notification);
+    }
   }
 }

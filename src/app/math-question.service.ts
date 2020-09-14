@@ -8,7 +8,7 @@ export enum QuestionStatus {
   FOCUS = "FOCUS"
 }
 
-export class MathQuestionNotifier {
+export interface MathQuestionNotifier {
   status: QuestionStatus;
   index: number;
   id: string;

@@ -1,7 +1,7 @@
 <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
 <div class="problems">
   <div *ngFor="let problem of problems; index as i" class="mathQuestionWrapper" >
-    <app-math-question [questionId]='i+1' [panelForm]='panelForm'></app-math-question>
+    <app-math-question [questionId]='i+1' [panelForm]='panelForm' (messageEvent)="receiveMessage($event)"></app-math-question>
   </div>
   <div *ngFor="let problem of padding(0)" class="mathQuestionWrapper">
   </div>
