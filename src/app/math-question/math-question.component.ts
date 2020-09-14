@@ -31,6 +31,7 @@ export class MathQuestionComponent implements OnInit {
   //value: number;
   //right: boolean;
   //wrong: boolean;
+
   status: QuestionStatus;
   stacked: boolean;
   private _problem: MathProblem;
@@ -226,5 +227,9 @@ export class MathQuestionComponent implements OnInit {
  
   onFocus() {
     this.status = QuestionStatus.FOCUS;
+  }
+
+  notEmpty() : boolean {
+    return this.status == QuestionStatus.WRONG || this.status == QuestionStatus.RIGHT;
   }
 }
