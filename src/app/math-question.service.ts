@@ -31,7 +31,8 @@ export class MathQuestionService {
     }
   }
 
-  next(notification : MathQuestionNotifier) {
-    this.observable.next(notification);
+  async next(notification : MathQuestionNotifier) {
+    //this.observable.toPromise().then(notification);
+    await this.observable.next(notification);
   }
 }

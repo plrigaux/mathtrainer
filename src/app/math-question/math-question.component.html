@@ -25,7 +25,7 @@
           type="number"
           (blur)="onBlur()"
           (focus)="onFocus()"
-          (keyup.enter)="validateAnswerRealTime(false)"
+          (keyup.enter)="validateAnswerEnter()"
           (keydown)="preventUpDown($event)"
           (change)="checkChange($event)"
           (keyup)="check($event)" />

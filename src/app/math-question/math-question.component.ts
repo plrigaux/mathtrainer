@@ -38,7 +38,7 @@ export class MathQuestionComponent implements OnInit {
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private logger: NGXLogger,
-    private resetService: ResetService, 
+    private resetService: ResetService,
     private mathQuestionService: MathQuestionService) {
     this.status = QuestionStatus.EMPTY
     this.stacked = true;
@@ -59,7 +59,7 @@ export class MathQuestionComponent implements OnInit {
         }
       )
     );
-
+/*
     this.myEventSubscriptions.push(
       this.validateAllService.getValidation().subscribe({
         next: (v) => {
@@ -77,7 +77,7 @@ export class MathQuestionComponent implements OnInit {
         }
       })
     );
-
+*/
     this.myEventSubscriptions.push(
       this.resetService.obs.subscribe({
         next: () => { this.reset() }
@@ -102,13 +102,13 @@ export class MathQuestionComponent implements OnInit {
     //this.answers.removeAt(this.controlIndex);
   }
 
-  validateAnswerRealTime(infocus: boolean): void {
+  validateAnswerRealTime(infocus: boolean, trigger: TriggerType): void {
     if (this.config.realTimeValidation === true) {
-      this.validateAnswer(infocus);
+      this.validateAnswer(infocus, trigger);
     }
   }
 
-  private validateAnswer(infocus: boolean): void {
+  private validateAnswer(infocus: boolean, trigger: TriggerType): void {
     let answer = this.problem.answer;
     this.logger.debug(`User Input: ${this.userInput} Answer: ${answer}`);
 
@@ -118,22 +118,22 @@ export class MathQuestionComponent implements OnInit {
     if (userAnswer === answer) {
       console.log("R")
       this.status = QuestionStatus.RIGHT;
-      this.informParent();
+      this.informParent(trigger);
     }
     else if (isNaN(userAnswer)) {
       console.log("Void")
-      this.setVoid();
+      this.setVoid(trigger);
     }
     else if (infocus) {
       console.log("Infocus")
-      this.status = QuestionStatus.EMPTY;
-      this.informParent();
+      this.status = QuestionStatus.FOCUS;
+      this.informParent(trigger);
     }
     else {
       console.log("W")
       this.status = QuestionStatus.WRONG;
       //this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.WRONG);
-      this.informParent();
+      this.informParent(trigger);
     }
 
     this.logger.debug("Config " + this.config.nbNumbers);
@@ -153,7 +153,7 @@ export class MathQuestionComponent implements OnInit {
     const inputValue: string = (event.target as HTMLInputElement).value
     this.logger.debug(`Change! val="${inputValue}"`)
     if (inputValue == "") {
-      this.setVoid();
+      this.setVoid(TriggerType.ON_BLUR);
     }
   }
 
@@ -165,18 +165,18 @@ export class MathQuestionComponent implements OnInit {
   check(event: KeyboardEvent) {
     console.log("check");
     console.log(event);
-    this.validateAnswerRealTime(true);
+    this.validateAnswerRealTime(true, TriggerType.ON_TYPE);
   }
 
   clearInput(): void {
-    this.setVoid()
+    this.setVoid(TriggerType.ON_BLUR)
     this.focus()
   }
 
-  setVoid() {
+  setVoid(trigger: TriggerType) {
     this.status = QuestionStatus.EMPTY;
     this.userInput = "";
-    this.informParent();
+    this.informParent(trigger);
   }
 
   reset() {
@@ -201,25 +201,39 @@ export class MathQuestionComponent implements OnInit {
 
   onBlur() {
     console.log("blur");
-    this.validateAnswerRealTime(false);
+    this.validateAnswerRealTime(false, TriggerType.ON_BLUR);
   }
- 
+
   onFocus() {
     this.status = QuestionStatus.FOCUS;
   }
 
-  notEmpty() : boolean {
-    return this.status == QuestionStatus.WRONG || this.status == QuestionStatus.RIGHT;
+  notEmpty(): boolean {
+    return /*this.status == QuestionStatus.WRONG || this.status == QuestionStatus.RIGHT || */ this.userInput.length != 0;
   }
 
-  private informParent() {
-    let notification : MathQuestionNotifier = {
-      status : this.status,
-      id: this.questionId.toString(),
-      index : this.controlIndex
+  private informParent(trigger: TriggerType) {
+
+    if (trigger === TriggerType.ON_BLUR && this.status === QuestionStatus.RIGHT) {
+      return;
     }
-    //console.log("sent notification -->" + notification)
-    //this.messageEvent.emit(notification);
+
+    let notification: MathQuestionNotifier = {
+      status: this.status,
+      id: this.questionId.toString(),
+      index: this.controlIndex
+    }
+
     this.mathQuestionService.next(notification);
   }
+
+  validateAnswerEnter() {
+    this.validateAnswerRealTime(false, TriggerType.ON_TYPE)
+  }
+}
+
+enum TriggerType {
+  ON_FOCUS,
+  ON_BLUR,
+  ON_TYPE
 }
