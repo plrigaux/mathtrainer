@@ -31,7 +31,7 @@ export class MathQuestionService {
     }
   }
 
-  next(id: string, index: number, status: QuestionStatus) {
-    this.observable.next({ id: id, index: index, status: status });
+  next(notification : MathQuestionNotifier) {
+    this.observable.next(notification);
   }
 }

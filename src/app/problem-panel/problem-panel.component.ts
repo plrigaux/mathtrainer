@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { MathProblem } from "../math-generator/mathProblem";
 import { ConfigService } from '../config.service'
-import { FormGroup, FormArray } from '@angular/forms';
 import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../math-question.service';
 import { MathQuestionComponent } from '../math-question/math-question.component'
 import { Subscription } from 'rxjs';
@@ -15,18 +14,14 @@ import { Subscription } from 'rxjs';
 export class ProblemPanelComponent implements OnInit {
   problems: MathProblem[];
   @ViewChildren(MathQuestionComponent) private mathQuestionComponents: QueryList<MathQuestionComponent>;
-  panelForm: FormGroup;
-  answersFormArray: FormArray;
   progress: number;
   successCount: number;
   answerMap: Map<string, QuestionStatus> = new Map();
   private substriptions: Subscription[] = [];
 
   constructor(private configService: ConfigService,
-    //private mathQuestionService: MathQuestionService
+    private mathQuestionService: MathQuestionService
   ) {
-    console.log(this.answersFormArray)
-    //this.answersFormArray.push(new FormControl());
     this.clearForm();
     this.progress = 0;
     this.successCount = 0;
@@ -37,10 +32,10 @@ export class ProblemPanelComponent implements OnInit {
       this.configService.subscribe(
         cfsi => {
           this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
-          for (let i = this.answersFormArray.length; i > this.problems.length;) {
-            this.answersFormArray.removeAt(--i);
-            console.log("FA: " + this.answersFormArray.length);
-          }
+          //for (let i = this.answersFormArray.length; i > this.problems.length;) {
+            //this.answersFormArray.removeAt(--i);
+            //console.log("FA: " + this.answersFormArray.length);
+          //}
 
           //reset state
           if (cfsi.needReset) {
@@ -50,26 +45,25 @@ export class ProblemPanelComponent implements OnInit {
         }
       )
     );
-    /*
-        this.substriptions.push(
-          this.mathQuestionService.observable.subscribe(notification => {
-            this.manageNotification(notification);
-          })
-        );
-    */
+
+    this.substriptions.push(
+      this.mathQuestionService.observable.subscribe(notification => {
+        this.manageNotification(notification);
+      })
+    );
   }
 
   private manageNotification(notification: MathQuestionNotifier): void {
     let currentStatus = this.answerMap.get(notification.id)
     console.log(notification)
-    console.log("" + currentStatus + " " + QuestionStatus[currentStatus])
+    console.log("NS " + notification.status + " currentStatus: " + currentStatus + " " + QuestionStatus[currentStatus] + " notification.id " + notification.id)
 
 
     switch (notification.status) {
       case QuestionStatus.RIGHT:
         if (currentStatus !== QuestionStatus.RIGHT) {
-          this.successCount++;
-          this.updateProgress();
+          
+          this.increaseProgress();
 
           console.log(`SC: ${this.successCount} PR: ${this.progress}`);
 
@@ -109,6 +103,11 @@ export class ProblemPanelComponent implements OnInit {
     }
   }
 
+  private increaseProgress() {
+    this.successCount++;
+    this.updateProgress()
+  }
+
   private decreaseProgress(currentStatus: QuestionStatus): void {
     if (currentStatus === QuestionStatus.RIGHT) {
       this.successCount--;
@@ -117,6 +116,7 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   private updateProgress(): void {
+    console.log(`this.successCount ${this.successCount} this.problemsCount ${this.problemsCount}`)
     this.progress = Math.round((this.successCount / this.problemsCount) * 100);
   }
 
@@ -129,10 +129,12 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   clearForm() {
+    /*
     this.panelForm = new FormGroup({
       answers: new FormArray([])
     })
     this.answersFormArray = this.panelForm.get('answers') as FormArray;
+    */
   }
 
   get problemsCount(): number {
@@ -141,14 +143,5 @@ export class ProblemPanelComponent implements OnInit {
 
   padding(padSize: number): any[] {
     return new Array(padSize);
-  }
-
-  receiveMessage(notification: MathQuestionNotifier) {
-    console.log("notification -->");
-    console.log(notification);
-
-    if (notification !== undefined) { // todo unvestigate
-      this.manageNotification(notification);
-    }
   }
 }

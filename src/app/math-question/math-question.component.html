@@ -1,13 +1,13 @@
 <div class="content">
   <h2 class="mat-h2">Question&nbsp;{{questionId}}</h2>
-  <div class="mathQuestion" [formGroup]="panelForm">
+  <div class="mathQuestion">
     <span [ngClass]="{'equation':true, 'stacked': stacked}">
       <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
         <span class="number">{{num}}</span>
         <span *ngIf="last==false" class="operator">{{problem.mathProplemActions.operator}}</span>
       </ng-template>
       <span class="equals">=</span>
-      <div class="answerField" formArrayName="answers">
+      <div class="answerField">
         <button mat-button *ngIf="notEmpty()" matSuffix mat-icon-button aria-label="Clear" (click)="clearInput()">
           <!-- <mat-icon>add_circle</mat-icon> -->
           <svg class="deleteIcon" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
@@ -17,16 +17,18 @@
           </svg>
         </button>
         <!-- [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" -->
-        <input formControlName={{controlIndex}} [name]="name" #inputReference
+        <input #inputReference
+          [(ngModel)]="userInput"  
+          [name]="name"
           class="mathAnswer"
           [@answerStatus]="status"
           type="number"
-          (blur)="onBlur()" 
+          (blur)="onBlur()"
           (focus)="onFocus()"
-          (keyup.enter)="validateAnswerRealTime(false)" 
+          (keyup.enter)="validateAnswerRealTime(false)"
           (keydown)="preventUpDown($event)"
-          (change)="checkChange($event)" 
-          (keyup)="check($event)"/>
+          (change)="checkChange($event)"
+          (keyup)="check($event)" />
       </div>
     </span>
   </div>

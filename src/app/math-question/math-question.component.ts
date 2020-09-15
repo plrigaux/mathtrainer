@@ -7,7 +7,6 @@ import { ResetService } from '../reset.service'
 import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 import { NGXLogger } from 'ngx-logger';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 
@@ -27,42 +26,27 @@ const regexNumVal = /[0-9,-\.]/
   ],
 })
 export class MathQuestionComponent implements OnInit {
-
-  //value: number;
-  //right: boolean;
-  //wrong: boolean;
-
+  userInput: string
   status: QuestionStatus;
   stacked: boolean;
   private _problem: MathProblem;
   private myEventSubscriptions: Subscription[] = [];
   private config: Config;
-  answerFC: FormControl;
   @Input() readonly questionId: number;
-  @Input() readonly panelForm: FormGroup;
-  @Output() messageEvent = new EventEmitter<MathQuestionNotifier>();
   controlIndex: number;
   @ViewChild("inputReference", { static: false }) private inputRef: ElementRef;
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private logger: NGXLogger,
     private resetService: ResetService, 
-    /*private mathQuestionService: MathQuestionService*/) {
+    private mathQuestionService: MathQuestionService) {
     this.status = QuestionStatus.EMPTY
     this.stacked = true;
   }
 
   ngOnInit(): void {
     console.log("QID " + this.questionId);
-
-    if (this.questionId > this.answers.length) {
-      this.answerFC = new FormControl('', Validators.required);
-      this.answers.push(this.answerFC);
-      this.controlIndex = this.answers.length - 1;
-    } else {
-      this.controlIndex = this.questionId - 1;
-      this.answerFC = this.answers.at(this.controlIndex) as FormControl;
-    }
+    this.controlIndex = this.questionId - 1;
 
     this.myEventSubscriptions.push(
       this.configService.subscribe(
@@ -118,35 +102,31 @@ export class MathQuestionComponent implements OnInit {
     //this.answers.removeAt(this.controlIndex);
   }
 
-
   validateAnswerRealTime(infocus: boolean): void {
     if (this.config.realTimeValidation === true) {
       this.validateAnswer(infocus);
     }
   }
 
-  validateAnswer(infocus: boolean): void {
+  private validateAnswer(infocus: boolean): void {
     let answer = this.problem.answer;
-    this.logger.debug(`User Input: ${this.answerFC.value} Answer: ${answer}`);
+    this.logger.debug(`User Input: ${this.userInput} Answer: ${answer}`);
 
-    if (this.answerFC.value === answer) {
+    let userAnswer = parseInt(this.userInput);
+    console.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`)
+
+    if (userAnswer === answer) {
       console.log("R")
       this.status = QuestionStatus.RIGHT;
-      //this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.RIGHT);
       this.informParent();
     }
-    //WARN works only if number, Need to consider string cases
-    else if (this.answerFC.value == null) {
-      console.log("void")
+    else if (isNaN(userAnswer)) {
+      console.log("Void")
       this.setVoid();
     }
     else if (infocus) {
       console.log("Infocus")
-      //this.right = false;
-      //this.wrong = false;
       this.status = QuestionStatus.EMPTY;
-      this.messageEvent.emit()
-      //this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.EMPTY);
       this.informParent();
     }
     else {
@@ -195,8 +175,7 @@ export class MathQuestionComponent implements OnInit {
 
   setVoid() {
     this.status = QuestionStatus.EMPTY;
-    this.answerFC.setValue(null);
-    //this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.EMPTY);
+    this.userInput = "";
     this.informParent();
   }
 
@@ -206,16 +185,8 @@ export class MathQuestionComponent implements OnInit {
     console.log(this._problem);
     console.log(this.config);
     this.status = QuestionStatus.EMPTY;
-    this.answerFC.setValue(null);
-    this.logger.debug(`FA ${this.answers.length}`);
-  }
-
-  get answers() {
-    return this.panelForm.get('answers') as FormArray;
-  }
-
-  answerControl() {
-    return this.answers.at(this.controlIndex) as FormControl;
+    this.userInput = "";
+    //this.logger.debug(`FA ${this.answers.length}`);
   }
 
   notRight(): boolean {
@@ -229,6 +200,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   onBlur() {
+    console.log("blur");
     this.validateAnswerRealTime(false);
   }
  
@@ -246,7 +218,8 @@ export class MathQuestionComponent implements OnInit {
       id: this.questionId.toString(),
       index : this.controlIndex
     }
-    console.log("sent notification -->" + notification)
-    this.messageEvent.emit(notification);
+    //console.log("sent notification -->" + notification)
+    //this.messageEvent.emit(notification);
+    this.mathQuestionService.next(notification);
   }
 }
