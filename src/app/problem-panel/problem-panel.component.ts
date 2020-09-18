@@ -47,18 +47,15 @@ export class ProblemPanelComponent implements OnInit {
     );
 
     this.substriptions.push(
-      this.mathQuestionService.observable.subscribe(notification => {
+      this.mathQuestionService.subscribe(notification => {
         this.manageNotification(notification);
       })
     );
   }
 
-  private manageNotification(notification: MathQuestionNotifier): void {
-    let currentStatus = this.answerMap.get(notification.id)
-    console.log(notification)
-    console.log("NS " + notification.status + " currentStatus: " + currentStatus + " " + QuestionStatus[currentStatus] + " notification.id " + notification.id)
-
-
+  private  manageNotification(notification: MathQuestionNotifier) {
+    let currentStatus =  this.manageStatus(notification);
+    
     switch (notification.status) {
       case QuestionStatus.RIGHT:
         if (currentStatus !== QuestionStatus.RIGHT) {
@@ -89,8 +86,15 @@ export class ProblemPanelComponent implements OnInit {
         this.decreaseProgress(currentStatus);
         break;
     }
+  }
 
-    this.answerMap.set(notification.id, notification.status);
+  private manageStatus(notification: MathQuestionNotifier) : QuestionStatus {
+    let currentStatus = this.answerMap.get(notification.id); 
+    this.answerMap.set(notification.id, notification.status); //There is a race condition here TODO find a way to sync
+    console.log(notification)
+    console.log("Notification Status '" + notification.status + "' currentStatus: '" + currentStatus + "' notification.id '" + notification.id +"'")
+
+    return currentStatus;
   }
 
   private runOverCommponents(i: number, limit: number, arr: MathQuestionComponent[]): MathQuestionComponent {

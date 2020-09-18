@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs'
+import { Subject, Subscription, queueScheduler } from 'rxjs'
+import { observeOn } from "rxjs/operators";
 
 export enum QuestionStatus {
   RIGHT = "RIGHT",
@@ -8,10 +9,18 @@ export enum QuestionStatus {
   FOCUS = "FOCUS"
 }
 
+export enum TriggerType {
+  ON_FOCUS = "ON_FOCUS",
+  ON_BLUR = "ON_BLUR",
+  ON_TYPE = "ON_TYPE"
+}
+
+
 export interface MathQuestionNotifier {
   status: QuestionStatus;
   index: number;
   id: string;
+  trigger: TriggerType;
 }
 
 @Injectable({
@@ -19,7 +28,8 @@ export interface MathQuestionNotifier {
 })
 export class MathQuestionService {
 
-  observable: Subject<MathQuestionNotifier>;
+
+  private observable: Subject<MathQuestionNotifier>;
 
   constructor() {
     this.observable = new Subject();
@@ -31,8 +41,13 @@ export class MathQuestionService {
     }
   }
 
-  async next(notification : MathQuestionNotifier) {
+  next(notification: MathQuestionNotifier) {
     //this.observable.toPromise().then(notification);
-    await this.observable.next(notification);
+    this.observable.next(notification);
+  }
+
+  subscribe(func: (notification: MathQuestionNotifier) => void): Subscription {
+    
+    return this.observable.subscribe(func);
   }
 }

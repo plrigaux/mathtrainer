@@ -37,22 +37,7 @@ describe('MathQuestionComponent', () => {
       name: ['Other Name', Validators.required],
       answers: new FormArray([new FormControl('', Validators.required)])
     });
-    Object.defineProperty(component, 'panelForm', { value: panelForm });
-    Object.defineProperty(component, 'questionId', { value: 1 });
-    component.answer = new FormControl('', Validators.required);
-
-    Object.defineProperty(component, 'answers', {
-      value: {
-        at: (i: number) => { 
-          return new FormControl('', Validators.required); 
-        }
-      }      /*
-      () => {
-      return new FormArray([new FormControl('', Validators.required)])
-    }
-  */
-    });
-
+ 
     fixture.detectChanges();
   }));
 

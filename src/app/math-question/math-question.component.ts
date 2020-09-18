@@ -7,7 +7,7 @@ import { ResetService } from '../reset.service'
 import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 import { NGXLogger } from 'ngx-logger';
-import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../math-question.service';
+import { MathQuestionService, QuestionStatus, MathQuestionNotifier, TriggerType } from '../math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 
 const regexNumVal = /[0-9,-\.]/
@@ -140,7 +140,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   preventUpDown(event: KeyboardEvent) {
-    if (event.keyCode === 38 || event.keyCode === 40) {
+    if (event.code === "ArrowUp" || event.code === "ArrowDown") {
       event.preventDefault();
     }
   }
@@ -215,13 +215,14 @@ export class MathQuestionComponent implements OnInit {
   private informParent(trigger: TriggerType) {
 
     if (trigger === TriggerType.ON_BLUR && this.status === QuestionStatus.RIGHT) {
-      return;
+      //return;
     }
 
     let notification: MathQuestionNotifier = {
       status: this.status,
       id: this.questionId.toString(),
-      index: this.controlIndex
+      index: this.controlIndex,
+      trigger : trigger
     }
 
     this.mathQuestionService.next(notification);
@@ -232,8 +233,3 @@ export class MathQuestionComponent implements OnInit {
   }
 }
 
-enum TriggerType {
-  ON_FOCUS,
-  ON_BLUR,
-  ON_TYPE
-}
