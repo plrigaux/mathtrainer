@@ -12,7 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigDialogOpenerComponent } from './config-dialog-opener/config-dialog-opener.component';
 import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
 import { FinishValidateComponent } from './finish-validate/finish-validate.component';
-import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ConfigService } from './config.service';
 
 import { A11yModule } from '@angular/cdk/a11y';
@@ -81,7 +80,7 @@ import { TestFeaturesComponent } from './test-features/test-features.component';
     ArrayFilterPipe,
     TestFeaturesComponent
   ],
-  imports: [LoggerModule.forRoot({/*serverLoggingUrl: '/api/logs',*/ level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR }),
+  imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,

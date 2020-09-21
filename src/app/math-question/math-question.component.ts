@@ -6,7 +6,6 @@ import { ConfigService } from '../config.service'
 import { ResetService } from '../reset.service'
 import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
-import { NGXLogger } from 'ngx-logger';
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier, TriggerType } from '../math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 
@@ -37,7 +36,6 @@ export class MathQuestionComponent implements OnInit {
   @ViewChild("inputReference", { static: false }) private inputRef: ElementRef;
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
-    private logger: NGXLogger,
     private resetService: ResetService,
     private mathQuestionService: MathQuestionService) {
     this.status = QuestionStatus.EMPTY
@@ -45,7 +43,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("QID " + this.questionId);
+    console.debug("QID " + this.questionId);
     this.controlIndex = this.questionId - 1;
 
     this.myEventSubscriptions.push(
@@ -95,7 +93,7 @@ export class MathQuestionComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.myEventSubscriptions.forEach(subscription => {
-      console.log(`subscription.unsubscribe() ${subscription}`)
+      console.debug(`subscription.unsubscribe() ${subscription}`)
       subscription.unsubscribe()
     });
 
@@ -110,33 +108,33 @@ export class MathQuestionComponent implements OnInit {
 
   private validateAnswer(infocus: boolean, trigger: TriggerType): void {
     let answer = this.problem.answer;
-    this.logger.debug(`User Input: ${this.userInput} Answer: ${answer}`);
+    console.debug(`User Input: ${this.userInput} Answer: ${answer}`);
 
     let userAnswer = parseInt(this.userInput);
-    console.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`)
+    console.debug(`User Input: ${this.userInput} userAnswer: ${userAnswer}`)
 
     if (userAnswer === answer) {
-      console.log("R")
+      console.debug("R")
       this.status = QuestionStatus.RIGHT;
       this.informParent(trigger);
     }
     else if (isNaN(userAnswer)) {
-      console.log("Void")
+      console.debug("Void")
       this.setVoid(trigger);
     }
     else if (infocus) {
-      console.log("Infocus")
+      console.debug("Infocus")
       this.status = QuestionStatus.FOCUS;
       this.informParent(trigger);
     }
     else {
-      console.log("W")
+      console.debug("W")
       this.status = QuestionStatus.WRONG;
       //this.mathQuestionService.next(this.questionId.toString(), this.controlIndex, QuestionStatus.WRONG);
       this.informParent(trigger);
     }
 
-    this.logger.debug("Config " + this.config.nbNumbers);
+    console.debug("Config " + this.config.nbNumbers);
   }
 
   preventUpDown(event: KeyboardEvent) {
@@ -147,24 +145,24 @@ export class MathQuestionComponent implements OnInit {
 
   checkChange(event: Event) {
 
-    this.logger.debug(event)
-    this.logger.debug((event.target as HTMLInputElement).value)
+    console.debug(event)
+    console.debug((event.target as HTMLInputElement).value)
 
     const inputValue: string = (event.target as HTMLInputElement).value
-    this.logger.debug(`Change! val="${inputValue}"`)
+    console.debug(`Change! val="${inputValue}"`)
     if (inputValue == "") {
       this.setVoid(TriggerType.ON_BLUR);
     }
   }
 
   typeKey(event: KeyboardEvent) {
-    console.log("typeKey");
-    console.log(event);
+    console.debug("typeKey");
+    console.debug(event);
   }
 
   check(event: KeyboardEvent) {
-    console.log("check");
-    console.log(event);
+    console.debug("check");
+    console.debug(event);
     this.validateAnswerRealTime(true, TriggerType.ON_TYPE);
   }
 
@@ -181,9 +179,9 @@ export class MathQuestionComponent implements OnInit {
 
   reset() {
     this._problem = MathGenerator.generateProblemNext(this.config, this.questionId);
-    console.log("PROBLEM !!!");
-    console.log(this._problem);
-    console.log(this.config);
+    console.debug("PROBLEM !!!");
+    console.debug(this._problem);
+    console.debug(this.config);
     this.status = QuestionStatus.EMPTY;
     this.userInput = "";
     //this.logger.debug(`FA ${this.answers.length}`);
@@ -194,13 +192,13 @@ export class MathQuestionComponent implements OnInit {
   }
 
   focus() {
-    console.log("focus " + this.name);
-    console.log(this.inputRef);
+    console.debug("focus " + this.name);
+    console.debug(this.inputRef);
     this.inputRef.nativeElement.focus();
   }
 
   onBlur() {
-    console.log("blur");
+    console.debug("blur");
     this.validateAnswerRealTime(false, TriggerType.ON_BLUR);
   }
 

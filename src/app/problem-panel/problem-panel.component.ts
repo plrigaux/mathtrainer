@@ -34,7 +34,7 @@ export class ProblemPanelComponent implements OnInit {
           this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
           //for (let i = this.answersFormArray.length; i > this.problems.length;) {
             //this.answersFormArray.removeAt(--i);
-            //console.log("FA: " + this.answersFormArray.length);
+            //console.debug("FA: " + this.answersFormArray.length);
           //}
 
           //reset state
@@ -62,7 +62,7 @@ export class ProblemPanelComponent implements OnInit {
           
           this.increaseProgress();
 
-          console.log(`SC: ${this.successCount} PR: ${this.progress}`);
+          console.debug(`SC: ${this.successCount} PR: ${this.progress}`);
 
           let array = this.mathQuestionComponents.toArray();
 
@@ -91,8 +91,8 @@ export class ProblemPanelComponent implements OnInit {
   private manageStatus(notification: MathQuestionNotifier) : QuestionStatus {
     let currentStatus = this.answerMap.get(notification.id); 
     this.answerMap.set(notification.id, notification.status); //There is a race condition here TODO find a way to sync
-    console.log(notification)
-    console.log("Notification Status '" + notification.status + "' currentStatus: '" + currentStatus + "' notification.id '" + notification.id +"'")
+    console.debug(notification)
+    console.debug("Notification Status '" + notification.status + "' currentStatus: '" + currentStatus + "' notification.id '" + notification.id +"'")
 
     return currentStatus;
   }
@@ -120,12 +120,12 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   private updateProgress(): void {
-    console.log(`this.successCount ${this.successCount} this.problemsCount ${this.problemsCount}`)
+    console.debug(`this.successCount ${this.successCount} this.problemsCount ${this.problemsCount}`)
     this.progress = Math.round((this.successCount / this.problemsCount) * 100);
   }
 
   ngAfterViewInit() {
-    //this.mathQuestionComponents.forEach(mq => console.log(mq.name));
+    //this.mathQuestionComponents.forEach(mq => console.debug(mq.name));
   }
 
   ngOnDestroy(): void {
