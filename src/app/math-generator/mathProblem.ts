@@ -96,7 +96,7 @@ export class MathProblem {
 
             case MathProblemTypes.SUBTRACTION:
                 mathProblemType = MathProblemTypes.ADDITION
-                values = [...mathProblem.values.filter((v, index) => index !== 0), mathProblem.answer];
+                values = [mathProblem.answer, ...mathProblem.values.filter((v, index) => index !== 0)];
                 break;
 
             case MathProblemTypes.MULTIPLICATION:
