@@ -120,10 +120,7 @@ export class ProblemPanelComponent implements OnInit {
 
   ngAfterViewInit() {
     //focus on the first child
-    if (this.mathQuestionComponents.length > 0) {
-      //Wrapped to avoid error ExpressionChangedAfterItHasBeenCheckedError
-      Promise.resolve(null).then(() => this.mathQuestionComponents.first.focus());
-    }
+    this.focusFirst()
   }
 
   ngOnDestroy(): void {
@@ -132,14 +129,13 @@ export class ProblemPanelComponent implements OnInit {
 
   clearAll() {
     this.mathQuestionComponents.forEach(c => c.clear())
+    this.focusFirst()
 
-    if (this.mathQuestionComponents.length > 0) {
-      this.mathQuestionComponents.first.focus();
-    }
   }
 
   reset() {
     this.mathQuestionComponents.forEach(c => c.reset());
+    this.focusFirst()
   }
 
   get problemsCount(): number {
@@ -152,5 +148,13 @@ export class ProblemPanelComponent implements OnInit {
 
   invert() {
     this.mathQuestionComponents.forEach(c => c.invert());
+    this.focusFirst();
+  }
+
+  focusFirst() {
+    if (this.mathQuestionComponents.length > 0) {
+      //Wrapped to avoid error ExpressionChangedAfterItHasBeenCheckedError
+      Promise.resolve(null).then(() => this.mathQuestionComponents.first.focus());
+    }
   }
 }
