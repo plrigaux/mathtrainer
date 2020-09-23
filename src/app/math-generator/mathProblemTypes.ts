@@ -21,7 +21,7 @@ export namespace MathProblemTypes {
 */
 export interface MathProblemTypesData {
     name: string;
-    code: string;
+    code: MathProblemTypes;
     operator: string;
     opFunc: (value: number[]) => number;
 }

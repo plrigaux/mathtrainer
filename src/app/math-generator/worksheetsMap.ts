@@ -12,13 +12,13 @@ export class WorksheetsMap {
             MathProblemTypes.ADDITION
         ),
         WorksheetsMap.generateMapItem(
-            "Add Single Digit Number NoCarry",
-            Worksheets.addSingleDigitNumberNoCarry,
+            "Adding two single-digit numbers - sum 10 or less",
+            Worksheets.addTowSingleDigitNumberSum10orLess,
             MathProblemTypes.ADDITION
         ),
         WorksheetsMap.generateMapItem(
-            "Adding two single-digit numbers - sum 10 or less",
-            Worksheets.addTowSingleDigitNumberSum10orLess,
+            "Add Single Digit Number",
+            Worksheets.addSingleDigitNumber,
             MathProblemTypes.ADDITION
         ),
         WorksheetsMap.generateMapItem(
@@ -46,6 +46,11 @@ export class WorksheetsMap {
         WorksheetsMap.generateMapItem(
             "Subtraction facts - numbers up to 10",
             Worksheets.subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping,
+            MathProblemTypes.SUBTRACTION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Subtraction facts - answer below 10",
+            Worksheets.subtractAnswerbelow10,
             MathProblemTypes.SUBTRACTION
         ),
         WorksheetsMap.generateMapItem(

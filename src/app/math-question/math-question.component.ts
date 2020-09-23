@@ -3,7 +3,6 @@ import { MathGenerator } from '../math-generator/mathGenerator'
 import { MathProblem } from "../math-generator/mathProblem";
 import { Config } from '../config';
 import { ConfigService } from '../config.service'
-import { ResetService } from '../reset.service'
 import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier, TriggerType } from '../math-question.service';
@@ -36,7 +35,6 @@ export class MathQuestionComponent implements OnInit {
   @ViewChild("inputReference", { static: false }) private inputRef: ElementRef;
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
-    private resetService: ResetService,
     private mathQuestionService: MathQuestionService) {
     this.status = QuestionStatus.EMPTY
     this.stacked = true;
@@ -76,11 +74,6 @@ export class MathQuestionComponent implements OnInit {
       })
     );
 */
-    this.myEventSubscriptions.push(
-      this.resetService.obs.subscribe({
-        next: () => { this.reset() }
-      })
-    );
   }
 
   get name(): string {
@@ -187,6 +180,11 @@ export class MathQuestionComponent implements OnInit {
     //this.logger.debug(`FA ${this.answers.length}`);
   }
 
+  clear() {
+    this.userInput = "";
+    this.status = QuestionStatus.EMPTY;
+  }
+
   notRight(): boolean {
     return this.status !== QuestionStatus.RIGHT;
   }
@@ -229,5 +227,9 @@ export class MathQuestionComponent implements OnInit {
   validateAnswerEnter() {
     this.validateAnswerRealTime(false, TriggerType.ON_TYPE)
   }
-}
 
+  invert(): void {
+    this._problem = this._problem.getInvert();
+    this.clear();
+  }
+}

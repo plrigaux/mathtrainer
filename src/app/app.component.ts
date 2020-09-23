@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { ResetService } from './reset.service';
 import { ConfigService } from './config.service'
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from './config';
@@ -32,7 +31,7 @@ export class AppComponent implements OnInit {
     { value: 'purple-green', label: "Purple & Green" },
   ]
 
-  constructor(private resetService: ResetService, private configSrv : ConfigService, private router: Router) {
+  constructor(private configSrv : ConfigService, private router: Router) {
 
   }
 
@@ -73,11 +72,6 @@ export class AppComponent implements OnInit {
 
   menuEquationOrientationChange() {
     this.configSrv.next(this.config, false);
-  }
-
-  reset() {
-    console.log("RESET");
-    this.resetService.obs.next();
   }
 
   getAnimationData(outlet: RouterOutlet) {

@@ -1,6 +1,6 @@
 <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
 <div class="problems">
-  <div *ngFor="let problem of problems; index as i" class="mathQuestionWrapper" >
+  <div *ngFor="let problem of problems; index as i" class="mathQuestionWrapper">
     <app-math-question [questionId]='i+1'></app-math-question>
   </div>
   <div *ngFor="let problem of padding(0)" class="mathQuestionWrapper">
@@ -8,3 +8,15 @@
 </div>
 <br />
 <app-finish-validate></app-finish-validate>
+&nbsp; <button mat-button (click)="clearAll()">
+  <mat-icon>clear_all</mat-icon>
+  <span>Clear All</span>
+</button>
+&nbsp; <button mat-button (click)="reset()">
+  <mat-icon>refresh</mat-icon>
+  <span>Regenerate</span>
+</button>
+&nbsp; <button mat-button (click)="invert()">
+  <mat-icon>invert_colors</mat-icon>
+  <span>Invert</span>
+</button>

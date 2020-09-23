@@ -1,3 +1,4 @@
+import { Expression } from '@angular/compiler';
 import { MathProblemTypes, GenerateRange, Answer, MathProblemTypesData, mathProplemActions } from './mathProblemTypes';
 //import { MathGenerator } from './mathGenerator';
 
@@ -72,5 +73,43 @@ export class MathProblem {
         }
 
         return array;
+    }
+
+    getInvert(): MathProblem {
+        return MathProblem.getInvert(this);
+    }
+
+
+    static getInvert(mathProblem: MathProblem): MathProblem {
+        let answer : number = null;
+        let values : number[];
+
+        let mathProblemType: MathProblemTypes;
+
+
+        switch (mathProblem.mathProplemActions.code) {
+
+            case MathProblemTypes.ADDITION:
+                mathProblemType = MathProblemTypes.SUBTRACTION;
+                values = [mathProblem.answer, ...mathProblem.values.filter((v, index) => index !== 0)];
+                break;
+
+            case MathProblemTypes.SUBTRACTION:
+                mathProblemType = MathProblemTypes.ADDITION
+                values = [...mathProblem.values.filter((v, index) => index !== 0), mathProblem.answer];
+                break;
+
+            case MathProblemTypes.MULTIPLICATION:
+                mathProblemType = MathProblemTypes.DIVISION
+                break;
+
+            case MathProblemTypes.DIVISION:
+                mathProblemType = MathProblemTypes.MULTIPLICATION
+                break;
+            default:
+                console.error(`Wrong type ${mathProblem.mathProplemActions.code}`);
+        }
+
+        return new MathProblem(mathProblemType, answer, values);
     }
 }

@@ -13,7 +13,7 @@ export class Worksheets {
 
         let generateRange: GenerateRange[] = [
             { min: 0, max: 10 },
-            { min: 0, max: 10 }
+            { min: 1, max: 10 }
         ];
 
         return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
@@ -191,6 +191,35 @@ export class Worksheets {
         };
 
         return Worksheets.subtractXDigitNumberFromXDigitNumberWithoutRegrouping(prog);
+    }
+
+    static subtractAnswerbelow10(): MathProblem {
+
+        let highNumber = MathGenerator.getRandomIntInclusive(2, 9 + 9);
+        let min = (highNumber % 10) + 1
+        let answer = MathGenerator.getRandomIntInclusive(min, 9);
+        
+        if (highNumber < answer) {
+            let tmp = highNumber;
+            highNumber = answer;
+            answer = tmp;
+        }
+
+        let number = highNumber - answer;
+
+        let mp: MathProblem = new MathProblem(MathProblemTypes.SUBTRACTION, answer, [highNumber, number]);
+
+        return mp;
+    }
+
+    static subtractAnswerbelow10_1(): MathProblem {
+        let answer = MathGenerator.getRandomIntInclusive(1, 9);
+        let number2 = MathGenerator.getRandomIntInclusive(0, 9);
+        let number1 = answer + number2
+
+        let mp: MathProblem = new MathProblem(MathProblemTypes.SUBTRACTION, answer, [number1, number2]);
+
+        return mp;
     }
 
     //Subtract multiples of 10

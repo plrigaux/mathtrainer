@@ -20,9 +20,7 @@ export class ProblemPanelComponent implements OnInit {
   private substriptions: Subscription[] = [];
 
   constructor(private configService: ConfigService,
-    private mathQuestionService: MathQuestionService
-  ) {
-    this.clearForm();
+    private mathQuestionService: MathQuestionService) {
     this.progress = 0;
     this.successCount = 0;
   }
@@ -32,10 +30,6 @@ export class ProblemPanelComponent implements OnInit {
       this.configService.subscribe(
         cfsi => {
           this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
-          //for (let i = this.answersFormArray.length; i > this.problems.length;) {
-            //this.answersFormArray.removeAt(--i);
-            //console.debug("FA: " + this.answersFormArray.length);
-          //}
 
           //reset state
           if (cfsi.needReset) {
@@ -53,13 +47,13 @@ export class ProblemPanelComponent implements OnInit {
     );
   }
 
-  private  manageNotification(notification: MathQuestionNotifier) {
-    let currentStatus =  this.manageStatus(notification);
-    
+  private manageNotification(notification: MathQuestionNotifier) {
+    let currentStatus = this.manageStatus(notification);
+
     switch (notification.status) {
       case QuestionStatus.RIGHT:
         if (currentStatus !== QuestionStatus.RIGHT) {
-          
+
           this.increaseProgress();
 
           console.debug(`SC: ${this.successCount} PR: ${this.progress}`);
@@ -88,11 +82,11 @@ export class ProblemPanelComponent implements OnInit {
     }
   }
 
-  private manageStatus(notification: MathQuestionNotifier) : QuestionStatus {
-    let currentStatus = this.answerMap.get(notification.id); 
+  private manageStatus(notification: MathQuestionNotifier): QuestionStatus {
+    let currentStatus = this.answerMap.get(notification.id);
     this.answerMap.set(notification.id, notification.status); //There is a race condition here TODO find a way to sync
     console.debug(notification)
-    console.debug("Notification Status '" + notification.status + "' currentStatus: '" + currentStatus + "' notification.id '" + notification.id +"'")
+    console.debug("Notification Status '" + notification.status + "' currentStatus: '" + currentStatus + "' notification.id '" + notification.id + "'")
 
     return currentStatus;
   }
@@ -125,20 +119,27 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    //this.mathQuestionComponents.forEach(mq => console.debug(mq.name));
+    //focus on the first child
+    if (this.mathQuestionComponents.length > 0) {
+      //Wrapped to avoid error ExpressionChangedAfterItHasBeenCheckedError
+      Promise.resolve(null).then(() => this.mathQuestionComponents.first.focus());
+    }
   }
 
   ngOnDestroy(): void {
     this.substriptions.forEach(substription => substription.unsubscribe());
   }
 
-  clearForm() {
-    /*
-    this.panelForm = new FormGroup({
-      answers: new FormArray([])
-    })
-    this.answersFormArray = this.panelForm.get('answers') as FormArray;
-    */
+  clearAll() {
+    this.mathQuestionComponents.forEach(c => c.clear())
+
+    if (this.mathQuestionComponents.length > 0) {
+      this.mathQuestionComponents.first.focus();
+    }
+  }
+
+  reset() {
+    this.mathQuestionComponents.forEach(c => c.reset());
   }
 
   get problemsCount(): number {
@@ -147,5 +148,9 @@ export class ProblemPanelComponent implements OnInit {
 
   padding(padSize: number): any[] {
     return new Array(padSize);
+  }
+
+  invert() {
+    this.mathQuestionComponents.forEach(c => c.invert());
   }
 }
