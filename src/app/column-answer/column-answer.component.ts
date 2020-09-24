@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, Input } from '@angular/core';
 
 
 @Component({
@@ -9,41 +9,71 @@ import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular
 export class ColumnAnswerComponent implements OnInit {
   @ViewChildren('columninput') inputs: QueryList<ElementRef>;
 
-
-  userInputs: string[] = ["", "", "", ""];
-
+  @Input() size: string
+  userInputs: string[];
+  inputchar: string;
   userConcatInput: string
+  re = /\d+/
 
-  test = 1
+  constructor(private cdRef: ChangeDetectorRef) {
+    console.log(`constructor this.size: ${this.size}`)
+  }
 
-  constructor() { }
+  ngOnChanges(): void {
+    console.log(this.userInputs)
+    console.log(`this.size: ${this.size}`)
+
+    this.userInputs = new Array(parseInt(this.size));
+    console.log(this.userInputs)
+  }
 
   ngOnInit(): void {
+
   }
 
   ngAfterViewInit(): void {
     console.log(`plr: ${this.inputs.length}`)
-    this.inputs.last.nativeElement.focus();
+
+    //the last element in the page will have focus
+    setTimeout(() => {
+      this.inputs.last.nativeElement.focus();
+    }, 0);
   }
 
-  modelChangeFn(change, idx: number) {
-    console.log("idx" + idx)
-    console.log(change)
+  modelChangeFn(change: string, idx: number) {
+    console.log("index: " + idx)
+    console.log(`change "${change}" l: ${change.length}`)
     console.log(this.userInputs)
 
-    this.userInputs[idx] = change;
-    console.log(this.userInputs)
+    this.cdRef.detectChanges();
 
-    if (idx > 0) {
+    let test = this.re.exec(this.inputchar)
+    console.log(`test '${test}'`)
+
+    change = test != null ? test[0] : "";
+
+    console.log(`change' "${change}" l: ${change.length}`)
+
+    if (change.length > 0) {
+      this.userInputs[idx] = change
+    } else {
+      //keep value
+      let dico = this.re.exec(this.userInputs[idx])
+
+      this.userInputs[idx] = dico != null ? dico[0] : ""
+    }
+
+    if (idx > 0 && change.length > 0) {
       this.inputs.toArray()[idx - 1].nativeElement.focus()
     }
   }
 
   check(event: KeyboardEvent): void {
 
-    //console.log(inputIndex)
+    console.log(event)
     //console.log(this.userInputs)
-    this.test++;
+    this.inputchar = event.key;
+    console.log(`inputChar: "${this.inputchar}"`)
   }
 
   trackByIdx(index: number, obj: any): any {
@@ -54,4 +84,9 @@ export class ColumnAnswerComponent implements OnInit {
     this.userInputs.fill("");
     this.inputs.last.nativeElement.focus();
   }
+
+  testNg() {
+    this.userInputs[0] = "%";
+  }
+
 }
