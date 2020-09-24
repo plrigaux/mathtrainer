@@ -63,6 +63,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { MainPageComponent } from './main-page/main-page.component';
 import { ArrayFilterPipe } from './array-filter.pipe';
 import { TestFeaturesComponent } from './test-features/test-features.component';
+import { ColumnAnswerComponent } from './column-answer/column-answer.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { TestFeaturesComponent } from './test-features/test-features.component';
     PageNotFoundComponent,
     MainPageComponent,
     ArrayFilterPipe,
-    TestFeaturesComponent
+    TestFeaturesComponent,
+    ColumnAnswerComponent
   ],
   imports: [
     HttpClientModule,

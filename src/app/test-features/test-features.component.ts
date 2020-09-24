@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 import { MATH_EXERCICISES_STORE } from '../config';
+import { ColumnAnswerComponent } from  '../column-answer/column-answer.component'
 
 @Component({
   selector: 'app-test-features',

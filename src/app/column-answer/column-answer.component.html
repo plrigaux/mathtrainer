@@ -1,0 +1,8 @@
+<div class="columnAnswer">
+    <ng-container *ngFor="let ipt of userInputs; index as i;trackBy:trackByIdx">
+        <input #columninput [ngModel]="userInputs[i]"  (keyup)="check($event)" maxlength="1" (ngModelChange)="modelChangeFn($event, i)">
+    </ng-container>
+</div>
+<h1>UI: {{userInputs.join("")}}</h1>
+<h1>{{test}}</h1>
+<button (click)="clear()">Clear</button>
