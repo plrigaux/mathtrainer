@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, Input } from '@angular/core';
-
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output } from '@angular/core';
+import {MatIconRegistry} from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-column-answer',
@@ -9,22 +10,28 @@ import { Component, OnInit, ViewChildren, QueryList, ElementRef, ChangeDetectorR
 export class ColumnAnswerComponent implements OnInit {
   @ViewChildren('columninput') inputs: QueryList<ElementRef>;
 
-  @Input() size: string
-  userInputs: string[];
-  inputchar: string;
-  userConcatInput: string
-  re = /\d+/
+  @Input() size: string; 
+  @Output() value = new EventEmitter<string>();
 
-  constructor(private cdRef: ChangeDetectorRef) {
-    console.log(`constructor this.size: ${this.size}`)
+  userInputs: string[];
+  private inputchar: string;
+  private userConcatInput: string = "";
+  private re = /\d+/;
+
+  constructor(private cdRef: ChangeDetectorRef, 
+    iconRegistry: MatIconRegistry, 
+    sanitizer: DomSanitizer) {
+    console.log(`constructor this.size: ${this.size}`);
+
+    iconRegistry.addSvgIcon(
+      'delete-cross',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/delete_icon.svg'));
   }
 
   ngOnChanges(): void {
-    console.log(this.userInputs)
-    console.log(`this.size: ${this.size}`)
-
-    this.userInputs = new Array(parseInt(this.size));
-    console.log(this.userInputs)
+    //console.log(`this.size: ${this.size} type: ${typeof this.size}`)
+    let size = parseInt(this.size)
+    this.userInputs = new Array(size).fill("");
   }
 
   ngOnInit(): void {
@@ -35,9 +42,12 @@ export class ColumnAnswerComponent implements OnInit {
     console.log(`plr: ${this.inputs.length}`)
 
     //the last element in the page will have focus
-    setTimeout(() => {
-      this.inputs.last.nativeElement.focus();
+    /*setTimeout(() => {
+      if (this.inputs.length > 0) {
+        this.inputs.last.nativeElement.focus();
+      }
     }, 0);
+    */
   }
 
   modelChangeFn(change: string, idx: number) {
@@ -66,6 +76,9 @@ export class ColumnAnswerComponent implements OnInit {
     if (idx > 0 && change.length > 0) {
       this.inputs.toArray()[idx - 1].nativeElement.focus()
     }
+
+    this.userConcatInput = this.userInputs.join('');
+    this.value.emit(this.userConcatInput);
   }
 
   check(event: KeyboardEvent): void {
@@ -80,13 +93,25 @@ export class ColumnAnswerComponent implements OnInit {
     return index;
   }
 
-  clear() {
+  clearInput() {
     this.userInputs.fill("");
+    this.userConcatInput = "";
     this.inputs.last.nativeElement.focus();
+    this.value.emit(this.userConcatInput);
   }
 
   testNg() {
     this.userInputs[0] = "%";
   }
 
+  onDivFocus() {
+    console.log(`On div focus`)
+    if (this.inputs.length > 0) {
+      this.inputs.last.nativeElement.focus();
+    }
+  }
+
+  isEmpty() {
+    return this.userConcatInput.length === 0;
+  }
 }

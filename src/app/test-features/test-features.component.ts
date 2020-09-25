@@ -39,6 +39,9 @@ import { ColumnAnswerComponent } from  '../column-answer/column-answer.component
 })
 export class TestFeaturesComponent implements OnInit {
   status: 'active' | 'inactive' = 'inactive';
+
+  value1 :string;
+  value2 : string;
   constructor() { }
 
   ngOnInit(): void {
@@ -54,5 +57,13 @@ export class TestFeaturesComponent implements OnInit {
 
   clearStorage() {
     localStorage.clear();
+  }
+
+  onValueChange1(value : string) {
+    this.value1 = value; 
+  }
+
+  onValueChange2(value : string) {
+    this.value2 = value; 
   }
 }

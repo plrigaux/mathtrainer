@@ -1,7 +1,13 @@
 <h1>Test</h1>
 
-<app-column-answer size='5'></app-column-answer>
-<app-column-answer size='3'></app-column-answer>
+<app-column-answer size='5' (value)="onValueChange1($event)"></app-column-answer>
+value: {{value1}}
+<br>
+<app-column-answer size='3' (value)="onValueChange2($event)"></app-column-answer>
+value: {{value2}}
+
+
+
 <h1>Test anime</h1>
 <button (click)="toggle()" >toggle1</button>
 <br/>

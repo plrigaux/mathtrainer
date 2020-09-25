@@ -1,8 +1,11 @@
-<div class="columnAnswer">
-    <ng-container *ngFor="let ipt of userInputs; index as i;trackBy:trackByIdx">
-        <input #columninput [(ngModel)]="userInputs[i]"  (keypress)="check($event)"  (ngModelChange)="modelChangeFn($event, i)">
-    </ng-container>
+<button mat-icon-button color="accent" aria-label="Clear" (click)="clearInput()" [disabled]="isEmpty()">
+    <mat-icon svgIcon="delete-cross" ></mat-icon>
+</button>
+<div class="columnAnswer" tabindex="0" (focus)="onDivFocus()">
+    <input *ngFor="let ipt of userInputs; index as i; last as isLast; trackBy:trackByIdx"
+        #columninput
+        [(ngModel)]="userInputs[i]"
+        (keypress)="check($event)"
+        (ngModelChange)="modelChangeFn($event, i)"
+        tabindex="-1">
 </div>
-<h1>UI: {{userInputs.join("")}}</h1>
-<button (click)="clear()">Clear</button>
-<button (click)="testNg()">test</button>
