@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output } from '@angular/core';
-import {MatIconRegistry} from '@angular/material/icon';
+import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -10,7 +10,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ColumnAnswerComponent implements OnInit {
   @ViewChildren('columninput') inputs: QueryList<ElementRef>;
 
-  @Input() size: string; 
+  @Input() size: string;
+  @Input() mode: "columns" | "normal" = null;
   @Output() value = new EventEmitter<string>();
 
   userInputs: string[];
@@ -18,8 +19,8 @@ export class ColumnAnswerComponent implements OnInit {
   private userConcatInput: string = "";
   private re = /\d+/;
 
-  constructor(private cdRef: ChangeDetectorRef, 
-    iconRegistry: MatIconRegistry, 
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+    iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer) {
     console.log(`constructor this.size: ${this.size}`);
 
@@ -51,21 +52,26 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   modelChangeFn(change: string, idx: number) {
-    console.log("index: " + idx)
-    console.log(`change "${change}" l: ${change.length}`)
+    console.log(`change "${change}" lenght: ${change.length} index: ${idx} curval: '${this.userInputs[idx]}'`)
     console.log(this.userInputs)
 
-    this.cdRef.detectChanges();
+    let isClearCell = change.length == 0;
 
-    let test = this.re.exec(this.inputchar)
-    console.log(`test '${test}'`)
+    this.changeDetectorRef.detectChanges();
 
-    change = test != null ? test[0] : "";
+    let newChange;
+    if (!isClearCell) {
+      let test = this.re.exec(this.inputchar)
+      console.log(`test '${test}'`)
+      newChange = test != null ? test[0] : "";
+    } else {
+      newChange = "";
+    }
 
-    console.log(`change' "${change}" l: ${change.length}`)
+    console.log(`modif change' "${newChange}" lenght: ${newChange.length}`)
 
-    if (change.length > 0) {
-      this.userInputs[idx] = change
+    if (newChange.length > 0 || isClearCell) {
+      this.userInputs[idx] = newChange
     } else {
       //keep value
       let dico = this.re.exec(this.userInputs[idx])
@@ -73,13 +79,29 @@ export class ColumnAnswerComponent implements OnInit {
       this.userInputs[idx] = dico != null ? dico[0] : ""
     }
 
-    if (idx > 0 && change.length > 0) {
-      this.inputs.toArray()[idx - 1].nativeElement.focus()
+    if (idx > 0) {
+      if (newChange.length > 0 || isClearCell) {
+        this.inputs.toArray()[idx - 1].nativeElement.focus()
+      }
+    } else {
+      if (isClearCell) {
+        let ar = this.inputs.toArray();
+        ar[ar.length - 1].nativeElement.focus()
+      }
     }
 
     this.userConcatInput = this.userInputs.join('');
+
     this.value.emit(this.userConcatInput);
   }
+
+  modelChangeNormal(change: string): void {
+    console.log(`change ${change} model val ${this.userConcatInput}`)
+
+    this.userConcatInput = change;
+    this.value.emit(this.userConcatInput);
+  }
+
 
   check(event: KeyboardEvent): void {
 
@@ -89,6 +111,26 @@ export class ColumnAnswerComponent implements OnInit {
     console.log(`inputChar: "${this.inputchar}"`)
   }
 
+  check2(event: KeyboardEvent, index: number): void {
+
+    console.log(event)
+    console.log(`inputChar2: "${this.inputchar}"`)
+
+    switch (event.code) {
+      case "ArrowLeft":
+        if (index > 0) {
+          this.inputs.toArray()[index - 1].nativeElement.focus()
+        }
+        break;
+      case "ArrowRight":
+        let ar = this.inputs.toArray();
+        if (index < ar.length - 1) {
+          ar[index + 1].nativeElement.focus()
+        }
+        break;
+    }
+  }
+
   trackByIdx(index: number, obj: any): any {
     return index;
   }
@@ -96,7 +138,10 @@ export class ColumnAnswerComponent implements OnInit {
   clearInput() {
     this.userInputs.fill("");
     this.userConcatInput = "";
-    this.inputs.last.nativeElement.focus();
+
+    if (this.inputs.last) {
+      this.inputs.last.nativeElement.focus();
+    }
     this.value.emit(this.userConcatInput);
   }
 

@@ -40,8 +40,7 @@ import { ColumnAnswerComponent } from  '../column-answer/column-answer.component
 export class TestFeaturesComponent implements OnInit {
   status: 'active' | 'inactive' = 'inactive';
 
-  value1 :string;
-  value2 : string;
+  value :string[] = new Array(3);
   constructor() { }
 
   ngOnInit(): void {
@@ -59,11 +58,8 @@ export class TestFeaturesComponent implements OnInit {
     localStorage.clear();
   }
 
-  onValueChange1(value : string) {
-    this.value1 = value; 
+  onValueChange(value : string, index : number) {
+    this.value[index] = value; 
   }
 
-  onValueChange2(value : string) {
-    this.value2 = value; 
-  }
 }

@@ -1,11 +1,14 @@
 <h1>Test</h1>
 
-<app-column-answer size='5' (value)="onValueChange1($event)"></app-column-answer>
-value: {{value1}}
+<app-column-answer size='5' (value)="onValueChange($event, 0)"></app-column-answer>
+value: {{value[0]}}
 <br>
-<app-column-answer size='3' (value)="onValueChange2($event)"></app-column-answer>
-value: {{value2}}
+<app-column-answer size='3' (value)="onValueChange($event, 1)"></app-column-answer>
+value: {{value[1]}}
 
+<br>
+<app-column-answer size='4' (value)="onValueChange($event, 2)" mode="columns"></app-column-answer>
+value: {{value[2]}}
 
 
 <h1>Test anime</h1>

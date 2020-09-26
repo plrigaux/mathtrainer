@@ -1,11 +1,25 @@
 <button mat-icon-button color="accent" aria-label="Clear" (click)="clearInput()" [disabled]="isEmpty()">
     <mat-icon svgIcon="delete-cross" ></mat-icon>
 </button>
+<ng-contianer 
+*ngIf="mode=='columns'; then columns; else normal" ></ng-contianer>
+
+<ng-template #columns>
 <div class="columnAnswer" tabindex="0" (focus)="onDivFocus()">
     <input *ngFor="let ipt of userInputs; index as i; last as isLast; trackBy:trackByIdx"
         #columninput
         [(ngModel)]="userInputs[i]"
         (keypress)="check($event)"
+        (keydown)="check2($event, i)"
         (ngModelChange)="modelChangeFn($event, i)"
         tabindex="-1">
 </div>
+</ng-template>
+
+<ng-template #normal>
+    <input 
+    [ngModel]="userConcatInput" 
+    (ngModelChange)="modelChangeNormal($event)"
+    [ngStyle]="{'width.em': size}"  
+    type="number" >
+</ng-template>

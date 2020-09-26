@@ -37,3 +37,15 @@ $radius: 7px;
     //margin: 0 5px 0 -6px;
     -webkit-tap-highlight-color: transparent;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+//Firefox
+input[type=number] {
+    -moz-appearance: textfield;
+}
