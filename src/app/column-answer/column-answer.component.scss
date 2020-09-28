@@ -1,3 +1,11 @@
+@import "~@angular/material/theming";
+@import "../../assets/styles/themes_variables.scss";
+
+$font-size-var : 24px;
+$radius: 7px;
+$border-size: 2px;
+
+
 .columnAnswer {
     display: inline-block;
 }
@@ -5,15 +13,14 @@
 .columnAnswer input {
     width: 1em;
     text-align: center;
-    font-size: 24px;
+    font-size: $font-size-var;
     font-family: Arial, Helvetica, sans-serif;
-    border:  2px mediumblue;
+    border:  $border-size;
+    border-color: mediumblue;
     border-left-style: dashed;
     border-top-style: solid;
     border-bottom-style: solid;
 }
-
-$radius: 7px;
 
 .columnAnswer input:first-child {
     border-left-style: solid;
@@ -48,4 +55,38 @@ input::-webkit-inner-spin-button {
 //Firefox
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.mathAnswer {
+    font-size: $font-size-var;
+    //font-family : "Arial";
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 3em;
+    text-align: right;
+    margin-left: 0;
+    border-radius: $radius;
+    border-style: solid;
+    border-width: 1px;
+}
+
+@mixin math-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+
+    .mathAnswer:focus {
+        outline-color: mat-color($accent);
+        outline-width: 15px;
+        caret-color: mat-color($accent);
+    }
+}
+
+@each $thclass, $th in $all_themes {
+    @if $thclass == "" {
+        @include math-theme($th);
+    } @else {
+        :host-context(.#{$thclass}) {
+            @include math-theme($th);
+        }
+    }
 }

@@ -1,22 +1,35 @@
 import { Component, OnInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { QuestionStatus } from '../math-question.service';
+import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-column-answer',
   templateUrl: './column-answer.component.html',
-  styleUrls: ['./column-answer.component.scss']
+  styleUrls: ['./column-answer.component.scss'],
+  animations: [
+    trigger('answerStatus', [
+      state(QuestionStatus.RIGHT, style({ backgroundColor: 'limegreen' })),
+      state(QuestionStatus.WRONG, style({ backgroundColor: 'red' })),
+      state(QuestionStatus.EMPTY, style({ backgroundColor: 'white' })),
+      state(QuestionStatus.FOCUS, style({ backgroundColor: 'lightyellow' })),
+    ])
+  ],
 })
 export class ColumnAnswerComponent implements OnInit {
   @ViewChildren('columninput') inputs: QueryList<ElementRef>;
 
-  @Input() size: string;
-  @Input() mode: "columns" | "normal" = null;
-  @Output() value = new EventEmitter<string>();
+  @Input() size: number;
+  @Input() mode: ColumnAnswerMode = null;
+  @Input() answerStatus: QuestionStatus;
+  @Input() value : string = "";
+  @Output() valueChange = new EventEmitter<string>();
 
-  userInputs: string[];
+
+  columnAnswerMode = ColumnAnswerMode;
+  userInputs: string[] = null;
   private inputchar: string;
-  private userConcatInput: string = "";
   private re = /\d+/;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
@@ -30,9 +43,11 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    //console.log(`this.size: ${this.size} type: ${typeof this.size}`)
-    let size = parseInt(this.size)
-    this.userInputs = new Array(size).fill("");
+    console.log(`ngOnChanges this.size: ${this.size} type: ${typeof this.size}`)
+    //let size = parseInt(this.size)
+    if (this.userInputs == null && this.mode == ColumnAnswerMode.COLUMNS) {
+      this.userInputs = new Array(this.size).fill("");
+    }
   }
 
   ngOnInit(): void {
@@ -41,14 +56,6 @@ export class ColumnAnswerComponent implements OnInit {
 
   ngAfterViewInit(): void {
     console.log(`plr: ${this.inputs.length}`)
-
-    //the last element in the page will have focus
-    /*setTimeout(() => {
-      if (this.inputs.length > 0) {
-        this.inputs.last.nativeElement.focus();
-      }
-    }, 0);
-    */
   }
 
   modelChangeFn(change: string, idx: number) {
@@ -90,16 +97,16 @@ export class ColumnAnswerComponent implements OnInit {
       }
     }
 
-    this.userConcatInput = this.userInputs.join('');
+    this.value = this.userInputs.join('');
 
-    this.value.emit(this.userConcatInput);
+    this.valueChange.emit(this.value);
   }
 
   modelChangeNormal(change: string): void {
-    console.log(`change ${change} model val ${this.userConcatInput}`)
+    console.log(`change ${change} model val ${this.value}`)
 
-    this.userConcatInput = change;
-    this.value.emit(this.userConcatInput);
+    this.value = change;
+    this.valueChange.emit(this.value);
   }
 
 
@@ -136,17 +143,15 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   clearInput() {
-    this.userInputs.fill("");
-    this.userConcatInput = "";
+    if (this.userInputs) {
+      this.userInputs.fill("");
+    }
+    this.value = "";
 
     if (this.inputs.last) {
       this.inputs.last.nativeElement.focus();
     }
-    this.value.emit(this.userConcatInput);
-  }
-
-  testNg() {
-    this.userInputs[0] = "%";
+    this.valueChange.emit(this.value);
   }
 
   onDivFocus() {
@@ -157,6 +162,11 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   isEmpty() {
-    return this.userConcatInput.length === 0;
+    return this.value.length === 0;
   }
+}
+
+export enum ColumnAnswerMode {
+  COLUMNS = "COLUMNS",
+  NORMAL = "NORMAL"
 }

@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 import { MATH_EXERCICISES_STORE } from '../config';
-import { ColumnAnswerComponent } from  '../column-answer/column-answer.component'
+import { ColumnAnswerComponent, ColumnAnswerMode } from '../column-answer/column-answer.component'
+import { QuestionStatus } from '../math-question.service';
+
+
+const testcomponent = 3;
+interface AnswerInputConfig {
+  size: number;
+  mode: ColumnAnswerMode;
+  status: QuestionStatus;
+  value: string;
+}
 
 @Component({
   selector: 'app-test-features',
@@ -40,8 +50,47 @@ import { ColumnAnswerComponent } from  '../column-answer/column-answer.component
 export class TestFeaturesComponent implements OnInit {
   status: 'active' | 'inactive' = 'inactive';
 
-  value :string[] = new Array(3);
-  constructor() { }
+  inputStatus: string[] = []
+
+
+  //value: string[] = new Array(testcomponent);
+  //statusOfInput: QuestionStatus[] = new Array(testcomponent);
+
+
+  answerInputConfigs : AnswerInputConfig[]  = [
+
+    {  
+      size: 5,
+      mode: ColumnAnswerMode.NORMAL,
+      status: QuestionStatus.EMPTY,
+      value: "67"
+    },
+    {  
+      size: 5,
+      mode: ColumnAnswerMode.COLUMNS,
+      status: QuestionStatus.EMPTY,
+      value: ""
+    },
+    {  
+      size: 3,
+      mode: ColumnAnswerMode.COLUMNS,
+      status: QuestionStatus.EMPTY,
+      value: ""
+    },
+    {  
+      size: 4,
+      mode: ColumnAnswerMode.NORMAL,
+      status: QuestionStatus.EMPTY,
+      value: ""
+    }
+  ]
+
+  constructor() {
+    for (var enumMember in QuestionStatus) {
+      console.log("enum member: ", enumMember);
+      this.inputStatus.push(enumMember)
+    }
+  }
 
   ngOnInit(): void {
   }
@@ -58,8 +107,9 @@ export class TestFeaturesComponent implements OnInit {
     localStorage.clear();
   }
 
-  onValueChange(value : string, index : number) {
-    this.value[index] = value; 
+  onValueChange(value: string, index: number) {
+    console.log(`onValueChange ${value} ${index}`)
+    this.answerInputConfigs[index].value = value;
   }
 
 }
