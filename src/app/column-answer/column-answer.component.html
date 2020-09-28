@@ -13,7 +13,8 @@
         (keydown)="check2($event, i)"
         (ngModelChange)="modelChangeFn($event, i)"
         tabindex="-1"
-        [@answerStatus]="answerStatus">
+        [@answerStatus]="answerStatus"
+        (focus)="onFocus($event, i)">
 </div>
 </ng-template>
 
