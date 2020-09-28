@@ -20,10 +20,14 @@
 
 <ng-template #normal>
     <input 
+    #columninput
     class="mathAnswer"
     [ngModel]="value" 
     (ngModelChange)="modelChangeNormal($event)"
     [ngStyle]="{'width.em': size}"  
     type="number"
-    [@answerStatus]="answerStatus">
+    [@answerStatus]="answerStatus"
+    (focus)="onFocusSimple($event)"
+    (blur)="onBlurSimple($event)"
+    >
 </ng-template>

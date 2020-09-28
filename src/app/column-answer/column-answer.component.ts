@@ -177,9 +177,27 @@ export class ColumnAnswerComponent implements OnInit {
   onFocus(e: any, index: number) {
     console.log(e);
     console.log(typeof (e));
+    this.answerStatus = QuestionStatus.FOCUS;
     setTimeout( () => {
       e.target.select();
     });
+  }
+
+  onFocusSimple(e : FocusEvent) {
+    if (this.answerStatus == QuestionStatus.EMPTY) {
+    this.answerStatus = QuestionStatus.FOCUS;
+    }
+  }
+
+  onBlurSimple(e : FocusEvent) {
+    if (this.answerStatus == QuestionStatus.FOCUS) {
+      this.answerStatus = QuestionStatus.EMPTY;
+    }
+   
+  }
+
+  focus() {
+    this.onDivFocus();
   }
 }
 
