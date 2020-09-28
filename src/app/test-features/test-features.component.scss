@@ -1,3 +1,6 @@
+@import "~@angular/material/theming";
+@import "../../assets/styles/themes_variables.scss";
+
 .box {
   width: 200px;
   border: 5px solid black;
@@ -6,4 +9,50 @@
   text-align: center;
   font-size: 30px;
   color: white;
+}
+
+$fweigth: bold;
+
+@mixin common() {
+  font-weight: $fweigth;
+  margin: 1em;
+  padding: 0.5em;
+  width: 30em;
+}
+
+@mixin math-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  .primary {
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+    @include common(); 
+  }
+
+  .accent {
+    background-color: mat-color($accent);
+    color: mat-color($accent, default-contrast);
+    font-weight: $fweigth;
+    @include common(); 
+  }
+
+  .warn {
+    background-color: mat-color($warn);
+    color: mat-color($warn, default-contrast);
+    font-weight: $fweigth;
+    @include common(); 
+  }
+  
+}
+
+@each $thclass, $th in $all_themes {
+  @if $thclass == "" {
+    @include math-theme($th);
+  } @else {
+    :host-context(.#{$thclass}) {
+      @include math-theme($th);
+    }
+  }
 }

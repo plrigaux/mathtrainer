@@ -23,7 +23,7 @@ export class ColumnAnswerComponent implements OnInit {
   @Input() size: number;
   @Input() mode: ColumnAnswerMode = null;
   @Input() answerStatus: QuestionStatus;
-  @Input() value : string = "";
+  @Input() value: string = "";
   @Output() valueChange = new EventEmitter<string>();
 
 
@@ -46,7 +46,12 @@ export class ColumnAnswerComponent implements OnInit {
     console.log(`ngOnChanges this.size: ${this.size} type: ${typeof this.size}`)
     //let size = parseInt(this.size)
     if (this.userInputs == null && this.mode == ColumnAnswerMode.COLUMNS) {
-      this.userInputs = new Array(this.size).fill("");
+      this.userInputs = new Array(this.size)//.fill("");
+      let i = this.userInputs.length - this.value.length;
+      for (let v of this.value) {
+        this.userInputs[i] = v;
+        i++;
+      }
     }
   }
 
@@ -126,13 +131,17 @@ export class ColumnAnswerComponent implements OnInit {
     switch (event.code) {
       case "ArrowLeft":
         if (index > 0) {
-          this.inputs.toArray()[index - 1].nativeElement.focus()
+          this.inputs.toArray()[index - 1].nativeElement.focus();
         }
         break;
       case "ArrowRight":
         let ar = this.inputs.toArray();
         if (index < ar.length - 1) {
-          ar[index + 1].nativeElement.focus()
+          ar[index + 1].nativeElement.focus();
+        /*  setTimeout( () => {
+            ar[index + 1].nativeElement.select();
+          });
+         */
         }
         break;
     }
@@ -163,6 +172,14 @@ export class ColumnAnswerComponent implements OnInit {
 
   isEmpty() {
     return this.value.length === 0;
+  }
+
+  onFocus(e: any, index: number) {
+    console.log(e);
+    console.log(typeof (e));
+    setTimeout( () => {
+      e.target.select();
+    });
   }
 }
 

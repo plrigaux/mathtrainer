@@ -69,7 +69,7 @@ export class TestFeaturesComponent implements OnInit {
       size: 5,
       mode: ColumnAnswerMode.COLUMNS,
       status: QuestionStatus.EMPTY,
-      value: ""
+      value: "1234"
     },
     {  
       size: 3,

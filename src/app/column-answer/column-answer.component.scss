@@ -3,7 +3,7 @@
 
 $font-size-var : 24px;
 $radius: 7px;
-$border-size: 2px;
+$border-size: 1px;
 
 
 .columnAnswer {
@@ -16,7 +16,7 @@ $border-size: 2px;
     font-size: $font-size-var;
     font-family: Arial, Helvetica, sans-serif;
     border:  $border-size;
-    border-color: mediumblue;
+    //border-color: mediumblue;
     border-left-style: dashed;
     border-top-style: solid;
     border-bottom-style: solid;
