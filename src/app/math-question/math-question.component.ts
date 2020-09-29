@@ -29,7 +29,7 @@ export class MathQuestionComponent implements OnInit {
   @ViewChild(ColumnAnswerComponent, { static: false }) private inputRef: ColumnAnswerComponent;
   inFocus = false;
   size = 3;
-  mode = ColumnAnswerMode.NORMAL;
+  mode = ColumnAnswerMode.COLUMNS;
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private mathQuestionService: MathQuestionService) {

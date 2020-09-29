@@ -20,9 +20,9 @@ import { trigger, transition, state, animate, style, keyframes } from '@angular/
 export class ColumnAnswerComponent implements OnInit {
   @ViewChildren('columninput') inputs: QueryList<ElementRef>;
 
-  @Input() size: number;
-  @Input() mode: ColumnAnswerMode = null;
-  @Input() answerStatus: QuestionStatus;
+  @Input() readonly size: number;
+  @Input() readonly mode: ColumnAnswerMode = null;
+  @Input() readonly answerStatus: QuestionStatus;
   @Input() value: string = "";
   @Output() valueChange = new EventEmitter<string>();
   @Output() focusChange = new EventEmitter<boolean>();
@@ -47,12 +47,19 @@ export class ColumnAnswerComponent implements OnInit {
     console.log(`ngOnChanges this.size: ${this.size} type: ${typeof this.size}`)
     console.log(changes)
     //let size = parseInt(this.size)
-    if (this.userInputs == null && this.mode == ColumnAnswerMode.COLUMNS) {
-      this.userInputs = new Array(this.size)//.fill("");
-      let i = this.userInputs.length - this.value.length;
-      for (let v of this.value) {
-        this.userInputs[i] = v;
-        i++;
+
+    if (this.mode == ColumnAnswerMode.COLUMNS) {
+      if (this.userInputs == null) {
+        this.userInputs = new Array(this.size)//.fill("");
+        let i = this.userInputs.length - this.value.length;
+        for (let v of this.value) {
+          this.userInputs[i] = v;
+          i++;
+        }
+      }
+
+      if (this.value == null || this.value == "") {
+        this.userInputs.fill("");
       }
     }
   }
@@ -73,7 +80,7 @@ export class ColumnAnswerComponent implements OnInit {
 
     this.changeDetectorRef.detectChanges();
 
-    let newChange;
+    let newChange: string;
     if (!isClearCell) {
       let test = this.re.exec(this.inputchar)
       console.log(`test '${test}'`)
@@ -85,12 +92,12 @@ export class ColumnAnswerComponent implements OnInit {
     console.log(`modif change' "${newChange}" lenght: ${newChange.length}`)
 
     if (newChange.length > 0 || isClearCell) {
-      this.userInputs[idx] = newChange
+      this.setUserInputs(newChange, idx);
     } else {
       //keep value
       let dico = this.re.exec(this.userInputs[idx])
-
-      this.userInputs[idx] = dico != null ? dico[0] : ""
+      newChange = dico != null ? dico[0] : "";
+      this.setUserInputs(newChange, idx);
     }
 
     if (idx > 0) {
@@ -107,6 +114,15 @@ export class ColumnAnswerComponent implements OnInit {
     this.value = this.userInputs.join('');
 
     this.valueChange.emit(this.value);
+  }
+
+  private setUserInputs(val: string, idx: number) {
+    this.userInputs[idx] = val;
+    for (let i = idx + 1; i < this.userInputs.length; i++) {
+      if (this.userInputs[i] == null || this.userInputs[i] == "") {
+        this.userInputs[i] = "0"
+      }
+    }
   }
 
   modelChangeNormal(change: string): void {
@@ -176,13 +192,23 @@ export class ColumnAnswerComponent implements OnInit {
     return this.value == null || this.value.length === 0;
   }
 
-  onFocus(e: any, index: number) {
-    console.log(e);
-    console.log(typeof (e));
-    this.answerStatus = QuestionStatus.FOCUS;
+  onFocusColumns(e: FocusEvent, index: number) {
+    console.log(`onFocusColumns ${index}`)
+    //console.log(e);
+    //console.log(typeof (e));
+    //this.answerStatus = QuestionStatus.FOCUS;
     setTimeout(() => {
-      e.target.select();
+      if (this.value && this.value.length > 0)
+        (e.target as any).select();
     });
+    this.focusChange.emit(true);
+  }
+
+  onBlurColumns(e: any, index: number) {
+    console.log(`onBlurColumns ${index}`)
+    //console.log(e)
+    //console.log(typeof e)
+    this.focusChange.emit(false);
   }
 
   onFocusSimple(e: FocusEvent) {

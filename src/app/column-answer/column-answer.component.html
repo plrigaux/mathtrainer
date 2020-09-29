@@ -14,7 +14,8 @@
         (ngModelChange)="modelChangeFn($event, i)"
         tabindex="-1"
         [@answerStatus]="answerStatus"
-        (focus)="onFocus($event, i)">
+        (focus)="onFocusColumns($event, i)"
+        (blur)="onBlurColumns($event, i)">
 </div>
 </ng-template>
 
