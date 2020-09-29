@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { QuestionStatus } from '../math-question.service';
@@ -25,6 +25,7 @@ export class ColumnAnswerComponent implements OnInit {
   @Input() answerStatus: QuestionStatus;
   @Input() value: string = "";
   @Output() valueChange = new EventEmitter<string>();
+  @Output() focusChange = new EventEmitter<boolean>();
 
 
   columnAnswerMode = ColumnAnswerMode;
@@ -42,8 +43,9 @@ export class ColumnAnswerComponent implements OnInit {
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/delete_icon.svg'));
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     console.log(`ngOnChanges this.size: ${this.size} type: ${typeof this.size}`)
+    console.log(changes)
     //let size = parseInt(this.size)
     if (this.userInputs == null && this.mode == ColumnAnswerMode.COLUMNS) {
       this.userInputs = new Array(this.size)//.fill("");
@@ -138,10 +140,10 @@ export class ColumnAnswerComponent implements OnInit {
         let ar = this.inputs.toArray();
         if (index < ar.length - 1) {
           ar[index + 1].nativeElement.focus();
-        /*  setTimeout( () => {
-            ar[index + 1].nativeElement.select();
-          });
-         */
+          /*  setTimeout( () => {
+              ar[index + 1].nativeElement.select();
+            });
+           */
         }
         break;
     }
@@ -171,29 +173,24 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   isEmpty() {
-    return this.value.length === 0;
+    return this.value == null || this.value.length === 0;
   }
 
   onFocus(e: any, index: number) {
     console.log(e);
     console.log(typeof (e));
     this.answerStatus = QuestionStatus.FOCUS;
-    setTimeout( () => {
+    setTimeout(() => {
       e.target.select();
     });
   }
 
-  onFocusSimple(e : FocusEvent) {
-    if (this.answerStatus == QuestionStatus.EMPTY) {
-    this.answerStatus = QuestionStatus.FOCUS;
-    }
+  onFocusSimple(e: FocusEvent) {
+    this.focusChange.emit(true);
   }
 
-  onBlurSimple(e : FocusEvent) {
-    if (this.answerStatus == QuestionStatus.FOCUS) {
-      this.answerStatus = QuestionStatus.EMPTY;
-    }
-   
+  onBlurSimple(e: FocusEvent) {
+    this.focusChange.emit(false);
   }
 
   focus() {

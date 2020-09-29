@@ -9,18 +9,10 @@ export enum QuestionStatus {
   FOCUS = "FOCUS"
 }
 
-export enum TriggerType {
-  ON_FOCUS = "ON_FOCUS",
-  ON_BLUR = "ON_BLUR",
-  ON_TYPE = "ON_TYPE"
-}
-
-
 export interface MathQuestionNotifier {
   status: QuestionStatus;
   index: number;
   id: string;
-  trigger: TriggerType;
 }
 
 @Injectable({
