@@ -6,15 +6,17 @@
     [value]="answer.value"
     (valueChange)="onValueChange($event, i)" 
     [answerStatus]="answer.status"></app-column-answer>
-    
+    <br>
     <select  [(ngModel)]="answer.status">
         <option 
         *ngFor="let x of inputStatus"
         [value]="x"
         >{{x}}</option>
-    </select>
+    </select> &nbsp;
+    <input [(ngModel)]="answer.value">
     value: {{answerInputConfigs[i].value }} 
     <br>
+    <hr>
 </ng-template>
 
 <h1>Test theme</h1>

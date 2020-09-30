@@ -4,6 +4,7 @@ import { ConfigService } from '../config.service'
 import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../math-question.service';
 import { MathQuestionComponent } from '../math-question/math-question.component'
 import { Subscription } from 'rxjs';
+import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from '../config';
 
 @Component({
   selector: 'app-problem-panel',
@@ -17,7 +18,9 @@ export class ProblemPanelComponent implements OnInit {
   progress: number;
   successCount: number;
   answerMap: Map<string, QuestionStatus> = new Map();
+  equationOrientations: EquationOrientation[] = EquationOrientations;
   private substriptions: Subscription[] = [];
+  config : Config = null;
 
   constructor(private configService: ConfigService,
     private mathQuestionService: MathQuestionService) {
@@ -29,6 +32,7 @@ export class ProblemPanelComponent implements OnInit {
     this.substriptions.push(
       this.configService.subscribe(
         cfsi => {
+          this.config = cfsi.config;
           this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
 
           //reset state
@@ -60,16 +64,16 @@ export class ProblemPanelComponent implements OnInit {
 
           let array = this.mathQuestionComponents.toArray();
 
-          let mqc: MathQuestionComponent;
+          let mathQuestionComponent: MathQuestionComponent;
 
-          mqc = this.runOverCommponents(notification.index + 1, array.length, array)
+          mathQuestionComponent = this.runOverCommponents(notification.index + 1, array.length, array)
 
-          if (mqc === undefined) {
-            mqc = this.runOverCommponents(0, notification.index, array)
+          if (mathQuestionComponent === undefined) {
+            mathQuestionComponent = this.runOverCommponents(0, notification.index, array)
           }
 
-          if (mqc !== undefined) {
-            mqc.focus();
+          if (mathQuestionComponent !== undefined) {
+            mathQuestionComponent.focus();
           }
         }
         break;
@@ -91,9 +95,9 @@ export class ProblemPanelComponent implements OnInit {
     return currentStatus;
   }
 
-  private runOverCommponents(i: number, limit: number, arr: MathQuestionComponent[]): MathQuestionComponent {
+  private runOverCommponents(i: number, limit: number, mqcArray: MathQuestionComponent[]): MathQuestionComponent {
     while (i < limit) {
-      let mq = arr[i];
+      let mq = mqcArray[i];
       if (mq.notRight()) {
         return mq;
       }
@@ -156,5 +160,16 @@ export class ProblemPanelComponent implements OnInit {
       //Wrapped to avoid error ExpressionChangedAfterItHasBeenCheckedError
       Promise.resolve(null).then(() => this.mathQuestionComponents.first.focus());
     }
+  }
+
+  orientationChangeFn(orienation : EquationOrientation) {
+    console.log(`New orientation: ${orienation}`)
+    this.config.orientation = orienation.code
+    this.configService.next(this.config, false);
+  }
+
+  realTimeValidationChangeFn(realTimeValidation : boolean) {
+    this.config.realTimeValidation = realTimeValidation;
+    this.configService.next(this.config, false);
   }
 }

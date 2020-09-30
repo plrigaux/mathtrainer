@@ -12,11 +12,30 @@
   <mat-icon>clear_all</mat-icon>
   <span>Clear All</span>
 </button>
-&nbsp; <button mat-button (click)="reset()">
+&nbsp;
+<button mat-button (click)="reset()">
   <mat-icon>refresh</mat-icon>
   <span>Regenerate</span>
 </button>
-&nbsp; <button mat-button (click)="invert()">
+&nbsp;
+<button mat-button (click)="invert()">
   <mat-icon>invert_colors</mat-icon>
   <span>Invert</span>
 </button>
+&nbsp;
+<p class="orientation">
+  <label id="orientation-radio-group-label">Equation orientation</label>
+  <mat-radio-group aria-labelledby="orientation-radio-group-label"
+    class="orientation-radio-group"
+    [ngModel]="config.orientation"
+    (ngModelChange)="orientationChangeFn($event)">
+    <mat-radio-button class="orientation-radio-button" *ngFor="let orientation of equationOrientations"
+      [value]="orientation.code">
+      {{orientation.label}}
+    </mat-radio-button>
+  </mat-radio-group>
+</p>
+<mat-checkbox class="mat-menu-item" labelPosition="before" [ngModel]="config.realTimeValidation"
+    (ngModelChange)='realTimeValidationChangeFn($event)'>
+    Realtime Validation
+  </mat-checkbox>

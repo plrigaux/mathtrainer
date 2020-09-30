@@ -63,7 +63,7 @@ export class TestFeaturesComponent implements OnInit {
       size: 5,
       mode: ColumnAnswerMode.NORMAL,
       status: QuestionStatus.EMPTY,
-      value: "67"
+      value: "67",
     },
     {  
       size: 5,

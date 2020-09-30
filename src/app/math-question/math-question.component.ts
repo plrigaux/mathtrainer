@@ -38,7 +38,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.debug("QID " + this.questionId);
+    console.debug(this.log("QID " + this.questionId));
     this.controlIndex = this.questionId - 1;
 
     this.myEventSubscriptions.push(
@@ -64,39 +64,47 @@ export class MathQuestionComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.myEventSubscriptions.forEach(subscription => {
-      console.debug(`subscription.unsubscribe() ${subscription}`)
+      console.debug(this.log(`subscription.unsubscribe() ${subscription}`))
       subscription.unsubscribe()
     });
   }
 
   onValueChange(userInput: string) {
-    console.log(`onValueChange userInput ${userInput}`)
+    console.debug(this.log(`onValueChange userInput ${userInput}`))
     this.userInput = userInput;
 
     let answer = this.problem.answer;
-    console.debug(`User Input: ${this.userInput} Answer: ${answer}`);
+    console.debug(this.log(`User Input: ${this.userInput} Answer: ${answer}`));
 
     let userAnswer = parseInt(this.userInput);
-    console.debug(`User Input: ${this.userInput} userAnswer: ${userAnswer}`)
+
+    console.debug(this.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`))
 
     if (userAnswer === answer) {
-      console.debug("R")
+      console.debug(this.log("R"))
       this.status = QuestionStatus.RIGHT;
     }
     else if (this.inFocus) {
-      console.debug("Infocus")
-      this.status = QuestionStatus.FOCUS;
+      let userAnswerLength = userAnswer.toString().length; //this to ensure raw string length (it trims)
+      let answerLength = answer.toString().length
+      if (userAnswerLength >= answerLength) {
+        console.debug(this.log("W Length"))
+        this.status = QuestionStatus.WRONG;
+      } else {
+        console.debug(this.log("Infocus"))
+        this.status = QuestionStatus.FOCUS;
+      }
     }
     else if (isNaN(userAnswer)) {
-      console.debug("Void")
+      console.debug(this.log("Void"))
       this.status = QuestionStatus.EMPTY;
     }
     else {
-      console.debug("W")
+      console.debug(this.log("W"))
       this.status = QuestionStatus.WRONG;
     }
     this.informParent();
-    console.debug("Config " + this.config.nbNumbers);
+    console.debug(this.log("Config " + this.config.nbNumbers));
   }
 
   preventUpDown(event: KeyboardEvent) {
@@ -106,18 +114,17 @@ export class MathQuestionComponent implements OnInit {
   }
 
   typeKey(event: KeyboardEvent) {
-    console.debug("typeKey");
-    console.debug(event);
+    console.debug(this.log("typeKey"));
+    console.debug(this.log(event));
   }
 
   reset() {
     this._problem = MathGenerator.generateProblemNext(this.config, this.questionId);
-    console.debug("PROBLEM !!!");
-    console.debug(this._problem);
-    console.debug(this.config);
+    console.debug(this.log("PROBLEM !!!"));
+    console.debug(this.log(this._problem));
+    console.debug(this.log(this.config));
     this.status = QuestionStatus.EMPTY;
-    this.userInput = "";
-    //this.logger.debug(`FA ${this.answers.length}`);
+    this.userInput = null;
   }
 
   clear() {
@@ -129,21 +136,26 @@ export class MathQuestionComponent implements OnInit {
     return this.status !== QuestionStatus.RIGHT;
   }
 
-  onFocusChange(isFocus : boolean) {
-    console.log(`On focus Change ${isFocus} ${this.questionId} ui: "${this.userInput}"`)
+  onFocusChange(isFocus: boolean) {
+    console.debug(this.log(`On focus Change ${isFocus ? "FOCUS" : "BLUR"} UI: "${this.userInput}"`))
+    let currentFocus = this.inFocus;
+    this.inFocus = isFocus;
     if (isFocus) {
-      this.inFocus = true;
-      setTimeout(() => {this.status = QuestionStatus.FOCUS;})
-      
-    } else {
-      this.inFocus = false;
+      if (!currentFocus) {
+        setTimeout(() => {
+          if (this.status !== QuestionStatus.WRONG) {
+            this.status = QuestionStatus.FOCUS;
+          }
+        })
+      }
+    } else if (currentFocus) {
       this.onValueChange(this.userInput)
     }
   }
 
   focus() {
-    console.debug(`focus  ${this.name} `);
-    console.debug(this.inputRef);
+    console.debug(console.debug(this.log(`focus  ${this.name} `)));
+    console.debug(console.debug(this.log(this.inputRef)));
     this.inFocus = true;
     setTimeout(() => {
       this.inputRef.focus();
@@ -151,15 +163,10 @@ export class MathQuestionComponent implements OnInit {
   }
 
   notEmpty(): boolean {
-    return /*this.status == QuestionStatus.WRONG || this.status == QuestionStatus.RIGHT || */ this.userInput.length != 0;
+    return this.userInput.length != 0;
   }
 
   private informParent() {
-    /*
-        if (trigger === TriggerType.ON_BLUR && this.status === QuestionStatus.RIGHT) {
-          //return;
-        }
-    */
     let notification: MathQuestionNotifier = {
       status: this.status,
       id: this.questionId.toString(),
@@ -172,5 +179,14 @@ export class MathQuestionComponent implements OnInit {
   invert(): void {
     this._problem = this._problem.getInvert();
     this.clear();
+  }
+
+  private log(message: any): any {
+    let type = typeof message;
+    if (type == 'string' || type == 'number') {
+      return `MQ${this.questionId} - ${message}`
+    } else {
+      return message
+    }
   }
 }

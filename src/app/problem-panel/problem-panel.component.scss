@@ -45,3 +45,21 @@
 button span {
     margin-left: 0.5em;
 }
+
+.mat-radio-button {
+    margin-left: 16px;
+}
+
+.orientation-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.orientation-radio-button {
+    margin: 5px;
+}
+
+.orientation {
+    display: inline-block;
+}

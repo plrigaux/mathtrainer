@@ -26,6 +26,7 @@ export class ColumnAnswerComponent implements OnInit {
   @Input() value: string = "";
   @Output() valueChange = new EventEmitter<string>();
   @Output() focusChange = new EventEmitter<boolean>();
+  private inFocus = false;
 
 
   columnAnswerMode = ColumnAnswerMode;
@@ -50,16 +51,21 @@ export class ColumnAnswerComponent implements OnInit {
 
     if (this.mode == ColumnAnswerMode.COLUMNS) {
       if (this.userInputs == null) {
-        this.userInputs = new Array(this.size)//.fill("");
-        let i = this.userInputs.length - this.value.length;
-        for (let v of this.value) {
-          this.userInputs[i] = v;
-          i++;
-        }
+        this.userInputs = new Array(this.size)
       }
 
-      if (this.value == null || this.value == "") {
-        this.userInputs.fill("");
+      if (changes['value']) {
+        if (!this.value || this.value == "") {
+          this.userInputs.fill("");
+        } else {
+          for (let i = this.userInputs.length - 1, j = this.value.length - 1; i >= 0; i--, j--) {
+            if (j >= 0) {
+              this.userInputs[i] = this.value[j]
+            } else {
+              this.userInputs[i] = ""
+            }
+          }
+        }
       }
     }
   }
@@ -186,6 +192,10 @@ export class ColumnAnswerComponent implements OnInit {
     if (this.inputs.length > 0) {
       this.inputs.last.nativeElement.focus();
     }
+  }
+
+  onDivBlur() {
+    console.log("on Div Blur");
   }
 
   isEmpty() {
