@@ -5,15 +5,15 @@
     *ngIf="mode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-contianer>
 
 <ng-template #columns>
-    <div class="columnAnswer" tabindex="0" (focusin)="onDivFocus()" (focusout)="onDivBlur()">
+    <div class="columnAnswer" (focus)="onDivFocus()" (blur)="onDivBlur()">
         <input *ngFor="let ipt of userInputs; index as i; last as isLast; trackBy:trackByIdx"
             #columninput
             type="number"
-            [(ngModel)]="userInputs[i]"
+            [(ngModel)]="userInputs[i].value"
             (keypress)="check($event)"
             (keydown)="check2($event, i)"
             (ngModelChange)="modelChangeFn($event, i)"
-            tabindex="-1"
+            [tabindex]="userInputs[i].tabindex"
             [@answerStatus]="answerStatus"
             (focus)="onFocusColumns($event, i)"
             (blur)="onBlurColumns($event, i)">
@@ -29,6 +29,6 @@
         [ngStyle]="{'width.em': size}"
         type="number"
         [@answerStatus]="answerStatus"
-        (focusin)="onFocusSimple($event)"
-        (focusout)="onBlurSimple($event)">
+        (focus)="onFocusSimple($event)"
+        (blur)="onBlurSimple($event)">
 </ng-template>

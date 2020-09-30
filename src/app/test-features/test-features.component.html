@@ -1,20 +1,27 @@
 <h1>Test</h1>
 
-<ng-template ngFor let-i="index" let-answer [ngForOf]="answerInputConfigs" >
-    <app-column-answer [size]='answer.size' 
-    [mode]='answer.mode' 
-    [value]="answer.value"
-    (valueChange)="onValueChange($event, i)" 
-    [answerStatus]="answer.status"></app-column-answer>
+<ng-template ngFor let-i="index" let-answer [ngForOf]="answerInputConfigs">
+    <app-column-answer [size]='answer.size'
+        [mode]='answer.mode'
+        [value]="answer.value"
+        [id]="i"
+        (valueChange)="onValueChange($event, i)"
+        [answerStatus]="answer.status"
+        (focusChange)="onFocusChange($event, i)"></app-column-answer>
     <br>
-    <select  [(ngModel)]="answer.status">
-        <option 
-        *ngFor="let x of inputStatus"
-        [value]="x"
-        >{{x}}</option>
+    <select [(ngModel)]="answer.status">
+        <option
+            *ngFor="let x of inputStatus"
+            [value]="x">{{x}}</option>
     </select> &nbsp;
     <input [(ngModel)]="answer.value">
-    value: {{answerInputConfigs[i].value }} 
+
+    <span class="focusIndicator" *ngIf="answerInputConfigs[i].inFocus; else elseBlock">FOCUS</span>
+    <ng-template #elseBlock>
+        <span class="focusIndicator">BLUR</span>
+    </ng-template>
+
+    value: {{answerInputConfigs[i].value }}
     <br>
     <hr>
 </ng-template>
@@ -27,15 +34,15 @@
 <div></div>
 
 <h1>Test anime</h1>
-<button (click)="toggle()" >toggle1</button>
-<br/>
-<br/>
+<button (click)="toggle()">toggle1</button>
+<br />
+<br />
 <div [@slideStatus]="status" class="box">Test color animation</div>
-<br/>
-<input [@slideStatus]="status" class="box" value='test'/>
-<br/>
-<br/>
-<button (click)="toggle()" >toggle</button>
-<br/>
-<br/>
-<button (click)="clearStorage()" >Clear Storage</button>
+<br />
+<input [@slideStatus]="status" class="box" value='test' />
+<br />
+<br />
+<button (click)="toggle()">toggle</button>
+<br />
+<br />
+<button (click)="clearStorage()">Clear Storage</button>

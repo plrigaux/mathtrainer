@@ -11,6 +11,7 @@ interface AnswerInputConfig {
   mode: ColumnAnswerMode;
   status: QuestionStatus;
   value: string;
+  inFocus: boolean;
 }
 
 @Component({
@@ -64,24 +65,28 @@ export class TestFeaturesComponent implements OnInit {
       mode: ColumnAnswerMode.NORMAL,
       status: QuestionStatus.EMPTY,
       value: "67",
+      inFocus: false
     },
     {  
       size: 5,
       mode: ColumnAnswerMode.COLUMNS,
       status: QuestionStatus.EMPTY,
-      value: "1234"
+      value: "1234",
+      inFocus: false
     },
     {  
       size: 3,
       mode: ColumnAnswerMode.COLUMNS,
       status: QuestionStatus.EMPTY,
-      value: ""
+      value: "",
+      inFocus: false
     },
     {  
       size: 4,
       mode: ColumnAnswerMode.NORMAL,
       status: QuestionStatus.EMPTY,
-      value: ""
+      value: "",
+      inFocus: false
     }
   ]
 
@@ -112,4 +117,8 @@ export class TestFeaturesComponent implements OnInit {
     this.answerInputConfigs[index].value = value;
   }
 
+  onFocusChange(focus : boolean, index: number) {
+    console.log(`FOCUS change ${focus ? "FOCUS" : "BLUR"} Widget: ${index}`);
+    this.answerInputConfigs[index].inFocus = focus;
+  }
 }
