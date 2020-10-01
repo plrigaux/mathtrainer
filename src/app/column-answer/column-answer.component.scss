@@ -5,6 +5,13 @@ $font-size-var : 24px;
 $radius: 7px;
 $border-size: 1px;
 
+$mat-icon-button-dim: 28px;
+
+.mat-icon-button {
+    width: $mat-icon-button-dim;
+    height: $mat-icon-button-dim;
+    vertical-align: top;
+}
 
 .columnAnswer {
     display: inline-block;

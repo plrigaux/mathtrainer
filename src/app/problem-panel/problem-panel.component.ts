@@ -179,4 +179,9 @@ export class ProblemPanelComponent implements OnInit {
     this.config.answerMode = selectedAnswerMode;
     this.configService.next(this.config, false);
   }
+
+  nbProblemsChangeFn(nbProblems : number) {
+    this.config.nbProblems = nbProblems
+    this.configService.next(this.config, false);
+  }
 }

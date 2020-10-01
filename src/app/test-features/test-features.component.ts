@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 import { MATH_EXERCICISES_STORE } from '../config';
-import { ColumnAnswerComponent, ColumnAnswerMode } from '../column-answer/column-answer.component'
+import { ColumnAnswerComponent, ColumnAnswerMode, ANSWER_MODES } from '../column-answer/column-answer.component'
 import { QuestionStatus } from '../math-question.service';
-
 
 const testcomponent = 3;
 interface AnswerInputConfig {
@@ -50,7 +49,7 @@ interface AnswerInputConfig {
 })
 export class TestFeaturesComponent implements OnInit {
   status: 'active' | 'inactive' = 'inactive';
-
+  ANSWER_MODES = ANSWER_MODES;
   inputStatus: string[] = []
 
 

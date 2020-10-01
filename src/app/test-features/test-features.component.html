@@ -1,14 +1,14 @@
 <h1>Test</h1>
 
 <ng-template ngFor let-i="index" let-answer [ngForOf]="answerInputConfigs">
-    <app-column-answer [size]='answer.size'
+    <app-column-answer 
+        [size]='answer.size'
         [mode]='answer.mode'
         [value]="answer.value"
         [id]="i"
         [answerStatus]="answer.status"
         (focusChange)="onFocusChange($event, i)"
-        [valueChange]="myCallbackFunction"
-        ></app-column-answer>
+        [valueChange]="myCallbackFunction"></app-column-answer>
     <br>
     <select [(ngModel)]="answer.status">
         <option
@@ -22,6 +22,20 @@
         <span class="focusIndicator">BLUR</span>
     </ng-template>
 
+    <mat-form-field appearance="fill">
+        <mat-label>Answer mode</mat-label>
+        <mat-select
+            [(ngModel)]="answerInputConfigs[i].mode">
+            <mat-option *ngFor="let answerMode of ANSWER_MODES" [value]="answerMode.code">
+                {{answerMode.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>&nbsp; 
+    <mat-form-field appearance="outline">
+        <mat-label>Size</mat-label>
+        <input matInput type="number" [(ngModel)]="answer.size">
+      </mat-form-field>
+    <br />
     value: {{answerInputConfigs[i].value }}
     <br>
     <hr>

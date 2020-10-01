@@ -29,7 +29,7 @@ export class ColumnAnswerComponent implements OnInit {
   @Output() focusChange = new EventEmitter<boolean>();
   @Input() valueChange: (newValue: string, index: number) => boolean;
   private inFocus = false;
-  private last : number;
+  private last: number;
 
 
   columnAnswerMode = ColumnAnswerMode;
@@ -54,15 +54,30 @@ export class ColumnAnswerComponent implements OnInit {
     console.debug(this.log(changes))
     //let size = parseInt(this.size)
 
-    if (this.mode == ColumnAnswerMode.COLUMNS) {
-      if (this.userInputs == null) {
-        this.userInputs = new Array(this.size)
-        this.last = this.userInputs.length - 1;
-      }
 
-      if (changes['value']) {
+    if (changes['mode']) {
+      if (this.mode == ColumnAnswerMode.COLUMNS) {
+        if (this.userInputs == null) {
+          this.userInputs = new Array(this.size)
+          this.last = this.userInputs.length - 1;
+        }
+        this.switchColumnFocus = this.switchColumnFocusCB;
         this.fill(this.value);
+      } else {
+        this.userInputs = null;
+        this.last = -1;
+        this.switchColumnFocus = this.switchColumnFocusCBEmpty;
       }
+    }
+
+    if (changes['value'] && this.mode == ColumnAnswerMode.COLUMNS) {
+      this.fill(this.value);
+    }
+
+    if (changes['size'] && this.mode == ColumnAnswerMode.COLUMNS) {
+      this.userInputs = new Array(this.size)
+      this.last = this.userInputs.length - 1;
+      this.fill(this.value);
     }
   }
 
@@ -120,7 +135,11 @@ export class ColumnAnswerComponent implements OnInit {
     console.log(leaveCursorThere);
   }
 
-  private switchColumnFocus(newCol: number, oldCol : number) {
+  private switchColumnFocus: SwitchFocus = null
+
+  private switchColumnFocusCBEmpty: SwitchFocus = (newCol: number, oldCol: number) => { };
+
+  private switchColumnFocusCB: SwitchFocus = (newCol: number, oldCol: number) => {
     if (newCol < 0 || newCol >= this.inputs.length) {
       return
     }
@@ -131,7 +150,6 @@ export class ColumnAnswerComponent implements OnInit {
     setTimeout(() => {
       ar[newCol].nativeElement.select();
     }, 0);
-
   }
 
   private setUserInputs(val: string, idx: number) {
@@ -186,10 +204,10 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   clearInput() {
-    if (this.userInputs) {
-      this.fill("");
-    }
-    this.value = "";
+
+    this.value = null;
+
+    this.fill(this.value);
 
     if (this.inputs.last) {
       this.inputs.last.nativeElement.focus();
@@ -200,7 +218,7 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   private fill(val: string) {
-    if (!val) {
+    if (val == null) {
       val = ""
     }
 
@@ -254,16 +272,18 @@ export class ColumnAnswerComponent implements OnInit {
     this.addTabIndex();
   }
 
-  addTabIndex() {
+  private addTabIndex() {
     this.setlastTabIndex(0);
   }
 
-  removeTabIndex() {
+  private removeTabIndex() {
     this.setlastTabIndex(-1);
   }
 
-  setlastTabIndex(indexValue: number) {
-    this.userInputs[this.last].tabindex = indexValue;
+  private setlastTabIndex(indexValue: number) {
+    if (this.userInputs != null) {
+      this.userInputs[this.last].tabindex = indexValue;
+    }
   }
 
   onFocusSimple(e: FocusEvent) {
@@ -277,9 +297,11 @@ export class ColumnAnswerComponent implements OnInit {
   private setInFocus(focus: boolean) {
 
     let val = false
-    this.userInputs.forEach(v => {
-      return val = val || v.inFocus ;
-    })
+    if (this.mode == ColumnAnswerMode.COLUMNS) {
+      this.userInputs.forEach(v => {
+        return val = val || v.inFocus;
+      })
+    }
 
     console.info(`val: ${val} focus ${focus} this.inFocus ${this.inFocus}  this.isSwitchColunm ${this.isSwitchColunm}`)
     if (this.inFocus != focus) {
@@ -288,10 +310,6 @@ export class ColumnAnswerComponent implements OnInit {
       }
     }
     this.inFocus = focus;
-/*
-    if (focus && this.isSwitchColunm) {
-      this.isSwitchColunm = false;
-    }*/
   }
 
   focus() {
@@ -317,7 +335,7 @@ export interface ANSWER_MODE {
   label: string;
 };
 
-export const ANSWER_MODES : ANSWER_MODE[] = [
+export const ANSWER_MODES: ANSWER_MODE[] = [
   { code: ColumnAnswerMode.NORMAL, label: "Normal" },
   { code: ColumnAnswerMode.COLUMNS, label: "Column" }
 ];
@@ -327,3 +345,5 @@ interface CAContent {
   tabindex: number;
   inFocus: boolean;
 }
+
+type SwitchFocus = (newCol: number, oldCol: number) => void;
