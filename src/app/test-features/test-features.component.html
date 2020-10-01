@@ -5,9 +5,10 @@
         [mode]='answer.mode'
         [value]="answer.value"
         [id]="i"
-        (valueChange)="onValueChange($event, i)"
         [answerStatus]="answer.status"
-        (focusChange)="onFocusChange($event, i)"></app-column-answer>
+        (focusChange)="onFocusChange($event, i)"
+        [valueChange]="myCallbackFunction"
+        ></app-column-answer>
     <br>
     <select [(ngModel)]="answer.status">
         <option

@@ -58,30 +58,36 @@ export class TestFeaturesComponent implements OnInit {
   //statusOfInput: QuestionStatus[] = new Array(testcomponent);
 
 
-  answerInputConfigs : AnswerInputConfig[]  = [
-
-    {  
+  answerInputConfigs: AnswerInputConfig[] = [
+    {
+      size: 4,
+      mode: ColumnAnswerMode.COLUMNS,
+      status: QuestionStatus.EMPTY,
+      value: "3",
+      inFocus: false
+    },
+    {
       size: 5,
       mode: ColumnAnswerMode.NORMAL,
       status: QuestionStatus.EMPTY,
       value: "67",
       inFocus: false
     },
-    {  
+    {
       size: 5,
       mode: ColumnAnswerMode.COLUMNS,
       status: QuestionStatus.EMPTY,
       value: "1234",
       inFocus: false
     },
-    {  
+    {
       size: 3,
       mode: ColumnAnswerMode.COLUMNS,
       status: QuestionStatus.EMPTY,
       value: "",
       inFocus: false
     },
-    {  
+    {
       size: 4,
       mode: ColumnAnswerMode.NORMAL,
       status: QuestionStatus.EMPTY,
@@ -115,9 +121,21 @@ export class TestFeaturesComponent implements OnInit {
   onValueChange(value: string, index: number) {
     console.log(`onValueChange ${value} ${index}`)
     this.answerInputConfigs[index].value = value;
+    return "TEST"
   }
 
-  onFocusChange(focus : boolean, index: number) {
+  myCallbackFunction = (value: string, index : number): boolean => {
+    //callback code here
+    //console.warn("CALLBACK")
+    //console.warn(this)
+
+    console.log(`myCallbackFunction ${value} ${index}`);
+    this.answerInputConfigs[index].value = value;
+    let val = parseInt(value)
+    return val ? val % 2 == 0 : false;
+  }
+
+  onFocusChange(focus: boolean, index: number) {
     console.log(`FOCUS change ${focus ? "FOCUS" : "BLUR"} Widget: ${index}`);
     this.answerInputConfigs[index].inFocus = focus;
   }

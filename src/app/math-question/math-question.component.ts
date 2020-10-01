@@ -26,7 +26,7 @@ export class MathQuestionComponent implements OnInit {
   private config: Config;
   @Input() readonly questionId: number;
   controlIndex: number;
-  @ViewChild(ColumnAnswerComponent, { static: false }) private inputRef: ColumnAnswerComponent;
+  @ViewChild(ColumnAnswerComponent, { static: false }) private columnAnswerComponent: ColumnAnswerComponent;
   inFocus = false;
   size = 3;
   mode = ColumnAnswerMode.COLUMNS;
@@ -69,8 +69,8 @@ export class MathQuestionComponent implements OnInit {
     });
   }
 
-  onValueChange(userInput: string) {
-    console.debug(this.log(`onValueChange userInput ${userInput}`))
+  onValueChange = (userInput: string, callerId : string) : boolean => {
+    console.debug(this.log(`onValueChange userInput ${userInput} callerId ${callerId}`))
     this.userInput = userInput;
 
     let answer = this.problem.answer;
@@ -105,6 +105,8 @@ export class MathQuestionComponent implements OnInit {
     }
     this.informParent();
     console.debug(this.log("Config " + this.config.nbNumbers));
+
+    return this.status == QuestionStatus.WRONG || this.status == QuestionStatus.RIGHT
   }
 
   preventUpDown(event: KeyboardEvent) {
@@ -129,7 +131,7 @@ export class MathQuestionComponent implements OnInit {
 
   clear() {
     this.inFocus = false;
-    this.onValueChange(null);
+    this.onValueChange(null, "THIS");
   }
 
   notRight(): boolean {
@@ -141,24 +143,24 @@ export class MathQuestionComponent implements OnInit {
     let currentFocus = this.inFocus;
     this.inFocus = isFocus;
     if (isFocus) {
-      if (!currentFocus) {
+
         setTimeout(() => {
           if (this.status !== QuestionStatus.WRONG) {
             this.status = QuestionStatus.FOCUS;
           }
         })
-      }
+      
     } else if (currentFocus) {
-      this.onValueChange(this.userInput)
+      this.onValueChange(this.userInput, "THIS")
     }
   }
 
   focus() {
     console.debug(console.debug(this.log(`focus  ${this.name} `)));
-    console.debug(console.debug(this.log(this.inputRef)));
+    console.debug(console.debug(this.log(this.columnAnswerComponent)));
     this.inFocus = true;
     setTimeout(() => {
-      this.inputRef.focus();
+      this.columnAnswerComponent.focus();
     })
   }
 

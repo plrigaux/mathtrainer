@@ -23,11 +23,13 @@ export class ColumnAnswerComponent implements OnInit {
   @Input() readonly size: number;
   @Input() readonly mode: ColumnAnswerMode = null;
   @Input() readonly answerStatus: QuestionStatus;
-  @Input() readonly id: string = "";
+  @Input() readonly id: number = null;
   @Input() value: string = "";
-  @Output() valueChange = new EventEmitter<string>();
+  //@Output() valueChange = new EventEmitter<string>();
   @Output() focusChange = new EventEmitter<boolean>();
+  @Input() valueChange: (newValue: string, index: number) => boolean;
   private inFocus = false;
+  private last : number;
 
 
   columnAnswerMode = ColumnAnswerMode;
@@ -55,6 +57,7 @@ export class ColumnAnswerComponent implements OnInit {
     if (this.mode == ColumnAnswerMode.COLUMNS) {
       if (this.userInputs == null) {
         this.userInputs = new Array(this.size)
+        this.last = this.userInputs.length - 1;
       }
 
       if (changes['value']) {
@@ -72,10 +75,10 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   modelChangeFn(change: string, idx: number) {
-    console.debug(this.log(`change "${change}" lenght: ${change ? change.length : 0} index: ${idx} curval: '${this.userInputs[idx].value}'`))
+    console.debug(this.log(`change "${change}" lenght: ${change != null ? change.length : 0} index: ${idx} curval: '${this.userInputs[idx].value}'`))
     console.debug(this.log(this.userInputs))
 
-    let isClearCell = change.length == 0;
+    let isClearCell = change == null || change.length == 0;
 
     this.changeDetectorRef.detectChanges();
 
@@ -99,30 +102,36 @@ export class ColumnAnswerComponent implements OnInit {
       this.setUserInputs(newChange, idx);
     }
 
-    if (idx > 0) {
-      if (newChange.length > 0 || isClearCell) {
-        this.switchColumnFocus(idx - 1);
-      }
-    } else {
-      if (isClearCell) {
-        this.switchColumnFocus(this.inputs.length - 1);
-      }
-    }
-
     let val = "";
-
-    this.userInputs.forEach( v => {
+    this.userInputs.forEach(v => {
       val += v.value
     });
     this.value = val;
 
-    this.valueChange.emit(this.value);
+    //this.valueChange.emit(this.value);
+    let leaveCursorThere = this.valueChange(this.value, this.id)
+    if (!leaveCursorThere) {
+      if (newChange.length > 0) {
+        this.switchColumnFocus(idx - 1, idx);
+      } else {
+        this.switchColumnFocus(idx, idx); // just for select
+      }
+    }
+    console.log(leaveCursorThere);
   }
 
-  private switchColumnFocus(newCol: number) {
+  private switchColumnFocus(newCol: number, oldCol : number) {
+    if (newCol < 0 || newCol >= this.inputs.length) {
+      return
+    }
+
     let ar = this.inputs.toArray();
-    this.isSwitchColunm = true;
-    ar[newCol].nativeElement.focus()
+    this.isSwitchColunm = oldCol != newCol;
+    //ar[newCol].nativeElement.focus()
+    setTimeout(() => {
+      ar[newCol].nativeElement.select();
+    }, 0);
+
   }
 
   private setUserInputs(val: string, idx: number) {
@@ -138,9 +147,10 @@ export class ColumnAnswerComponent implements OnInit {
     console.debug(this.log(`change ${change} model val ${this.value}`))
 
     this.value = change;
-    this.valueChange.emit(this.value);
+    //this.valueChange.emit(this.value);
+    let val2 = this.valueChange(this.value, this.id)
+    console.log(val2);
   }
-
 
   check(event: KeyboardEvent): void {
 
@@ -157,14 +167,16 @@ export class ColumnAnswerComponent implements OnInit {
 
     switch (event.code) {
       case "ArrowLeft":
-        if (index > 0) {
-          this.inputs.toArray()[index - 1].nativeElement.focus();
-        }
+        this.switchColumnFocus(index - 1, index);
         break;
       case "ArrowRight":
-        if (index < this.inputs.length - 1) {
-          this.inputs.toArray()[index + 1].nativeElement.focus();
-        }
+        this.switchColumnFocus(index + 1, index);
+        break;
+      case "Backspace":
+        console.log("Backspace")
+        break;
+      case "Delete":
+        console.log("Delete")
         break;
     }
   }
@@ -182,7 +194,9 @@ export class ColumnAnswerComponent implements OnInit {
     if (this.inputs.last) {
       this.inputs.last.nativeElement.focus();
     }
-    this.valueChange.emit(this.value);
+    //this.valueChange.emit(this.value);
+    let val2 = this.valueChange(this.value, this.id)
+    console.log(val2);
   }
 
   private fill(val: string) {
@@ -190,13 +204,14 @@ export class ColumnAnswerComponent implements OnInit {
       val = ""
     }
 
-    for (let i = this.userInputs.length - 1, j = val.length - 1; i >= 0; i--, j--) {
+    for (let i = this.last, j = val.length - 1; i >= 0; i--, j--) {
       this.userInputs[i] = {
         value: j >= 0 ? val[j] : "",
-        tabindex: -1
+        tabindex: -1,
+        inFocus: false
       }
     }
-    this.userInputs[this.userInputs.length - 1].tabindex = 0
+    this.addTabIndex();
   }
 
   onDivFocus() {
@@ -221,9 +236,12 @@ export class ColumnAnswerComponent implements OnInit {
     //this.answerStatus = QuestionStatus.FOCUS;
     this.curColunmFocus = index;
     if (this.value && this.value.length > 0) {
+      //console.warn("do select");
       (e.target as HTMLInputElement).select();
     }
+    this.userInputs[index].inFocus = true;
     this.setInFocus(true);
+    this.removeTabIndex();
   }
 
   onBlurColumns(e: any, index: number) {
@@ -231,7 +249,21 @@ export class ColumnAnswerComponent implements OnInit {
     console.debug(this.log(`onBlurColumns ${index}`))
     //console.debug(this.log(e))
     //console.debug(this.log(typeof e))
+    this.userInputs[index].inFocus = false;
     this.setInFocus(false);
+    this.addTabIndex();
+  }
+
+  addTabIndex() {
+    this.setlastTabIndex(0);
+  }
+
+  removeTabIndex() {
+    this.setlastTabIndex(-1);
+  }
+
+  setlastTabIndex(indexValue: number) {
+    this.userInputs[this.last].tabindex = indexValue;
   }
 
   onFocusSimple(e: FocusEvent) {
@@ -243,20 +275,27 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   private setInFocus(focus: boolean) {
+
+    let val = false
+    this.userInputs.forEach(v => {
+      return val = val || v.inFocus ;
+    })
+
+    console.info(`val: ${val} focus ${focus} this.inFocus ${this.inFocus}  this.isSwitchColunm ${this.isSwitchColunm}`)
     if (this.inFocus != focus) {
       if (!this.isSwitchColunm) {
         this.focusChange.emit(focus);
       }
-      this.inFocus = focus;
     }
-
+    this.inFocus = focus;
+/*
     if (focus && this.isSwitchColunm) {
       this.isSwitchColunm = false;
-    }
+    }*/
   }
 
   focus() {
-    this.onDivFocus();
+    this.switchColumnFocus(this.last, this.last);
   }
 
   log(msg: any): any {
@@ -276,4 +315,5 @@ export enum ColumnAnswerMode {
 interface CAContent {
   value: string;
   tabindex: number;
+  inFocus: boolean;
 }

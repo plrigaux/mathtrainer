@@ -162,9 +162,9 @@ export class ProblemPanelComponent implements OnInit {
     }
   }
 
-  orientationChangeFn(orienation : EquationOrientation) {
-    console.log(`New orientation: ${orienation}`)
-    this.config.orientation = orienation.code
+  orientationChangeFn(orientation : string) {
+    console.log(`New orientation: ${orientation} ${typeof orientation}`)
+    this.config.orientation = orientation as OrientationTypesKey
     this.configService.next(this.config, false);
   }
 

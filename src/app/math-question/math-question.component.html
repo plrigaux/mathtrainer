@@ -22,10 +22,12 @@
           (keydown)="preventUpDown($event)"
           (change)="checkChange($event)"
           (keyup)="check($event)" />-->
-        <app-column-answer [size]='size'
+        <app-column-answer
+          [id]='questionId'
+          [size]='size'
           [mode]='mode'
           [value]='userInput'
-          (valueChange)="onValueChange($event)"
+          [valueChange]="onValueChange"
           (focusChange)="onFocusChange($event)"
           [answerStatus]="status"></app-column-answer>
       </div>
