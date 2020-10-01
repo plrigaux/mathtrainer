@@ -1,6 +1,6 @@
 import { MathProblemTypes, GenerateRange } from './math-generator/mathProblemTypes'
 import { WorksheetsItem } from './math-generator/worksheetsMap'
-
+import { ColumnAnswerMode } from './column-answer/column-answer.component'
 
 export type OrientationTypesKey = "VERTICAL" | "HORIZONTAL";
 
@@ -16,7 +16,7 @@ export const EquationOrientations: EquationOrientation[] = [
 export interface Config {
     nbProblems: number;
     nbNumbers: number;
-    //mathProblemTypes: MathProblemTypes;
+    answerMode: ColumnAnswerMode;
     generateRange: GenerateRange[];
     orientation: OrientationTypesKey;
     realTimeValidation: boolean;
@@ -27,7 +27,7 @@ export interface Config {
 export const CONFIG: Config = {
     nbNumbers: 2,
     nbProblems: 20,
-    //mathProblemTypes: MathProblemTypes.ADDITION,
+    answerMode: ColumnAnswerMode.NORMAL,
     generateRange: [{ min: 10, max: 30 }, { min: 1, max: 9 }],
     orientation: "VERTICAL",
     realTimeValidation: true,

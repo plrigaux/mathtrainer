@@ -312,6 +312,16 @@ export enum ColumnAnswerMode {
   NORMAL = "NORMAL"
 }
 
+export interface ANSWER_MODE {
+  code: ColumnAnswerMode;
+  label: string;
+};
+
+export const ANSWER_MODES : ANSWER_MODE[] = [
+  { code: ColumnAnswerMode.NORMAL, label: "Normal" },
+  { code: ColumnAnswerMode.COLUMNS, label: "Column" }
+];
+
 interface CAContent {
   value: string;
   tabindex: number;

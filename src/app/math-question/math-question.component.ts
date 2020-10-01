@@ -23,13 +23,12 @@ export class MathQuestionComponent implements OnInit {
   stacked: boolean;
   private _problem: MathProblem;
   private myEventSubscriptions: Subscription[] = [];
-  private config: Config;
+  config: Config;
   @Input() readonly questionId: number;
   controlIndex: number;
   @ViewChild(ColumnAnswerComponent, { static: false }) private columnAnswerComponent: ColumnAnswerComponent;
   inFocus = false;
   size = 3;
-  mode = ColumnAnswerMode.COLUMNS;
 
   constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
     private mathQuestionService: MathQuestionService) {

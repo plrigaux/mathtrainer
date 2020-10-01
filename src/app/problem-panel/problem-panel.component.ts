@@ -5,6 +5,7 @@ import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../ma
 import { MathQuestionComponent } from '../math-question/math-question.component'
 import { Subscription } from 'rxjs';
 import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from '../config';
+import { ColumnAnswerMode, ANSWER_MODES } from '../column-answer/column-answer.component'
 
 @Component({
   selector: 'app-problem-panel',
@@ -21,6 +22,7 @@ export class ProblemPanelComponent implements OnInit {
   equationOrientations: EquationOrientation[] = EquationOrientations;
   private substriptions: Subscription[] = [];
   config : Config = null;
+  ANSWER_MODES = ANSWER_MODES;
 
   constructor(private configService: ConfigService,
     private mathQuestionService: MathQuestionService) {
@@ -34,7 +36,7 @@ export class ProblemPanelComponent implements OnInit {
         cfsi => {
           this.config = cfsi.config;
           this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
-
+        
           //reset state
           if (cfsi.needReset) {
             this.progress = 0;
@@ -170,6 +172,11 @@ export class ProblemPanelComponent implements OnInit {
 
   realTimeValidationChangeFn(realTimeValidation : boolean) {
     this.config.realTimeValidation = realTimeValidation;
+    this.configService.next(this.config, false);
+  }
+
+  selectedAnswerModeChangeFn(selectedAnswerMode : ColumnAnswerMode) {
+    this.config.answerMode = selectedAnswerMode;
     this.configService.next(this.config, false);
   }
 }

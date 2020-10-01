@@ -35,7 +35,19 @@
     </mat-radio-button>
   </mat-radio-group>
 </p>
-<mat-checkbox class="mat-menu-item" labelPosition="before" [ngModel]="config.realTimeValidation"
-    (ngModelChange)='realTimeValidationChangeFn($event)'>
-    Realtime Validation
-  </mat-checkbox>
+<mat-checkbox labelPosition="before"
+  [ngModel]="config.realTimeValidation"
+  (ngModelChange)='realTimeValidationChangeFn($event)'>
+  Realtime Validation
+</mat-checkbox>
+&nbsp;
+<mat-form-field appearance="fill">
+  <mat-label>Answer mode</mat-label>
+  <mat-select
+    [ngModel]="config.answerMode"
+    (ngModelChange)='selectedAnswerModeChangeFn($event)'>
+    <mat-option *ngFor="let answerMode of ANSWER_MODES" [value]="answerMode.code">
+      {{answerMode.label}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
