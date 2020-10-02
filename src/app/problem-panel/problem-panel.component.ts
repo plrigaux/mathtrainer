@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { MathProblem } from "../math-generator/mathProblem";
-import { ConfigService } from '../config.service'
-import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../math-question.service';
+import { ConfigService } from '../services/config.service'
+import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../services/math-question.service';
 import { MathQuestionComponent } from '../math-question/math-question.component'
 import { Subscription } from 'rxjs';
-import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from '../config';
+import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from '../services/config';
 import { ColumnAnswerMode, ANSWER_MODES } from '../column-answer/column-answer.component'
 
 @Component({
@@ -35,7 +35,7 @@ export class ProblemPanelComponent implements OnInit {
       this.configService.subscribe(
         cfsi => {
           this.config = cfsi.config;
-          this.problems = new Array(cfsi.config.nbProblems >= 1 ? cfsi.config.nbProblems : 1); //TODO make an universal function
+          this.problems = new Array(cfsi.config.nbQuestions >= 1 ? cfsi.config.nbQuestions : 1); //TODO make an universal function
         
           //reset state
           if (cfsi.needReset) {
@@ -181,7 +181,7 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   nbProblemsChangeFn(nbProblems : number) {
-    this.config.nbProblems = nbProblems
+    this.config.nbQuestions = nbProblems
     this.configService.next(this.config, false);
   }
 }

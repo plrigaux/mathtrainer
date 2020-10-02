@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigDialogComponent } from "../config-dialog/config-dialog.component"
 import { MatDialog } from '@angular/material/dialog';
-import { Config } from '../config';
-import { ConfigService } from '../config.service'
+import { Config } from '../services/config';
+import { ConfigService } from '../services/config.service'
 import { Subscription } from 'rxjs';
 
 

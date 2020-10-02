@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from '../config.service'
+import { ConfigService } from '../services/config.service'
 import { Subscription } from 'rxjs';
-import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
+import { ValidateAllService, MathQuestionValidation } from '../services/validate-all.service'
 
 @Component({
   selector: 'app-finish-validate',

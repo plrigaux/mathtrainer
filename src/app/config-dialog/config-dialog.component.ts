@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Config, EquationOrientation, EquationOrientations } from '../config';
+import { Config, EquationOrientation, EquationOrientations } from '../services/config';
 import { mathProplemActions } from '../math-generator/mathProblemTypes'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigDialogRangesComponent } from '../config-dialog-ranges/config-dialog-ranges.component';
@@ -34,7 +34,7 @@ export class ConfigDialogComponent implements OnInit {
     this.configForm = new FormGroup({
 
       nbNumbers: new FormControl(this.config.nbNumbers, [Validators.required, Validators.min(2)]),
-      nbProblems: new FormControl(this.config.nbProblems, [Validators.required, Validators.min(1)]),
+      nbProblems: new FormControl(this.config.nbQuestions, [Validators.required, Validators.min(1)]),
       //mathProblemTypes: new FormControl(this.config.mathProblemTypes, []),
       realTimeValidation: new FormControl(this.config.realTimeValidation, []),
       orientation: new FormControl(this.config.orientation, [])

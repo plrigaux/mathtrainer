@@ -8,20 +8,6 @@
       </ng-template>
       <span class="equals">=</span>
       <div class="answerField">
-
-        <!-- [ngClass]="{'mathAnswer': true, 'wrong': wrong, 'right': right}" -->
-        <!-- <input #inputReference
-          [(ngModel)]="userInput"  
-          [name]="name"
-          class="mathAnswer"
-          [@answerStatus]="status"
-          type="number"
-          (blur)="onBlur()"
-          (focus)="onFocus()"
-          (keyup.enter)="validateAnswerEnter()"
-          (keydown)="preventUpDown($event)"
-          (change)="checkChange($event)"
-          (keyup)="check($event)" />-->
         <app-column-answer
           [id]='questionId'
           [size]='size'

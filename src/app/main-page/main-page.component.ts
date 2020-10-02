@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular
 import { Router } from '@angular/router';
 import { WorksheetsMap, WorksheetsItem } from '../math-generator/worksheetsMap'
 import { MathProblemTypes } from '../math-generator/mathProblemTypes';
-import { ConfigService } from '../config.service'
-import { Config } from '../config';
+import { ConfigService } from '../services/config.service'
+import { Config } from '../services/config';
 import { Subscription } from 'rxjs';
 import { MatCheckbox } from '@angular/material/checkbox';
 

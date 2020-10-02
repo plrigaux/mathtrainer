@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-//import { Observable, of } from 'rxjs';
-import { BehaviorSubject, Subscription, Subscribable, PartialObserver } from 'rxjs';
+import { BehaviorSubject, Subscription, PartialObserver } from 'rxjs';
 import { Config, CONFIG, MATH_EXERCICISES_STORE, GENERATORS_KEY } from './config';
-import { WorksheetsItem } from './math-generator/worksheetsMap';
-import { Worksheets } from './math-generator/worksheets';
-import { stringify } from '@angular/compiler/src/util';
+import { WorksheetsItem } from '../math-generator/worksheetsMap';
+import { Worksheets } from '../math-generator/worksheets';
 
 export class ConfigServiceInfo {
   config: Config;

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { MathGenerator } from '../math-generator/mathGenerator'
 import { MathProblem } from "../math-generator/mathProblem";
-import { Config } from '../config';
-import { ConfigService } from '../config.service'
+import { Config } from '../services/config';
+import { ConfigService } from '../services/config.service'
 import { Subscription } from 'rxjs';
-import { ValidateAllService, MathQuestionValidation } from '../validate-all.service'
-import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../math-question.service';
+import { ValidateAllService, MathQuestionValidation } from '../services/validate-all.service'
+import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../services/math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 import { ColumnAnswerComponent, ColumnAnswerMode } from '../column-answer/column-answer.component'
 

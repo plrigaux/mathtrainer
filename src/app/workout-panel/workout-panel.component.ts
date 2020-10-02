@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
-import { Config } from '../config';
+import { Config } from '../services/config';
 import { Subscription } from 'rxjs';
-import { ConfigService } from '../config.service'
+import { ConfigService } from '../services/config.service'
 import { WorkTask  } from './worktask'
 import { MathGenerator } from '../math-generator/mathGenerator'
 
@@ -48,9 +48,9 @@ export class WorkoutPanelComponent implements OnInit {
   }
 
   initTasks() {
-    this.tasks = new Array(this.config.nbProblems);
+    this.tasks = new Array(this.config.nbQuestions);
 
-    for (let i = 0; i < this.config.nbProblems; i++) {
+    for (let i = 0; i < this.config.nbQuestions; i++) {
       let task = new WorkTask();
       this.tasks[i] = task;
       task.problem = MathGenerator.generateProblem(this.config);

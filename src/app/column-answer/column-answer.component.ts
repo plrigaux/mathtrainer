@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { QuestionStatus } from '../math-question.service';
+import { QuestionStatus } from '../services/math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 
 @Component({
@@ -62,11 +62,13 @@ export class ColumnAnswerComponent implements OnInit {
           this.last = this.userInputs.length - 1;
         }
         this.switchColumnFocus = this.switchColumnFocusCB;
+        this.fill = this.fillColumn;
         this.fill(this.value);
       } else {
         this.userInputs = null;
         this.last = -1;
         this.switchColumnFocus = this.switchColumnFocusCBEmpty;
+        this.fill = this.fillSimple;
       }
     }
 
@@ -135,11 +137,11 @@ export class ColumnAnswerComponent implements OnInit {
     console.log(leaveCursorThere);
   }
 
-  private switchColumnFocus: SwitchFocus = null
+  private switchColumnFocus: SwitchFocusCB = null
 
-  private switchColumnFocusCBEmpty: SwitchFocus = (newCol: number, oldCol: number) => { };
+  private switchColumnFocusCBEmpty: SwitchFocusCB = (newCol: number, oldCol: number) => { };
 
-  private switchColumnFocusCB: SwitchFocus = (newCol: number, oldCol: number) => {
+  private switchColumnFocusCB: SwitchFocusCB = (newCol: number, oldCol: number) => {
     if (newCol < 0 || newCol >= this.inputs.length) {
       return
     }
@@ -217,7 +219,9 @@ export class ColumnAnswerComponent implements OnInit {
     console.log(val2);
   }
 
-  private fill(val: string) {
+  private fill: FillCB = null
+  private fillSimple: FillCB = () => { }
+  private fillColumn: FillCB = (val: string) => {
     if (val == null) {
       val = ""
     }
@@ -226,9 +230,12 @@ export class ColumnAnswerComponent implements OnInit {
       this.userInputs[i] = {
         value: j >= 0 ? val[j] : "",
         tabindex: -1,
-        inFocus: false
+        inFocus: false,
+        placeholder: ""
       }
     }
+
+    this.userInputs[this.last].placeholder = "?";
     this.addTabIndex();
   }
 
@@ -281,9 +288,7 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   private setlastTabIndex(indexValue: number) {
-    if (this.userInputs != null) {
-      this.userInputs[this.last].tabindex = indexValue;
-    }
+    this.userInputs[this.last].tabindex = indexValue;
   }
 
   onFocusSimple(e: FocusEvent) {
@@ -344,6 +349,8 @@ interface CAContent {
   value: string;
   tabindex: number;
   inFocus: boolean;
+  placeholder: string;
 }
 
-type SwitchFocus = (newCol: number, oldCol: number) => void;
+type SwitchFocusCB = (newCol: number, oldCol: number) => void;
+type FillCB = (val: string) => void

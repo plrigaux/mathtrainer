@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfigDialogComponent } from './config-dialog.component';
 
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { CONFIG } from '../config';
+import { CONFIG } from '../services/config';
 import { of } from 'rxjs';
 
 export class MatDialogRefMock {

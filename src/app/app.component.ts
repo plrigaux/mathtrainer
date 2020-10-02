@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { ConfigService } from './config.service'
+import { ConfigService } from './services/config.service'
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from './config';
+import { Config, EquationOrientation, EquationOrientations } from './services/config';
 import { RouterOutlet, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 //const MQ_THEME: string = "MQ_THEME";

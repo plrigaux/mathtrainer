@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Config } from '../config';
+import { Config } from '../services/config';
 import { GenerateRange } from '../math-generator/mathProblemTypes';
 import { mathProplemActions } from '../math-generator/mathProblemTypes'
 import { FormControl, Validators, FormGroup, FormArray, ValidationErrors, ValidatorFn, FormGroupDirective, NgForm } from '@angular/forms';

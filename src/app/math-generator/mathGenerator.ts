@@ -1,4 +1,4 @@
-import { Config } from '../config'
+import { Config } from '../services/config'
 import { MathProblemTypes, GenerateRange, Answer } from './mathProblemTypes';
 import { MathProblem } from './mathProblem';
 import { WorksheetsItem, WorksheetsMap } from './worksheetsMap';

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
-import { MATH_EXERCICISES_STORE } from '../config';
+import { MATH_EXERCICISES_STORE } from '../services/config';
 import { ColumnAnswerComponent, ColumnAnswerMode, ANSWER_MODES } from '../column-answer/column-answer.component'
-import { QuestionStatus } from '../math-question.service';
+import { QuestionStatus } from '../services/math-question.service';
 
 const testcomponent = 3;
 interface AnswerInputConfig {
