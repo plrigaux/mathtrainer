@@ -32,17 +32,12 @@ export class ConfigDialogComponent implements OnInit {
     this.config = { ...data };
 
     this.configForm = new FormGroup({
-
       nbNumbers: new FormControl(this.config.nbNumbers, [Validators.required, Validators.min(2)]),
       nbProblems: new FormControl(this.config.nbQuestions, [Validators.required, Validators.min(1)]),
-      //mathProblemTypes: new FormControl(this.config.mathProblemTypes, []),
       realTimeValidation: new FormControl(this.config.realTimeValidation, []),
       orientation: new FormControl(this.config.orientation, [])
-
     });
-
   }
-
 
   ngOnInit(): void {
   }
@@ -82,7 +77,6 @@ export class ConfigDialogComponent implements OnInit {
   }
 
   testpizza(val: any): boolean {
-
     console.log(val.errors);
     return true;
   }

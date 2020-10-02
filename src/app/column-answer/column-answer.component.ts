@@ -239,17 +239,6 @@ export class ColumnAnswerComponent implements OnInit {
     this.addTabIndex();
   }
 
-  onDivFocus() {
-    console.debug(this.log(`On div focus`))
-    /*if (this.inputs.length > 0) {
-      this.inputs.last.nativeElement.focus();
-    }*/
-  }
-
-  onDivBlur() {
-    console.debug(this.log("on Div Blur"));
-  }
-
   isEmpty() {
     return this.value == null || this.value.length === 0;
   }

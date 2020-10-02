@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorkoutPanelComponent } from './workout-panel.component';
-import { ConfigService } from '../config.service'
+import { ConfigService } from '../services/config.service'
 
 describe('WorkoutPanelComponent', () => {
   let component: WorkoutPanelComponent;

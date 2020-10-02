@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { MathQuestionComponent } from './math-question.component';
-import { ConfigService } from '../config.service'
-import { NGXLogger, NGXMapperService, NGXLoggerHttpService, LoggerConfig } from 'ngx-logger';
+import { ConfigService } from '../services/config.service'
 import { HttpBackend } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormArray, FormControl, FormsModule, Validators, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
@@ -16,12 +15,8 @@ describe('MathQuestionComponent', () => {
       declarations: [MathQuestionComponent],
       imports: [FormsModule, ReactiveFormsModule],
       providers: [
-        NGXLogger,
-        NGXMapperService,
         ConfigService,
         HttpBackend,
-        NGXLoggerHttpService,
-        LoggerConfig,
         DatePipe
       ]
     })
