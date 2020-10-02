@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { MathGenerator } from '../math-generator/mathGenerator'
 import { MathProblem } from "../math-generator/mathProblem";
 import { Config } from '../services/config';
@@ -23,14 +23,15 @@ export class MathQuestionComponent implements OnInit {
   stacked: boolean;
   private _problem: MathProblem;
   private myEventSubscriptions: Subscription[] = [];
-  config: Config;
-  @Input() readonly questionId: number;
+  @Input() config : Config;
+  @Input() readonly questionId : number;
+  @Input() needReset : boolean;
   controlIndex: number;
   @ViewChild(ColumnAnswerComponent, { static: false }) private columnAnswerComponent: ColumnAnswerComponent;
   inFocus = false;
   size = 3;
 
-  constructor(private configService: ConfigService, private validateAllService: ValidateAllService,
+  constructor( 
     private mathQuestionService: MathQuestionService) {
     this.status = QuestionStatus.EMPTY
     this.stacked = true;
@@ -39,18 +40,19 @@ export class MathQuestionComponent implements OnInit {
   ngOnInit(): void {
     console.debug(this.log("QID " + this.questionId));
     this.controlIndex = this.questionId - 1;
-
+/*
     this.myEventSubscriptions.push(
       this.configService.subscribe(
-        cfsi => {
-          this.config = cfsi.config;
+        configServiceInfo => {
+          this.config = configServiceInfo.config;
           this.stacked = this.config.orientation == "VERTICAL";
-          if (cfsi.needReset) {
+          if (configServiceInfo.needReset) {
             this.reset();
           }
         }
       )
     );
+    */
   }
 
   get name(): string {
@@ -66,6 +68,18 @@ export class MathQuestionComponent implements OnInit {
       console.debug(this.log(`subscription.unsubscribe() ${subscription}`))
       subscription.unsubscribe()
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['config']) {
+      this.stacked = this.config.orientation == "VERTICAL";
+    }
+
+    if (changes['needReset']) {
+      if(this.needReset || changes['needReset'].isFirstChange()) {
+        this.reset();
+      }
+    }
   }
 
   onValueChange = (userInput: string, callerId : string) : boolean => {
@@ -103,7 +117,6 @@ export class MathQuestionComponent implements OnInit {
       this.status = QuestionStatus.WRONG;
     }
     this.informParent();
-    console.debug(this.log("Config " + this.config.nbNumbers));
 
     return this.status == QuestionStatus.WRONG || this.status == QuestionStatus.RIGHT
   }

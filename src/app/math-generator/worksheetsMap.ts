@@ -84,17 +84,17 @@ export class WorksheetsMap {
     static getWorksheetsItem(): WorksheetsItem[] {
         return this.values;
     }
-/*
-    private static generateMap() {
-        WorksheetsMap.generateMapItem(
-            "Subtract two two-digit numbers - with regrouping",
-            Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
-            MathProblemTypes.SUBTRACTION
-        );
-    }
-*/
+    /*
+        private static generateMap() {
+            WorksheetsMap.generateMapItem(
+                "Subtract two two-digit numbers - with regrouping",
+                Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
+                MathProblemTypes.SUBTRACTION
+            );
+        }
+    */
     private static generateMapItem(label: string,
-        func: () => MathProblem, 
+        func: () => MathProblem,
         mathProblemType: MathProblemTypes): WorksheetsItem {
 
         return {
@@ -107,10 +107,14 @@ export class WorksheetsMap {
     }
 }
 
-export interface WorksheetsItem {
+export interface WorksheetsItem extends WorksheetsItemStore {
     label: string
     func: () => MathProblem
-    funcName: string
     mathProblemType: MathProblemTypes
+
+}
+
+export interface WorksheetsItemStore {
+    funcName: string,
     code: string
 }

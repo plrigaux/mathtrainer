@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription, PartialObserver } from 'rxjs';
 import { Config, CONFIG, MATH_EXERCICISES_STORE, GENERATORS_KEY } from './config';
-import { WorksheetsItem } from '../math-generator/worksheetsMap';
+import { WorksheetsItem, WorksheetsItemStore } from '../math-generator/worksheetsMap';
 import { Worksheets } from '../math-generator/worksheets';
 
 export class ConfigServiceInfo {
@@ -27,11 +27,11 @@ export class ConfigService {
     console.log(storedData)
     console.log("storedData")
 
-    let cf : Config = {} as Config;
+    let cf: Config = {} as Config;
 
     for (const key of Object.keys(CONFIG)) {
       let val = sdObject[key];
-      
+
       if (val === undefined) {
         val = CONFIG[key];
       }
@@ -39,15 +39,15 @@ export class ConfigService {
       cf[key] = val;
       //console.log(`${cf[key]} = ${sdObject[key]}`);
     }
-    
+
     let generatorsObj = sdObject[GENERATORS_KEY];
 
     if (generatorsObj !== undefined) {
-      let map: Map<string, WorksheetsItem> = new Map();
+      let generators: WorksheetsItem[] = [];
 
       for (const value of Object.values(generatorsObj)) {
 
-        let worksheetsItem : WorksheetsItem = value as WorksheetsItem
+        let worksheetsItem: WorksheetsItem = value as WorksheetsItem
 
         let func = Worksheets[worksheetsItem.funcName]
 
@@ -55,10 +55,10 @@ export class ConfigService {
           console.warn(`"${worksheetsItem.funcName}" not in Worksheets`);
         } else {
           worksheetsItem.func = func;
-          map.set(worksheetsItem.code, worksheetsItem);
+          generators.push(worksheetsItem)
         }
       }
-      cf[GENERATORS_KEY] = map;
+      cf[GENERATORS_KEY] = generators;
     }
 
     console.log(cf);
@@ -68,11 +68,8 @@ export class ConfigService {
     //this.configObservable = this.configSource.asObservable();
   }
 
-
-  subscribe(observer?: PartialObserver<ConfigServiceInfo>): Subscription;
-  subscribe(next?: (value: ConfigServiceInfo) => void, error?: (error: any) => void, complete?: () => void): Subscription;
-  subscribe(generatorOrNext?: any, error?: any, complete?: any): Subscription {
-    return this.configSource.subscribe(generatorOrNext, error, complete);
+  subscribe(any: any): Subscription {
+    return this.configSource.subscribe(any);
   }
 
   unsubscribe() {
@@ -84,7 +81,13 @@ export class ConfigService {
   next(config: Config, needReset: boolean) {
     this.configSource.next({ config: config, needReset: needReset });
 
-    let cf: Record<string, any> = {  };
+
+    let temp: WorksheetsItemStore = {
+      code: null,
+      funcName: null
+    }
+
+    let cf: Record<string, any> = {};
     //copy
     for (const key of Object.keys(CONFIG)) {
       cf[key] = config[key];
@@ -92,19 +95,24 @@ export class ConfigService {
     }
 
     //transform map to object
-    let generatorsObj: Object = {}
-    config.generators.forEach((val, key) => {
-      generatorsObj[key] = val;
+    let generators: Object[] = []
+    config.generators.forEach((val) => {
+
+      let generatorsObj: Object = {}
+      for (const key of Object.keys(temp)) {
+        generatorsObj[key] = val[key];
+      }
+      generators.push(generatorsObj);
     });
 
-    cf[GENERATORS_KEY] = generatorsObj;
+    cf[GENERATORS_KEY] = generators;
+
+
 
     let json = JSON.stringify(cf);
 
-    console.log("json config")
+    console.log("json config -- " + json)
     console.log(config)
-    console.log(json)
-
 
     localStorage.setItem(MATH_EXERCICISES_STORE, json);
   }

@@ -21,7 +21,7 @@ export interface Config {
     orientation: OrientationTypesKey;
     realTimeValidation: boolean;
     theme: string;
-    generators: Map<string, WorksheetsItem>;
+    generators: WorksheetsItem[];
 }
 
 export const CONFIG: Config = {
@@ -32,7 +32,7 @@ export const CONFIG: Config = {
     orientation: "VERTICAL",
     realTimeValidation: true,
     theme: "pink-bluegrey",
-    generators: new Map()
+    generators: []
 }
 
 export const MATH_EXERCICISES_STORE: string = "MATH_CONFIG";

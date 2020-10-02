@@ -54,7 +54,15 @@ export class MainPageComponent implements OnInit {
   }
 
   setUpConfig() {
-    this.config.generators = new Map(this.worksheetsItems)
+
+    let generators: WorksheetsItem[] = new Array(this.worksheetsItems.size);
+
+    let i = 0;
+    this.worksheetsItems.forEach((value: WorksheetsItem) => {
+      generators[i++] = value
+    });
+
+    this.config.generators = generators
     this.configService.next(this.config, true)
   }
 
@@ -95,7 +103,7 @@ export class MainPageComponent implements OnInit {
   }
 
   isSelected(worksheetsItem: WorksheetsItem): boolean {
-    let selected = this.config.generators.has(worksheetsItem.code);
+    let selected = this.worksheetsItems.has(worksheetsItem.code);
     return selected;
   }
 }

@@ -23,6 +23,7 @@ export class ProblemPanelComponent implements OnInit {
   private substriptions: Subscription[] = [];
   config : Config = null;
   ANSWER_MODES = ANSWER_MODES;
+  needReset : boolean = false;
 
   constructor(private configService: ConfigService,
     private mathQuestionService: MathQuestionService) {
@@ -34,10 +35,11 @@ export class ProblemPanelComponent implements OnInit {
     this.substriptions.push(
       this.configService.subscribe(
         cfsi => {
-          this.config = cfsi.config;
+          this.config = {...cfsi.config}; //to force the change detection
           this.problems = new Array(cfsi.config.nbQuestions >= 1 ? cfsi.config.nbQuestions : 1); //TODO make an universal function
         
           //reset state
+          this.needReset = cfsi.needReset;
           if (cfsi.needReset) {
             this.progress = 0;
             this.successCount = 0;

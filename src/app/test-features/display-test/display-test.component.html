@@ -1,1 +1,5 @@
-<p>display-test works!</p>
+<div class="problems">
+    <div *ngFor="let config of configs; index as i" class="mathQuestionWrapper">
+        <app-math-question [questionId]='i' [config]="config" [needReset]="needReset"></app-math-question>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+@import "~@angular/material/theming";
+@import "../../../assets/styles/themes_variables.scss";
+
+@mixin math-question-theme($theme) {
+    // Extract the palettes you need from the theme definition.
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+
+    .mathQuestionWrapper {
+        //flex: 1 1 0;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 7%; // investigate to have the same size
+        border-width: 2px;
+        border-style: solid;
+        border-color: mat-color($accent);
+        margin: 0.5em;
+        padding: 1em;
+        border-radius: 15px;
+    }
+}
+
+@each $thclass, $th in $all_themes {
+    @if $thclass == "" {
+        @include math-question-theme($th);
+    } @else {
+        :host-context(.#{$thclass}) {
+            @include math-question-theme($th);
+        }
+    }
+}
+
+.problems {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}

@@ -42,7 +42,8 @@ export class WorkoutPanelComponent implements OnInit {
           //this.reset();
         }
       }
-    ));
+    )
+    );
     this.userInput = ""
     this.status = WorkoutStatus.Begin;
   }
