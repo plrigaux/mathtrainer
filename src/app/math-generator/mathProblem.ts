@@ -81,8 +81,8 @@ export class MathProblem {
 
 
     static getInvert(mathProblem: MathProblem): MathProblem {
-        let answer : number = null;
-        let values : number[];
+        let answer: number = null;
+        let values: number[];
 
         let mathProblemType: MathProblemTypes;
 
@@ -111,5 +111,9 @@ export class MathProblem {
         }
 
         return new MathProblem(mathProblemType, answer, values);
+    }
+
+    get displaySize(): number {
+        return Math.max(...  this.values.map(x => x.toString().length))
     }
 }

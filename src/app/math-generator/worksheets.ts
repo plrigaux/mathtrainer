@@ -19,6 +19,17 @@ export class Worksheets {
         return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
     }
 
+    static testLongNum(): MathProblem {
+
+        let generateRange: GenerateRange[] = [
+            { min: 10000, max: 100000 },
+            { min: 10000, max: 100000 }
+        ];
+
+        return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
+
+    }
+
     static addSingleDigitNumberNoCarry(): MathProblem {
 
         let prog = {
@@ -29,7 +40,7 @@ export class Worksheets {
 
         return Worksheets.addTowXDigitNumbersNoCarryProg(prog);
     }
-
+    
     //Adding two single-digit numbers - sum 10 or less
     static addTowSingleDigitNumberSum10orLess(): MathProblem {
         return Worksheets.addTowXDigitNumbersNoCarry(1);

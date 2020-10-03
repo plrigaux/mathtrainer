@@ -6,7 +6,8 @@ import { ColumnAnswerMode } from 'src/app/column-answer/column-answer.component'
 import { WorksheetsItem } from '../../math-generator/worksheetsMap';
 import { Worksheets } from '../../math-generator/worksheets';
 import { MathProblem } from "../../math-generator/mathProblem";
-import { MathProblemTypes } from '../../math-generator/mathProblemTypes';
+import { MathProblemTypes, GenerateRange } from '../../math-generator/mathProblemTypes';
+import { MathGenerator } from '../../math-generator/mathGenerator';
 
 @Component({
   selector: 'app-display-test',
@@ -19,32 +20,46 @@ export class DisplayTestComponent implements OnInit {
   needReset: boolean = false;
 
 
-  configs: Config[] = [{ ...CONFIG }, { ...CONFIG }, { ...CONFIG }, { ...CONFIG }]
+  configs: Config[] = [{
+    ...CONFIG,
+    answerMode: ColumnAnswerMode.COLUMNS,
+    generators: [{
+      func: Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry,
+    } as WorksheetsItem]
+  },
+  {
+    ...CONFIG,
+    answerMode: ColumnAnswerMode.COLUMNS,
+    generators: [{
+      func: DisplayTestComponent.testLongNum,
+    } as WorksheetsItem]
+  }, {
+    ...CONFIG,
+    orientation: "HORIZONTAL"
+  }, {
+    ...CONFIG,
+    answerMode: ColumnAnswerMode.COLUMNS,
+  }, { ...CONFIG },
+  ]
 
   constructor(private configService: ConfigService,
     private mathQuestionService: MathQuestionService) {
     this.progress = 0;
     this.successCount = 0;
-
-
-    this.configs[1].orientation = "HORIZONTAL";
-    this.configs[2].answerMode = ColumnAnswerMode.COLUMNS;
-    this.configs[3] = { ...this.configs[3], ...{ answerMode: ColumnAnswerMode.COLUMNS } };
-
-
-
-    this.configs[3].generators = [{
-      label: "string",
-      func: Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry,
-      funcName: "string",
-      mathProblemType: MathProblemTypes.DIVISION,
-      code: "string"
-    }]
   }
 
   ngOnInit(): void {
 
   }
 
+  static testLongNum(): MathProblem {
 
+    let generateRange: GenerateRange[] = [
+      { min: 10000, max: 100000 },
+      { min: 10000, max: 100000 }
+    ];
+
+    return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
+
+  }
 }

@@ -23,11 +23,10 @@ export class ColumnAnswerComponent implements OnInit {
   @Input() readonly size: number;
   @Input() readonly mode: ColumnAnswerMode = null;
   @Input() readonly answerStatus: QuestionStatus;
-  @Input() readonly id: number = null;
+  @Input() readonly id: string = null;
   @Input() value: string = "";
-  //@Output() valueChange = new EventEmitter<string>();
   @Output() focusChange = new EventEmitter<boolean>();
-  @Input() valueChange: (newValue: string, index: number) => boolean;
+  @Input() valueChange: ValidateCB;
   private inFocus = false;
   private last: number;
 
@@ -67,7 +66,7 @@ export class ColumnAnswerComponent implements OnInit {
       } else {
         this.userInputs = null;
         this.last = -1;
-        this.switchColumnFocus = this.switchColumnFocusCBEmpty;
+        this.switchColumnFocus = this.switchSimpleFocusCB;
         this.fill = this.fillSimple;
       }
     }
@@ -126,8 +125,25 @@ export class ColumnAnswerComponent implements OnInit {
     this.value = val;
 
     //this.valueChange.emit(this.value);
-    let leaveCursorThere = this.valueChange(this.value, this.id)
-    if (!leaveCursorThere) {
+    let answerStatus = this.answerStatus
+    let newStatus = this.valueChange(this.value, this.id)
+
+
+    let leaveCursorThere : boolean;
+    switch (answerStatus) {
+      case QuestionStatus.EMPTY:
+      case QuestionStatus.FOCUS:
+        leaveCursorThere = newStatus == QuestionStatus.WRONG || newStatus == QuestionStatus.RIGHT;
+        break;
+      case QuestionStatus.WRONG:
+        leaveCursorThere = newStatus == QuestionStatus.RIGHT;
+        break;
+      case QuestionStatus.RIGHT:
+        leaveCursorThere = false;
+        break;
+    }
+
+    if (leaveCursorThere === false) {
       if (newChange.length > 0) {
         this.switchColumnFocus(idx - 1, idx);
       } else {
@@ -139,7 +155,7 @@ export class ColumnAnswerComponent implements OnInit {
 
   private switchColumnFocus: SwitchFocusCB = null
 
-  private switchColumnFocusCBEmpty: SwitchFocusCB = (newCol: number, oldCol: number) => { };
+  private switchSimpleFocusCB: SwitchFocusCB = (newCol: number, oldCol: number) => { };
 
   private switchColumnFocusCB: SwitchFocusCB = (newCol: number, oldCol: number) => {
     if (newCol < 0 || newCol >= this.inputs.length) {
@@ -342,4 +358,5 @@ interface CAContent {
 }
 
 type SwitchFocusCB = (newCol: number, oldCol: number) => void;
-type FillCB = (val: string) => void
+type FillCB = (val: string) => void;
+export type ValidateCB = (newValue: string, index: string) => QuestionStatus;

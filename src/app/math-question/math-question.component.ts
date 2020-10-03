@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../services/validate-all.service'
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../services/math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
-import { ColumnAnswerComponent, ColumnAnswerMode } from '../column-answer/column-answer.component'
+import { ColumnAnswerComponent, ValidateCB } from '../column-answer/column-answer.component'
 
 const regexNumVal = /[0-9,-\.]/
 
@@ -23,15 +23,15 @@ export class MathQuestionComponent implements OnInit {
   stacked: boolean;
   private _problem: MathProblem;
   private myEventSubscriptions: Subscription[] = [];
-  @Input() config : Config;
-  @Input() readonly questionId : number;
-  @Input() needReset : boolean;
+  @Input() config: Config;
+  @Input() readonly questionId: number;
+  @Input() needReset: boolean;
   controlIndex: number;
   @ViewChild(ColumnAnswerComponent, { static: false }) private columnAnswerComponent: ColumnAnswerComponent;
   inFocus = false;
   size = 3;
 
-  constructor( 
+  constructor(
     private mathQuestionService: MathQuestionService) {
     this.status = QuestionStatus.EMPTY
     this.stacked = true;
@@ -40,19 +40,19 @@ export class MathQuestionComponent implements OnInit {
   ngOnInit(): void {
     console.debug(this.log("QID " + this.questionId));
     this.controlIndex = this.questionId - 1;
-/*
-    this.myEventSubscriptions.push(
-      this.configService.subscribe(
-        configServiceInfo => {
-          this.config = configServiceInfo.config;
-          this.stacked = this.config.orientation == "VERTICAL";
-          if (configServiceInfo.needReset) {
-            this.reset();
-          }
-        }
-      )
-    );
-    */
+    /*
+        this.myEventSubscriptions.push(
+          this.configService.subscribe(
+            configServiceInfo => {
+              this.config = configServiceInfo.config;
+              this.stacked = this.config.orientation == "VERTICAL";
+              if (configServiceInfo.needReset) {
+                this.reset();
+              }
+            }
+          )
+        );
+        */
   }
 
   get name(): string {
@@ -76,13 +76,13 @@ export class MathQuestionComponent implements OnInit {
     }
 
     if (changes['needReset']) {
-      if(this.needReset || changes['needReset'].isFirstChange()) {
+      if (this.needReset || changes['needReset'].isFirstChange()) {
         this.reset();
       }
     }
   }
 
-  onValueChange = (userInput: string, callerId : string) : boolean => {
+onValueChange : ValidateCB = (userInput: string, callerId: string): QuestionStatus => {
     console.debug(this.log(`onValueChange userInput ${userInput} callerId ${callerId}`))
     this.userInput = userInput;
 
@@ -93,6 +93,7 @@ export class MathQuestionComponent implements OnInit {
 
     console.debug(this.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`))
 
+    let oldStatus = this.status;
     if (userAnswer === answer) {
       console.debug(this.log("R"))
       this.status = QuestionStatus.RIGHT;
@@ -118,7 +119,7 @@ export class MathQuestionComponent implements OnInit {
     }
     this.informParent();
 
-    return this.status == QuestionStatus.WRONG || this.status == QuestionStatus.RIGHT
+    return this.status
   }
 
   preventUpDown(event: KeyboardEvent) {
@@ -134,6 +135,7 @@ export class MathQuestionComponent implements OnInit {
 
   reset() {
     this._problem = MathGenerator.generateProblemNext(this.config, this.questionId);
+    this.size = Math.max(this.problem.displaySize + 1, 3);
     console.debug(this.log("PROBLEM !!!"));
     console.debug(this.log(this._problem));
     console.debug(this.log(this.config));
@@ -156,12 +158,12 @@ export class MathQuestionComponent implements OnInit {
     this.inFocus = isFocus;
     if (isFocus) {
 
-        setTimeout(() => {
-          if (this.status !== QuestionStatus.WRONG) {
-            this.status = QuestionStatus.FOCUS;
-          }
-        })
-      
+      setTimeout(() => {
+        if (this.status !== QuestionStatus.WRONG) {
+          this.status = QuestionStatus.FOCUS;
+        }
+      })
+
     } else if (currentFocus) {
       this.onValueChange(this.userInput, "THIS")
     }

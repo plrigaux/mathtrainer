@@ -80,8 +80,6 @@ input[type=number] {
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: flex-end;
-    padding: 0 .2em;
-    transition: opacity 0s;
 }
 
 .operator {
@@ -105,19 +103,44 @@ input[type=number] {
     display: flex;
     width: 1em;
     height: 1em;
-    border: deeppink solid 1px;
     align-items: center;
     justify-content: center;    
+    padding: 2px 0;
+    border-color: deeppink transparent; //to ensure the same with with the answer widjet
+    border-width: 1px;
+    border-left-style: dashed;
 }
-      
+
+.digit:last-child {
+    border-right-style: solid;
+}
+
 @mixin math-question-theme($theme) {
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
+    $fg: map-get($theme, foreground);
+    //$bg: map-get($theme, background);
 
+    $th_text_color: #{mat-color($fg, text)};
+
+    //@debug "fg: #{$primary}";
+    //@debug "foreground: #{$th_text_color}";
+    //@debug "background: #{mat-color($bg)}";
+    //@debug "background: #{$bg}";
+    
     .mathAnswer:focus {
         outline-color: mat-color($accent);
         outline-width: 15px;
         caret-color: mat-color($accent);
+    }
+
+    .hr_equals {
+        margin: 4px 0;
+        border-style: solid;
+        border-color: mat-color($fg);
+
+        background-color:  $th_text_color;
+        border-color:  $th_text_color;
     }
 }
 
