@@ -157,17 +157,21 @@ export class MathQuestionComponent implements OnInit {
   onFocusChange(newFocus: FocusType) {
     let focucusingOut = this.currentFocus == FocusType.FOCUS && newFocus == FocusType.BLUR;
     console.debug(this.log(`onFocusChange ${newFocus} currentFocus ${this.currentFocus} focusingOut: ${focucusingOut} UserIinput: "${this.userInput}"`))
-    
+
     this.currentFocus = newFocus;
     if (newFocus === FocusType.FOCUS) {
-      ///console.log(`in focus`)
       setTimeout(() => {
-        if (this.status !== QuestionStatus.WRONG) {
-          this.status = QuestionStatus.FOCUS;
+
+        switch (this.status) {
+          case QuestionStatus.WRONG:
+          case QuestionStatus.EMPTY:
+          case QuestionStatus.ANSWERED:
+            this.status = QuestionStatus.FOCUS;
+            break;
         }
-      })
-    }  
-    
+      });
+    }
+
     if (focucusingOut) {
       this.onValueChange(this.userInput, "THIS")
     }
