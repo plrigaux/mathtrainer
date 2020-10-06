@@ -74,7 +74,7 @@ input[type=number] {
     margin-left: 0.3em;
 }
 
-.question {
+.question_column {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -82,7 +82,18 @@ input[type=number] {
     align-items: flex-end;
 }
 
-.operator {
+.question_flat {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+} 
+
+.question_flat > *:not(:last-child) {
+    padding-right: .2em;
+}
+
+.question_column > *:not(:last-child) {
     padding-right: .2em;
 }
 

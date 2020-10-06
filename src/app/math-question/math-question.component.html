@@ -3,7 +3,7 @@
   <div class="mathQuestion">
 
     <ng-container *ngIf="stacked else flat">
-      <section class="question">
+      <section class="question_column">
         <section class="operator">{{problem.mathProplemActions.operator}}</section>
         <section class="numbers">
           <div class="number" *ngFor="let number of problem.values; i as index; last as last">
@@ -11,17 +11,20 @@
           </div>
         </section>
       </section>
-      <hr class="hr_equals"/>
+      <hr class="hr_equals" />
       <ng-container *ngTemplateOutlet="answerField"></ng-container>
     </ng-container>
 
     <ng-template #flat>
-      <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
-        <span class="number_flat">{{num}}</span>
-        <span *ngIf="last==false" class="operator">{{problem.mathProplemActions.operator}}</span>
-      </ng-template>
-      <span class="equals">=</span>
-      <ng-container *ngTemplateOutlet="answerField"></ng-container>
+      <section class="question_flat">
+        <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
+          <span class="number_flat">{{num}}</span>
+          <span *ngIf="last==false" class="operator">{{problem.mathProplemActions.operator}}</span>
+        </ng-template>
+        <span class="equals">=</span>
+        <ng-container *ngTemplateOutlet="answerField"></ng-container>
+      </section>
+      
     </ng-template>
   </div>
 </div>
