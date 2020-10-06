@@ -33,6 +33,7 @@
         (ngModelChange)="modelChangeNormal($event)"
         [ngStyle]="{'width.em': size}"
         type="number"
+        (keydown)="onKeydownSimple($event)"
         [@answerStatus]="answerStatus"
         (focus)="onFocusSimple($event)"
         (blur)="onBlurSimple($event)"

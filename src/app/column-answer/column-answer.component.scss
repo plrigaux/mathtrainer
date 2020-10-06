@@ -1,7 +1,7 @@
 @import "~@angular/material/theming";
 @import "../../assets/styles/themes_variables.scss";
 
-$font-size-var : 24px;
+$font-size-var: 24px;
 $radius: 7px;
 $border-size: 1px;
 
@@ -10,7 +10,10 @@ $mat-icon-button-dim: 28px;
 .mat-icon-button {
     width: $mat-icon-button-dim;
     height: $mat-icon-button-dim;
-    vertical-align: top;
+}
+
+.mat-icon {
+    vertical-align: text-bottom;
 }
 
 .columnAnswer {
@@ -22,7 +25,7 @@ $mat-icon-button-dim: 28px;
     text-align: center;
     font-size: $font-size-var;
     font-family: Arial, Helvetica, sans-serif;
-    border:  $border-size;
+    border: $border-size;
     //border-color: mediumblue;
     border-left-style: dashed;
     border-top-style: solid;
@@ -61,7 +64,7 @@ input::-webkit-inner-spin-button {
 }
 
 //Firefox
-input[type=number] {
+input[type="number"] {
     -moz-appearance: textfield;
 }
 

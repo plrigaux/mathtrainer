@@ -97,6 +97,10 @@ input[type=number] {
     padding-right: .2em;
 }
 
+.question_column .operator {
+    padding-bottom: 0.15em;
+}
+
 .numbers {
     display: flex;
     flex-flow: column;

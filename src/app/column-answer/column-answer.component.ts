@@ -27,6 +27,7 @@ export class ColumnAnswerComponent implements OnInit {
   @Input() readonly id: string = null;
   @Input() value: string = "";
   @Output() focusChange = new EventEmitter<FocusType>();
+  @Output() existFocus = new EventEmitter<any>();
   @Input() valueChange: ValidateCB;
   private currentFocus = FocusType.BLUR;
   private last: number;
@@ -36,7 +37,6 @@ export class ColumnAnswerComponent implements OnInit {
   userInputs: CAContent[] = null;
   private inputchar: string;
   private re = /\d+/;
-  private curColunmFocus: number = null;
   private isSwitchColunm: boolean = false;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
@@ -159,7 +159,9 @@ export class ColumnAnswerComponent implements OnInit {
 
   private switchColumnFocus: SwitchFocusCB = null
 
-  private switchSimpleFocusCB: SwitchFocusCB = (newCol: number, oldCol: number) => { };
+  private switchSimpleFocusCB: SwitchFocusCB = (newCol: number, oldCol: number) => {
+    this.inputs.first.nativeElement.focus();
+  };
 
   private switchColumnFocusCB: SwitchFocusCB = (newCol: number, oldCol: number) => {
     if (newCol < 0 || newCol >= this.inputs.length) {
@@ -218,6 +220,20 @@ export class ColumnAnswerComponent implements OnInit {
     }
   }
 
+  onKeydownSimple(event: KeyboardEvent, index: number): void {
+
+    console.debug(this.log(event))
+    console.debug(this.log(`inputChar2: "${this.inputchar}" code ${event.code} key ${event.key}`))
+
+    switch (event.code) {
+      case "Enter":
+        this.exitWidget();
+        break;
+      default:
+        this.inputchar = event.key;
+    }
+  }
+
   trackByIdx(index: number, obj: any): any {
     return index;
   }
@@ -265,7 +281,7 @@ export class ColumnAnswerComponent implements OnInit {
     //console.debug(this.log(e));
     //console.debug(this.log(typeof (e)));
     //this.answerStatus = QuestionStatus.FOCUS;
-    this.curColunmFocus = index;
+
     if (this.value && this.value.length > 0) {
       //console.warn("do select");
       (e.target as HTMLInputElement).select();
@@ -306,16 +322,16 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   private setInFocus(newFocus: FocusType) {
-/*
-    let val = FocusType.BLUR
-    if (this.mode == ColumnAnswerMode.COLUMNS) {
-      this.userInputs.forEach(v => {
-         if(v.inFocus == FocusType.FOCUS) {
-            val = FocusType.FOCUS;
-         }
-      })
-    }
-*/
+    /*
+        let val = FocusType.BLUR
+        if (this.mode == ColumnAnswerMode.COLUMNS) {
+          this.userInputs.forEach(v => {
+             if(v.inFocus == FocusType.FOCUS) {
+                val = FocusType.FOCUS;
+             }
+          })
+        }
+    */
     console.debug(this.log(`newFocus ${newFocus} this.inFocus ${this.currentFocus}  this.isSwitchColunm ${this.isSwitchColunm}`))
     if (this.currentFocus !== newFocus) {
       if (this.isSwitchColunm == false) {
@@ -323,7 +339,7 @@ export class ColumnAnswerComponent implements OnInit {
       } else {
         this.isSwitchColunm = false;
       }
-    } 
+    }
 
     this.currentFocus = newFocus;
   }
@@ -333,7 +349,7 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   exitWidget() {
-    this.setInFocus(FocusType.BLUR);
+    this.existFocus.emit("nothing");
   }
 
   log(msg: any): any {

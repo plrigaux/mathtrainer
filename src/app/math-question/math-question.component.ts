@@ -70,14 +70,14 @@ export class MathQuestionComponent implements OnInit {
   }
 
   onValueChange: ValidateCB = (userInput: string, callerId: string): QuestionStatus => {
-    console.debug(this.log(`onValueChange userInput ${userInput} callerId ${callerId}`))
+    console.debug(this.log(`onValueChange userInput ${userInput} ${typeof userInput} callerId ${callerId}`))
 
     this.userInput = userInput;
     if (this.config.realTimeValidation) {
       return this.validateAnswer(userInput)
     } else {
 
-      let empty = userInput == null || userInput.trim().length == 0;
+      let empty = userInput == null || (typeof userInput == "string" && userInput.trim().length == 0);
 
       if (this.currentFocus == FocusType.FOCUS) {
         this.status = QuestionStatus.FOCUS;
@@ -119,7 +119,7 @@ export class MathQuestionComponent implements OnInit {
       console.debug(this.log("W"))
       this.status = QuestionStatus.WRONG;
     }
-    this.informParent();
+    this.informParent(false);
 
     return this.status
   }
@@ -177,9 +177,14 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 
+  existFocus() {
+    console.warn(this.log("exitWidget"))
+    this.informParent(true);
+  }
+
   focus() {
-    console.debug(console.debug(this.log(`focus  ${this.name} `)));
-    console.debug(console.debug(this.log(this.columnAnswerComponent)));
+    console.debug(this.log(`focus  ${this.name} `));
+    console.debug(this.log(this.columnAnswerComponent));
     //this.inFocus = true;
     setTimeout(() => {
       this.columnAnswerComponent.focus();
@@ -190,11 +195,12 @@ export class MathQuestionComponent implements OnInit {
     return this.userInput.length != 0;
   }
 
-  private informParent() {
+  private informParent(forceExit : boolean) {
     let notification: MathQuestionNotifier = {
       status: this.status,
       id: this.questionId.toString(),
       index: this.controlIndex,
+      forceExit: forceExit
     }
 
     this.mathQuestionService.next(notification);

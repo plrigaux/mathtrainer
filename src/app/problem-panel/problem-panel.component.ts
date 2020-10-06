@@ -21,9 +21,9 @@ export class ProblemPanelComponent implements OnInit {
   answerMap: Map<string, QuestionStatus> = new Map();
   equationOrientations: EquationOrientation[] = EquationOrientations;
   private substriptions: Subscription[] = [];
-  config : Config = null;
+  config: Config = null;
   ANSWER_MODES = ANSWER_MODES;
-  needReset : boolean = false;
+  needReset: boolean = false;
 
   constructor(private configService: ConfigService,
     private mathQuestionService: MathQuestionService) {
@@ -35,9 +35,9 @@ export class ProblemPanelComponent implements OnInit {
     this.substriptions.push(
       this.configService.subscribe(
         cfsi => {
-          this.config = {...cfsi.config}; //to force the change detection
+          this.config = { ...cfsi.config }; //to force the change detection
           this.problems = new Array(cfsi.config.nbQuestions >= 1 ? cfsi.config.nbQuestions : 1); //TODO make an universal function
-        
+
           //reset state
           this.needReset = cfsi.needReset;
           if (cfsi.needReset) {
@@ -58,6 +58,7 @@ export class ProblemPanelComponent implements OnInit {
   private manageNotification(notification: MathQuestionNotifier) {
     let currentStatus = this.manageStatus(notification);
 
+    let next: boolean = false;
     switch (notification.status) {
       case QuestionStatus.RIGHT:
         if (currentStatus !== QuestionStatus.RIGHT) {
@@ -66,19 +67,7 @@ export class ProblemPanelComponent implements OnInit {
 
           console.debug(`SC: ${this.successCount} PR: ${this.progress}`);
 
-          let array = this.mathQuestionComponents.toArray();
-
-          let mathQuestionComponent: MathQuestionComponent;
-
-          mathQuestionComponent = this.runOverCommponents(notification.index + 1, array.length, array)
-
-          if (mathQuestionComponent === undefined) {
-            mathQuestionComponent = this.runOverCommponents(0, notification.index, array)
-          }
-
-          if (mathQuestionComponent !== undefined) {
-            mathQuestionComponent.focus();
-          }
+          next = true;
         }
         break;
       case QuestionStatus.WRONG:
@@ -87,6 +76,29 @@ export class ProblemPanelComponent implements OnInit {
       case QuestionStatus.EMPTY:
         this.decreaseProgress(currentStatus);
         break;
+    }
+
+    if (next || notification.forceExit) {
+      this.nextComponentFocus(notification.index);
+    }
+  }
+
+  private nextComponentFocus(index: number) {
+    let array = this.mathQuestionComponents.toArray();
+
+    let mathQuestionComponent: MathQuestionComponent;
+
+    mathQuestionComponent = this.runOverCommponents(index + 1, array.length, array)
+
+    if (mathQuestionComponent === undefined) {
+      mathQuestionComponent = this.runOverCommponents(0, index + 1, array)
+    }
+
+    if (mathQuestionComponent !== undefined) {
+      mathQuestionComponent.focus();
+    } else {
+      let nextOne = index + 1 >= array.length ? 0 : index + 1;
+      array[nextOne].focus();
     }
   }
 
@@ -166,23 +178,23 @@ export class ProblemPanelComponent implements OnInit {
     }
   }
 
-  orientationChangeFn(orientation : string) {
+  orientationChangeFn(orientation: string) {
     console.log(`New orientation: ${orientation} ${typeof orientation}`)
     this.config.orientation = orientation as OrientationTypesKey
     this.configService.next(this.config, false);
   }
 
-  realTimeValidationChangeFn(realTimeValidation : boolean) {
+  realTimeValidationChangeFn(realTimeValidation: boolean) {
     this.config.realTimeValidation = realTimeValidation;
     this.configService.next(this.config, false);
   }
 
-  selectedAnswerModeChangeFn(selectedAnswerMode : ColumnAnswerMode) {
+  selectedAnswerModeChangeFn(selectedAnswerMode: ColumnAnswerMode) {
     this.config.answerMode = selectedAnswerMode;
     this.configService.next(this.config, false);
   }
 
-  nbProblemsChangeFn(nbProblems : number) {
+  nbProblemsChangeFn(nbProblems: number) {
     this.config.nbQuestions = nbProblems
     this.configService.next(this.config, false);
   }

@@ -38,6 +38,7 @@
       [value]='userInput'
       [valueChange]="onValueChange"
       (focusChange)="onFocusChange($event)"
-      [answerStatus]="status"></app-column-answer>
+      [answerStatus]="status"
+      (existFocus)="existFocus($event)"></app-column-answer>
   </div>
 </ng-template>
