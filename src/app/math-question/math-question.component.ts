@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../services/validate-all.service'
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../services/math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
-import { ColumnAnswerComponent, ValidateCB } from '../column-answer/column-answer.component'
+import { ColumnAnswerComponent, ValidateCB, FocusType } from '../column-answer/column-answer.component'
 
 const regexNumVal = /[0-9,-\.]/
 
@@ -28,7 +28,7 @@ export class MathQuestionComponent implements OnInit {
   @Input() needReset: boolean;
   controlIndex: number;
   @ViewChild(ColumnAnswerComponent, { static: false }) private columnAnswerComponent: ColumnAnswerComponent;
-  inFocus = false;
+  currentFocus = FocusType.BLUR;
   size = 3;
 
   constructor(
@@ -40,19 +40,6 @@ export class MathQuestionComponent implements OnInit {
   ngOnInit(): void {
     console.debug(this.log("QID " + this.questionId));
     this.controlIndex = this.questionId - 1;
-    /*
-        this.myEventSubscriptions.push(
-          this.configService.subscribe(
-            configServiceInfo => {
-              this.config = configServiceInfo.config;
-              this.stacked = this.config.orientation == "VERTICAL";
-              if (configServiceInfo.needReset) {
-                this.reset();
-              }
-            }
-          )
-        );
-        */
   }
 
   get name(): string {
@@ -82,10 +69,26 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 
-onValueChange : ValidateCB = (userInput: string, callerId: string): QuestionStatus => {
+  onValueChange: ValidateCB = (userInput: string, callerId: string): QuestionStatus => {
     console.debug(this.log(`onValueChange userInput ${userInput} callerId ${callerId}`))
-    this.userInput = userInput;
 
+    this.userInput = userInput;
+    if (this.config.realTimeValidation) {
+      return this.validateAnswer(userInput)
+    } else {
+
+      let empty = userInput == null || userInput.trim().length == 0;
+
+      if (this.currentFocus == FocusType.FOCUS) {
+        this.status = QuestionStatus.FOCUS;
+      } else {
+        this.status = empty ? QuestionStatus.EMPTY : QuestionStatus.ANSWERED
+      }
+      return this.status;
+    }
+  }
+
+  validateAnswer(userInput: string): QuestionStatus {
     let answer = this.problem.answer;
     console.debug(this.log(`User Input: ${this.userInput} Answer: ${answer}`));
 
@@ -93,12 +96,15 @@ onValueChange : ValidateCB = (userInput: string, callerId: string): QuestionStat
 
     console.debug(this.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`))
 
-    let oldStatus = this.status;
     if (userAnswer === answer) {
       console.debug(this.log("R"))
       this.status = QuestionStatus.RIGHT;
     }
-    else if (this.inFocus) {
+    else if (isNaN(userAnswer)) {
+      console.debug(this.log("Void"))
+      this.status = this.currentFocus == FocusType.FOCUS ? QuestionStatus.FOCUS : QuestionStatus.EMPTY;
+    }
+    else if (this.currentFocus == FocusType.FOCUS) {
       let userAnswerLength = userAnswer.toString().length; //this to ensure raw string length (it trims)
       let answerLength = answer.toString().length
       if (userAnswerLength >= answerLength) {
@@ -108,10 +114,6 @@ onValueChange : ValidateCB = (userInput: string, callerId: string): QuestionStat
         console.debug(this.log("Infocus"))
         this.status = QuestionStatus.FOCUS;
       }
-    }
-    else if (isNaN(userAnswer)) {
-      console.debug(this.log("Void"))
-      this.status = QuestionStatus.EMPTY;
     }
     else {
       console.debug(this.log("W"))
@@ -144,7 +146,7 @@ onValueChange : ValidateCB = (userInput: string, callerId: string): QuestionStat
   }
 
   clear() {
-    this.inFocus = false;
+    this.currentFocus = FocusType.BLUR;
     this.onValueChange(null, "THIS");
   }
 
@@ -152,19 +154,21 @@ onValueChange : ValidateCB = (userInput: string, callerId: string): QuestionStat
     return this.status !== QuestionStatus.RIGHT;
   }
 
-  onFocusChange(isFocus: boolean) {
-    console.debug(this.log(`On focus Change ${isFocus ? "FOCUS" : "BLUR"} UI: "${this.userInput}"`))
-    let currentFocus = this.inFocus;
-    this.inFocus = isFocus;
-    if (isFocus) {
-
+  onFocusChange(newFocus: FocusType) {
+    let focucusingOut = this.currentFocus == FocusType.FOCUS && newFocus == FocusType.BLUR;
+    console.debug(this.log(`onFocusChange ${newFocus} currentFocus ${this.currentFocus} focusingOut: ${focucusingOut} UserIinput: "${this.userInput}"`))
+    
+    this.currentFocus = newFocus;
+    if (newFocus === FocusType.FOCUS) {
+      ///console.log(`in focus`)
       setTimeout(() => {
         if (this.status !== QuestionStatus.WRONG) {
           this.status = QuestionStatus.FOCUS;
         }
       })
-
-    } else if (currentFocus) {
+    }  
+    
+    if (focucusingOut) {
       this.onValueChange(this.userInput, "THIS")
     }
   }
@@ -172,7 +176,7 @@ onValueChange : ValidateCB = (userInput: string, callerId: string): QuestionStat
   focus() {
     console.debug(console.debug(this.log(`focus  ${this.name} `)));
     console.debug(console.debug(this.log(this.columnAnswerComponent)));
-    this.inFocus = true;
+    //this.inFocus = true;
     setTimeout(() => {
       this.columnAnswerComponent.focus();
     })

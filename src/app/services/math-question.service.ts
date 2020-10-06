@@ -6,7 +6,8 @@ export enum QuestionStatus {
   RIGHT = "RIGHT",
   WRONG = "WRONG",
   EMPTY = "EMPTY",
-  FOCUS = "FOCUS"
+  FOCUS = "FOCUS",
+  ANSWERED = "ANSWERED"
 }
 
 export interface MathQuestionNotifier {

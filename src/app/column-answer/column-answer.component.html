@@ -15,8 +15,7 @@
             #columninput
             type="number"
             [(ngModel)]="userInputs[i].value"
-            (keypress)="check($event)"
-            (keydown)="check2($event, i)"
+            (keydown)="onKeydown($event, i)"
             (ngModelChange)="modelChangeFn($event, i)"
             [tabindex]="userInputs[i].tabindex"
             [placeholder]="userInputs[i].placeholder"

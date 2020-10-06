@@ -14,6 +14,7 @@ import { trigger, transition, state, animate, style, keyframes } from '@angular/
       state(QuestionStatus.WRONG, style({ backgroundColor: 'red' })),
       state(QuestionStatus.EMPTY, style({ backgroundColor: 'white' })),
       state(QuestionStatus.FOCUS, style({ backgroundColor: 'lightyellow' })),
+      state(QuestionStatus.ANSWERED, style({ backgroundColor: 'lightgray' })),
     ])
   ],
 })
@@ -25,9 +26,9 @@ export class ColumnAnswerComponent implements OnInit {
   @Input() readonly answerStatus: QuestionStatus;
   @Input() readonly id: string = null;
   @Input() value: string = "";
-  @Output() focusChange = new EventEmitter<boolean>();
+  @Output() focusChange = new EventEmitter<FocusType>();
   @Input() valueChange: ValidateCB;
-  private inFocus = false;
+  private currentFocus = FocusType.BLUR;
   private last: number;
 
 
@@ -129,7 +130,7 @@ export class ColumnAnswerComponent implements OnInit {
     let newStatus = this.valueChange(this.value, this.id)
 
 
-    let leaveCursorThere : boolean;
+    let leaveCursorThere: boolean;
     switch (answerStatus) {
       case QuestionStatus.EMPTY:
       case QuestionStatus.FOCUS:
@@ -139,6 +140,9 @@ export class ColumnAnswerComponent implements OnInit {
         leaveCursorThere = newStatus == QuestionStatus.RIGHT;
         break;
       case QuestionStatus.RIGHT:
+        leaveCursorThere = false;
+        break;
+      case QuestionStatus.ANSWERED:
         leaveCursorThere = false;
         break;
     }
@@ -162,11 +166,11 @@ export class ColumnAnswerComponent implements OnInit {
       return
     }
 
-    let ar = this.inputs.toArray();
+    let inputsArray = this.inputs.toArray();
     this.isSwitchColunm = oldCol != newCol;
     //ar[newCol].nativeElement.focus()
     setTimeout(() => {
-      ar[newCol].nativeElement.select();
+      inputsArray[newCol].nativeElement.select();
     }, 0);
   }
 
@@ -188,18 +192,10 @@ export class ColumnAnswerComponent implements OnInit {
     console.log(val2);
   }
 
-  check(event: KeyboardEvent): void {
+  onKeydown(event: KeyboardEvent, index: number): void {
 
     console.debug(this.log(event))
-    //console.debug(this.log(this.userInputs))
-    this.inputchar = event.key;
-    console.debug(this.log(`inputChar: "${this.inputchar}"`))
-  }
-
-  check2(event: KeyboardEvent, index: number): void {
-
-    console.debug(this.log(event))
-    console.debug(this.log(`inputChar2: "${this.inputchar}"`))
+    console.debug(this.log(`inputChar2: "${this.inputchar}" code ${event.code} key ${event.key}`))
 
     switch (event.code) {
       case "ArrowLeft":
@@ -214,6 +210,11 @@ export class ColumnAnswerComponent implements OnInit {
       case "Delete":
         console.log("Delete")
         break;
+      case "Enter":
+        this.exitWidget();
+        break;
+      default:
+        this.inputchar = event.key;
     }
   }
 
@@ -222,7 +223,7 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   clearInput() {
-
+    console.debug(this.log(`clearInput`));
     this.value = null;
 
     this.fill(this.value);
@@ -246,7 +247,7 @@ export class ColumnAnswerComponent implements OnInit {
       this.userInputs[i] = {
         value: j >= 0 ? val[j] : "",
         tabindex: -1,
-        inFocus: false,
+        inFocus: FocusType.BLUR,
         placeholder: ""
       }
     }
@@ -269,8 +270,8 @@ export class ColumnAnswerComponent implements OnInit {
       //console.warn("do select");
       (e.target as HTMLInputElement).select();
     }
-    this.userInputs[index].inFocus = true;
-    this.setInFocus(true);
+    this.userInputs[index].inFocus = FocusType.FOCUS;
+    this.setInFocus(FocusType.FOCUS);
     this.removeTabIndex();
   }
 
@@ -279,8 +280,8 @@ export class ColumnAnswerComponent implements OnInit {
     console.debug(this.log(`onBlurColumns ${index}`))
     //console.debug(this.log(e))
     //console.debug(this.log(typeof e))
-    this.userInputs[index].inFocus = false;
-    this.setInFocus(false);
+    this.userInputs[index].inFocus = FocusType.BLUR;
+    this.setInFocus(FocusType.BLUR);
     this.addTabIndex();
   }
 
@@ -297,39 +298,48 @@ export class ColumnAnswerComponent implements OnInit {
   }
 
   onFocusSimple(e: FocusEvent) {
-    this.setInFocus(true);
+    this.setInFocus(FocusType.FOCUS);
   }
 
   onBlurSimple(e: FocusEvent) {
-    this.setInFocus(false);
+    this.setInFocus(FocusType.BLUR);
   }
 
-  private setInFocus(focus: boolean) {
-
-    let val = false
+  private setInFocus(newFocus: FocusType) {
+/*
+    let val = FocusType.BLUR
     if (this.mode == ColumnAnswerMode.COLUMNS) {
       this.userInputs.forEach(v => {
-        return val = val || v.inFocus;
+         if(v.inFocus == FocusType.FOCUS) {
+            val = FocusType.FOCUS;
+         }
       })
     }
-
-    console.info(`val: ${val} focus ${focus} this.inFocus ${this.inFocus}  this.isSwitchColunm ${this.isSwitchColunm}`)
-    if (this.inFocus != focus) {
-      if (!this.isSwitchColunm) {
-        this.focusChange.emit(focus);
+*/
+    console.debug(this.log(`newFocus ${newFocus} this.inFocus ${this.currentFocus}  this.isSwitchColunm ${this.isSwitchColunm}`))
+    if (this.currentFocus !== newFocus) {
+      if (this.isSwitchColunm == false) {
+        this.focusChange.emit(newFocus);
+      } else {
+        this.isSwitchColunm = false;
       }
-    }
-    this.inFocus = focus;
+    } 
+
+    this.currentFocus = newFocus;
   }
 
   focus() {
     this.switchColumnFocus(this.last, this.last);
   }
 
+  exitWidget() {
+    this.setInFocus(FocusType.BLUR);
+  }
+
   log(msg: any): any {
 
     if (typeof msg == "string") {
-      return "CA" + this.id + " " + msg;
+      return "CA" + this.id + " - " + msg;
     }
     return msg;
   }
@@ -338,6 +348,11 @@ export class ColumnAnswerComponent implements OnInit {
 export enum ColumnAnswerMode {
   COLUMNS = "COLUMNS",
   NORMAL = "NORMAL"
+}
+
+export enum FocusType {
+  FOCUS = "FOCUS",
+  BLUR = "BLUR"
 }
 
 export interface ANSWER_MODE {
@@ -353,7 +368,7 @@ export const ANSWER_MODES: ANSWER_MODE[] = [
 interface CAContent {
   value: string;
   tabindex: number;
-  inFocus: boolean;
+  inFocus: FocusType;
   placeholder: string;
 }
 
