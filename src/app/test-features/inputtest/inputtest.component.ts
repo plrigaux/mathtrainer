@@ -17,7 +17,7 @@ export class InputtestComponent implements OnInit {
   onKeydown(event: KeyboardEvent) {
     console.log(event);
 
-    let str = `${event.code} ${event.key}  ${event.isComposing} ${event.ctrlKey} `
+    let str = `c:${event.code} k:${event.key}  ${event.isComposing} ${event.ctrlKey} `
     this.lines.unshift(str);
   }
 
