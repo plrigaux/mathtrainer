@@ -199,7 +199,7 @@ export class ColumnAnswerComponent implements OnInit {
     console.debug(this.log(event))
     console.debug(this.log(`inputChar2: "${this.inputchar}" code ${event.code} key ${event.key}`))
 
-    switch (event.code) {
+    switch (event.key) {
       case "ArrowLeft":
         this.switchColumnFocus(index - 1, index);
         break;
@@ -225,7 +225,7 @@ export class ColumnAnswerComponent implements OnInit {
     console.debug(this.log(event))
     console.debug(this.log(`inputChar2: "${this.inputchar}" code ${event.code} key ${event.key}`))
 
-    switch (event.code) {
+    switch (event.key) {
       case "Enter":
         this.exitWidget();
         break;
