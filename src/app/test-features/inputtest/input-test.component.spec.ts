@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputtestComponent } from './inputtest.component';
+import { InputTestComponent } from './input-test.component';
 
 describe('InputtestComponent', () => {
   let component: InputtestComponent;
@@ -14,7 +14,7 @@ describe('InputtestComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InputtestComponent);
+    fixture = TestBed.createComponent(InputTestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

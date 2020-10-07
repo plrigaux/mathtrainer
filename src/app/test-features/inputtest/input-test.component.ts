@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-inputtest',
-  templateUrl: './inputtest.component.html',
-  styleUrls: ['./inputtest.component.scss']
+  selector: 'app-input-test',
+  templateUrl: './input-test.component.html',
+  styleUrls: ['./input-test.component.scss']
 })
-export class InputtestComponent implements OnInit {
+export class InputTestComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit(): void {
-    this.lines.push("test1")
-    this.lines.push("test2")
+
   }
 
   onKeydown(event: KeyboardEvent) {

@@ -65,7 +65,7 @@ import { ArrayFilterPipe } from './array-filter.pipe';
 import { TestFeaturesComponent } from './test-features/test-features.component';
 import { ColumnAnswerComponent } from './column-answer/column-answer.component';
 import { DisplayTestComponent } from './test-features/display-test/display-test.component';
-import { InputtestComponent } from './test-features/inputtest/inputtest.component';
+import { InputTestComponent } from './test-features/inputtest/input-test.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +84,7 @@ import { InputtestComponent } from './test-features/inputtest/inputtest.componen
     TestFeaturesComponent,
     ColumnAnswerComponent,
     DisplayTestComponent,
-    InputtestComponent
+    InputTestComponent
   ],
   imports: [
     HttpClientModule,
