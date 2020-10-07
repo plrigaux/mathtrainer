@@ -3,6 +3,7 @@ import { BehaviorSubject, Subscription, PartialObserver } from 'rxjs';
 import { Config, CONFIG, MATH_EXERCICISES_STORE, GENERATORS_KEY } from './config';
 import { WorksheetsItem, WorksheetsItemStore } from '../math-generator/worksheetsMap';
 import { Worksheets } from '../math-generator/worksheets';
+import { Worksheets2 } from '../math-generator/worksheets2';
 
 export class ConfigServiceInfo {
   config: Config;
@@ -50,6 +51,10 @@ export class ConfigService {
         let worksheetsItem: WorksheetsItem = value as WorksheetsItem
 
         let func = Worksheets[worksheetsItem.funcName]
+
+        if (func === undefined) {
+          func = Worksheets2[worksheetsItem.funcName]
+        }
 
         if (func === undefined) {
           console.warn(`"${worksheetsItem.funcName}" not in Worksheets`);

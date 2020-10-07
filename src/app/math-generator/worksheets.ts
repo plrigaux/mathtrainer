@@ -1,11 +1,7 @@
 import { MathGenerator } from './mathGenerator';
 import { MathProblem } from "./mathProblem";
 import { GenerateRange, MathProblemTypes, Relation, Answer } from './mathProblemTypes';
-import { Injectable } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root'
-})
 export class Worksheets {
 
 

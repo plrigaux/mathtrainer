@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { MathProblem } from "../math-generator/mathProblem";
-import { ConfigService } from '../services/config.service'
+import { ConfigService, ConfigServiceInfo } from '../services/config.service'
+import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from '../services/config';
 import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../services/math-question.service';
 import { MathQuestionComponent } from '../math-question/math-question.component'
 import { Subscription } from 'rxjs';
-import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from '../services/config';
 import { ColumnAnswerMode, ANSWER_MODES } from '../column-answer/column-answer.component'
 
 @Component({
@@ -27,22 +27,20 @@ export class ProblemPanelComponent implements OnInit {
 
   constructor(private configService: ConfigService,
     private mathQuestionService: MathQuestionService) {
-    this.progress = 0;
-    this.successCount = 0;
+    this.resetProgress()
   }
 
   ngOnInit(): void {
     this.substriptions.push(
       this.configService.subscribe(
-        cfsi => {
+        (cfsi: ConfigServiceInfo) => {
           this.config = { ...cfsi.config }; //to force the change detection
           this.problems = new Array(cfsi.config.nbQuestions >= 1 ? cfsi.config.nbQuestions : 1); //TODO make an universal function
-
+          this.updateProgress();
           //reset state
           this.needReset = cfsi.needReset;
           if (cfsi.needReset) {
-            this.progress = 0;
-            this.successCount = 0;
+            this.resetProgress()
           }
         }
       )
@@ -148,14 +146,21 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   clearAll() {
-    this.mathQuestionComponents.forEach(c => c.clear())
+    this.mathQuestionComponents?.forEach(c => c.clear())
     this.focusFirst()
-
+    this.resetProgress()
   }
 
   reset() {
-    this.mathQuestionComponents.forEach(c => c.reset());
+    this.mathQuestionComponents?.forEach(c => c.reset());
     this.focusFirst()
+    this.resetProgress()
+  }
+
+  resetProgress() {
+    this.progress = 0;
+    this.successCount = 0;
+
   }
 
   get problemsCount(): number {
@@ -172,7 +177,7 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   focusFirst() {
-    if (this.mathQuestionComponents.length > 0) {
+    if (this.mathQuestionComponents?.length > 0) {
       //Wrapped to avoid error ExpressionChangedAfterItHasBeenCheckedError
       Promise.resolve(null).then(() => this.mathQuestionComponents.first.focus());
     }

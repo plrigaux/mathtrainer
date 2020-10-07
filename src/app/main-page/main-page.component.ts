@@ -79,6 +79,10 @@ export class MainPageComponent implements OnInit {
     return item.mathProblemType === MathProblemTypes.SUBTRACTION
   }
 
+  filterMultiplication(item: WorksheetsItem): boolean {
+    return item.mathProblemType === MathProblemTypes.MULTIPLICATION
+  }
+
   checkboxChange(checked: boolean, item: WorksheetsItem) {
     console.log(checked);
     console.log(item);

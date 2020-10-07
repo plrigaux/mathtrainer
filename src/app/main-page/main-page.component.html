@@ -13,6 +13,13 @@
     </li>
 </ul>
 
+<h1>Multiplication</h1>
+<ul>
+    <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterMultiplication">
+        <mat-checkbox [checked]="isSelected(worksheetsItem)" (change)="checkboxChange($event.checked, worksheetsItem)" >{{worksheetsItem.label}}</mat-checkbox>
+    </li>
+</ul>
+
 <button mat-raised-button color="accent" (click)="goToProblems()">Problems</button>
 <span class="space"></span>
 <button mat-raised-button color="accent" (click)="goToWorkout()">Workout</button>

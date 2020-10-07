@@ -1,7 +1,7 @@
 import { MathProblem } from "./mathProblem";
 import { MathProblemTypes } from './mathProblemTypes';
 import { Worksheets } from './worksheets'
-
+import { Worksheets2 } from './worksheets2'
 
 export class WorksheetsMap {
     private static i: number = 0
@@ -77,6 +77,16 @@ export class WorksheetsMap {
             "Subtract two two-digit numbers - with regrouping",
             Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
             MathProblemTypes.SUBTRACTION
+        ), 
+        WorksheetsMap.generateMapItem(
+            "Subtract two two-digit numbers - with regrouping",
+            Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
+            MathProblemTypes.SUBTRACTION
+        ),
+        WorksheetsMap.generateMapItem(
+            "Multiply two single digit numbers - with regrouping",
+            Worksheets2.multiplySingleDigitNumber,
+            MathProblemTypes.MULTIPLICATION
         )
 
     ];
