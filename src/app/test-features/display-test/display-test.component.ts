@@ -20,26 +20,35 @@ export class DisplayTestComponent implements OnInit {
   needReset: boolean = false;
 
 
-  configs: Config[] = [{
-    ...CONFIG,
-    answerMode: ColumnAnswerMode.COLUMNS,
-    generators: [{
-      func: Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry,
-    } as WorksheetsItem]
-  },
-  {
-    ...CONFIG,
-    answerMode: ColumnAnswerMode.COLUMNS,
-    generators: [{
-      func: DisplayTestComponent.testLongNum,
-    } as WorksheetsItem]
-  }, {
-    ...CONFIG,
-    orientation: "HORIZONTAL"
-  }, {
-    ...CONFIG,
-    answerMode: ColumnAnswerMode.COLUMNS,
-  }, { ...CONFIG },
+  configs: Config[] = [
+    {
+      ...CONFIG,
+      answerMode: ColumnAnswerMode.COLUMNS,
+      generators: [{
+        func: DisplayTestComponent.testLongNum,
+      } as WorksheetsItem]
+    },
+    {
+      ...CONFIG,
+      answerMode: ColumnAnswerMode.NORMAL,
+      generators: [{
+        func: DisplayTestComponent.testLongNum,
+      } as WorksheetsItem]
+    },
+    {
+      ...CONFIG,
+      answerMode: ColumnAnswerMode.COLUMNS,
+      generators: [{
+        func: Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry,
+      } as WorksheetsItem]
+    },
+    {
+      ...CONFIG,
+      orientation: "HORIZONTAL"
+    }, {
+      ...CONFIG,
+      answerMode: ColumnAnswerMode.COLUMNS,
+    }, { ...CONFIG },
   ]
 
   constructor(private configService: ConfigService,
@@ -55,8 +64,8 @@ export class DisplayTestComponent implements OnInit {
   static testLongNum(): MathProblem {
 
     let generateRange: GenerateRange[] = [
-      { min: 10000, max: 100000 },
-      { min: 10000, max: 100000 }
+      { min: 1000000, max: 10000000 },
+      { min: 1000000, max: 10000000 }
     ];
 
     return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);

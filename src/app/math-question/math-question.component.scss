@@ -107,17 +107,28 @@ input[type=number] {
     align-items: flex-end;
 }
 
-.number {
+
+.number_normal {
     display: flex;
     flex-flow: row;
     align-items: center;
     justify-content: flex-end;
+    height: 1em;
+    padding: 2px 5px;
+}
+
+.number_column {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: 1em;
+    padding: 2px 0;
 }
 
 .digit {
     display: flex;
     width: 1em;
-    height: 1em;
     align-items: center;
     justify-content: center;    
     padding: 2px 0;

@@ -31,7 +31,7 @@
         class="mathAnswer"
         [ngModel]="value"
         (ngModelChange)="modelChangeNormal($event)"
-        [ngStyle]="{'width.em': size}"
+        [ngStyle]="{'width.rem': size}"
         type="number"
         (keydown)="onKeydownSimple($event)"
         [@answerStatus]="answerStatus"

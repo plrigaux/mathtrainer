@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { ValidateAllService, MathQuestionValidation } from '../services/validate-all.service'
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../services/math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
-import { ColumnAnswerComponent, ValidateCB, FocusType } from '../column-answer/column-answer.component'
+import { ColumnAnswerComponent, ValidateCB, FocusType, ColumnAnswerMode } from '../column-answer/column-answer.component'
 
 const regexNumVal = /[0-9,-\.]/
 
@@ -30,6 +30,7 @@ export class MathQuestionComponent implements OnInit {
   @ViewChild(ColumnAnswerComponent, { static: false }) private columnAnswerComponent: ColumnAnswerComponent;
   currentFocus = FocusType.BLUR;
   size = 3;
+  columnAnswerMode = ColumnAnswerMode;
 
   constructor(
     private mathQuestionService: MathQuestionService) {

@@ -6,9 +6,9 @@
       <section class="question_column">
         <section class="operator">{{problem.mathProplemActions.operator}}</section>
         <section class="numbers">
-          <div class="number" *ngFor="let number of problem.values; i as index; last as last">
-            <div class="digit" *ngFor="let digit of number.toString().split('')">{{digit}}</div>
-          </div>
+        
+          <ng-contianer *ngIf="config.answerMode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-contianer>
+          
         </section>
       </section>
       <hr class="hr_equals" />
@@ -28,6 +28,18 @@
     </ng-template>
   </div>
 </div>
+
+<ng-template #columns>
+  <div class="number_column" *ngFor="let number of problem.values; i as index; last as last">
+    <div class="digit" *ngFor="let digit of number.toString().split('')">{{digit}}</div>
+  </div>
+</ng-template>
+
+<ng-template #normal>
+  <div class="number_normal" *ngFor="let number of problem.values; i as index; last as last">
+    {{number}}
+  </div>
+</ng-template>
 
 <ng-template #answerField>
   <div class="answerField">
