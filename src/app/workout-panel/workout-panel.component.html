@@ -1,8 +1,9 @@
+<app-progress-bar [totalCount]="totalCount" [progressCount]="index" ></app-progress-bar>
 <div class="main-div">
 
   <mat-card class="z-depth center" flex="50">
     <div class="progressBar">
-      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+      
       <div *ngIf="tasks && index < tasks.length">
         {{index + 1}} of {{tasks.length}}
       </div>

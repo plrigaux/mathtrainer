@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
 import { Config } from '../services/config';
 import { Subscription } from 'rxjs';
-import { ConfigService } from '../services/config.service'
+import { ConfigService, ConfigServiceInfo } from '../services/config.service'
 import { WorkTask  } from './worktask'
 import { MathGenerator } from '../math-generator/mathGenerator'
 
@@ -29,13 +29,12 @@ export class WorkoutPanelComponent implements OnInit {
   index: number;
   WorkoutStatusEnum = WorkoutStatus;
   status: WorkoutStatus;
-  progress: number = 0;
 
   constructor(private configService: ConfigService) { }
 
   ngOnInit(): void {
     this.myEventSubscriptions.push(this.configService.subscribe(
-      cfsi => {
+      (cfsi : ConfigServiceInfo) => {
         this.config = cfsi.config;
         this.stacked = this.config.orientation == "VERTICAL";
         if (cfsi.needReset) {
@@ -80,7 +79,6 @@ export class WorkoutPanelComponent implements OnInit {
       if (this.index >= this.tasks.length) {
         this.currentTask = null;
         this.status = WorkoutStatus.Finish;
-        this.progress = 100;
       } else {
         this.setCurrentTask();
       }
@@ -107,11 +105,14 @@ export class WorkoutPanelComponent implements OnInit {
   setCurrentTask() : void {
     this.currentTask = this.tasks[this.index];
     this.userInput = "";
-    this.progress = (this.index / this.tasks.length) * 100;
     this.currentTask.setStartTime();
   }
 
   setFocus() { 
     setTimeout(() => this.answerField.nativeElement.focus()); 
   } 
+
+  get totalCount() {
+    return this.tasks?.length;
+  }
 }

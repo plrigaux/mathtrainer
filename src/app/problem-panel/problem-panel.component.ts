@@ -16,7 +16,6 @@ import { ColumnAnswerMode, ANSWER_MODES } from '../column-answer/column-answer.c
 export class ProblemPanelComponent implements OnInit {
   problems: MathProblem[];
   @ViewChildren(MathQuestionComponent) private mathQuestionComponents: QueryList<MathQuestionComponent>;
-  progress: number;
   successCount: number;
   answerMap: Map<string, QuestionStatus> = new Map();
   equationOrientations: EquationOrientation[] = EquationOrientations;
@@ -36,7 +35,6 @@ export class ProblemPanelComponent implements OnInit {
         (cfsi: ConfigServiceInfo) => {
           this.config = { ...cfsi.config }; //to force the change detection
           this.problems = new Array(cfsi.config.nbQuestions >= 1 ? cfsi.config.nbQuestions : 1); //TODO make an universal function
-          this.updateProgress();
           //reset state
           this.needReset = cfsi.needReset;
           if (cfsi.needReset) {
@@ -60,17 +58,13 @@ export class ProblemPanelComponent implements OnInit {
     switch (notification.status) {
       case QuestionStatus.RIGHT:
         if (currentStatus !== QuestionStatus.RIGHT) {
-
           this.increaseProgress();
-
-          console.debug(`SC: ${this.successCount} PR: ${this.progress}`);
+          console.debug(`SC: ${this.successCount} PC: ${this.problemsCount}`);
 
           next = true;
         }
         break;
       case QuestionStatus.WRONG:
-        this.decreaseProgress(currentStatus);
-        break;
       case QuestionStatus.EMPTY:
         this.decreaseProgress(currentStatus);
         break;
@@ -121,19 +115,12 @@ export class ProblemPanelComponent implements OnInit {
 
   private increaseProgress() {
     this.successCount++;
-    this.updateProgress()
   }
 
   private decreaseProgress(currentStatus: QuestionStatus): void {
     if (currentStatus === QuestionStatus.RIGHT) {
       this.successCount--;
-      this.updateProgress()
     }
-  }
-
-  private updateProgress(): void {
-    console.debug(`this.successCount ${this.successCount} this.problemsCount ${this.problemsCount}`)
-    this.progress = Math.round((this.successCount / this.problemsCount) * 100);
   }
 
   ngAfterViewInit() {
@@ -158,9 +145,7 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   resetProgress() {
-    this.progress = 0;
     this.successCount = 0;
-
   }
 
   get problemsCount(): number {

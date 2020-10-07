@@ -66,6 +66,7 @@ import { TestFeaturesComponent } from './test-features/test-features.component';
 import { ColumnAnswerComponent } from './column-answer/column-answer.component';
 import { DisplayTestComponent } from './test-features/display-test/display-test.component';
 import { InputTestComponent } from './test-features/inputtest/input-test.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { InputTestComponent } from './test-features/inputtest/input-test.compone
     TestFeaturesComponent,
     ColumnAnswerComponent,
     DisplayTestComponent,
-    InputTestComponent
+    InputTestComponent,
+    ProgressBarComponent
   ],
   imports: [
     HttpClientModule,
