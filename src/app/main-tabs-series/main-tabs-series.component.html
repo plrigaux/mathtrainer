@@ -1,0 +1,17 @@
+<h1>Additions</h1>
+
+
+<h1>Subtractions</h1>
+
+
+<h1>Multiplication</h1>
+
+
+<mat-form-field appearance="fill">
+    <mat-label>Multiplication tables</mat-label>
+    <mat-select multiple [(value)]="tablesSelected">
+        <mat-option *ngFor="let num of tables" [value]="num">{{num}}</mat-option>
+    </mat-select>
+</mat-form-field>
+<button mat-button (click)="clear()" [disabled]="toDisable()">Clear</button>
+<p *ngFor="let num of tablesSelected">{{num}}</p>

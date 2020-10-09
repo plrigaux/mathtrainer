@@ -1,27 +1,50 @@
-<h1>Additions</h1>
-<ul>
-    <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterAdditions">
-        <mat-checkbox [checked]="isSelected(worksheetsItem)" (change)="checkboxChange($event.checked, worksheetsItem)">{{worksheetsItem.label}}</mat-checkbox>
-    </li>
-</ul>
+<mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="selectedTabIndexChange($event)">
+    <mat-tab label="Program">
+        <h1>Additions</h1>
+        <ul>
+            <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterAdditions">
+                <mat-checkbox [checked]="isSelected(worksheetsItem)"
+                    (change)="checkboxChange($event.checked, worksheetsItem)">
+                    {{worksheetsItem.label}}</mat-checkbox>
+            </li>
+        </ul>
 
-<h1>Subtractions</h1>
+        <h1>Subtractions</h1>
 
-<ul>
-    <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterSubtraction">
-        <mat-checkbox [checked]="isSelected(worksheetsItem)" (change)="checkboxChange($event.checked, worksheetsItem)" >{{worksheetsItem.label}}</mat-checkbox>
-    </li>
-</ul>
+        <ul>
+            <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterSubtraction">
+                <mat-checkbox [checked]="isSelected(worksheetsItem)"
+                    (change)="checkboxChange($event.checked, worksheetsItem)">
+                    {{worksheetsItem.label}}</mat-checkbox>
+            </li>
+        </ul>
 
-<h1>Multiplication</h1>
-<ul>
-    <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterMultiplication">
-        <mat-checkbox [checked]="isSelected(worksheetsItem)" (change)="checkboxChange($event.checked, worksheetsItem)" >{{worksheetsItem.label}}</mat-checkbox>
-    </li>
-</ul>
+        <h1>Multiplication</h1>
+        <ul>
+            <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterMultiplication">
+                <mat-checkbox [checked]="isSelected(worksheetsItem)"
+                    (change)="checkboxChange($event.checked, worksheetsItem)">
+                    {{worksheetsItem.label}}</mat-checkbox>
+            </li>
+        </ul>
 
-<button mat-raised-button color="accent" (click)="goToProblems()">Problems</button>
-<span class="space"></span>
-<button mat-raised-button color="accent" (click)="goToWorkout()">Workout</button>
-<span class="space"></span>
-<button mat-raised-button (click)="unCheckAll()">Clear all</button>
+        <button mat-raised-button color="accent" (click)="goToProblems()">Problems</button>
+        <span class="space"></span>
+        <button mat-raised-button color="accent" (click)="goToWorkout()">Workout</button>
+        <span class="space"></span>
+        <button mat-raised-button (click)="unCheckAll()">Clear all</button>
+
+    </mat-tab>
+    <mat-tab label="Series">
+        <app-main-tabs-series></app-main-tabs-series>
+    </mat-tab>
+    <mat-tab label="Custom">
+        <h1>Additions</h1>
+
+
+        <h1>Subtractions</h1>
+
+
+        <h1>Multiplication</h1>
+    </mat-tab>
+</mat-tab-group>

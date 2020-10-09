@@ -67,6 +67,7 @@ import { ColumnAnswerComponent } from './column-answer/column-answer.component';
 import { DisplayTestComponent } from './test-features/display-test/display-test.component';
 import { InputTestComponent } from './test-features/inputtest/input-test.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { MainTabsSeriesComponent } from './main-tabs-series/main-tabs-series.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     ColumnAnswerComponent,
     DisplayTestComponent,
     InputTestComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    MainTabsSeriesComponent
   ],
   imports: [
     HttpClientModule,

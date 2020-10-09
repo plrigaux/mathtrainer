@@ -2,11 +2,13 @@ import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular
 import { Router } from '@angular/router';
 import { WorksheetsMap, WorksheetsItem } from '../math-generator/worksheetsMap'
 import { MathProblemTypes } from '../math-generator/mathProblemTypes';
-import { ConfigService } from '../services/config.service'
+import { ConfigService, ConfigServiceInfo } from '../services/config.service'
 import { Config } from '../services/config';
 import { Subscription } from 'rxjs';
 import { MatCheckbox } from '@angular/material/checkbox';
 
+
+const TAB_INDEX_KEY = "TAB_INDEX_KEY"; 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -19,7 +21,8 @@ export class MainPageComponent implements OnInit {
   private config: Config;
   private myEventSubscriptions: Subscription[] = [];
   @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
-
+  selectedTabIndex : number = null;
+  
   constructor(private router: Router, private configService: ConfigService) {
 
   }
@@ -28,13 +31,16 @@ export class MainPageComponent implements OnInit {
     this.exercises = WorksheetsMap.getWorksheetsItem();
 
     this.myEventSubscriptions.push(this.configService.subscribe(
-      cfi => {
+      (cfi : ConfigServiceInfo) => {
         this.config = cfi.config;
         this.config.generators.forEach(worksheetsItem => {
           this.fillMap(true, worksheetsItem);
         });
       }
     ));
+
+    let tabIndex = localStorage.getItem(TAB_INDEX_KEY);
+    this.selectedTabIndex = parseInt(tabIndex);
   }
 
   ngOnDestroy(): void {
@@ -109,5 +115,10 @@ export class MainPageComponent implements OnInit {
   isSelected(worksheetsItem: WorksheetsItem): boolean {
     let selected = this.worksheetsItems.has(worksheetsItem.code);
     return selected;
+  }
+
+  selectedTabIndexChange(index : number) {
+    localStorage.setItem(TAB_INDEX_KEY, index.toString());
+    this.selectedTabIndex = index;
   }
 }

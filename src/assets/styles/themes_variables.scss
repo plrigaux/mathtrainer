@@ -41,6 +41,12 @@ $purple-green-accent: mat-palette($mat-green, A200, A100, A400);
 $purple-green-warn: mat-palette($mat-red);
 $purple-green-theme: mat-dark-theme($purple-green-primary, $purple-green-accent, $purple-green-warn);
 
+// candy
+$candy-primary: mat-palette($mat-orange);
+$candy-accent:  mat-palette($mat-brown);
+$candy-warn:    mat-palette($mat-red);
+$candy-theme:   mat-light-theme($candy-primary, $candy-accent, $candy-warn);
+
 
 $all_themes: (
     "": $my-app-theme,
@@ -50,4 +56,5 @@ $all_themes: (
     indigo-pink: $indigo-pink-theme,
     pink-bluegrey: $pink-bluegrey-theme,
     purple-green: $purple-green-theme,
+    candy: $candy-theme,
 );

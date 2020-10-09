@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
     { value: 'indigo-pink', label: "Indigo & Pink" },
     { value: 'pink-bluegrey', label: "Pink & Blue-grey" },
     { value: 'purple-green', label: "Purple & Green" },
+    { value: 'candy', label: "Candy" },
   ]
 
   constructor(private configSrv : ConfigService, private router: Router) {
