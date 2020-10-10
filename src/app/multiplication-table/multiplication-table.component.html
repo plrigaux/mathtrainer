@@ -1,0 +1,10 @@
+<table>
+    <tr>
+       <th></th>
+        <th *ngFor="let num2 of tables">{{num2}}</th>
+    </tr>
+    <tr *ngFor="let num1 of tables">
+        <th>{{num1}}</th>
+        <td *ngFor="let num2 of tables">{{num1 * num2}}</td>
+    </tr>
+</table>

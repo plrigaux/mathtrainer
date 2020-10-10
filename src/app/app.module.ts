@@ -68,6 +68,7 @@ import { DisplayTestComponent } from './test-features/display-test/display-test.
 import { InputTestComponent } from './test-features/inputtest/input-test.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { MainTabsSeriesComponent } from './main-tabs-series/main-tabs-series.component';
+import { MultiplicationTableComponent } from './multiplication-table/multiplication-table.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { MainTabsSeriesComponent } from './main-tabs-series/main-tabs-series.com
     DisplayTestComponent,
     InputTestComponent,
     ProgressBarComponent,
-    MainTabsSeriesComponent
+    MainTabsSeriesComponent,
+    MultiplicationTableComponent
   ],
   imports: [
     HttpClientModule,
