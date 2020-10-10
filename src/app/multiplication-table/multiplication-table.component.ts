@@ -11,6 +11,9 @@ export class MultiplicationTableComponent implements OnInit {
   tables : number[]
   tablesSelected : number[] = []
 
+  column : number = null
+  row : number = null
+
   constructor() { 
     let start = 1;
     let end = 12;
@@ -22,4 +25,16 @@ export class MultiplicationTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onMouseHover(c : number, r : number) {
+    this.column = c;
+    this.row = r;
+  }
+
+  isInPath(col : number, row : number) : boolean {
+    return col <= this.column && row == this.row || row <= this.row && col == this.column;
+  }
+
+  isColRowSet() : boolean {
+    return this.row != null && this.column != null;
+  }
 }

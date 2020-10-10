@@ -1,0 +1,55 @@
+
+@import "~@angular/material/theming";
+@import "../../assets/styles/themes_variables.scss";
+
+
+table {
+    font-size: larger;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+
+
+@mixin widget-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $fg: map-get($theme, foreground);
+    //$bg: map-get($theme, background);
+
+    $th_text_color: #{mat-color($fg, text)};
+
+    td, th {
+        border: mat-color($fg) solid 1px;
+        text-align: center;
+        padding: .2em;
+        width: 3rem;
+    }
+
+
+    td.inPath {
+        background-color: mat-color($accent, lighter);
+        color:  mat-contrast($accent, lighter);
+    }
+    
+    th.inPath {
+        background-color: mat-color($primary);
+    }
+
+    td:hover {
+        background-color: mat-color($accent);
+        color:  mat-contrast($accent, lighter);
+    }
+    
+}
+
+@each $thclass, $th in $all_themes {
+    @if $thclass == "" {
+        @include widget-theme($th);
+    } @else {
+        :host-context(.#{$thclass}) {
+            @include widget-theme($th);
+        }
+    }
+}

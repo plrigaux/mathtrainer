@@ -1,10 +1,18 @@
+column : {{column}}
+row : {{row}}
+
 <table>
     <tr>
-       <th></th>
-        <th *ngFor="let num2 of tables">{{num2}}</th>
+        <th></th>
+        <th *ngFor="let num2 of tables;index as i" [ngClass]="{inPath:isInPath(i, -1)}">{{num2}}</th>
     </tr>
-    <tr *ngFor="let num1 of tables">
-        <th>{{num1}}</th>
-        <td *ngFor="let num2 of tables">{{num1 * num2}}</td>
+    <tr *ngFor="let num1 of tables;  index as row ">
+        <th [ngClass]="{inPath:isInPath(-1, row)}">{{num1}}</th>
+        <td *ngFor="let num2 of tables;  index as col" 
+        (mouseover)="onMouseHover(col, row)"
+        [ngClass]="{inPath:isInPath(col, row)}">{{num1 * num2}}</td>
     </tr>
 </table>
+<section *ngIf="isColRowSet()">
+    {{tables[column]}} x {{tables[row]}} = {{tables[column] * tables[row]}}
+</section>
