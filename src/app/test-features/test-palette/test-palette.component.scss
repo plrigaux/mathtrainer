@@ -1,0 +1,44 @@
+@import "~@angular/material/theming";
+
+// Include non-theme styles for core.
+@include mat-core();
+
+$colors: (
+    "red": $mat-red,
+    "pink": $mat-pink,
+    "purple": $mat-purple,
+    "deep-purple": $mat-deep-purple,
+    "indigo": $mat-indigo,
+    "blue": $mat-blue,
+    "light-blue": $mat-light-blue,
+    "cyan": $mat-cyan,
+    "teal": $mat-teal,
+    "green": $mat-green,
+    "light-green": $mat-light-green,
+    "lime": $mat-lime,
+    "yellow": $mat-yellow,
+    "amber": $mat-amber,
+    "orange": $mat-orange,
+    "deep-orange": $mat-deep-orange,
+    "brown": $mat-brown,
+    "grey": $mat-grey,
+    "blue-grey": $mat-blue-grey,
+);
+
+$hues: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, A100, A200, A400, A700;
+
+
+@each $colorName, $matVal in $colors {
+    $var: mat-palette($matVal);
+    .tp-#{$colorName} {
+        background-color: mat-color($var);
+        color: mat-color($var, default-contrast);;
+    }
+
+    @each $h in $hues {
+        .tp-#{$colorName}-#{$h} {
+            background-color: mat-color($var,$h);
+            color: mat-color($var, "#{$h}-contrast");;
+        }
+    }
+}

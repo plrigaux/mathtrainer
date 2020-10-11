@@ -1,0 +1,6 @@
+<section *ngFor="let c of colors">
+    <h1>{{c}}</h1>
+    <section *ngFor="let h of hues">
+        <div class="tp-{{c}}-{{h}}">{{h}}</div>
+    </section>
+</section>
