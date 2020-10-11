@@ -2,15 +2,17 @@
 @import "~@angular/material/theming";
 @import "../../assets/styles/themes_variables.scss";
 
-
 table {
     font-size: larger;
     border-collapse: collapse;
     table-layout: fixed;
 }
 
-
-
+.equation {
+    font-size: 27pt;
+    font-weight: bold;
+    padding: 10px;
+}
 
 @mixin widget-theme($theme) {
     $primary: map-get($theme, primary);
@@ -27,21 +29,20 @@ table {
         width: 3rem;
     }
 
-
     td.inPath {
         background-color: mat-color($accent, lighter);
-        color:  mat-contrast($accent, lighter);
+        color:  mat-color($accent, default-contrast);
     }
     
     th.inPath {
         background-color: mat-color($primary);
+        color:  mat-color($primary, default-contrast);
     }
 
-    td:hover {
+    td.onHover {
         background-color: mat-color($accent);
         color:  mat-contrast($accent, lighter);
     }
-    
 }
 
 @each $thclass, $th in $all_themes {

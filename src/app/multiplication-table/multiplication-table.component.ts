@@ -8,33 +8,43 @@ import { Component, OnInit } from '@angular/core';
 export class MultiplicationTableComponent implements OnInit {
 
 
-  tables : number[]
-  tablesSelected : number[] = []
+  tables: number[]
+  tablesSelected: number[] = []
 
-  column : number = null
-  row : number = null
+  column: number = null
+  row: number = null
 
-  constructor() { 
+  constructor() {
     let start = 1;
     let end = 12;
 
-    this.tables = Array(end - start + 1).fill(null).map((_, idx : number) => start + idx)
+    this.tables = Array(end - start + 1).fill(null).map((_, idx: number) => start + idx)
   }
-
 
   ngOnInit(): void {
   }
 
-  onMouseHover(c : number, r : number) {
+  onMouseHover(c: number, r: number) {
     this.column = c;
     this.row = r;
   }
 
-  isInPath(col : number, row : number) : boolean {
-    return col <= this.column && row == this.row || row <= this.row && col == this.column;
+  calculateClasses(col: number, row: number) {
+    if (row == this.row) {
+      if (col == this.column) {
+        return "onHover"
+      } else if (col < this.column) {
+        return "inPath"
+      }
+    } else if (row < this.row) {
+      if (col == this.column) {
+        return "inPath"
+      }
+    }
+    return null
   }
 
-  isColRowSet() : boolean {
+  isColRowSet(): boolean {
     return this.row != null && this.column != null;
   }
 }
