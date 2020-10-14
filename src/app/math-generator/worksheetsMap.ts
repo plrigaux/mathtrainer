@@ -2,6 +2,7 @@ import { MathProblem } from "./mathProblem";
 import { MathProblemTypes } from './mathProblemTypes';
 import { Worksheets } from './worksheets'
 import { Worksheets2 } from './worksheets2'
+import { WorksheetsItem } from './worksheetsDefinitions'
 
 export class WorksheetsMap {
     private static i: number = 0
@@ -115,16 +116,4 @@ export class WorksheetsMap {
             code: mathProblemType + "_" + WorksheetsMap.i++
         }
     }
-}
-
-export interface WorksheetsItem extends WorksheetsItemStore {
-    label: string
-    func: () => MathProblem
-    mathProblemType: MathProblemTypes
-
-}
-
-export interface WorksheetsItemStore {
-    funcName: string,
-    code: string
 }

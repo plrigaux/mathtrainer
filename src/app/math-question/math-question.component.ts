@@ -26,7 +26,7 @@ export class MathQuestionComponent implements OnInit {
   @Input() config: Config;
   @Input() readonly questionId: number;
   @Input() needReset: boolean;
-  controlIndex: number;
+  //controlIndex: number;
   @ViewChild(ColumnAnswerComponent, { static: false }) private columnAnswerComponent: ColumnAnswerComponent;
   currentFocus = FocusType.BLUR;
   size = 3;
@@ -40,7 +40,6 @@ export class MathQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     console.debug(this.log("QID " + this.questionId));
-    this.controlIndex = this.questionId - 1;
   }
 
   get name(): string {
@@ -200,7 +199,7 @@ export class MathQuestionComponent implements OnInit {
     let notification: MathQuestionNotifier = {
       status: this.status,
       id: this.questionId.toString(),
-      index: this.controlIndex,
+      index: this.questionId,
       forceExit: forceExit
     }
 

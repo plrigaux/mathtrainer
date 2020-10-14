@@ -36,7 +36,7 @@ export class Worksheets {
 
         return Worksheets.addTowXDigitNumbersNoCarryProg(prog);
     }
-    
+
     //Adding two single-digit numbers - sum 10 or less
     static addTowSingleDigitNumberSum10orLess(): MathProblem {
         return Worksheets.addTowXDigitNumbersNoCarry(1);
@@ -108,7 +108,7 @@ export class Worksheets {
 
         let number1: number = answer - number2;
 
-        let mp: MathProblem = new MathProblem(prog.mathProblemType, answer, [number1, number2]);
+        let mp: MathProblem = new MathProblem(prog.mathProblemType, [number1, number2], answer);
 
         //mp.shuffle();
 
@@ -157,7 +157,7 @@ export class Worksheets {
 
         let number1: number = answer - number2;
 
-        let mp: MathProblem = new MathProblem(prog.mathProblemType, answer, [number1, number2]);
+        let mp: MathProblem = new MathProblem(prog.mathProblemType, [number1, number2], answer);
 
         mp.shuffle();
 
@@ -170,7 +170,7 @@ export class Worksheets {
 
         let number1: number = answer - number2;
 
-        let mp: MathProblem = new MathProblem(MathProblemTypes.ADDITION, answer, [number1, number2]);
+        let mp: MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2], answer);
 
         mp.shuffle();
         return mp;
@@ -182,7 +182,7 @@ export class Worksheets {
 
         let number1: number = answer - number2;
 
-        let mp: MathProblem = new MathProblem(MathProblemTypes.ADDITION, answer, [number1, number2]);
+        let mp: MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2], answer);
 
         mp.shuffle();
         return mp;
@@ -205,7 +205,7 @@ export class Worksheets {
         let highNumber = MathGenerator.getRandomIntInclusive(2, 9 + 9);
         let min = (highNumber % 10) + 1
         let answer = MathGenerator.getRandomIntInclusive(min, 9);
-        
+
         if (highNumber < answer) {
             let tmp = highNumber;
             highNumber = answer;
@@ -214,7 +214,7 @@ export class Worksheets {
 
         let number = highNumber - answer;
 
-        let mp: MathProblem = new MathProblem(MathProblemTypes.SUBTRACTION, answer, [highNumber, number]);
+        let mp: MathProblem = new MathProblem(MathProblemTypes.SUBTRACTION, [highNumber, number], answer);
 
         return mp;
     }
@@ -224,7 +224,7 @@ export class Worksheets {
         let number2 = MathGenerator.getRandomIntInclusive(0, 9);
         let number1 = answer + number2
 
-        let mp: MathProblem = new MathProblem(MathProblemTypes.SUBTRACTION, answer, [number1, number2]);
+        let mp: MathProblem = new MathProblem(MathProblemTypes.SUBTRACTION, [number1, number2], answer);
 
         return mp;
     }
@@ -349,7 +349,7 @@ export class Worksheets {
 
         let answer: number = number1 - number2;
 
-        let mp: MathProblem = new MathProblem(prog.mathProblemType, answer, [number1, number2]);
+        let mp: MathProblem = new MathProblem(prog.mathProblemType, [number1, number2], answer);
 
         return mp;
     }
@@ -389,7 +389,7 @@ export class Worksheets {
 
         let answer: number = number1 - number2;
 
-        let mp: MathProblem = new MathProblem(prog.mathProblemType, answer, [number1, number2]);
+        let mp: MathProblem = new MathProblem(prog.mathProblemType, [number1, number2], answer);
 
         return mp;
     }

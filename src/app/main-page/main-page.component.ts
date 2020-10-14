@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { WorksheetsMap, WorksheetsItem } from '../math-generator/worksheetsMap'
+import { WorksheetsMap } from '../math-generator/worksheetsMap'
 import { MathProblemTypes } from '../math-generator/mathProblemTypes';
 import { ConfigService, ConfigServiceInfo } from '../services/config.service'
 import { Config } from '../services/config';
 import { Subscription } from 'rxjs';
 import { MatCheckbox } from '@angular/material/checkbox';
-
+import { WorksheetsItem } from '../math-generator/worksheetsDefinitions'
 
 const TAB_INDEX_KEY = "TAB_INDEX_KEY"; 
 @Component({

@@ -1,7 +1,8 @@
 import { Config } from '../services/config'
 import { MathProblemTypes, GenerateRange, Answer } from './mathProblemTypes';
 import { MathProblem } from './mathProblem';
-import { WorksheetsItem, WorksheetsMap } from './worksheetsMap';
+import { WorksheetsMap } from './worksheetsMap';
+import { WorksheetsItem } from './worksheetsDefinitions'
 //import { Worksheets } from './worksheets';
 
 export class MathGenerator {
@@ -18,9 +19,9 @@ export class MathGenerator {
 
         let itres: IteratorResult<WorksheetsItem> = it.next()
         let idx = 0
-        let mp : WorksheetsItem = null;
+        let worksheetItem: WorksheetsItem = null;
         while (!itres.done) {
-            mp = itres.value;
+            worksheetItem = itres.value;
             //console.log(mp.funcName)
             if (++idx >= index) {
                 break;
@@ -31,16 +32,16 @@ export class MathGenerator {
                 it = config.generators.values();
                 itres = it.next();
                 //console.log(itres.done)
-            } 
+            }
         }
-        console.log(mp)
-        if (mp == null) {
+        console.log(worksheetItem)
+        if (worksheetItem == null) {
             return MathGenerator.default();
         }
-        return mp.func();
+        return worksheetItem.func(worksheetItem.parameters);
     }
 
-    static getListofRandomNumber(generateRange: GenerateRange[], mathProblemTypes: MathProblemTypes, answer: Answer = null): MathProblem {
+    static getListofRandomNumber(generateRange: GenerateRange[], mathProblemTypes: MathProblemTypes): MathProblem {
         var values: number[] = []
 
         var values: number[] = []
@@ -59,10 +60,10 @@ export class MathGenerator {
             console.log(values)
         }
 
-        return new MathProblem(mathProblemTypes, null, values);
+        return new MathProblem(mathProblemTypes, values);
     }
 
-    static getRandomIntInclusive(min: number = 1, max: number = 10) {
+    static getRandomIntInclusive(min: number = 1, max: number = 10): number {
         //min = Math.ceil(min);
         //max = Math.floor(max);
         let val = max - min + 1
@@ -81,6 +82,22 @@ export class MathGenerator {
         ];
 
         return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
+    }
+
+    static getSeries(type: MathProblemTypes, number: number, start: number, end: number, shuffle: boolean = false): MathProblem[] {
+
+        let size = end - start + 1;
+        let list: MathProblem[] = new Array(size);
+
+        for (let i = 0; i < size; i++) {
+            list[i] = new MathProblem(type, [number, start + i]);
+        }
+
+        if (shuffle) {
+            list = MathProblem.shuffle(list);
+        }
+
+        return list;
     }
 }
 

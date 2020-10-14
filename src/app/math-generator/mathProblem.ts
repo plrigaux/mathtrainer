@@ -9,7 +9,7 @@ export class MathProblem {
     mathProplemActions: MathProblemTypesData;
     private _answer: number;
 
-    constructor(mathProblemType: MathProblemTypes, answer: number, values: number[]) {
+    constructor(mathProblemType: MathProblemTypes, values: number[], answer: number = null) {
         this.values = values;
         this.questionStr = null;
         this._answer = answer;
@@ -54,7 +54,7 @@ export class MathProblem {
         this.values.sort((a, b) => b - a);
     }
 
-    static shuffle(array: any[]) {
+    static shuffle(array: any[]) : any[] {
         let currentIndex: number = array.length
         let temporaryValue: number;
         let randomIndex: number;
@@ -110,7 +110,7 @@ export class MathProblem {
                 console.error(`Wrong type ${mathProblem.mathProplemActions.code}`);
         }
 
-        return new MathProblem(mathProblemType, answer, values);
+        return new MathProblem(mathProblemType, values, answer);
     }
 
     get displaySize(): number {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription, PartialObserver } from 'rxjs';
 import { Config, CONFIG, MATH_EXERCICISES_STORE, GENERATORS_KEY } from './config';
-import { WorksheetsItem, WorksheetsItemStore } from '../math-generator/worksheetsMap';
+import { WorksheetsItem, WorksheetsItemStore } from '../math-generator/worksheetsDefinitions';
 import { Worksheets } from '../math-generator/worksheets';
 import { Worksheets2 } from '../math-generator/worksheets2';
 
@@ -20,6 +20,27 @@ export class ConfigService {
 
   constructor() {
 
+    this.loadConfig();
+    //this.configObservable = this.configSource.asObservable();
+  }
+
+  subscribe(any: any): Subscription {
+    return this.configSource.subscribe(any);
+  }
+
+  unsubscribe() {
+    if (this.configSource) {
+      this.configSource.unsubscribe();
+    }
+  }
+
+  next(config: Config, needReset: boolean) {
+    this.configSource.next({ config: config, needReset: needReset });
+
+    this.saveConfig(config);
+  }
+
+  private loadConfig() {
     let storedData = localStorage.getItem(MATH_EXERCICISES_STORE);
     let sdObject: object;
 
@@ -70,26 +91,14 @@ export class ConfigService {
 
 
     this.configSource = new BehaviorSubject<ConfigServiceInfo>({ config: cf, needReset: true });
-    //this.configObservable = this.configSource.asObservable();
   }
 
-  subscribe(any: any): Subscription {
-    return this.configSource.subscribe(any);
-  }
-
-  unsubscribe() {
-    if (this.configSource) {
-      this.configSource.unsubscribe();
-    }
-  }
-
-  next(config: Config, needReset: boolean) {
-    this.configSource.next({ config: config, needReset: needReset });
-
+  private saveConfig(config: Config) {
 
     let temp: WorksheetsItemStore = {
       code: null,
-      funcName: null
+      funcName: null,
+      parameters: null
     }
 
     let cf: Record<string, any> = {};
@@ -112,13 +121,19 @@ export class ConfigService {
 
     cf[GENERATORS_KEY] = generators;
 
-
-
-    let json = JSON.stringify(cf);
+    let json = JSON.stringify(cf, ConfigService.jsonReplacer, " ");
 
     console.log("json config -- " + json)
     console.log(config)
 
     localStorage.setItem(MATH_EXERCICISES_STORE, json);
+  }
+
+  static jsonReplacer(key : string, value : any) : any {
+    if(key.startsWith("_")) {
+      return undefined
+    }
+
+    return value;
   }
 }

@@ -1,3 +1,4 @@
+<ng-template [ngTemplateOutlet]="ProblemButton"></ng-template>
 <h1>Additions</h1>
 
 
@@ -14,4 +15,20 @@
     </mat-select>
 </mat-form-field>
 <button mat-button (click)="clear()" [disabled]="toDisable()">Clear</button>
-<p *ngFor="let num of tablesSelected">{{num}}</p>
+<br>
+<mat-form-field>
+    <mat-label>Start</mat-label>
+    <input matInput type="number" placeholder="start" [(ngModel)]="start">
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>End</mat-label>
+    <input matInput type="number" placeholder="end" [(ngModel)]="end">
+</mat-form-field>
+<br>
+
+<ng-template [ngTemplateOutlet]="ProblemButton"></ng-template>
+
+<ng-template #ProblemButton>
+    <button mat-raised-button color="accent" (click)="goToProblems()" [disabled]="isDisabled()">Problems</button>
+</ng-template>

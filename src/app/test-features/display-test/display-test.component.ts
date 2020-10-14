@@ -3,7 +3,7 @@ import { ConfigService } from '../../services/config.service'
 import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../../services/math-question.service';
 import { Config, CONFIG, MATH_EXERCICISES_STORE, GENERATORS_KEY } from '../../services/config';
 import { ColumnAnswerMode } from 'src/app/column-answer/column-answer.component';
-import { WorksheetsItem } from '../../math-generator/worksheetsMap';
+import { WorksheetsItem } from '../../math-generator/worksheetsDefinitions';
 import { Worksheets } from '../../math-generator/worksheets';
 import { MathProblem } from "../../math-generator/mathProblem";
 import { MathProblemTypes, GenerateRange } from '../../math-generator/mathProblemTypes';
@@ -26,21 +26,21 @@ export class DisplayTestComponent implements OnInit {
       answerMode: ColumnAnswerMode.COLUMNS,
       generators: [{
         func: DisplayTestComponent.testLongNum,
-      } as WorksheetsItem]
+      } as unknown as WorksheetsItem]
     },
     {
       ...CONFIG,
       answerMode: ColumnAnswerMode.NORMAL,
       generators: [{
         func: DisplayTestComponent.testLongNum,
-      } as WorksheetsItem]
+      } as unknown as WorksheetsItem]
     },
     {
       ...CONFIG,
       answerMode: ColumnAnswerMode.COLUMNS,
       generators: [{
         func: Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry,
-      } as WorksheetsItem]
+      } as unknown as WorksheetsItem]
     },
     {
       ...CONFIG,

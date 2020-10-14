@@ -1,5 +1,5 @@
 import { MathProblemTypes, GenerateRange } from '../math-generator/mathProblemTypes'
-import { WorksheetsItem } from '../math-generator/worksheetsMap'
+import { WorksheetsItem } from '../math-generator/worksheetsDefinitions'
 import { ColumnAnswerMode } from '../column-answer/column-answer.component'
 
 export type OrientationTypesKey = "VERTICAL" | "HORIZONTAL";
