@@ -2,9 +2,10 @@ import { MathProblem } from "./mathProblem";
 import { MathProblemTypes } from './mathProblemTypes';
 
 export interface MultiParam {
-    number: number,
+    numbers: number[],
     start: number,
     end: number,
+    shuffle: boolean,
     _next?: number,
     _series?: MathProblem[]
 }

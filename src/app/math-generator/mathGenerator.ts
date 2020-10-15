@@ -84,13 +84,17 @@ export class MathGenerator {
         return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
     }
 
-    static getSeries(type: MathProblemTypes, number: number, start: number, end: number, shuffle: boolean = false): MathProblem[] {
+    static getSeries(type: MathProblemTypes, numbers: number[], start: number, end: number, shuffle: boolean = false): MathProblem[] {
 
-        let size = end - start + 1;
+        let size = (end - start + 1) * numbers.length;
         let list: MathProblem[] = new Array(size);
 
-        for (let i = 0; i < size; i++) {
-            list[i] = new MathProblem(type, [number, start + i]);
+        let number2 = start;
+        for (let i = 0; i < size; i) {
+            for (let number of numbers) {
+                list[i++] = new MathProblem(type, [number, number2]);
+            }
+            number2++;
         }
 
         if (shuffle) {

@@ -16,11 +16,14 @@ export class MainTabsSeriesComponent implements OnInit {
 
 
   tables: number[]
-  tablesSelected: number[] = []
-  start: number;
-  end: number;
   private config: Config;
   private myEventSubscriptions: Subscription[] = [];
+  params: MultiParam = {
+    numbers: [],
+    start: 1,
+    end: 12,
+    shuffle: false,
+  }
 
   constructor(private router: Router, private configService: ConfigService) {
 
@@ -29,14 +32,12 @@ export class MainTabsSeriesComponent implements OnInit {
 
     this.tables = Array(end - start + 1).fill(null).map((_, idx: number) => start + idx)
 
-    this.start = start;
-    this.end = end;
   }
 
   ngOnInit(): void {
     this.myEventSubscriptions.push(this.configService.subscribe(
       (cfi: ConfigServiceInfo) => {
-        this.config = cfi.config;
+        this.config = { ...cfi.config };
         this.config.generators.forEach(worksheetsItem => {
           this.fillPageData(worksheetsItem);
         });
@@ -47,26 +48,33 @@ export class MainTabsSeriesComponent implements OnInit {
   fillPageData(worksheetsItem: WorksheetsItem) {
     if (worksheetsItem.func == Worksheets2.multiplicationTable) {
 
-      if (worksheetsItem?.parameters?.start) {
-        this.start = worksheetsItem.parameters.start
-      }
+      if (worksheetsItem?.parameters) {
 
-      if (worksheetsItem?.parameters?.end) {
-        this.end = worksheetsItem.parameters.end
-      }
+        let raw = worksheetsItem.parameters
 
-      if (worksheetsItem?.parameters?.number) {
-        this.tablesSelected.push(worksheetsItem?.parameters?.number)
+        const allowed = ['item1', 'item3'];
+
+        //copy by removing context data
+        let filtered = Object.keys(worksheetsItem.parameters)
+          .filter(key => !key.startsWith("_"))
+          .reduce((obj, key) => {
+            return {
+              ...obj,
+              [key]: raw[key]
+            };
+          }, {}) as MultiParam;
+
+        this.params = filtered
       }
     }
   }
 
   clear() {
-    this.tablesSelected = [];
+    this.params.numbers = [];
   }
 
   toDisable(): boolean {
-    return this.tablesSelected.length == 0
+    return this.params.numbers.length == 0
   }
 
   goToProblems() {
@@ -76,11 +84,6 @@ export class MainTabsSeriesComponent implements OnInit {
 
   setUpConfig() {
 
-    let multiParam: MultiParam = {
-      number: this.tablesSelected[0],
-      start: this.start,
-      end: this.end
-    }
 
     let generators: WorksheetsItem[] = new Array(1);
 
@@ -90,17 +93,17 @@ export class MainTabsSeriesComponent implements OnInit {
       code: "MultiSeries1",
       funcName: Worksheets2.multiplicationTable.name,
       mathProblemType: MathProblemTypes.MULTIPLICATION,
-      parameters: multiParam
+      parameters: { ...this.params }
     };
 
     generators[0] = wi;
     this.config.generators = generators
-    this.configService.next(this.config, true)
 
+    this.configService.next(this.config, true)
   }
 
   isDisabled(): boolean {
     //console.log(`this.tablesSelected.length > 0 ${this.tablesSelected.length > 0}`)
-    return this.tablesSelected.length == 0
+    return this.params.numbers.length == 0
   }
 }

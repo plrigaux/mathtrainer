@@ -31,7 +31,7 @@ export class Worksheets2 {
         }
 
         if (!parametersType._series) {
-            parametersType._series = MathGenerator.getSeries(MathProblemTypes.MULTIPLICATION, parametersType.number, parametersType.start, parametersType.end);
+            parametersType._series = MathGenerator.getSeries(MathProblemTypes.MULTIPLICATION, parametersType.numbers, parametersType.start, parametersType.end, parameters.shuffle);
         }
 
         return parametersType._series[parametersType._next % parametersType._series.length];
