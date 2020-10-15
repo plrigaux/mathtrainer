@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Worksheets } from './worksheets';
-import { MathProblem } from './mathGenerator';
+import { MathProblem } from './mathProblem';
 import { MathProblemTypes } from './mathProblemTypes';
 
 
@@ -125,7 +125,7 @@ describe('Worksheets', () => {
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
 
-      expect(mathProblem.mptd.code).toBe(MathProblemTypes.ADDITION);
+      expect(mathProblem.mathProplemActions.code).toBe(MathProblemTypes.ADDITION);
 
       TestHelper.isBetweenInbound(mathProblem.values[0], 0, 99);
       TestHelper.isBetweenInbound(mathProblem.values[1], 0, 99);
@@ -154,7 +154,7 @@ describe('Worksheets', () => {
       let mathProblem: MathProblem = Worksheets.addTwoNumbersAnswerBetwen10And20();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
-      expect(mathProblem.mptd.code).toBe(MathProblemTypes.ADDITION);
+      expect(mathProblem.mathProplemActions.code).toBe(MathProblemTypes.ADDITION);
 
       TestHelper.isBetweenInbound(mathProblem.answer, 10, 20);
     });
@@ -167,7 +167,7 @@ describe('Worksheets', () => {
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
 
-      expect(mathProblem.mptd.code).toBe(MathProblemTypes.SUBTRACTION);
+      expect(mathProblem.mathProplemActions.code).toBe(MathProblemTypes.SUBTRACTION);
 
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];
@@ -191,7 +191,7 @@ describe('Worksheets', () => {
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
 
-      expect(mathProblem.mptd.code).toBe(MathProblemTypes.SUBTRACTION);
+      expect(mathProblem.mathProplemActions.code).toBe(MathProblemTypes.SUBTRACTION);
 
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];
@@ -230,7 +230,7 @@ describe('Worksheets', () => {
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
 
-      expect(mathProblem.mptd.code).toBe(MathProblemTypes.SUBTRACTION);
+      expect(mathProblem.mathProplemActions.code).toBe(MathProblemTypes.SUBTRACTION);
 
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];
@@ -253,7 +253,7 @@ describe('Worksheets', () => {
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
 
-      expect(mathProblem.mptd.code).toBe(MathProblemTypes.SUBTRACTION);
+      expect(mathProblem.mathProplemActions.code).toBe(MathProblemTypes.SUBTRACTION);
 
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];

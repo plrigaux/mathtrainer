@@ -5,7 +5,8 @@ import { Worksheets2 } from '../math-generator/worksheets2'
 import { ConfigService, ConfigServiceInfo } from '../services/config.service'
 import { Config } from '../services/config';
 import { Subscription } from 'rxjs';
-import { MathProblemTypes } from '../math-generator/mathProblemTypes';
+import { MathProblemTypes, MathProblemTypesData } from '../math-generator/mathProblemTypes';
+import { MATHProplemActions } from '../math-generator/mathProblemTypes'
 
 @Component({
   selector: 'app-main-tabs-series',
@@ -18,7 +19,10 @@ export class MainTabsSeriesComponent implements OnInit {
   tables: number[]
   private config: Config;
   private myEventSubscriptions: Subscription[] = [];
+
+
   params: MultiParam = {
+    problemTypes: MathProblemTypes.MULTIPLICATION,
     numbers: [],
     start: 1,
     end: 12,
@@ -31,7 +35,6 @@ export class MainTabsSeriesComponent implements OnInit {
     let end = 12;
 
     this.tables = Array(end - start + 1).fill(null).map((_, idx: number) => start + idx)
-
   }
 
   ngOnInit(): void {
@@ -105,5 +108,10 @@ export class MainTabsSeriesComponent implements OnInit {
   isDisabled(): boolean {
     //console.log(`this.tablesSelected.length > 0 ${this.tablesSelected.length > 0}`)
     return this.params.numbers.length == 0
+  }
+
+  mathProplemActions() : MathProblemTypesData[] {
+    let val : MathProblemTypesData[] = Object.values(MATHProplemActions);
+    return val;
   }
 }

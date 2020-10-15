@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config } from '../services/config';
 import { GenerateRange } from '../math-generator/mathProblemTypes';
-import { mathProplemActions } from '../math-generator/mathProblemTypes'
+import { MATHProplemActions } from '../math-generator/mathProblemTypes'
 import { FormControl, Validators, FormGroup, FormArray, ValidationErrors, ValidatorFn, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -29,8 +29,8 @@ export class ConfigDialogRangesComponent implements OnInit {
     public dialogRef: MatDialogRef<ConfigDialogRangesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Config) {
 
-    this.mathProplemActions = mathProplemActions;
-    this.mathProplemActionsKeys = Object.keys(mathProplemActions);
+    this.mathProplemActions = MATHProplemActions;
+    this.mathProplemActionsKeys = Object.keys(MATHProplemActions);
     //console.log("data");
 
     //console.log(data);

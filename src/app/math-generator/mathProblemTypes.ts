@@ -24,6 +24,7 @@ export interface MathProblemTypesData {
     code: MathProblemTypes;
     operator: string;
     opFunc: (value: number[]) => number;
+    invert: MathProblemTypes;
 }
 
 //export type MathProblemTypesKey = "ADDITION" | "SUBTRACTION" | "MULTIPLICATION" | "DIVISION";
@@ -31,15 +32,15 @@ export interface MathProblemTypesData {
 export type MathProblemTypesMap = Record<MathProblemTypes, MathProblemTypesData>;
 
 
-export const mathProplemActions: MathProblemTypesMap = {
+export const MATHProplemActions: MathProblemTypesMap = {
     "ADDITION" : {
         name: "Addition",
         code: MathProblemTypes.ADDITION,
         operator: "+",
         opFunc: (value: number[]) => {
             return value.reduce((a, b) => a + b, 0);
-        }
-        
+        },
+        invert : MathProblemTypes.SUBTRACTION
     },
     "SUBTRACTION": {
         name: "Subtraction",
@@ -47,7 +48,8 @@ export const mathProplemActions: MathProblemTypesMap = {
         operator: "-",
         opFunc: (value: number[]) => {
             return value.reduce((total, num) => total - num);
-        }
+        },
+        invert : MathProblemTypes.ADDITION
     },
     "MULTIPLICATION": {
         name: "Multiplication",
@@ -55,7 +57,8 @@ export const mathProplemActions: MathProblemTypesMap = {
         operator: "x",
         opFunc: (value: number[]) => {
             return value.reduce((total, num) => total * num);
-        }
+        },
+        invert : MathProblemTypes.DIVISION
     },
     "DIVISION": {
         name: "Division",
@@ -63,7 +66,8 @@ export const mathProplemActions: MathProblemTypesMap = {
         operator: "÷",
         opFunc: (value: number[]) => {
             return value.reduce((total, num) => total / num);
-        }
+        },
+        invert : MathProblemTypes.MULTIPLICATION
     }
 }
 

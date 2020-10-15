@@ -1,5 +1,5 @@
 import { Expression } from '@angular/compiler';
-import { MathProblemTypes, GenerateRange, Answer, MathProblemTypesData, mathProplemActions } from './mathProblemTypes';
+import { MathProblemTypes, GenerateRange, Answer, MathProblemTypesData, MATHProplemActions } from './mathProblemTypes';
 //import { MathGenerator } from './mathGenerator';
 
 export class MathProblem {
@@ -13,7 +13,7 @@ export class MathProblem {
         this.values = values;
         this.questionStr = null;
         this._answer = answer;
-        this.mathProplemActions = mathProplemActions[mathProblemType]
+        this.mathProplemActions = MATHProplemActions[mathProblemType]
     }
 
     get answer(): number {
@@ -101,10 +101,12 @@ export class MathProblem {
 
             case MathProblemTypes.MULTIPLICATION:
                 mathProblemType = MathProblemTypes.DIVISION
+                values = [mathProblem.answer, ...mathProblem.values.filter((v, index) => index !== 0)];
                 break;
 
             case MathProblemTypes.DIVISION:
                 mathProblemType = MathProblemTypes.MULTIPLICATION
+                values = [mathProblem.answer, ...mathProblem.values.filter((v, index) => index !== 0)];
                 break;
             default:
                 console.error(`Wrong type ${mathProblem.mathProplemActions.code}`);

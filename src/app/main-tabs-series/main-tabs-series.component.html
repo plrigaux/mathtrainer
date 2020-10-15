@@ -7,7 +7,18 @@
 
 <h1>Multiplication</h1>
 
+<h1>Custom</h1>
 
+test {{params.problemTypes}}
+<mat-form-field appearance="outline">
+    <mat-label>Math problem Type:</mat-label>
+    <mat-select [(value)]="params.problemTypes">
+      <mat-option *ngFor="let mpt of mathProplemActions()" [value]="mpt.code">
+        {{mpt.name}} <strong>{{mpt.operator}}</strong>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+<span> &nbsp; </span>
 <mat-form-field appearance="fill">
     <mat-label>Multiplication tables</mat-label>
     <mat-select multiple [(value)]="params.numbers">

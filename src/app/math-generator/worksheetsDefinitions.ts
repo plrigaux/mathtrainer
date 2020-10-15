@@ -2,18 +2,18 @@ import { MathProblem } from "./mathProblem";
 import { MathProblemTypes } from './mathProblemTypes';
 
 export interface MultiParam {
+    problemTypes : MathProblemTypes,
     numbers: number[],
     start: number,
     end: number,
     shuffle: boolean,
-    _next?: number,
-    _series?: MathProblem[]
 }
 
 export interface WorksheetsItem extends WorksheetsItemStore {
     label: string
     func: (parameters : Object) => MathProblem
     mathProblemType: MathProblemTypes,
+    _context?: object
 }
 
 export interface WorksheetsItemStore {

@@ -1,5 +1,5 @@
 import { Config } from '../services/config'
-import { MathProblemTypes, GenerateRange, Answer } from './mathProblemTypes';
+import { MathProblemTypes, GenerateRange, Answer, MATHProplemActions } from './mathProblemTypes';
 import { MathProblem } from './mathProblem';
 import { WorksheetsMap } from './worksheetsMap';
 import { WorksheetsItem } from './worksheetsDefinitions'
@@ -38,7 +38,8 @@ export class MathGenerator {
         if (worksheetItem == null) {
             return MathGenerator.default();
         }
-        return worksheetItem.func(worksheetItem.parameters);
+
+        return worksheetItem.func(worksheetItem);
     }
 
     static getListofRandomNumber(generateRange: GenerateRange[], mathProblemTypes: MathProblemTypes): MathProblem {
@@ -89,10 +90,29 @@ export class MathGenerator {
         let size = (end - start + 1) * numbers.length;
         let list: MathProblem[] = new Array(size);
 
+        let invert: boolean = false
+        switch (type) {
+            case MathProblemTypes.SUBTRACTION:
+            case MathProblemTypes.DIVISION:
+                type = MATHProplemActions[type].invert
+                invert = true;
+                break;
+        }
+
         let number2 = start;
         for (let i = 0; i < size; i) {
             for (let number of numbers) {
-                list[i++] = new MathProblem(type, [number, number2]);
+
+                let mathProblem: MathProblem;
+
+                if (invert) {
+                    mathProblem = new MathProblem(type, [number2, number]).getInvert();
+                } else {
+                    mathProblem = new MathProblem(type, [number, number2]);
+                }
+
+
+                list[i++] = mathProblem;
             }
             number2++;
         }
@@ -104,4 +124,3 @@ export class MathGenerator {
         return list;
     }
 }
-

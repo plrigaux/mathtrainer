@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config, EquationOrientation, EquationOrientations } from '../services/config';
-import { mathProplemActions } from '../math-generator/mathProblemTypes'
+import { MATHProplemActions } from '../math-generator/mathProblemTypes'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigDialogRangesComponent } from '../config-dialog-ranges/config-dialog-ranges.component';
 
@@ -23,8 +23,8 @@ export class ConfigDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Config,
     public dialog: MatDialog) {
 
-    this.mathProplemActions = mathProplemActions;
-    this.mathProplemActionsKeys = Object.keys(mathProplemActions);
+    this.mathProplemActions = MATHProplemActions;
+    this.mathProplemActionsKeys = Object.keys(MATHProplemActions);
     console.log("data");
 
     console.log(data);

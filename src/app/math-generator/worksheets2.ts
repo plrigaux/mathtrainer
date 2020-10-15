@@ -16,7 +16,9 @@ export class Worksheets2 {
         return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.MULTIPLICATION);
     }
 
-    static multiplicationTable(parameters: MultiParam): MathProblem {
+    static multiplicationTable(worksheetsItem: WorksheetsItem): MathProblem {
+
+        let parameters = worksheetsItem.parameters
 
         if (!parameters) {
             console.warn(`Parameters == null or undef`);
@@ -24,16 +26,19 @@ export class Worksheets2 {
 
         let parametersType: MultiParam = parameters as MultiParam;
 
-        if (parametersType._next == null) {
-            parametersType._next = 0;
+        if (worksheetsItem._context == null) {
+
+            let series: MathProblem[] = MathGenerator.getSeries(parameters.problemTypes,
+                parametersType.numbers, parametersType.start, parametersType.end, parameters.shuffle);
+
+            worksheetsItem._context = {
+                next: 0,
+                series: series
+            }
         } else {
-            parametersType._next = parametersType._next + 1
+            worksheetsItem._context["next"]++
         }
 
-        if (!parametersType._series) {
-            parametersType._series = MathGenerator.getSeries(MathProblemTypes.MULTIPLICATION, parametersType.numbers, parametersType.start, parametersType.end, parameters.shuffle);
-        }
-
-        return parametersType._series[parametersType._next % parametersType._series.length];
+        return worksheetsItem._context["series"][worksheetsItem._context["next"] % worksheetsItem._context["series"].length];
     }
 }
