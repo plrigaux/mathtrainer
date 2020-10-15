@@ -70,6 +70,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { MainTabsSeriesComponent } from './main-tabs-series/main-tabs-series.component';
 import { MultiplicationTableComponent } from './multiplication-table/multiplication-table.component';
 import { TestPaletteComponent } from './test-features/test-palette/test-palette.component';
+import { MainTabsProgramsComponent } from './main-tabs-programs/main-tabs-programs.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { TestPaletteComponent } from './test-features/test-palette/test-palette.
     ProgressBarComponent,
     MainTabsSeriesComponent,
     MultiplicationTableComponent,
-    TestPaletteComponent
+    TestPaletteComponent,
+    MainTabsProgramsComponent
   ],
   imports: [
     HttpClientModule,
