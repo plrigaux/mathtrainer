@@ -55,9 +55,8 @@ export class MainTabsSeriesComponent implements OnInit {
 
         let raw = worksheetsItem.parameters
 
-        const allowed = ['item1', 'item3'];
-
         //copy by removing context data
+        /*
         let filtered = Object.keys(worksheetsItem.parameters)
           .filter(key => !key.startsWith("_"))
           .reduce((obj, key) => {
@@ -66,8 +65,8 @@ export class MainTabsSeriesComponent implements OnInit {
               [key]: raw[key]
             };
           }, {}) as MultiParam;
-
-        this.params = filtered
+*/
+        this.params = worksheetsItem.parameters
       }
     }
   }
@@ -90,6 +89,8 @@ export class MainTabsSeriesComponent implements OnInit {
 
     let generators: WorksheetsItem[] = new Array(1);
 
+    this.params.numbers = this.params.numbers.filter(x => { return x != null });
+
     let wi: WorksheetsItem = {
       label: "no",
       func: Worksheets2.multiplicationTable,
@@ -106,12 +107,16 @@ export class MainTabsSeriesComponent implements OnInit {
   }
 
   isDisabled(): boolean {
-    //console.log(`this.tablesSelected.length > 0 ${this.tablesSelected.length > 0}`)
-    return this.params.numbers.length == 0
+    //console.log(`ISNSA '${this.params.numbers[0]}' ${isNaN(this.params.numbers[0])}`)
+    return this.params.numbers.length == 0 || this.params.numbers[0] == null
   }
 
-  mathProplemActions() : MathProblemTypesData[] {
-    let val : MathProblemTypesData[] = Object.values(MATHProplemActions);
+  mathProplemActions(): MathProblemTypesData[] {
+    let val: MathProblemTypesData[] = Object.values(MATHProplemActions);
     return val;
+  }
+
+  addNumber(): void {
+    this.params.numbers.push(null);
   }
 }

@@ -18,19 +18,25 @@
     </mat-select>
   </mat-form-field>
 <span> &nbsp; </span>
+<!--
 <mat-form-field appearance="fill">
     <mat-label>Multiplication tables</mat-label>
     <mat-select multiple [(value)]="params.numbers">
         <mat-option *ngFor="let num of tables" [value]="num">{{num}}</mat-option>
     </mat-select>
+</mat-form-field> -->
+<mat-form-field *ngFor="let num of params.numbers;index as i">
+    <mat-label>Num {{i}}</mat-label>
+    <input  matInput type="number" placeholder="number" [(ngModel)]="params.numbers[i]">
 </mat-form-field>
 <button mat-button (click)="clear()" [disabled]="toDisable()">Clear</button>
+<button mat-button (click)="addNumber()">Add Number</button>
 <br>
 <mat-form-field>
     <mat-label>Start</mat-label>
     <input matInput type="number" placeholder="start" [(ngModel)]="params.start">
 </mat-form-field>
-<br>
+<span> &nbsp; </span>
 <mat-form-field>
     <mat-label>End</mat-label>
     <input matInput type="number" placeholder="end" [(ngModel)]="params.end">
