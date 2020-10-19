@@ -73,6 +73,7 @@ export class MainTabsSeriesComponent implements OnInit {
 
   clear() {
     this.params.numbers = [];
+    this.addNumber();
   }
 
   toDisable(): boolean {
@@ -89,8 +90,12 @@ export class MainTabsSeriesComponent implements OnInit {
 
     let generators: WorksheetsItem[] = new Array(1);
 
-    this.params.numbers = this.params.numbers.filter(x => { return x != null });
-
+    console.warn(this.params.numbers)
+    // filter empty string ==> we want just numbers
+    this.params.numbers = this.params.numbers.filter(x => {
+      return isNaN(parseInt(x as undefined as string)) == false
+    });
+    console.warn(this.params.numbers)
     let wi: WorksheetsItem = {
       label: "no",
       func: Worksheets2.multiplicationTable,
@@ -117,6 +122,6 @@ export class MainTabsSeriesComponent implements OnInit {
   }
 
   addNumber(): void {
-    this.params.numbers.push(null);
+    this.params.numbers.push("" as unknown as number);
   }
 }
