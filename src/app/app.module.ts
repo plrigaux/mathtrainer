@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigDialogOpenerComponent } from './config-dialog-opener/config-dialog-opener.component';
 import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
-import { FinishValidateComponent } from './finish-validate/finish-validate.component';
 import { ConfigService } from './services/config.service';
 
 import { A11yModule } from '@angular/cdk/a11y';
@@ -79,7 +78,6 @@ import { MainTabsProgramsComponent } from './main-tabs-programs/main-tabs-progra
     ProblemPanelComponent,
     ConfigDialogOpenerComponent,
     ConfigDialogComponent,
-    FinishValidateComponent,
     ConfigDialogRangesComponent,
     FormPanelComponent,
     WorkoutPanelComponent,

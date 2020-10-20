@@ -70,7 +70,7 @@ export class ProblemPanelComponent implements OnInit {
         break;
     }
 
-    if (next || notification.forceExit) {
+    if (this.config.realTimeValidation && (next || notification.forceExit)) {
       this.nextComponentFocus(notification.index);
     }
   }
@@ -187,5 +187,18 @@ export class ProblemPanelComponent implements OnInit {
   nbProblemsChangeFn(nbProblems: number) {
     this.config.nbQuestions = nbProblems
     this.configService.next(this.config, false);
+  }
+
+  validate(): void {
+
+    this.mathQuestionComponents.forEach(m => m.validateAnswer())
+    //console.log("Is Validation disabled: " + this.isDisabled);
+
+    //TODO see if below is the proper way
+    //let test: MathQuestionValidation[] = []
+    //this.validateAllService.updateValidation(test);
+    //this.validateAllService.myValidation.complete();
+    //console.log("test " + test.length);
+    //test.forEach(v => console.log(`Question ${v.id} Results ${v.correct}`));
   }
 }

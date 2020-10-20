@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     { value: 'indigo-pink', label: "Indigo & Pink" },
     { value: 'pink-bluegrey', label: "Pink & Blue-grey" },
     { value: 'purple-green', label: "Purple & Green" },
-    { value: 'candy', label: "Candy" },
+    { value: 'candy', label: "Pumpkin" },
   ]
 
   constructor(private configSrv : ConfigService, private router: Router) {
@@ -81,5 +81,9 @@ export class AppComponent implements OnInit {
 
   goHome() : void {
     this.router.navigate(['/']);
+  }
+
+  goMultiplicationTable() : void {
+    this.router.navigate(['/multiplicationtable']);
   }
 }

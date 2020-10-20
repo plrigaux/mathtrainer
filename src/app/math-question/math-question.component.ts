@@ -4,7 +4,6 @@ import { MathProblem } from "../math-generator/mathProblem";
 import { Config } from '../services/config';
 import { ConfigService } from '../services/config.service'
 import { Subscription } from 'rxjs';
-import { ValidateAllService, MathQuestionValidation } from '../services/validate-all.service'
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../services/math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 import { ColumnAnswerComponent, ValidateCB, FocusType, ColumnAnswerMode } from '../column-answer/column-answer.component'
@@ -74,7 +73,7 @@ export class MathQuestionComponent implements OnInit {
 
     this.userInput = userInput;
     if (this.config.realTimeValidation) {
-      return this.validateAnswer(userInput)
+      return this.validateAnswer()
     } else {
 
       let empty = userInput == null || (typeof userInput == "string" && userInput.trim().length == 0);
@@ -88,7 +87,7 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 
-  validateAnswer(userInput: string): QuestionStatus {
+  validateAnswer(): QuestionStatus {
     let answer = this.problem.answer;
     console.debug(this.log(`User Input: ${this.userInput} Answer: ${answer}`));
 

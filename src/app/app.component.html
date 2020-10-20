@@ -21,7 +21,12 @@
     <span>Home</span>
   </button>
   <mat-divider></mat-divider>
-  <app-config-dialog-opener></app-config-dialog-opener>
+  <!--
+    <app-config-dialog-opener></app-config-dialog-opener>
+  -->
+  <button mat-menu-item (click)="goMultiplicationTable()">
+    <span>Multiplication Table</span>
+  </button>
   <mat-divider></mat-divider>
   <button mat-menu-item [matMenuTriggerFor]="menuTheme">
     <mat-icon>color_lens</mat-icon>

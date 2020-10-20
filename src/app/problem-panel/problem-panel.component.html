@@ -1,4 +1,4 @@
-<app-progress-bar [totalCount]="problemsCount" [progressCount]="successCount" ></app-progress-bar>
+<app-progress-bar [totalCount]="problemsCount" [progressCount]="successCount"></app-progress-bar>
 <div class="problems">
   <div *ngFor="let problem of problems; index as i" class="mathQuestionWrapper">
     <app-math-question [questionId]='i' [config]="config" [needReset]="needReset"></app-math-question>
@@ -7,8 +7,10 @@
   </div>
 </div>
 <br />
-<app-finish-validate></app-finish-validate>
-&nbsp; <button mat-button (click)="clearAll()">
+
+<button mat-raised-button color="accent" (click)=validate() *ngIf="config.realTimeValidation">Validate</button>
+
+<br /><button mat-button (click)="clearAll()">
   <mat-icon>clear_all</mat-icon>
   <span>Clear All</span>
 </button>
