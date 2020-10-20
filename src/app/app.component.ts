@@ -86,4 +86,8 @@ export class AppComponent implements OnInit {
   goMultiplicationTable() : void {
     this.router.navigate(['/multiplicationtable']);
   }
+
+  goAdditionTable() : void {
+    this.router.navigate(['/additiontable']);
+  }
 }

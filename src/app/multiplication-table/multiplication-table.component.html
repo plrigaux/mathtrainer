@@ -1,5 +1,5 @@
 <section class="equation" *ngIf="isColRowSet()">
-    {{tables[column]}} x {{tables[row]}} = {{tables[column] * tables[row]}}
+    {{tables[column]}} {{operator}} {{tables[row]}} = {{calculate(tables[column], tables[row])}}
 </section>
 <table>
     <tr>
@@ -10,6 +10,6 @@
         <th [ngClass]="calculateClasses(-1, row)">{{num1}}</th>
         <td *ngFor="let num2 of tables;  index as col" 
         (mouseover)="onMouseHover(col, row)"
-        [ngClass]="calculateClasses(col, row)">{{num1 * num2}}</td>
+        [ngClass]="calculateClasses(col, row)">{{calculate(num1, num2)}}</td>
     </tr>
 </table>

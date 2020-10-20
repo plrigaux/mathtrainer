@@ -19,6 +19,7 @@ const appRoutes: Routes = [
   { path: 'test2', component: DisplayTestComponent },
   { path: 'test3', component: TestPaletteComponent },
   { path: 'multiplicationtable', component: MultiplicationTableComponent },
+  { path: 'additiontable', component: MultiplicationTableComponent },
   { path: '', component: MainPageComponent},
   { path: '**', component: PageNotFoundComponent },
   
