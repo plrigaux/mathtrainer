@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MathQuestionComponent } from './math-question/math-question.component';
 import { ProblemPanelComponent } from './problem-panel/problem-panel.component';
+import { ProblemPanelComponentDialog } from './problem-panel/problem-panel.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -92,7 +93,8 @@ import { MainTabsProgramsComponent } from './main-tabs-programs/main-tabs-progra
     MainTabsSeriesComponent,
     MultiplicationTableComponent,
     TestPaletteComponent,
-    MainTabsProgramsComponent
+    MainTabsProgramsComponent,
+    ProblemPanelComponentDialog
   ],
   imports: [
     HttpClientModule,

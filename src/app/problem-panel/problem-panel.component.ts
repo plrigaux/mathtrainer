@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, Inject } from '@angular/core';
 import { MathProblem } from "../math-generator/mathProblem";
 import { ConfigService, ConfigServiceInfo } from '../services/config.service'
 import { Config, OrientationTypesKey, EquationOrientation, EquationOrientations } from '../services/config';
@@ -6,13 +6,13 @@ import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../se
 import { MathQuestionComponent } from '../math-question/math-question.component'
 import { Subscription } from 'rxjs';
 import { ColumnAnswerMode, ANSWER_MODES } from '../column-answer/column-answer.component'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-problem-panel',
   templateUrl: './problem-panel.component.html',
   styleUrls: ['./problem-panel.component.scss']
 })
-
 export class ProblemPanelComponent implements OnInit {
   problems: MathProblem[];
   @ViewChildren(MathQuestionComponent) private mathQuestionComponents: QueryList<MathQuestionComponent>;
@@ -25,7 +25,8 @@ export class ProblemPanelComponent implements OnInit {
   needReset: boolean = false;
 
   constructor(private configService: ConfigService,
-    private mathQuestionService: MathQuestionService) {
+    private mathQuestionService: MathQuestionService,
+    private dialog: MatDialog) {
     this.resetProgress()
   }
 
@@ -191,7 +192,8 @@ export class ProblemPanelComponent implements OnInit {
 
   validate(): void {
 
-    this.mathQuestionComponents.forEach(m => m.validateAnswer())
+    this.mathQuestionComponents.forEach(m => m.validateAnswer());
+    this.openDialog();
     //console.log("Is Validation disabled: " + this.isDisabled);
 
     //TODO see if below is the proper way
@@ -200,5 +202,74 @@ export class ProblemPanelComponent implements OnInit {
     //this.validateAllService.myValidation.complete();
     //console.log("test " + test.length);
     //test.forEach(v => console.log(`Question ${v.id} Results ${v.correct}`));
+  }
+
+
+  openDialog(): void {
+    console.log("Open dialog")
+
+    let data: DialogData = {
+      right: 0,
+      wrong: 0,
+      empty: 0,
+      total: this.answerMap.size
+    }
+
+    this.answerMap.forEach((v) => {
+      switch (v) {
+        case QuestionStatus.RIGHT:
+          data.right++
+          break;
+        case QuestionStatus.WRONG:
+          data.wrong++
+          break;
+        case QuestionStatus.EMPTY:
+          data.empty++
+          break;
+        default:
+          console.log("")
+          break;
+      }
+    });
+
+    const dialogRef = this.dialog.open(ProblemPanelComponentDialog, {
+      width: '250px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
+  }
+}
+
+export interface DialogData {
+  right: number,
+  wrong: number,
+  empty: number,
+  total: number,
+}
+
+@Component({
+  selector: 'app-problem-panel-dialog',
+  templateUrl: './problem-panel-dialog.component.html',
+  styleUrls: ['./problem-panel.component.scss']
+})
+export class ProblemPanelComponentDialog {
+  public dialogRef: MatDialogRef<ProblemPanelComponentDialog>;
+
+  congratulationMsg: string = null;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
+
+    let result = data.right / data.total
+
+    if (result == 1) {
+      this.congratulationMsg = "Excellent"
+    } else if (result >= 0.7) {
+      this.congratulationMsg = "Good"
+    } else {
+      this.congratulationMsg = "Try again"
+    }
   }
 }

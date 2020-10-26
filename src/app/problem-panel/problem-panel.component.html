@@ -8,7 +8,7 @@
 </div>
 <br />
 
-<button mat-raised-button color="accent" (click)=validate() *ngIf="config.realTimeValidation">Validate</button>
+<button mat-raised-button color="accent" (click)=validate() *ngIf="!config.realTimeValidation">Validate</button>
 
 <br /><button mat-button (click)="clearAll()">
   <mat-icon>clear_all</mat-icon>
