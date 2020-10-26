@@ -16,7 +16,7 @@ import { WorksheetsItem } from '../math-generator/worksheetsDefinitions'
 export class MainTabsProgramsComponent implements OnInit {
   exercises: WorksheetsItem[];
   private worksheetsItems: Map<string, WorksheetsItem> = new Map();
-  private config: Config;
+  config: Config;
   private myEventSubscriptions: Subscription[] = [];
   @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
   selectedTabIndex : number = null;

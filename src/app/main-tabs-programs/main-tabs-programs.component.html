@@ -25,7 +25,11 @@
             {{worksheetsItem.label}}</mat-checkbox>
     </li>
 </ul>
-
+<mat-form-field appearance="outline">
+    <mat-label>Numbrer of problems</mat-label>
+    <input matInput type="number" [(ngModel)]="config.nbQuestions">
+</mat-form-field>
+<span class="space"></span>
 <button mat-raised-button color="accent" (click)="goToProblems()">Problems</button>
 <span class="space"></span>
 <button mat-raised-button color="accent" (click)="goToWorkout()">Workout</button>
