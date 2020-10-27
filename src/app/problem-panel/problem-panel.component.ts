@@ -23,6 +23,7 @@ export class ProblemPanelComponent implements OnInit {
   config: Config = null;
   ANSWER_MODES = ANSWER_MODES;
   needReset: boolean = false;
+  dialogRef : MatDialogRef<ProblemPanelComponentDialog> = null
 
   constructor(private configService: ConfigService,
     private mathQuestionService: MathQuestionService,
@@ -201,6 +202,12 @@ export class ProblemPanelComponent implements OnInit {
   realTimeValidationChangeFn(realTimeValidation: boolean) {
     this.config.realTimeValidation = realTimeValidation;
     this.configService.next(this.config, false);
+
+    if (realTimeValidation) {
+      this.mathQuestionComponents.forEach((m: MathQuestionComponent) => m.validateAnswer(false));
+    } else {
+      this.mathQuestionComponents.forEach((m: MathQuestionComponent) => m.validateInput());
+    }
   }
 
   selectedAnswerModeChangeFn(selectedAnswerMode: ColumnAnswerMode) {
@@ -214,21 +221,16 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   validate(): void {
-
-    this.mathQuestionComponents.forEach(m => m.validateAnswer(false));
+    this.mathQuestionComponents.forEach((m: MathQuestionComponent) => m.validateAnswer(false));
     this.openDialog();
-    //console.log("Is Validation disabled: " + this.isDisabled);
-
-    //TODO see if below is the proper way
-    //let test: MathQuestionValidation[] = []
-    //this.validateAllService.updateValidation(test);
-    //this.validateAllService.myValidation.complete();
-    //console.log("test " + test.length);
-    //test.forEach(v => console.log(`Question ${v.id} Results ${v.correct}`));
   }
 
 
   openDialog(): void {
+    if (this.dialogRef != null) {
+      return;
+    }
+
     console.log("Open dialog")
 
     let data: DialogData = {
@@ -255,14 +257,15 @@ export class ProblemPanelComponent implements OnInit {
       }
     });
 
-    const dialogRef = this.dialog.open(ProblemPanelComponentDialog, {
+    this.dialogRef = this.dialog.open(ProblemPanelComponentDialog, {
       width: '250px',
       data: data
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    
+    this.dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //this.animal = result;
+      this.dialogRef = null;
     });
   }
 }

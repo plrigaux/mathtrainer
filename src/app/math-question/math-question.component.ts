@@ -71,23 +71,29 @@ export class MathQuestionComponent implements OnInit {
     console.debug(this.log(`onValueChange userInput ${userInput} ${typeof userInput} callerId ${callerId}`))
 
     this.userInput = userInput;
+    let status : QuestionStatus = null;
     if (this.config.realTimeValidation) {
-      return this.validateAnswer(true)
+      status = this.validateAnswer(true)
     } else {
-
-      let empty = userInput == null || (typeof userInput == "string" && userInput.trim().length == 0);
-      let status = this.status;
-
-      if (this.currentFocus == FocusType.FOCUS) {
-        status = QuestionStatus.FOCUS
-      } else {
-        status = empty ? QuestionStatus.EMPTY : QuestionStatus.ANSWERED
-      }
-
-      this.changeStatus(status, false, true)
-
-      return this.status;
+      status = this.validateInput();
     }
+    return status;
+  }
+
+  validateInput() {
+
+    let empty = this.userInput == null || (typeof this.userInput == "string" && this.userInput.trim().length == 0);
+    let status = this.status;
+
+    if (this.currentFocus == FocusType.FOCUS) {
+      status = QuestionStatus.FOCUS
+    } else {
+      status = empty ? QuestionStatus.EMPTY : QuestionStatus.ANSWERED
+    }
+
+    this.changeStatus(status, false, true)
+
+    return this.status;
   }
 
   validateAnswer(informParent: boolean): QuestionStatus {
