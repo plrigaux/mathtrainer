@@ -14,7 +14,8 @@ export interface MathQuestionNotifier {
   status: QuestionStatus;
   index: number;
   id: string;
-  forceExit: boolean;
+  forceExitFocus: boolean;
+  isParentCanValidate: boolean;
 }
 
 @Injectable({

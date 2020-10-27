@@ -55,24 +55,47 @@ export class ProblemPanelComponent implements OnInit {
   private manageNotification(notification: MathQuestionNotifier) {
     let currentStatus = this.manageStatus(notification);
 
-    let next: boolean = false;
-    switch (notification.status) {
-      case QuestionStatus.RIGHT:
-        if (currentStatus !== QuestionStatus.RIGHT) {
-          this.increaseProgress();
-          console.debug(`SC: ${this.successCount} PC: ${this.problemsCount}`);
 
-          next = true;
-        }
-        break;
-      case QuestionStatus.WRONG:
-      case QuestionStatus.EMPTY:
-        this.decreaseProgress(currentStatus);
-        break;
-    }
+    if (this.config.realTimeValidation) {
+      let next: boolean = false;
+      switch (notification.status) {
+        case QuestionStatus.RIGHT:
+          if (currentStatus !== QuestionStatus.RIGHT) {
+            this.increaseProgress();
+            console.debug(`SC: ${this.successCount} PC: ${this.problemsCount}`);
 
-    if (this.config.realTimeValidation && (next || notification.forceExit)) {
-      this.nextComponentFocus(notification.index);
+            next = true;
+          }
+          break;
+        case QuestionStatus.WRONG:
+        case QuestionStatus.EMPTY:
+          this.decreaseProgress(currentStatus);
+          break;
+      }
+
+      if (next || notification.forceExitFocus) {
+        this.nextComponentFocus(notification.index);
+      }
+    } else if (notification.isParentCanValidate) {
+
+      let canValidate: boolean = true;
+
+      if (this.answerMap.size >= this.problems.length) {
+        this.answerMap.forEach((value: QuestionStatus) => {
+          switch (value) {
+            case QuestionStatus.EMPTY:
+            case QuestionStatus.FOCUS:
+              canValidate = false;
+              break;
+          }
+        });
+      } else {
+        canValidate = false
+      }
+
+      if (canValidate) {
+        this.validate();
+      }
     }
   }
 
@@ -192,7 +215,7 @@ export class ProblemPanelComponent implements OnInit {
 
   validate(): void {
 
-    this.mathQuestionComponents.forEach(m => m.validateAnswer());
+    this.mathQuestionComponents.forEach(m => m.validateAnswer(false));
     this.openDialog();
     //console.log("Is Validation disabled: " + this.isDisabled);
 

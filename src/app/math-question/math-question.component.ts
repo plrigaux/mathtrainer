@@ -18,8 +18,8 @@ const regexNumVal = /[0-9,-\.]/
 
 export class MathQuestionComponent implements OnInit {
   userInput: string
-  status: QuestionStatus;
-  stacked: boolean;
+  status: QuestionStatus = QuestionStatus.EMPTY;
+  stacked: boolean = true;
   private _problem: MathProblem;
   private myEventSubscriptions: Subscription[] = [];
   @Input() config: Config;
@@ -33,8 +33,7 @@ export class MathQuestionComponent implements OnInit {
 
   constructor(
     private mathQuestionService: MathQuestionService) {
-    this.status = QuestionStatus.EMPTY
-    this.stacked = true;
+
   }
 
   ngOnInit(): void {
@@ -73,52 +72,57 @@ export class MathQuestionComponent implements OnInit {
 
     this.userInput = userInput;
     if (this.config.realTimeValidation) {
-      return this.validateAnswer()
+      return this.validateAnswer(true)
     } else {
 
       let empty = userInput == null || (typeof userInput == "string" && userInput.trim().length == 0);
+      let status = this.status;
 
       if (this.currentFocus == FocusType.FOCUS) {
-        this.status = QuestionStatus.FOCUS;
+        status = QuestionStatus.FOCUS
       } else {
-        this.status = empty ? QuestionStatus.EMPTY : QuestionStatus.ANSWERED
+        status = empty ? QuestionStatus.EMPTY : QuestionStatus.ANSWERED
       }
+
+      this.changeStatus(status, false, true)
+
       return this.status;
     }
   }
 
-  validateAnswer(): QuestionStatus {
+  validateAnswer(informParent: boolean): QuestionStatus {
     let answer = this.problem.answer;
     console.debug(this.log(`User Input: ${this.userInput} Answer: ${answer}`));
 
     let userAnswer = parseInt(this.userInput);
 
     console.debug(this.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`))
-
+    let status = this.status;
     if (userAnswer === answer) {
       console.debug(this.log("R"))
-      this.status = QuestionStatus.RIGHT;
+      status = QuestionStatus.RIGHT;
     }
     else if (isNaN(userAnswer)) {
       console.debug(this.log("Void"))
-      this.status = this.currentFocus == FocusType.FOCUS ? QuestionStatus.FOCUS : QuestionStatus.EMPTY;
+      status = this.currentFocus == FocusType.FOCUS ? QuestionStatus.FOCUS : QuestionStatus.EMPTY;
     }
     else if (this.currentFocus == FocusType.FOCUS) {
       let userAnswerLength = userAnswer.toString().length; //this to ensure raw string length (it trims)
       let answerLength = answer.toString().length
       if (userAnswerLength >= answerLength) {
         console.debug(this.log("W Length"))
-        this.status = QuestionStatus.WRONG;
+        status = QuestionStatus.WRONG;
       } else {
         console.debug(this.log("Infocus"))
-        this.status = QuestionStatus.FOCUS;
+        status = QuestionStatus.FOCUS;
       }
     }
     else {
       console.debug(this.log("W"))
-      this.status = QuestionStatus.WRONG;
+      status = QuestionStatus.WRONG;
     }
-    this.informParent(false);
+
+    this.changeStatus(status, false, informParent)
 
     return this.status
   }
@@ -140,7 +144,7 @@ export class MathQuestionComponent implements OnInit {
     console.debug(this.log("PROBLEM !!!"));
     console.debug(this.log(this._problem));
     console.debug(this.log(this.config));
-    this.status = QuestionStatus.EMPTY;
+    this.changeStatus(QuestionStatus.EMPTY, false, false)
     this.userInput = null;
   }
 
@@ -158,27 +162,34 @@ export class MathQuestionComponent implements OnInit {
     console.debug(this.log(`onFocusChange ${newFocus} currentFocus ${this.currentFocus} focusingOut: ${focucusingOut} UserIinput: "${this.userInput}"`))
 
     this.currentFocus = newFocus;
-    if (newFocus === FocusType.FOCUS) {
-      setTimeout(() => {
 
+    setTimeout(() => {
+      if (newFocus === FocusType.FOCUS) {
         switch (this.status) {
           case QuestionStatus.WRONG:
           case QuestionStatus.EMPTY:
           case QuestionStatus.ANSWERED:
-            this.status = QuestionStatus.FOCUS;
+            this.changeStatus(QuestionStatus.FOCUS, false, true)
             break;
         }
-      });
-    }
+      }
+    });
 
     if (focucusingOut) {
       this.onValueChange(this.userInput, "THIS")
     }
   }
 
+  private changeStatus(newStatus: QuestionStatus, forceExitFocus: boolean, isParentCanValidate: boolean) {
+    if (this.status !== newStatus) {
+      this.status = newStatus
+      this.informParent(forceExitFocus, isParentCanValidate)
+    }
+  }
+
   existFocus() {
     console.warn(this.log("exitWidget"))
-    this.informParent(true);
+    this.informParent(true, true);
   }
 
   focus() {
@@ -194,12 +205,13 @@ export class MathQuestionComponent implements OnInit {
     return this.userInput.length != 0;
   }
 
-  private informParent(forceExit : boolean) {
+  private informParent(forceExit: boolean, isParentCanValidate: boolean) {
     let notification: MathQuestionNotifier = {
       status: this.status,
       id: this.questionId.toString(),
       index: this.questionId,
-      forceExit: forceExit
+      forceExitFocus: forceExit,
+      isParentCanValidate: isParentCanValidate
     }
 
     this.mathQuestionService.next(notification);
