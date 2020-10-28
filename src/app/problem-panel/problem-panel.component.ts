@@ -252,7 +252,7 @@ export class ProblemPanelComponent implements OnInit {
           data.empty++
           break;
         default:
-          console.log("")
+          console.log("investigate")
           break;
       }
     });

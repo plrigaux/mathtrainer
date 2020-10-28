@@ -5,6 +5,8 @@ import { Worksheets2 } from './worksheets2'
 import { WorksheetsItem } from './worksheetsDefinitions'
 
 export class WorksheetsMap {
+
+    private static map : Map<string, WorksheetsItem> = new Map();
     private static i: number = 0
     private static values: WorksheetsItem[] = [
         WorksheetsMap.generateMapItem(
@@ -78,7 +80,7 @@ export class WorksheetsMap {
             "Subtract two two-digit numbers - with regrouping",
             Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
             MathProblemTypes.SUBTRACTION
-        ), 
+        ),
         WorksheetsMap.generateMapItem(
             "Subtract two two-digit numbers - with regrouping",
             Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
@@ -95,6 +97,10 @@ export class WorksheetsMap {
     static getWorksheetsItem(): WorksheetsItem[] {
         return this.values;
     }
+
+    static has(code: string): boolean {
+        return this.map.has(code);
+    }
     /*
         private static generateMap() {
             WorksheetsMap.generateMapItem(
@@ -108,12 +114,15 @@ export class WorksheetsMap {
         func: () => MathProblem,
         mathProblemType: MathProblemTypes): WorksheetsItem {
 
-        return {
+        let w: WorksheetsItem = {
             label: label,
             func: func,
             funcName: func.name,
             mathProblemType: mathProblemType,
             code: mathProblemType + "_" + WorksheetsMap.i++
         }
+
+        this.map.set(w.code, w)
+        return w
     }
 }

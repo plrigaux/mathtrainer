@@ -19,7 +19,7 @@ export class MainTabsProgramsComponent implements OnInit {
   config: Config;
   private myEventSubscriptions: Subscription[] = [];
   @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
-  selectedTabIndex : number = null;
+  selectedTabIndex: number = null;
 
   constructor(private router: Router, private configService: ConfigService) {
 
@@ -29,10 +29,13 @@ export class MainTabsProgramsComponent implements OnInit {
     this.exercises = WorksheetsMap.getWorksheetsItem();
 
     this.myEventSubscriptions.push(this.configService.subscribe(
-      (cfi : ConfigServiceInfo) => {
+      (cfi: ConfigServiceInfo) => {
         this.config = cfi.config;
         this.config.generators.forEach(worksheetsItem => {
-          this.fillMap(true, worksheetsItem);
+
+          if (WorksheetsMap.has(worksheetsItem.code)) {
+            this.fillMap(true, worksheetsItem);
+          }
         });
       }
     ));
@@ -64,6 +67,7 @@ export class MainTabsProgramsComponent implements OnInit {
     });
 
     this.config.generators = generators
+    console.warn(this.config.generators)
     this.configService.next(this.config, true)
   }
 
@@ -111,6 +115,4 @@ export class MainTabsProgramsComponent implements OnInit {
     let selected = this.worksheetsItems.has(worksheetsItem.code);
     return selected;
   }
-
-
 }
