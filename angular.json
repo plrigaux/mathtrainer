@@ -32,7 +32,8 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+               { "glob": "*.html", "input": "src/locale", "output": "./../" }
             ],
             "styles": [
               "src/assets/styles/themes.scss",
