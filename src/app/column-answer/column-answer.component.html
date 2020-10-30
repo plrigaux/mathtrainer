@@ -6,8 +6,8 @@
     tabindex="-1">
     <mat-icon svgIcon="delete-cross"></mat-icon>
 </button>
-<ng-contianer
-    *ngIf="mode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-contianer>
+<ng-container
+    *ngIf="mode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-container>
 
 <ng-template #columns>
     <div class="columnAnswer">

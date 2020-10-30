@@ -13,6 +13,12 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "fr": "src/locale/messages.fr.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -22,6 +28,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "localize": true,
             "aot": true,
             "assets": [
               "src/favicon.ico",
@@ -61,6 +68,11 @@
                   "maximumError": "100kb"
                 }
               ]
+            },
+            "fr": {
+              "localize": [
+                "fr"
+              ]
             }
           }
         },
@@ -72,6 +84,9 @@
           "configurations": {
             "production": {
               "browserTarget": "mathtrainer:build:production"
+            },
+            "fr": {
+              "browserTarget": "mathtrainer:build:fr"
             }
           }
         },

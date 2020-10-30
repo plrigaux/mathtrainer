@@ -2,7 +2,7 @@
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>menu</mat-icon>
   </button>
-  <h1>{{title}}</h1>
+  <h1 i18n>Trainer for Camellia</h1>
 
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
@@ -18,7 +18,7 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="goHome()">
     <mat-icon>home</mat-icon>
-    <span>Home</span>
+    <span i18n>Home</span>
   </button>
   <mat-divider></mat-divider>
   <button mat-menu-item (click)="goAdditionTable()">

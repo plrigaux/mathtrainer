@@ -1,3 +1,4 @@
 {
-    "typescript.tsdk": "c:\\Users\\Pierre\\Documents\\codeProject\\mathtrainer\\node_modules\\typescript\\lib"
+    "typescript.tsdk": "c:\\Users\\Pierre\\Documents\\codeProject\\mathtrainer\\node_modules\\typescript\\lib",
+    "xliffSync.baseFile": "messages.xlf"
 }

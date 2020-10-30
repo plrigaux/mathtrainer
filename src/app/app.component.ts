@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Trainer for Camellia';
+
   previoustheme: string = null;
   //currentTheme: string = null;
   myname: string = "myname";

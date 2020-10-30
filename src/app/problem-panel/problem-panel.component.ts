@@ -291,11 +291,11 @@ export class ProblemPanelComponentDialog {
     let result = data.right / data.total
 
     if (result == 1) {
-      this.congratulationMsg = "Excellent"
+      this.congratulationMsg = $localize`Excellent`
     } else if (result >= 0.7) {
-      this.congratulationMsg = "Good"
+      this.congratulationMsg = $localize`Good`
     } else {
-      this.congratulationMsg = "Try again"
+      this.congratulationMsg = $localize`:@@resultTryAgain:Try again`
     }
   }
 }

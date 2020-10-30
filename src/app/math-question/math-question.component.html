@@ -7,7 +7,7 @@
         <section class="operator">{{problem.mathProplemActions.operator}}</section>
         <section class="numbers">
         
-          <ng-contianer *ngIf="config.answerMode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-contianer>
+          <ng-container *ngIf="config.answerMode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-container>
           
         </section>
       </section>
