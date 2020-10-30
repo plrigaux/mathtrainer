@@ -1,0 +1,13 @@
+@import 'themes_variables';
+@include mat-core();  
+
+
+@each $thclass, $th in $all_themes {
+    @if $thclass == "" {
+        @include angular-material-theme($th);
+    } @else {
+        .#{$thclass} {
+            @include angular-material-theme($th);
+        }
+    }
+}
