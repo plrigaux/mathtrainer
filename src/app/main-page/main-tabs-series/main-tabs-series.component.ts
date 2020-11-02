@@ -55,19 +55,6 @@ export class MainTabsSeriesComponent implements OnInit {
 
       if (worksheetsItem?.parameters) {
 
-        let raw = worksheetsItem.parameters
-
-        //copy by removing context data
-        /*
-        let filtered = Object.keys(worksheetsItem.parameters)
-          .filter(key => !key.startsWith("_"))
-          .reduce((obj, key) => {
-            return {
-              ...obj,
-              [key]: raw[key]
-            };
-          }, {}) as MultiParam;
-*/
         this.params = worksheetsItem.parameters
       }
     }

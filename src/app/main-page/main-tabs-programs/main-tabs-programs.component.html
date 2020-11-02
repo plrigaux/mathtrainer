@@ -1,4 +1,4 @@
-<h1>Additions</h1>
+<h1 i18n="@@Additions">Additions</h1>
 <ul>
     <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterAdditions">
         <mat-checkbox [checked]="isSelected(worksheetsItem)"
@@ -7,7 +7,7 @@
     </li>
 </ul>
 
-<h1>Subtractions</h1>
+<h1 i18n="@@Subtractions">Subtractions</h1>
 
 <ul>
     <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterSubtraction">
@@ -17,7 +17,7 @@
     </li>
 </ul>
 
-<h1>Multiplication</h1>
+<h1 i18n="@@Multiplication">Multiplication</h1>
 <ul>
     <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterMultiplication">
         <mat-checkbox [checked]="isSelected(worksheetsItem)"

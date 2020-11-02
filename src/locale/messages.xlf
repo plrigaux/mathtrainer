@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en-US">
   <file id="ngi18n" original="ng.template">
-    <unit id="5218994167613738891">
+    <unit id="title">
       <notes>
         <note category="location">src/app/app.component.html:5</note>
       </notes>
@@ -9,12 +9,40 @@
         <source>Trainer for Camellia</source>
       </segment>
     </unit>
-    <unit id="2821179408673282599">
+    <unit id="home">
       <notes>
-        <note category="location">src/app/app.component.html:21</note>
+        <note category="location">src/app/app.component.html:29</note>
+        <note category="description">enter page</note>
       </notes>
       <segment>
         <source>Home</source>
+      </segment>
+    </unit>
+    <unit id="additionTable">
+      <notes>
+        <note category="location">src/app/app.component.html:33</note>
+        <note category="description">menu</note>
+      </notes>
+      <segment>
+        <source>Addition Table</source>
+      </segment>
+    </unit>
+    <unit id="multiplicationTable">
+      <notes>
+        <note category="location">src/app/app.component.html:36</note>
+        <note category="description">menu</note>
+      </notes>
+      <segment>
+        <source>Multiplication Table</source>
+      </segment>
+    </unit>
+    <unit id="themes">
+      <notes>
+        <note category="location">src/app/app.component.html:41</note>
+        <note category="description">colour themes</note>
+      </notes>
+      <segment>
+        <source>Themes</source>
       </segment>
     </unit>
     <unit id="9093738080986044532">
@@ -39,6 +67,38 @@
       </notes>
       <segment>
         <source>Try again</source>
+      </segment>
+    </unit>
+    <unit id="Addition">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:37</note>
+      </notes>
+      <segment>
+        <source>Addition</source>
+      </segment>
+    </unit>
+    <unit id="Subtraction">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:46</note>
+      </notes>
+      <segment>
+        <source>Subtraction</source>
+      </segment>
+    </unit>
+    <unit id="Multiplication">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:55</note>
+      </notes>
+      <segment>
+        <source>Multiplication</source>
+      </segment>
+    </unit>
+    <unit id="Division">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:64</note>
+      </notes>
+      <segment>
+        <source>Division</source>
       </segment>
     </unit>
   </file>

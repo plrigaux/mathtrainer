@@ -1,29 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en-US" trgLang="fr">  
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en-US" trgLang="fr">
   <file id="ngi18n" original="ng.template">
-    <unit id="5218994167613738891">
+    <unit id="title">
       <notes>
         <note category="location">src/app/app.component.html:5</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>Trainer for Camellia</source>
-        <target>Pratique pour Camellia</target>
+        <target state="initial">Pratique pour Camellia</target>
       </segment>
     </unit>
-    <unit id="2821179408673282599">
+    <unit id="home">
       <notes>
-        <note category="location">src/app/app.component.html:21</note>
+        <note category="location">src/app/app.component.html:29</note>
+        <note category="description">enter page</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>Home</source>
-        <target>Maison</target>
+        <target state="initial">Accueil</target>
+      </segment>
+    </unit>
+    <unit id="additionTable">
+      <notes>
+        <note category="location">src/app/app.component.html:33</note>
+        <note category="description">menu</note>
+      </notes>
+      <segment state="final">
+        <source>Addition Table</source>
+        <target state="initial">Table d'addition</target>
+      </segment>
+    </unit>
+    <unit id="multiplicationTable">
+      <notes>
+        <note category="location">src/app/app.component.html:36</note>
+        <note category="description">menu</note>
+      </notes>
+      <segment state="final">
+        <source>Multiplication Table</source>
+        <target state="initial">Table de multiplication</target>
+      </segment>
+    </unit>
+    <unit id="themes">
+      <notes>
+        <note category="location">src/app/app.component.html:41</note>
+        <note category="description">colour themes</note>
+      </notes>
+      <segment state="final">
+        <source>Themes</source>
+        <target state="initial">Thèmes</target>
       </segment>
     </unit>
     <unit id="9093738080986044532">
       <notes>
         <note category="location">src/app/problem-panel/problem-panel.component.ts:294</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>Excellent</source>
         <target>Excellent</target>
       </segment>
@@ -32,7 +63,7 @@
       <notes>
         <note category="location">src/app/problem-panel/problem-panel.component.ts:296</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>Good</source>
         <target>Bien</target>
       </segment>
@@ -41,9 +72,45 @@
       <notes>
         <note category="location">src/app/problem-panel/problem-panel.component.ts:298</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>Try again</source>
         <target state="initial">Essaie encore</target>
+      </segment>
+    </unit>
+    <unit id="Addition">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:37</note>
+      </notes>
+      <segment state="final">
+        <source>Addition</source>
+        <target state="initial">Addition</target>
+      </segment>
+    </unit>
+    <unit id="Subtraction">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:46</note>
+      </notes>
+      <segment state="final">
+        <source>Subtraction</source>
+        <target state="initial">Soustraction</target>
+      </segment>
+    </unit>
+    <unit id="Multiplication">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:55</note>
+      </notes>
+      <segment state="final">
+        <source>Multiplication</source>
+        <target state="initial">Multiplication</target>
+      </segment>
+    </unit>
+    <unit id="Division">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:64</note>
+      </notes>
+      <segment state="final">
+        <source>Division</source>
+        <target state="initial">Division</target>
       </segment>
     </unit>
   </file>

@@ -34,7 +34,7 @@ export type MathProblemTypesMap = Record<MathProblemTypes, MathProblemTypesData>
 
 export const MATHProplemActions: MathProblemTypesMap = {
     "ADDITION" : {
-        name: "Addition",
+        name: $localize`:@@Addition:Addition`,
         code: MathProblemTypes.ADDITION,
         operator: "+",
         opFunc: (value: number[]) => {
@@ -43,7 +43,7 @@ export const MATHProplemActions: MathProblemTypesMap = {
         invert : MathProblemTypes.SUBTRACTION
     },
     "SUBTRACTION": {
-        name: "Subtraction",
+        name: $localize`:@@Subtraction:Subtraction`,
         code: MathProblemTypes.SUBTRACTION,
         operator: "-",
         opFunc: (value: number[]) => {
@@ -52,7 +52,7 @@ export const MATHProplemActions: MathProblemTypesMap = {
         invert : MathProblemTypes.ADDITION
     },
     "MULTIPLICATION": {
-        name: "Multiplication",
+        name: $localize`:@@Multiplication:Multiplication`,
         code: MathProblemTypes.MULTIPLICATION,
         operator: "x",
         opFunc: (value: number[]) => {
@@ -61,7 +61,7 @@ export const MATHProplemActions: MathProblemTypesMap = {
         invert : MathProblemTypes.DIVISION
     },
     "DIVISION": {
-        name: "Division",
+        name: $localize`:@@Division:Division`,
         code: MathProblemTypes.DIVISION,
         operator: "÷",
         opFunc: (value: number[]) => {
