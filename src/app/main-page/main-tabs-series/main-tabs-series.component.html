@@ -1,4 +1,4 @@
-<app-main-buttons [nbQuestions]="config.nbQuestions" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>
+<app-main-buttons [nbQuestions]="config.nbQuestions" [disableButton]="isDisabled()" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>
 
 <h1 i18n="@@customConfig">Custom configuration</h1>
 
@@ -31,4 +31,5 @@
 <br>
 <mat-checkbox [(ngModel)]="params.shuffle" i18n="@@Shuffle">Shuffle</mat-checkbox>
 <br>
-<app-main-buttons [nbQuestions]="config.nbQuestions" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>
+<br>
+<app-main-buttons [nbQuestions]="config.nbQuestions" [disableButton]="isDisabled()" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>

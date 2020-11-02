@@ -77,11 +77,29 @@
         <target state="initial">Essaie encore</target>
       </segment>
     </unit>
+    <unit id="tabPrograms">
+      <notes>
+        <note category="location">src/app/main-page/main-page.component.html:2</note>
+      </notes>
+      <segment state="final">
+        <source>Programs</source>
+        <target>Programmes</target>
+      </segment>
+    </unit>
+    <unit id="tabSeries">
+      <notes>
+        <note category="location">src/app/main-page/main-page.component.html:5</note>
+      </notes>
+      <segment state="final">
+        <source>Series</source>
+        <target>Séries</target>
+      </segment>
+    </unit>
     <unit id="customConfig">
       <notes>
         <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:3</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Custom configuration</source>
         <target>Configuration personnalisée</target>
       </segment>
@@ -90,9 +108,9 @@
       <notes>
         <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:23</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Start</source>
-        <target>Start</target>
+        <target>Début</target>
       </segment>
     </unit>
     <unit id="end">

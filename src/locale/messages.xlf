@@ -69,6 +69,22 @@
         <source>Try again</source>
       </segment>
     </unit>
+    <unit id="tabPrograms">
+      <notes>
+        <note category="location">src/app/main-page/main-page.component.html:2</note>
+      </notes>
+      <segment>
+        <source>Programs</source>
+      </segment>
+    </unit>
+    <unit id="tabSeries">
+      <notes>
+        <note category="location">src/app/main-page/main-page.component.html:5</note>
+      </notes>
+      <segment>
+        <source>Series</source>
+      </segment>
+    </unit>
     <unit id="customConfig">
       <notes>
         <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:3</note>

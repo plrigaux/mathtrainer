@@ -21,7 +21,6 @@ export class MainTabsSeriesComponent implements OnInit {
   config: Config;
   private myEventSubscriptions: Subscription[] = [];
 
-
   params: MultiParam = {
     problemTypes: MathProblemTypes.MULTIPLICATION,
     numbers: [],
@@ -36,7 +35,7 @@ export class MainTabsSeriesComponent implements OnInit {
     let end = 12;
 
     this.tables = Array(end - start + 1).fill(null).map((_, idx: number) => start + idx)
-    this.clear()
+
   }
 
   ngOnInit(): void {
@@ -48,6 +47,7 @@ export class MainTabsSeriesComponent implements OnInit {
         });
       }
     ));
+    this.clear()
   }
 
   fillPageData(worksheetsItem: WorksheetsItem) {
@@ -64,7 +64,7 @@ export class MainTabsSeriesComponent implements OnInit {
     this.params.numbers = [null];
   }
 
-  toDisable(): boolean {
+  toDisable() : boolean {
     return this.params.numbers.length == 0
   }
 

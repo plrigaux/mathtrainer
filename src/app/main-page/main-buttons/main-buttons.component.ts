@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 export class MainButtonsComponent implements OnInit {
 
   @Input() nbQuestions: number
+  @Input() disableButton: boolean
   @Output() pushButtonEvent = new EventEmitter<ButtonPushed>();
 
   constructor() { }

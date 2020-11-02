@@ -1,18 +1,8 @@
 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="selectedTabIndexChange($event)">
-    <mat-tab label="Program">
-
-<app-main-tabs-programs></app-main-tabs-programs>
+    <mat-tab  i18n-label="@@tabPrograms" label="Programs">
+        <app-main-tabs-programs></app-main-tabs-programs>
     </mat-tab>
-    <mat-tab label="Series">
+    <mat-tab i18n-label="@@tabSeries" label="Series">
         <app-main-tabs-series></app-main-tabs-series>
-    </mat-tab>
-    <mat-tab label="Custom">
-        <h1>Additions</h1>
-
-
-        <h1>Subtractions</h1>
-
-
-        <h1>Multiplication</h1>
     </mat-tab>
 </mat-tab-group>

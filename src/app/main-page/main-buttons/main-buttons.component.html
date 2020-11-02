@@ -3,8 +3,8 @@
     <input matInput type="number" [(ngModel)]="nbQuestions">
 </mat-form-field>
 <span class="space"></span>
-<button mat-raised-button color="accent" (click)="goToProblems()" i18n="to a problem@@Problems">Problems</button>
+<button mat-raised-button color="accent" (click)="goToProblems()" [disabled]="disableButton" i18n="to a problem@@Problems">Problems</button>
 <span class="space"></span>
-<button mat-raised-button color="accent" (click)="goToWorkout()" i18n="to a workout training@@Workout">Workout</button>
+<button mat-raised-button color="accent" (click)="goToWorkout()" [disabled]="disableButton" i18n="to a workout training@@Workout">Workout</button>
 <span class="space"></span>
 <button mat-raised-button (click)="clear()" i18n="@@clearAll">Clear all</button>
