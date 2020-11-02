@@ -79,6 +79,7 @@
     </unit>
     <unit id="Addition">
       <notes>
+        <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:1</note>
         <note category="location">src/app/math-generator/mathProblemTypes.ts:37</note>
       </notes>
       <segment state="final">
@@ -88,6 +89,7 @@
     </unit>
     <unit id="Subtraction">
       <notes>
+        <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:10</note>
         <note category="location">src/app/math-generator/mathProblemTypes.ts:46</note>
       </notes>
       <segment state="final">
@@ -97,11 +99,50 @@
     </unit>
     <unit id="Multiplication">
       <notes>
+        <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:20</note>
         <note category="location">src/app/math-generator/mathProblemTypes.ts:55</note>
       </notes>
       <segment state="final">
         <source>Multiplication</source>
         <target state="initial">Multiplication</target>
+      </segment>
+    </unit>
+    <unit id="Numbrer of questions">
+      <notes>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:2</note>
+      </notes>
+      <segment state="final">
+        <source>Numbrer of questions</source>
+        <target>Nombre de questions</target>
+      </segment>
+    </unit>
+    <unit id="Problems">
+      <notes>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:6</note>
+        <note category="description">to a problem</note>
+      </notes>
+      <segment state="final">
+        <source>Problems</source>
+        <target>Problèmes</target>
+      </segment>
+    </unit>
+    <unit id="Workout">
+      <notes>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:8</note>
+        <note category="description">to a workout training</note>
+      </notes>
+      <segment state="final">
+        <source>Workout</source>
+        <target>Exercices</target>
+      </segment>
+    </unit>
+    <unit id="clearAll">
+      <notes>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:10</note>
+      </notes>
+      <segment state="final">
+        <source>Clear all</source>
+        <target>Effacer tout</target>
       </segment>
     </unit>
     <unit id="Division">
