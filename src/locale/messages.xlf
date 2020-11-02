@@ -69,28 +69,33 @@
         <source>Try again</source>
       </segment>
     </unit>
-    <unit id="5162686434580248853">
+    <unit id="customConfig">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:30</note>
-        <note category="description">start</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:3</note>
+      </notes>
+      <segment>
+        <source>Custom configuration</source>
+      </segment>
+    </unit>
+    <unit id="start">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:23</note>
       </notes>
       <segment>
         <source>Start</source>
       </segment>
     </unit>
-    <unit id="1241348629231510663">
+    <unit id="end">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:35</note>
-        <note category="description">end</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:28</note>
       </notes>
       <segment>
         <source>End</source>
       </segment>
     </unit>
-    <unit id="6348993545995904615">
+    <unit id="Shuffle">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:39</note>
-        <note category="description">Shuffle</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:32</note>
       </notes>
       <segment>
         <source>Shuffle</source>

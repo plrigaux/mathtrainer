@@ -1,13 +1,6 @@
-<app-main-buttons></app-main-buttons>
-<h1>Additions</h1>
+<app-main-buttons [nbQuestions]="config.nbQuestions" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>
 
-
-<h1>Subtractions</h1>
-
-
-<h1>Multiplication</h1>
-
-<h1>Custom</h1>
+<h1 i18n="@@customConfig">Custom configuration</h1>
 
 <mat-button-toggle-group [(value)]="params.problemTypes">
     <mat-button-toggle *ngFor="let mpt of mathProplemActions()" [value]="mpt.code">
@@ -27,15 +20,15 @@
 </button>
 </div>
 <mat-form-field>
-    <mat-label i18n="start">Start</mat-label>
+    <mat-label i18n="@@start">Start</mat-label>
     <input matInput type="number" placeholder="start" [(ngModel)]="params.start">
 </mat-form-field>
 <span> &nbsp; </span>
 <mat-form-field>
-    <mat-label i18n="end">End</mat-label>
+    <mat-label i18n="@@end">End</mat-label>
     <input matInput type="number" placeholder="end" [(ngModel)]="params.end">
 </mat-form-field>
 <br>
-<mat-checkbox [(ngModel)]="params.shuffle" i18n="Shuffle">Shuffle</mat-checkbox>
+<mat-checkbox [(ngModel)]="params.shuffle" i18n="@@Shuffle">Shuffle</mat-checkbox>
 <br>
 <app-main-buttons [nbQuestions]="config.nbQuestions" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>
