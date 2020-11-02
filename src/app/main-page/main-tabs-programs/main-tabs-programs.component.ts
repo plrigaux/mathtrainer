@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { WorksheetsMap } from '../math-generator/worksheetsMap'
-import { MathProblemTypes } from '../math-generator/mathProblemTypes';
-import { ConfigService, ConfigServiceInfo } from '../services/config.service'
-import { Config } from '../services/config';
+import { WorksheetsMap } from '../../math-generator/worksheetsMap'
+import { MathProblemTypes } from '../../math-generator/mathProblemTypes';
+import { ConfigService, ConfigServiceInfo } from '../../services/config.service'
+import { Config } from '../../services/config';
 import { Subscription } from 'rxjs';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { WorksheetsItem } from '../math-generator/worksheetsDefinitions'
+import { WorksheetsItem } from '../../math-generator/worksheetsDefinitions'
+import { ButtonPushed, ButtonPushedStatus } from '../main-buttons/main-buttons.component'
 
 @Component({
   selector: 'app-main-tabs-programs',
@@ -45,16 +46,6 @@ export class MainTabsProgramsComponent implements OnInit {
     this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
     this.myEventSubscriptions = [];
     console.log("DEStroy !!!!!!!!!!!!");
-  }
-
-  goToProblems() {
-    this.setUpConfig();
-    this.router.navigate(['/problems']);
-  }
-
-  goToWorkout() {
-    this.setUpConfig();
-    this.router.navigate(['/workout']);
   }
 
   setUpConfig() {
@@ -114,5 +105,23 @@ export class MainTabsProgramsComponent implements OnInit {
   isSelected(worksheetsItem: WorksheetsItem): boolean {
     let selected = this.worksheetsItems.has(worksheetsItem.code);
     return selected;
+  }
+
+  pushedButton(buttonPushed: ButtonPushed) {
+    switch (buttonPushed.status) {
+      case ButtonPushedStatus.TO_PROBLEMS:
+        this.config.nbQuestions = buttonPushed.nbQuestions
+        this.setUpConfig();
+        this.router.navigate(['/problems']);
+        break;
+      case ButtonPushedStatus.TO_WORKOUT:
+        this.config.nbQuestions = buttonPushed.nbQuestions
+        this.setUpConfig();
+        this.router.navigate(['/workout']);
+        break;
+      case ButtonPushedStatus.CLEAR:
+        this.unCheckAll();
+        break;
+    }
   }
 }

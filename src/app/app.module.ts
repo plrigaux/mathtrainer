@@ -67,10 +67,11 @@ import { ColumnAnswerComponent } from './column-answer/column-answer.component';
 import { DisplayTestComponent } from './test-features/display-test/display-test.component';
 import { InputTestComponent } from './test-features/inputtest/input-test.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
-import { MainTabsSeriesComponent } from './main-tabs-series/main-tabs-series.component';
+import { MainTabsSeriesComponent } from './main-page/main-tabs-series/main-tabs-series.component';
 import { MultiplicationTableComponent } from './multiplication-table/multiplication-table.component';
 import { TestPaletteComponent } from './test-features/test-palette/test-palette.component';
-import { MainTabsProgramsComponent } from './main-tabs-programs/main-tabs-programs.component';
+import { MainTabsProgramsComponent } from './main-page/main-tabs-programs/main-tabs-programs.component';
+import { MainButtonsComponent } from './main-page/main-buttons/main-buttons.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { MainTabsProgramsComponent } from './main-tabs-programs/main-tabs-progra
     MultiplicationTableComponent,
     TestPaletteComponent,
     MainTabsProgramsComponent,
-    ProblemPanelComponentDialog
+    ProblemPanelComponentDialog,
+    MainButtonsComponent
   ],
   imports: [
     HttpClientModule,

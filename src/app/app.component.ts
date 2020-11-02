@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { ConfigService } from './services/config.service'
+import { ConfigService, ConfigServiceInfo } from './services/config.service'
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Config, EquationOrientation, EquationOrientations } from './services/config';
 import { RouterOutlet, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-//const MQ_THEME: string = "MQ_THEME";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +18,7 @@ export class AppComponent implements OnInit {
   myname: string = "myname";
   config: Config;
   equationOrientations: EquationOrientation[] = EquationOrientations;
-  private myEventSubscriptions : Subscription[] = []; 
+  private myEventSubscriptions: Subscription[] = [];
 
   public readonly themes = [
     { value: 'default-theme', label: "Default" },
@@ -32,13 +31,21 @@ export class AppComponent implements OnInit {
     { value: 'candy', label: "Pumpkin" },
   ]
 
-  constructor(private configSrv : ConfigService, private router: Router) {
+  readonly localesList = [
+    { code: 'en-US', label: 'English' },
+    { code: 'fr', label: 'Français' }
+  ]
 
+  localeLabel : string;
+
+  constructor(private configSrv: ConfigService, private router: Router,  @Inject(LOCALE_ID) public locale: string) {
+ 
+    this.localeLabel = this.localesList.find(loc => loc.code == this.locale).label
   }
 
   ngOnInit(): void {
-    this.myEventSubscriptions.push( this.configSrv.subscribe({
-      next: cfgi => {
+    this.myEventSubscriptions.push(this.configSrv.subscribe({
+      next: (cfgi : ConfigServiceInfo) => {
         this.config = cfgi.config;
         this.setTheme();
       }
@@ -79,15 +86,15 @@ export class AppComponent implements OnInit {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
-  goHome() : void {
+  goHome(): void {
     this.router.navigate(['/']);
   }
 
-  goMultiplicationTable() : void {
+  goMultiplicationTable(): void {
     this.router.navigate(['/multiplicationtable']);
   }
 
-  goAdditionTable() : void {
+  goAdditionTable(): void {
     this.router.navigate(['/additiontable']);
   }
 }

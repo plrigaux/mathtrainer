@@ -2,35 +2,42 @@
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>menu</mat-icon>
   </button>
-  <h1 i18n>Trainer for Camellia</h1>
+  <h1 i18n="@@title">Trainer for Camellia</h1>
 
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
 
-
+  <button mat-icon-button [matMenuTriggerFor]="menuLang">
+    <mat-icon >language</mat-icon>
+  </button>  {{localeLabel}}
 </mat-toolbar>
 <!-- <div id="contentPanel" [@routeAnimation]="getAnimationData(routerOutlet)"> -->
 <div id="contentPanel">
   <router-outlet #routerOutlet="outlet"></router-outlet>
 </div>
 
+<mat-menu #menuLang="matMenu">
+  <a *ngFor="let loc of localesList" mat-menu-item href="../{{loc.code}}">
+    {{loc.label}}
+  </a>
+</mat-menu>
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="goHome()">
     <mat-icon>home</mat-icon>
-    <span i18n>Home</span>
+    <span i18n="enter page@@home">Home</span>
   </button>
   <mat-divider></mat-divider>
   <button mat-menu-item (click)="goAdditionTable()">
-    <span>Addition Table</span>
+    <span i18n="menu@@additionTable">Addition Table</span>
   </button>
   <button mat-menu-item (click)="goMultiplicationTable()">
-    <span>Multiplication Table</span>
+    <span i18n="menu@@multiplicationTable">Multiplication Table</span>
   </button>
   <mat-divider></mat-divider>
   <button mat-menu-item [matMenuTriggerFor]="menuTheme">
     <mat-icon>color_lens</mat-icon>
-    <span>Themes</span>
+    <span i18n="colour themes@@themes">Themes</span>
   </button>
   <button mat-menu-item [matMenuTriggerFor]="menuEquationOrientation">
     <span>Equation Orientation</span>

@@ -1,11 +1,21 @@
 <html>
 <header>
     <title>Math trainer</title>
-    <meta http-equiv="refresh" content="time; URL=en-US" />
+    <meta http-equiv="refresh" content="5; URL=en-US" />
 </header>
 <body>
     <a href="en-US" >English</a><br>
     <a href="fr" >Français</a><br>
+
+  
+
+    <p> your browser language is <span id="browserLang"></span></p>
+
+
+    <script>
+        let userLang = navigator.language || navigator.userLanguage; 
+        document.getElementById("browserLang").innerHTML = userLang;  
+    </script>
 </body>
 
 </html>

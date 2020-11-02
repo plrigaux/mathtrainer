@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { WorksheetsItem, MultiParam } from '../math-generator/worksheetsDefinitions';
-import { Worksheets2 } from '../math-generator/worksheets2'
-import { ConfigService, ConfigServiceInfo } from '../services/config.service'
-import { Config } from '../services/config';
+import { WorksheetsItem, MultiParam } from '../../math-generator/worksheetsDefinitions';
+import { Worksheets2 } from '../../math-generator/worksheets2'
+import { ConfigService, ConfigServiceInfo } from '../../services/config.service'
+import { Config } from '../../services/config';
 import { Subscription } from 'rxjs';
-import { MathProblemTypes, MathProblemTypesData } from '../math-generator/mathProblemTypes';
-import { MATHProplemActions } from '../math-generator/mathProblemTypes'
+import { MathProblemTypes, MathProblemTypesData } from '../../math-generator/mathProblemTypes';
+import { MATHProplemActions } from '../../math-generator/mathProblemTypes'
+import { ButtonPushed, ButtonPushedStatus } from '../main-buttons/main-buttons.component'
 
 @Component({
   selector: 'app-main-tabs-series',
@@ -17,7 +18,7 @@ export class MainTabsSeriesComponent implements OnInit {
 
 
   tables: number[]
-  private config: Config;
+  config: Config;
   private myEventSubscriptions: Subscription[] = [];
 
 
@@ -35,6 +36,7 @@ export class MainTabsSeriesComponent implements OnInit {
     let end = 12;
 
     this.tables = Array(end - start + 1).fill(null).map((_, idx: number) => start + idx)
+    this.clear()
   }
 
   ngOnInit(): void {
@@ -72,17 +74,11 @@ export class MainTabsSeriesComponent implements OnInit {
   }
 
   clear() {
-    this.params.numbers = [];
-    this.addNumber();
+    this.params.numbers = [null];
   }
 
   toDisable(): boolean {
     return this.params.numbers.length == 0
-  }
-
-  goToProblems() {
-    this.setUpConfig();
-    this.router.navigate(['/problems']);
   }
 
   setUpConfig() {
@@ -123,5 +119,23 @@ export class MainTabsSeriesComponent implements OnInit {
 
   addNumber(): void {
     this.params.numbers.push("" as unknown as number);
+  }
+
+  pushedButton(buttonPushed: ButtonPushed) {
+    switch (buttonPushed.status) {
+      case ButtonPushedStatus.TO_PROBLEMS:
+        this.config.nbQuestions = buttonPushed.nbQuestions
+        this.setUpConfig();
+        this.router.navigate(['/problems']);
+        break;
+      case ButtonPushedStatus.TO_WORKOUT:
+        this.config.nbQuestions = buttonPushed.nbQuestions
+        this.setUpConfig();
+        this.router.navigate(['/workout']);
+        break;
+      case ButtonPushedStatus.CLEAR:
+        this.clear();
+        break;
+    }
   }
 }

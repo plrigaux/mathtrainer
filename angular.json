@@ -74,6 +74,11 @@
               "localize": [
                 "fr"
               ]
+            }, 
+            "en-US": {
+              "localize": [
+                "en-US"
+              ]
             }
           }
         },
@@ -88,6 +93,9 @@
             },
             "fr": {
               "browserTarget": "mathtrainer:build:fr"
+            },
+            "en-US": {
+              "browserTarget": "mathtrainer:build:en-US"
             }
           }
         },

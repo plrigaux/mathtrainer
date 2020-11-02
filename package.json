@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:fr": "ng serve --configuration=fr",
+    "start:en": "ng serve --configuration=en-US",
     "extract": "ng xi18n --output-path=src/locale --format=xlf2 --ivy"
   },
   "private": true,
