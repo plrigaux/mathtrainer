@@ -27,15 +27,15 @@
 </button>
 </div>
 <mat-form-field>
-    <mat-label>Start</mat-label>
+    <mat-label i18n="start">Start</mat-label>
     <input matInput type="number" placeholder="start" [(ngModel)]="params.start">
 </mat-form-field>
 <span> &nbsp; </span>
 <mat-form-field>
-    <mat-label>End</mat-label>
+    <mat-label i18n="end">End</mat-label>
     <input matInput type="number" placeholder="end" [(ngModel)]="params.end">
 </mat-form-field>
 <br>
-<mat-checkbox [(ngModel)]="params.shuffle">Shuffle</mat-checkbox>
+<mat-checkbox [(ngModel)]="params.shuffle" i18n="Shuffle">Shuffle</mat-checkbox>
 <br>
 <app-main-buttons [nbQuestions]="config.nbQuestions" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>

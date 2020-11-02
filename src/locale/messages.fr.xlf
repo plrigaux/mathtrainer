@@ -77,6 +77,36 @@
         <target state="initial">Essaie encore</target>
       </segment>
     </unit>
+    <unit id="5162686434580248853">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:30</note>
+        <note category="description">start</note>
+      </notes>
+      <segment state="final">
+        <source>Start</source>
+        <target>Début</target>
+      </segment>
+    </unit>
+    <unit id="1241348629231510663">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:35</note>
+        <note category="description">end</note>
+      </notes>
+      <segment state="final">
+        <source>End</source>
+        <target>Fin</target>
+      </segment>
+    </unit>
+    <unit id="6348993545995904615">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:39</note>
+        <note category="description">Shuffle</note>
+      </notes>
+      <segment state="final">
+        <source>Shuffle</source>
+        <target>Mélanger</target>
+      </segment>
+    </unit>
     <unit id="Addition">
       <notes>
         <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:1</note>
@@ -107,12 +137,12 @@
         <target state="initial">Multiplication</target>
       </segment>
     </unit>
-    <unit id="Numbrer of questions">
+    <unit id="Number of questions">
       <notes>
         <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:2</note>
       </notes>
       <segment state="final">
-        <source>Numbrer of questions</source>
+        <source>Number of questions</source>
         <target>Nombre de questions</target>
       </segment>
     </unit>
