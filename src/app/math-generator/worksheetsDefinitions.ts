@@ -3,9 +3,8 @@ import { MathProblemTypes } from './mathProblemTypes';
 
 export interface MultiParam {
     problemTypes : MathProblemTypes,
-    numbers: number[],
-    start: number,
-    end: number,
+    numbers1 : string ,
+    numbers2 : string ,
     shuffle: boolean,
 }
 

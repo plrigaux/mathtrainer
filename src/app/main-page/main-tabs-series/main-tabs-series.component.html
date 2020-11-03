@@ -1,35 +1,50 @@
-<app-main-buttons [nbQuestions]="config.nbQuestions" [disableButton]="isDisabled()" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>
+<app-main-buttons [nbQuestions]="config.nbQuestions" [disableButton]="isDisabled()"
+    (pushButtonEvent)="pushedButton($event)"></app-main-buttons>
 
 <h1 i18n="@@customConfig">Custom configuration</h1>
-
+<!--
 <mat-button-toggle-group [(value)]="params.problemTypes">
     <mat-button-toggle *ngFor="let mpt of mathProplemActions()" [value]="mpt.code">
         {{mpt.name}} <strong>{{mpt.operator}}</strong>
     </mat-button-toggle>
 </mat-button-toggle-group>
+-->
+<!-- div class="numberSelect">
+    <mat-form-field class="numbers" appearance="outline" *ngFor="let num of params.numbers;index as i">
+        <mat-label>Num {{i}}</mat-label>
+        <input matInput type="number" placeholder="number" [(ngModel)]="params.numbers[i]">
+    </mat-form-field>
+    <button mat-button (click)="clear()" [disabled]="toDisable()">Clear</button>
+    <button mat-button (click)="addNumber()">
+        <mat-icon>add_circle</mat-icon>
+        Add Number
+    </button>
+</div -->
+<section>
+    <mat-form-field appearance="fill">
+        <mat-label>Operator</mat-label>
+        <mat-select [(value)]="params.problemTypes">
+            <mat-option *ngFor="let mpt of mathProplemActions()" value="{{mpt.code}}">
+                {{mpt.name}} <strong>{{mpt.operator}}</strong>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</section>
+<section>
+    <mat-form-field>
+        <mat-label i18n="@@Number 1">Numbers 1</mat-label>
+        <input matInput type="text" placeholder="range" [(ngModel)]="params.numbers1">
+    </mat-form-field>
 
-<div class="numberSelect"> 
-<mat-form-field class="numbers" appearance="outline" *ngFor="let num of params.numbers;index as i">
-    <mat-label>Num {{i}}</mat-label>
-    <input matInput type="number" placeholder="number" [(ngModel)]="params.numbers[i]">
-</mat-form-field>
-<button mat-button (click)="clear()" [disabled]="toDisable()">Clear</button>
-<button mat-button (click)="addNumber()">
-    <mat-icon>add_circle</mat-icon>
-    Add Number
-</button>
-</div>
-<mat-form-field>
-    <mat-label i18n="@@start">Start</mat-label>
-    <input matInput type="number" placeholder="start" [(ngModel)]="params.start">
-</mat-form-field>
-<span> &nbsp; </span>
-<mat-form-field>
-    <mat-label i18n="@@end">End</mat-label>
-    <input matInput type="number" placeholder="end" [(ngModel)]="params.end">
-</mat-form-field>
+    <mat-form-field>
+        <mat-label i18n="@@Number 2">Numbers 2</mat-label>
+        <input matInput type="text" placeholder="range" [(ngModel)]="params.numbers2">
+    </mat-form-field>
+</section>
+
 <br>
 <mat-checkbox [(ngModel)]="params.shuffle" i18n="@@Shuffle">Shuffle</mat-checkbox>
 <br>
 <br>
-<app-main-buttons [nbQuestions]="config.nbQuestions" [disableButton]="isDisabled()" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>
+<app-main-buttons [nbQuestions]="config.nbQuestions" [disableButton]="isDisabled()"
+    (pushButtonEvent)="pushedButton($event)"></app-main-buttons>

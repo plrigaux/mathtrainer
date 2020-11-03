@@ -3,6 +3,7 @@ import { MathProblemTypes, GenerateRange, Answer, MATHProplemActions } from './m
 import { MathProblem } from './mathProblem';
 import { WorksheetsMap } from './worksheetsMap';
 import { WorksheetsItem } from './worksheetsDefinitions'
+import { Range, RangeManager } from './rangeManager'
 //import { Worksheets } from './worksheets';
 
 export class MathGenerator {
@@ -85,7 +86,50 @@ export class MathGenerator {
         return MathGenerator.getListofRandomNumber(generateRange, MathProblemTypes.ADDITION);
     }
 
-    static getSeries(type: MathProblemTypes, numbers: number[], start: number, end: number, shuffle: boolean = false): MathProblem[] {
+    static getSeries(type: MathProblemTypes, numbers1: Range[], numbers2: Range[], shuffle: boolean = false): MathProblem[] {
+
+        let size = RangeManager.getInstance().getSize(numbers1) * RangeManager.getInstance().getSize(numbers2)
+        let list: MathProblem[] = new Array(size);
+
+        let invert: boolean = false
+        switch (type) {
+            case MathProblemTypes.SUBTRACTION:
+            case MathProblemTypes.DIVISION:
+                type = MATHProplemActions[type].invert
+                invert = true;
+                break;
+        }
+
+        let i = 0
+
+        for (let range1 of numbers1) {
+            for (let number1 = range1.start; number1 <= range1.end; number1++) {
+                for (let range2 of numbers2) {
+                    for (let number2 = range2.start; number2 <= range2.end; number2++) {
+                        let mathProblem: MathProblem;
+
+                        if (invert) {
+                            mathProblem = new MathProblem(type, [number1, number2]).getInvert();
+                        } else {
+                            mathProblem = new MathProblem(type, [number1, number2]);
+                        }
+
+
+                        list[i++] = mathProblem;
+                    }
+                }
+            }
+        }
+
+
+        if (shuffle) {
+            list = MathProblem.shuffle(list);
+        }
+
+        return list;
+    }
+
+    static getSeries2(type: MathProblemTypes, numbers: number[], start: number, end: number, shuffle: boolean = false): MathProblem[] {
 
         let size = (end - start + 1) * numbers.length;
         let list: MathProblem[] = new Array(size);

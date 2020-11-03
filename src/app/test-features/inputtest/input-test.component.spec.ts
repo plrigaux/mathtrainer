@@ -3,12 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InputTestComponent } from './input-test.component';
 
 describe('InputtestComponent', () => {
-  let component: InputtestComponent;
-  let fixture: ComponentFixture<InputtestComponent>;
+  let component: InputTestComponent;
+  let fixture: ComponentFixture<InputTestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InputtestComponent ]
+      declarations: [ InputTestComponent ]
     })
     .compileComponents();
   });

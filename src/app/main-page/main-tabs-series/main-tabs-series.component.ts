@@ -15,17 +15,15 @@ import { ButtonPushed, ButtonPushedStatus } from '../main-buttons/main-buttons.c
   styleUrls: ['./main-tabs-series.component.scss']
 })
 export class MainTabsSeriesComponent implements OnInit {
-
-
   tables: number[]
   config: Config;
   private myEventSubscriptions: Subscription[] = [];
 
+
   params: MultiParam = {
     problemTypes: MathProblemTypes.MULTIPLICATION,
-    numbers: [],
-    start: 1,
-    end: 12,
+    numbers1 : "2",
+    numbers2 :  "1 - 12",
     shuffle: false,
   }
 
@@ -35,7 +33,6 @@ export class MainTabsSeriesComponent implements OnInit {
     let end = 12;
 
     this.tables = Array(end - start + 1).fill(null).map((_, idx: number) => start + idx)
-
   }
 
   ngOnInit(): void {
@@ -55,30 +52,26 @@ export class MainTabsSeriesComponent implements OnInit {
 
       if (worksheetsItem?.parameters) {
 
-        this.params = worksheetsItem.parameters
+        this.params = Object.assign(this.params, worksheetsItem.parameters)
       }
     }
   }
 
   clear() {
-    this.params.numbers = [null];
+    //this.params.numbers = [null];
   }
 
   toDisable() : boolean {
-    return this.params.numbers.length == 0
+    return false //go to regex
   }
 
-  setUpConfig() {
-
-
+  setUpConfig() : void {
     let generators: WorksheetsItem[] = new Array(1);
 
-    console.warn(this.params.numbers)
-    // filter empty string ==> we want just numbers
-    this.params.numbers = this.params.numbers.filter(x => {
-      return isNaN(parseInt(x as undefined as string)) == false
-    });
-    console.warn(this.params.numbers)
+    console.warn(this.params.numbers1)
+ 
+    //console.warn(this.params.numbers)
+    
     let wi: WorksheetsItem = {
       label: "no",
       func: Worksheets2.multiplicationTable,
@@ -96,16 +89,12 @@ export class MainTabsSeriesComponent implements OnInit {
 
   isDisabled(): boolean {
     //console.log(`ISNSA '${this.params.numbers[0]}' ${isNaN(this.params.numbers[0])}`)
-    return this.params.numbers.length == 0 || this.params.numbers[0] == null
+    return this.params.numbers1.trim().length == 0 || this.params.numbers2.trim().length == 0 || this.params.problemTypes == null
   }
 
   mathProplemActions(): MathProblemTypesData[] {
     let val: MathProblemTypesData[] = Object.values(MATHProplemActions);
     return val;
-  }
-
-  addNumber(): void {
-    this.params.numbers.push("" as unknown as number);
   }
 
   pushedButton(buttonPushed: ButtonPushed) {

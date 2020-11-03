@@ -186,7 +186,7 @@ describe('Worksheets', () => {
 
   //Subtraction facts - numbers up to 10
   for (var i = 0; i < iteration; ++i) {
-    fit('Subtract a one-digit number from a one-digit number', () => {
+    it('Subtract a one-digit number from a one-digit number', () => {
       let mathProblem: MathProblem = Worksheets.subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -207,7 +207,7 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    fit('subtract Multiples Of 10', () => {
+    it('subtract Multiples Of 10', () => {
       let mathProblem: MathProblem = Worksheets.subtractMultiplesOf10();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -225,7 +225,7 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    fit('Subtract a one-digit number from a two-digit number - with regrouping', () => {
+    it('Subtract a one-digit number from a two-digit number - with regrouping', () => {
       let mathProblem: MathProblem = Worksheets.subtractOneDigitNumberFromTwoDigitNumberWithRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);
@@ -248,7 +248,7 @@ describe('Worksheets', () => {
   }
 
   for (var i = 0; i < iteration; ++i) {
-    fit('Subtract two two-digit numbers - with regrouping', () => {
+    it('Subtract two two-digit numbers - with regrouping', () => {
       let mathProblem: MathProblem = Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping();
       console.log("" + mathProblem.question + mathProblem.answer)
       expect(mathProblem.values.length).toEqual(2);

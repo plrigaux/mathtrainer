@@ -1,6 +1,7 @@
 import { MathGenerator } from './mathGenerator';
 import { MathProblem } from "./mathProblem";
 import { GenerateRange, MathProblemTypes, Relation, Answer } from './mathProblemTypes';
+import { RangeManager, Range } from './rangeManager';
 import { WorksheetsItem, MultiParam } from './worksheetsDefinitions'
 
 export class Worksheets2 {
@@ -26,19 +27,33 @@ export class Worksheets2 {
 
         let parametersType: MultiParam = parameters as MultiParam;
 
-        if (worksheetsItem._context == null) {
+        let context: MultiplicationTableSaveContext = worksheetsItem._context as MultiplicationTableSaveContext
 
-            let series: MathProblem[] = MathGenerator.getSeries(parameters.problemTypes,
-                parametersType.numbers, parametersType.start, parametersType.end, parameters.shuffle);
+        if (context == null) {
 
-            worksheetsItem._context = {
+            let numbersRange1: Range[] = RangeManager.getInstance().rangeParser(parametersType.numbers1, true)
+
+            let numbersRange2: Range[] = RangeManager.getInstance().rangeParser(parametersType.numbers2, true)
+
+            let series: MathProblem[] = MathGenerator.getSeries(parameters.problemTypes, numbersRange1, numbersRange2, parameters.shuffle);
+
+            context = {
                 next: 0,
                 series: series
-            }
+            };
+
+            worksheetsItem._context = context
         } else {
-            worksheetsItem._context["next"]++
+            context.next++
         }
 
-        return worksheetsItem._context["series"][worksheetsItem._context["next"] % worksheetsItem._context["series"].length];
+        let mathProblem = context.series[context.next % context.series.length];
+
+        return mathProblem
     }
+}
+
+interface MultiplicationTableSaveContext {
+    next: number;
+    series: MathProblem[]
 }
