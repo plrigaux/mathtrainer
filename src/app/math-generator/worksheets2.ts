@@ -31,9 +31,9 @@ export class Worksheets2 {
 
         if (context == null) {
 
-            let numbersRange1: Range[] = RangeManager.getInstance().rangeParser(parametersType.numbers1, true)
+            let numbersRange1: Range[] = RangeManager.rangeParser(parametersType.numbers1, true)
 
-            let numbersRange2: Range[] = RangeManager.getInstance().rangeParser(parametersType.numbers2, true)
+            let numbersRange2: Range[] = RangeManager.rangeParser(parametersType.numbers2, true)
 
             let series: MathProblem[] = MathGenerator.getSeries(parameters.problemTypes, numbersRange1, numbersRange2, parameters.shuffle);
 

@@ -6,7 +6,7 @@ import { RangeManager, Range } from './rangeManager';
 
 
 describe('RangeManager', () => {
-  let component: RangeManager;
+
   const iteration: number = 8;
   /*
     beforeEach(async(() => {
@@ -27,18 +27,14 @@ describe('RangeManager', () => {
       declarations: [RangeManager]
     })
 
-    component = RangeManager.getInstance();
   });
 
 
 
-  fit('should create', () => {
-    expect(component).toBeTruthy();
-  });
 
   fit('one range', () => {
 
-    let ranges : Range[] = component.rangeParser("1-5", false)
+    let ranges : Range[] = RangeManager.rangeParser("1-5", false)
 
     expect(ranges.length).toBe(1)
   });
@@ -46,14 +42,14 @@ describe('RangeManager', () => {
 
   fit('tow ranges', () => {
 
-    let ranges : Range[] = component.rangeParser("1-5, 10-12", false)
+    let ranges : Range[] = RangeManager.rangeParser("1-5, 10-12", false)
 
     expect(ranges.length).toBe(2)
   });
 
   fit('handle spaces', () => {
 
-    let ranges : Range[] = component.rangeParser(" 1 - 5 ", false)
+    let ranges : Range[] = RangeManager.rangeParser(" 1 - 5 ", false)
 
     expect(ranges.length).toBe(1)
 
@@ -66,7 +62,7 @@ describe('RangeManager', () => {
 
   fit('handle negatives', () => {
 
-    let ranges : Range[] = component.rangeParser(" -5 - -3 ", false)
+    let ranges : Range[] = RangeManager.rangeParser(" -5 - -3 ", false)
 
     expect(ranges.length).toBe(1)
 
@@ -79,7 +75,7 @@ describe('RangeManager', () => {
 
   fit('handle single', () => {
 
-    let ranges : Range[] = component.rangeParser("4", false)
+    let ranges : Range[] = RangeManager.rangeParser("4", false)
 
     expect(ranges.length).toBe(1)
 
@@ -90,7 +86,7 @@ describe('RangeManager', () => {
 
   fit('handle single and range', () => {
 
-    let ranges : Range[] = component.rangeParser("4, 7-9", false)
+    let ranges : Range[] = RangeManager.rangeParser("4, 7-9", false)
 
     expect(ranges.length).toBe(2)
 
@@ -103,7 +99,7 @@ describe('RangeManager', () => {
 
   fit('combine', () => {
 
-    let ranges : Range[] = component.rangeParser("4-7, 6-9", true)
+    let ranges : Range[] = RangeManager.rangeParser("4-7, 6-9", true)
     console.log(ranges)
     expect(ranges.length).toBe(1)
 
@@ -113,7 +109,7 @@ describe('RangeManager', () => {
 
   fit('handle single and range combine ', () => {
 
-    let ranges : Range[] = component.rangeParser("4-7, 6-9, 5", true)
+    let ranges : Range[] = RangeManager.rangeParser("4-7, 6-9, 5", true)
     console.log(ranges)
     expect(ranges.length).toBe(1)
 
@@ -123,7 +119,7 @@ describe('RangeManager', () => {
 
   fit('handle single and range combine ', () => {
 
-    let ranges : Range[] = component.rangeParser("4-7, 6-9, 5, 20-25, 26, 27-29", true)
+    let ranges : Range[] = RangeManager.rangeParser("4-7, 6-9, 5, 20-25, 26, 27-29", true)
     console.log(ranges)
     expect(ranges.length).toBe(2)
 

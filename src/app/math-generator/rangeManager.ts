@@ -6,22 +6,11 @@ export interface Range {
 
 export class RangeManager {
 
-    private static instance: RangeManager;
-
     private constructor() {
 
     }
 
-    public static getInstance(): RangeManager {
-        if (!RangeManager.instance) {
-            RangeManager.instance = new RangeManager();
-        }
-
-        return RangeManager.instance;
-    }
-
-
-    getNumbers(ranges: Range[]): number[] {
+    static getNumbers(ranges: Range[]): number[] {
         let result: number[] = [];
 
 
@@ -35,7 +24,7 @@ export class RangeManager {
         return result;
     }
 
-    rangeParser(str: string, combine: boolean): Range[] {
+    static rangeParser(str: string, combine: boolean): Range[] {
 
         // split the range string
         let arr: string[] = str.split(',')
@@ -95,7 +84,7 @@ export class RangeManager {
      * Combine overlapping & adjacent ranges.
      * @private
      */
-    combineRanges(ranges: Range[]) {
+    static combineRanges(ranges: Range[]) {
         let ordered: Range[] = ranges.sort((a: Range, b: Range) => {
             return a.start - b.start
         })
@@ -118,9 +107,19 @@ export class RangeManager {
         return combined
     }
 
-    getSize(ranges : Range[]) : number {
+    static getSize(ranges : Range[]) : number {
         let size = 0
         ranges.forEach(r => size += (r.end + 1 - r.start))
         return size;
+    }
+
+    static toString(ranges : Range[]) : string {
+        return ranges.map(r => {
+            if (r.start == r.end) {
+                return r.start.toString()
+            } else {
+                return `${r.start} - ${r.end}`
+            }
+        }).join(", ")
     }
 }

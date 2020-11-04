@@ -9,6 +9,7 @@ import { MathProblemTypes, MathProblemTypesData } from '../../math-generator/mat
 import { MATHProplemActions } from '../../math-generator/mathProblemTypes'
 import { ButtonPushed, ButtonPushedStatus } from '../main-buttons/main-buttons.component'
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { RangeManager, Range } from '../../math-generator/rangeManager';
 
 @Component({
   selector: 'app-main-tabs-series',
@@ -83,6 +84,10 @@ export class MainTabsSeriesComponent implements OnInit {
     console.warn(this.params.numbers1)
 
     //console.warn(this.params.numbers)
+
+    this.params.numbers1 = RangeManager.toString(RangeManager.rangeParser(this.numberForControl1.value, true))
+    this.params.numbers2 = RangeManager.toString(RangeManager.rangeParser(this.numberForControl2.value, true))
+
 
     let wi: WorksheetsItem = {
       label: "no",

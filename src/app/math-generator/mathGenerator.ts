@@ -88,7 +88,7 @@ export class MathGenerator {
 
     static getSeries(type: MathProblemTypes, numbers1: Range[], numbers2: Range[], shuffle: boolean = false): MathProblem[] {
 
-        let size = RangeManager.getInstance().getSize(numbers1) * RangeManager.getInstance().getSize(numbers2)
+        let size = RangeManager.getSize(numbers1) * RangeManager.getSize(numbers2)
         let list: MathProblem[] = new Array(size);
 
         let invert: boolean = false
@@ -102,10 +102,10 @@ export class MathGenerator {
 
         let i = 0
 
-        for (let range1 of numbers1) {
-            for (let number1 = range1.start; number1 <= range1.end; number1++) {
-                for (let range2 of numbers2) {
-                    for (let number2 = range2.start; number2 <= range2.end; number2++) {
+        for (let range2 of numbers2) {
+            for (let number2 = range2.start; number2 <= range2.end; number2++) {
+                for (let range1 of numbers1) {
+                    for (let number1 = range1.start; number1 <= range1.end; number1++) {
                         let mathProblem: MathProblem;
 
                         if (invert) {
@@ -113,7 +113,6 @@ export class MathGenerator {
                         } else {
                             mathProblem = new MathProblem(type, [number1, number2]);
                         }
-
 
                         list[i++] = mathProblem;
                     }
