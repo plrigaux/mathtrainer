@@ -33,12 +33,16 @@
 <section>
     <mat-form-field>
         <mat-label i18n="@@Number 1">Numbers 1</mat-label>
-        <input matInput type="text" placeholder="range" [(ngModel)]="params.numbers1">
+        <input matInput type="text" placeholder="range" [formControl]="numberForControl1" >
+        <mat-error *ngIf="numberForControl1.hasError('required')">Field is <strong>required</strong></mat-error>
+        <mat-error *ngIf="numberForControl1.hasError('pattern')">Should be 2, or 1-3</mat-error>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label i18n="@@Number 2">Numbers 2</mat-label>
-        <input matInput type="text" placeholder="range" [(ngModel)]="params.numbers2">
+        <input matInput type="text" placeholder="range" [formControl]="numberForControl2">
+        <mat-error *ngIf="numberForControl2.hasError('required')">Field is <strong>required</strong></mat-error>
+        <mat-error *ngIf="numberForControl2.hasError('pattern')">Should be 2, or 1-3</mat-error>
     </mat-form-field>
 </section>
 

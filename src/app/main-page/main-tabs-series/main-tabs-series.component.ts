@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { MathProblemTypes, MathProblemTypesData } from '../../math-generator/mathProblemTypes';
 import { MATHProplemActions } from '../../math-generator/mathProblemTypes'
 import { ButtonPushed, ButtonPushedStatus } from '../main-buttons/main-buttons.component'
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-main-tabs-series',
@@ -19,11 +20,13 @@ export class MainTabsSeriesComponent implements OnInit {
   config: Config;
   private myEventSubscriptions: Subscription[] = [];
 
+  numberForControl1: FormControl;
+  numberForControl2: FormControl;
 
   params: MultiParam = {
     problemTypes: MathProblemTypes.MULTIPLICATION,
-    numbers1 : "2",
-    numbers2 :  "1 - 12",
+    numbers1: "2",
+    numbers2: "1 - 12",
     shuffle: false,
   }
 
@@ -33,6 +36,13 @@ export class MainTabsSeriesComponent implements OnInit {
     let end = 12;
 
     this.tables = Array(end - start + 1).fill(null).map((_, idx: number) => start + idx)
+
+    let vdator = [
+      Validators.required, Validators.pattern(/^(\s*-?\d+\s*\-\s*-?\d+\s*,?|\s*-?\d+\s*,?)+$/)
+    ]
+
+    this.numberForControl1 = new FormControl('', vdator);
+    this.numberForControl2 = new FormControl('', vdator);
   }
 
   ngOnInit(): void {
@@ -53,6 +63,8 @@ export class MainTabsSeriesComponent implements OnInit {
       if (worksheetsItem?.parameters) {
 
         this.params = Object.assign(this.params, worksheetsItem.parameters)
+        this.numberForControl1.setValue(this.params.numbers1);
+        this.numberForControl2.setValue(this.params.numbers2);
       }
     }
   }
@@ -61,17 +73,17 @@ export class MainTabsSeriesComponent implements OnInit {
     //this.params.numbers = [null];
   }
 
-  toDisable() : boolean {
+  toDisable(): boolean {
     return false //go to regex
   }
 
-  setUpConfig() : void {
+  setUpConfig(): void {
     let generators: WorksheetsItem[] = new Array(1);
 
     console.warn(this.params.numbers1)
- 
+
     //console.warn(this.params.numbers)
-    
+
     let wi: WorksheetsItem = {
       label: "no",
       func: Worksheets2.multiplicationTable,
@@ -89,7 +101,7 @@ export class MainTabsSeriesComponent implements OnInit {
 
   isDisabled(): boolean {
     //console.log(`ISNSA '${this.params.numbers[0]}' ${isNaN(this.params.numbers[0])}`)
-    return this.params.numbers1.trim().length == 0 || this.params.numbers2.trim().length == 0 || this.params.problemTypes == null
+    return this.numberForControl1.valid == false || this.numberForControl2.valid == false || this.params.problemTypes == null
   }
 
   mathProplemActions(): MathProblemTypesData[] {
