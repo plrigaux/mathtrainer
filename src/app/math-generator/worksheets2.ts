@@ -22,7 +22,7 @@ export class Worksheets2 {
         let parameters = worksheetsItem.parameters
 
         if (!parameters) {
-            console.warn(`Parameters == null or undef`);
+            console.warn(`Parameters == null or undefined`);
         }
 
         let parametersType: MultiParam = parameters as MultiParam;
