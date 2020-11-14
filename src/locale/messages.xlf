@@ -45,7 +45,7 @@
         <source>Themes</source>
       </segment>
     </unit>
-    <unit id="9093738080986044532">
+    <unit id="excellent">
       <notes>
         <note category="location">src/app/problem-panel/problem-panel.component.ts:294</note>
       </notes>
@@ -53,7 +53,7 @@
         <source>Excellent</source>
       </segment>
     </unit>
-    <unit id="29167121133682512">
+    <unit id="good">
       <notes>
         <note category="location">src/app/problem-panel/problem-panel.component.ts:296</note>
       </notes>
@@ -67,6 +67,14 @@
       </notes>
       <segment>
         <source>Try again</source>
+      </segment>
+    </unit>
+    <unit id="congratulationMsg">
+      <notes>
+        <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
+      </notes>
+      <segment>
+        <source>You got <ph id="0" equiv="INTERPOLATION" disp="t {{data.right"/> good answers from a total of <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/>.</source>
       </segment>
     </unit>
     <unit id="tabPrograms">
@@ -87,31 +95,31 @@
     </unit>
     <unit id="customConfig">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:3</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:4</note>
       </notes>
       <segment>
         <source>Custom configuration</source>
       </segment>
     </unit>
-    <unit id="start">
+    <unit id="Number 1">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:23</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:35</note>
       </notes>
       <segment>
-        <source>Start</source>
+        <source>Numbers 1</source>
       </segment>
     </unit>
-    <unit id="end">
+    <unit id="Number 2">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:28</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:42</note>
       </notes>
       <segment>
-        <source>End</source>
+        <source>Numbers 2</source>
       </segment>
     </unit>
     <unit id="Shuffle">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:32</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:50</note>
       </notes>
       <segment>
         <source>Shuffle</source>
@@ -184,6 +192,22 @@
       </notes>
       <segment>
         <source>Division</source>
+      </segment>
+    </unit>
+    <unit id="Multiply_2_single_digits">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:91</note>
+      </notes>
+      <segment>
+        <source>Multiply two single digit numbers</source>
+      </segment>
+    </unit>
+    <unit id="MultiplicationTable">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:135</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="PH" disp="i"/> time table</source>
       </segment>
     </unit>
   </file>

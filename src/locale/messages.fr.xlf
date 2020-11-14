@@ -50,20 +50,20 @@
         <target state="initial">Thèmes</target>
       </segment>
     </unit>
-    <unit id="9093738080986044532">
+    <unit id="excellent">
       <notes>
         <note category="location">src/app/problem-panel/problem-panel.component.ts:294</note>
       </notes>
-      <segment state="final">
+      <segment state="initial">
         <source>Excellent</source>
         <target>Excellent</target>
       </segment>
     </unit>
-    <unit id="29167121133682512">
+    <unit id="good">
       <notes>
         <note category="location">src/app/problem-panel/problem-panel.component.ts:296</note>
       </notes>
-      <segment state="final">
+      <segment state="initial">
         <source>Good</source>
         <target>Bien</target>
       </segment>
@@ -75,6 +75,15 @@
       <segment state="final">
         <source>Try again</source>
         <target state="initial">Essaie encore</target>
+      </segment>
+    </unit>
+    <unit id="congratulationMsg">
+      <notes>
+        <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
+      </notes>
+      <segment state="final">
+        <source>You got <ph id="0" equiv="INTERPOLATION" disp="t {{data.right"/> good answers from a total of <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/>.</source>
+        <target>Tu as eu <ph id="0" equiv="INTERPOLATION" disp="t {{data.right"/> bonnes réponses sur un total de <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/> questions.</target>
       </segment>
     </unit>
     <unit id="tabPrograms">
@@ -97,34 +106,34 @@
     </unit>
     <unit id="customConfig">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:3</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:4</note>
       </notes>
       <segment state="final">
         <source>Custom configuration</source>
         <target>Configuration personnalisée</target>
       </segment>
     </unit>
-    <unit id="start">
+    <unit id="Number 1">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:23</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:35</note>
       </notes>
-      <segment state="final">
-        <source>Start</source>
-        <target>Début</target>
+      <segment state="initial">
+        <source>Numbers 1</source>
+        <target>Numbers 1</target>
       </segment>
     </unit>
-    <unit id="end">
+    <unit id="Number 2">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:28</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:42</note>
       </notes>
-      <segment state="final">
-        <source>End</source>
-        <target>Fin</target>
+      <segment state="initial">
+        <source>Numbers 2</source>
+        <target>Numbers 2</target>
       </segment>
     </unit>
     <unit id="Shuffle">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:32</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:50</note>
       </notes>
       <segment state="final">
         <source>Shuffle</source>
@@ -148,7 +157,7 @@
       </notes>
       <segment state="final">
         <source>Subtraction</source>
-        <target state="initial">Soustraction</target>
+        <target>Soustraction</target>
       </segment>
     </unit>
     <unit id="Multiplication">
@@ -158,7 +167,7 @@
       </notes>
       <segment state="final">
         <source>Multiplication</source>
-        <target state="initial">Multiplication</target>
+        <target>Multiplication</target>
       </segment>
     </unit>
     <unit id="Number of questions">
@@ -206,6 +215,24 @@
       <segment state="final">
         <source>Division</source>
         <target state="initial">Division</target>
+      </segment>
+    </unit>
+    <unit id="Multiply_2_single_digits">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:91</note>
+      </notes>
+      <segment state="final">
+        <source>Multiply two single digit numbers</source>
+        <target>Multiplication de deux nombres à un chiffre</target>
+      </segment>
+    </unit>
+    <unit id="MultiplicationTable">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:135</note>
+      </notes>
+      <segment state="final">
+        <source><ph id="0" equiv="PH" disp="i"/> time table</source>
+        <target>Table de <ph id="0" equiv="PH" disp="i"/></target>
       </segment>
     </unit>
   </file>

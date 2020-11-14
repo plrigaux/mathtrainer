@@ -291,9 +291,9 @@ export class ProblemPanelComponentDialog {
     let result = data.right / data.total
 
     if (result == 1) {
-      this.congratulationMsg = $localize`Excellent`
+      this.congratulationMsg = $localize`:@@excellent:Excellent`
     } else if (result >= 0.7) {
-      this.congratulationMsg = $localize`Good`
+      this.congratulationMsg = $localize`:@@good:Good`
     } else {
       this.congratulationMsg = $localize`:@@resultTryAgain:Try again`
     }
