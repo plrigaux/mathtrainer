@@ -225,8 +225,8 @@ export class ProblemPanelComponent implements OnInit {
     this.mathQuestionComponents.forEach((m: MathQuestionComponent) => {
       let informParent = false;
 
-      if (!this.answerMap.has(m.name)) {
-        this.answerMap.set(m.name, m.status)
+      if (!this.answerMap.has(m.id)) {
+        this.answerMap.set(m.id, m.status)
       }
 
       m.validateAnswer(informParent)
