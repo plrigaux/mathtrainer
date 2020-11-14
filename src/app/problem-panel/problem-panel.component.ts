@@ -23,7 +23,7 @@ export class ProblemPanelComponent implements OnInit {
   config: Config = null;
   ANSWER_MODES = ANSWER_MODES;
   needReset: boolean = false;
-  dialogRef : MatDialogRef<ProblemPanelComponentDialog> = null
+  dialogRef: MatDialogRef<ProblemPanelComponentDialog> = null
 
   constructor(private configService: ConfigService,
     private mathQuestionService: MathQuestionService,
@@ -37,6 +37,7 @@ export class ProblemPanelComponent implements OnInit {
         (cfsi: ConfigServiceInfo) => {
           this.config = { ...cfsi.config }; //to force the change detection
           this.problems = new Array(cfsi.config.nbQuestions >= 1 ? cfsi.config.nbQuestions : 1); //TODO make an universal function
+          this.answerMap.clear()
           //reset state
           this.needReset = cfsi.needReset;
           if (cfsi.needReset) {
@@ -221,10 +222,17 @@ export class ProblemPanelComponent implements OnInit {
   }
 
   validate(): void {
-    this.mathQuestionComponents.forEach((m: MathQuestionComponent) => m.validateAnswer(false));
+    this.mathQuestionComponents.forEach((m: MathQuestionComponent) => {
+      let informParent = false;
+
+      if (!this.answerMap.has(m.name)) {
+        this.answerMap.set(m.name, m.status)
+      }
+
+      m.validateAnswer(informParent)
+    });
     this.openDialog();
   }
-
 
   openDialog(): void {
     if (this.dialogRef != null) {
@@ -262,7 +270,7 @@ export class ProblemPanelComponent implements OnInit {
       data: data
     });
 
-    
+
     this.dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.dialogRef = null;

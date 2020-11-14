@@ -69,12 +69,20 @@
         <source>Try again</source>
       </segment>
     </unit>
-    <unit id="congratulationMsg">
+    <unit id="6804990303797863301">
       <notes>
         <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
       </notes>
       <segment>
-        <source>You got <ph id="0" equiv="INTERPOLATION" disp="t {{data.right"/> good answers from a total of <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/>.</source>
+        <source>{VAR_PLURAL, plural, =0 {ZERO good answer} =1 {one good answer} other {<ph id="0" equiv="INTERPOLATION"/> good answers}}</source>
+      </segment>
+    </unit>
+    <unit id="congratulationMsg2">
+      <notes>
+        <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
+      </notes>
+      <segment>
+        <source>You got <ph id="0" equiv="ICU" disp="t {data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers"/> from a total of <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/> questions.</source>
       </segment>
     </unit>
     <unit id="tabPrograms">

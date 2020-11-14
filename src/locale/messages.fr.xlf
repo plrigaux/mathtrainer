@@ -77,13 +77,22 @@
         <target state="initial">Essaie encore</target>
       </segment>
     </unit>
-    <unit id="congratulationMsg">
+    <unit id="6804990303797863301">
       <notes>
         <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
       </notes>
       <segment state="final">
-        <source>You got <ph id="0" equiv="INTERPOLATION" disp="t {{data.right"/> good answers from a total of <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/>.</source>
-        <target>Tu as eu <ph id="0" equiv="INTERPOLATION" disp="t {{data.right"/> bonnes réponses sur un total de <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/> questions.</target>
+        <source>{VAR_PLURAL, plural, =0 {ZERO good answer} =1 {one good answer} other {<ph id="0" equiv="INTERPOLATION"/> good answers}}</source>
+        <target>{VAR_PLURAL, plural, =0 {ZERO bonne réponse} =1 {une bonne réponse} other {<ph id="0" equiv="INTERPOLATION"/> bonnes réponses}}</target>
+      </segment>
+    </unit>
+    <unit id="congratulationMsg2">
+      <notes>
+        <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
+      </notes>
+      <segment state="final">
+        <source>You got <ph id="0" equiv="ICU" disp="t {data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers"/> from a total of <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/> questions.</source>
+        <target>Tu as <ph id="0" equiv="ICU" disp="t {data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers"/> sur un total de <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/> questions.</target>
       </segment>
     </unit>
     <unit id="tabPrograms">

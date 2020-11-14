@@ -1,7 +1,7 @@
 <h1>{{congratulationMsg}}</h1>
 
-<mat-dialog-content i18n="@@congratulationMsg">You got {{data.right}} good answers from a total of {{data.total}}.</mat-dialog-content>
-
+<mat-dialog-content i18n="@@congratulationMsg2">You got {data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers}} from a total of {{data.total}} questions.</mat-dialog-content>
+<!-- from a total of {{data.total}} questions. -->
 <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
 </mat-dialog-actions>

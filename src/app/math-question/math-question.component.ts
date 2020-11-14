@@ -37,11 +37,11 @@ export class MathQuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.debug(this.log("QID " + this.questionId));
+    console.debug(this.log("QID " + this.id));
   }
 
-  get name(): string {
-    return "mqid_" + this.questionId
+  get id(): string {
+    return "mq" + this.questionId
   }
 
   get problem() {
@@ -199,7 +199,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   focus() {
-    console.debug(this.log(`focus  ${this.name} `));
+    console.debug(this.log(`focus  ${this.id} `));
     console.debug(this.log(this.columnAnswerComponent));
     //this.inFocus = true;
     setTimeout(() => {
@@ -214,7 +214,7 @@ export class MathQuestionComponent implements OnInit {
   private informParent(forceExit: boolean, isParentCanValidate: boolean) {
     let notification: MathQuestionNotifier = {
       status: this.status,
-      id: this.questionId.toString(),
+      id: this.id,
       index: this.questionId,
       forceExitFocus: forceExit,
       isParentCanValidate: isParentCanValidate
