@@ -18,48 +18,35 @@
 }
 
 @mixin math-question-theme($theme) {
-    // Extract the palettes you need from the theme definition.
-    $primary: map-get($theme, primary);
-    $accent: map-get($theme, accent);
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
 
-    .mathQuestion {
-        border-color: mat-color($accent);
-    }
+  .mathQuestion {
+    border-color: mat-color($accent);
+  }
 }
 
 @each $thclass, $th in $all_themes {
   @if $thclass == "" {
-      @include math-question-theme($th);
+    @include math-question-theme($th);
   } @else {
-      :host-context(.#{$thclass}) {
-          @include math-question-theme($th);
-      }
+    :host-context(.#{$thclass}) {
+      @include math-question-theme($th);
+    }
   }
 }
 
-
-.flexbox-parent {
-  //@include display-flex;
-  //background: #FFD54F;
-  overflow: hidden;
-  width: 100%;
-  padding: 3px;
-  min-height: 550px;
-  max-height: 1000px;
-  justify-content: center;
-  align-items: baseline;
+.main-div {
+  //height: 100vh;
+  display: flex;
+  //justify-content: center;
+  align-items: top;
 }
 
 .center {
-  width: 75%;
+  //width: 75%;
   margin: 10px auto;
-}
-
-.main-div {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 input {
@@ -69,7 +56,7 @@ input {
   width: 4em;
 }
 
-.number{
+.number {
   line-height: calc(var(--equationFontSize) * 1.25);
   //vertical-align: middle;
 }
@@ -103,16 +90,22 @@ input {
   overflow: hidden;
 }
 
-.equation :not(:first-child) { //avoid the margin left when stacked
+.equation :not(:first-child) {
+  //avoid the margin left when stacked
   margin-left: 0.5em;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .progressBar {
   margin-bottom: 1em;
+}
+
+.results th + th,
+.results td + td {
+  padding-left: 1em;
 }

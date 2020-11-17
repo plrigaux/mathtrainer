@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ConfigService, ConfigServiceInfo } from '../services/config.service'
 import { WorkTask } from './worktask'
 import { MathGenerator } from '../math-generator/mathGenerator'
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 
 enum WorkoutStatus {
   Begin,
@@ -33,17 +33,22 @@ export class WorkoutPanelComponent implements OnInit {
   constructor(private configService: ConfigService,
     breakpointObserver: BreakpointObserver) {
     breakpointObserver.observe([
-      Breakpoints.XSmall
-    ]).subscribe(result => {
-      if (result.matches) {
-        this.activateXSmallLayout();
+      Breakpoints.XSmall,
+      /*      Breakpoints.Small,
+            Breakpoints.Medium,
+            Breakpoints.Large,*/
+      Breakpoints.XLarge
+    ]).subscribe((result: BreakpointState) => {
+  
+      if (result.breakpoints[Breakpoints.XSmall]) {
+        document.documentElement.style.setProperty("--equationFontSize", "24px");
+      }
+
+      if (result.breakpoints[Breakpoints.XLarge]) {
+
+        document.documentElement.style.setProperty("--equationFontSize", "48px");
       }
     });
-  }
-
-  activateXSmallLayout(): void {
-    console.log("activateXSmallLayout")
-    document.documentElement.style.setProperty("--equationFontSize", "24px");
   }
 
   ngOnInit(): void {

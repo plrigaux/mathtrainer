@@ -1,13 +1,13 @@
-<app-progress-bar [totalCount]="totalCount" [progressCount]="index" ></app-progress-bar>
+<app-progress-bar [totalCount]="totalCount" [progressCount]="index"></app-progress-bar>
 <div class="main-div">
-
-  <mat-card class="z-depth center">
+  <mat-card class="center">
     <div class="progressBar">
-      <mat-card-title *ngIf="tasks && index < tasks.length">
+      <mat-card-title *ngIf="tasks && index < tasks.length" i18n="@@progressionMessage">
         {{index + 1}} of {{tasks.length}}
       </mat-card-title>
     </div>
-    <button mat-raised-button color="accent" *ngIf="status == WorkoutStatusEnum.Begin" (click)="start()">Start!</button>
+    <button mat-raised-button color="accent" *ngIf="status == WorkoutStatusEnum.Begin" (click)="start()"
+      i18n="@@startButton">Start</button>
     <div class="mathQuestion" *ngIf="status == WorkoutStatusEnum.Work">
       <span [ngClass]="{'equation':true, 'stacked': stacked}">
         <ng-template ngFor let-num [ngForOf]="currentTask.values" let-i="index" let-last="last">
@@ -20,15 +20,15 @@
       </span>
     </div>
     <div *ngIf="status == WorkoutStatusEnum.Finish">
-      Finish!<br />
-      <table>
+      <mat-card-title i18n="finished">Finished</mat-card-title>
+      <table class="results">
         <thead>
           <tr>
             <th>No</th>
-            <th>equation</th>
-            <th>answer</th>
-            <th>time</th>
-            <th>mistakes</th>
+            <th>Equation</th>
+            <th>Answer</th>
+            <th>Time</th>
+            <th>Mistakes</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +41,9 @@
           </tr>
         </tbody>
       </table>
-      <button mat-raised-button color="accent" (click)="start()">Start!</button>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="start()" i18n="@@startAgainButton">Start again</button>
+      </mat-card-actions>
     </div>
   </mat-card>
 </div>

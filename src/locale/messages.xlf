@@ -47,7 +47,7 @@
     </unit>
     <unit id="excellent">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:294</note>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:302</note>
       </notes>
       <segment>
         <source>Excellent</source>
@@ -55,7 +55,7 @@
     </unit>
     <unit id="good">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:296</note>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:304</note>
       </notes>
       <segment>
         <source>Good</source>
@@ -63,7 +63,7 @@
     </unit>
     <unit id="resultTryAgain">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:298</note>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:306</note>
       </notes>
       <segment>
         <source>Try again</source>
@@ -83,6 +83,39 @@
       </notes>
       <segment>
         <source>You got <ph id="0" equiv="ICU" disp="t {data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers"/> from a total of <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/> questions.</source>
+      </segment>
+    </unit>
+    <unit id="progressionMessage">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:5,7</note>
+      </notes>
+      <segment>
+        <source> <ph id="0" equiv="INTERPOLATION" disp="        {{ind"/> of <ph id="1" equiv="INTERPOLATION_1" disp=" 1}} of {{tasks."/> </source>
+      </segment>
+    </unit>
+    <unit id="startButton">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:10</note>
+      </notes>
+      <segment>
+        <source>Start</source>
+      </segment>
+    </unit>
+    <unit id="340430316261570792">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:23</note>
+        <note category="description">finished</note>
+      </notes>
+      <segment>
+        <source>Finished</source>
+      </segment>
+    </unit>
+    <unit id="startAgainButton">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:45</note>
+      </notes>
+      <segment>
+        <source>Start again</source>
       </segment>
     </unit>
     <unit id="tabPrograms">
