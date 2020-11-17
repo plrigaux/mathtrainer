@@ -110,6 +110,46 @@
         <source>Finished</source>
       </segment>
     </unit>
+    <unit id="resultNo">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:27</note>
+      </notes>
+      <segment>
+        <source>No</source>
+      </segment>
+    </unit>
+    <unit id="resultEquation">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:28</note>
+      </notes>
+      <segment>
+        <source>Equation</source>
+      </segment>
+    </unit>
+    <unit id="resultAnswer">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:29</note>
+      </notes>
+      <segment>
+        <source>Answer</source>
+      </segment>
+    </unit>
+    <unit id="resultTime">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:30</note>
+      </notes>
+      <segment>
+        <source>Time</source>
+      </segment>
+    </unit>
+    <unit id="resultMistakes">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:31</note>
+      </notes>
+      <segment>
+        <source>Mistakes</source>
+      </segment>
+    </unit>
     <unit id="startAgainButton">
       <notes>
         <note category="location">src/app/workout-panel/workout-panel.component.html:45</note>

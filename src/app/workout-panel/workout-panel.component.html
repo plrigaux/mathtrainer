@@ -2,8 +2,7 @@
 <div class="main-div">
   <mat-card class="center">
     <div class="progressBar">
-      <mat-card-title *ngIf="tasks && index < tasks.length" i18n="@@progressionMessage">
-        {{index + 1}} of {{tasks.length}}
+      <mat-card-title *ngIf="tasks && index < tasks.length">{{index + 1}}<ng-container i18n="@@progressionMessage"> of </ng-container>{{tasks.length}}
       </mat-card-title>
     </div>
     <button mat-raised-button color="accent" *ngIf="status == WorkoutStatusEnum.Begin" (click)="start()"
@@ -20,15 +19,15 @@
       </span>
     </div>
     <div *ngIf="status == WorkoutStatusEnum.Finish">
-      <mat-card-title i18n="finished">Finished</mat-card-title>
+      <mat-card-title i18n="@@finished">Finished</mat-card-title>
       <table class="results">
         <thead>
           <tr>
-            <th>No</th>
-            <th>Equation</th>
-            <th>Answer</th>
-            <th>Time</th>
-            <th>Mistakes</th>
+            <th i18n="@@resultNo"></th>
+            <th i18n="@@resultEquation">Equation</th>
+            <th i18n="@@resultAnswer">Answer</th>
+            <th i18n="@@resultTime">Time</th>
+            <th i18n="@@resultMistakes">Mistakes</th>
           </tr>
         </thead>
         <tbody>

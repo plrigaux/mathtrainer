@@ -99,8 +99,8 @@
       <notes>
         <note category="location">src/app/workout-panel/workout-panel.component.html:5,7</note>
       </notes>
-      <segment state="initial">
-        <source> <ph id="0" equiv="INTERPOLATION" disp="{{ind"/> of <ph id="1" equiv="INTERPOLATION_1" disp=" 1}} of {{tasks."/> </source>
+      <segment state="final">
+        <source> <ph id="0" equiv="INTERPOLATION" disp="        {{ind"/> of <ph id="1" equiv="INTERPOLATION_1" disp=" 1}} of {{tasks."/> </source>
         <target> <ph id="0" equiv="INTERPOLATION" disp="{{ind"/> of <ph id="1" equiv="INTERPOLATION_1" disp=" 1}} de {{tasks."/> </target>
       </segment>
     </unit>
@@ -113,7 +113,7 @@
         <target>Démarrer</target>
       </segment>
     </unit>
-    <unit id="340430316261570792">
+    <unit id="finished">
       <notes>
         <note category="location">src/app/workout-panel/workout-panel.component.html:23</note>
         <note category="description">finished</note>
@@ -121,6 +121,51 @@
       <segment state="final">
         <source>Finished</source>
         <target>Terminé</target>
+      </segment>
+    </unit>
+    <unit id="resultNo">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:27</note>
+      </notes>
+      <segment state="final">
+        <source>No</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="resultEquation">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:28</note>
+      </notes>
+      <segment state="final">
+        <source>Equation</source>
+        <target>Équation</target>
+      </segment>
+    </unit>
+    <unit id="resultAnswer">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:29</note>
+      </notes>
+      <segment state="final">
+        <source>Answer</source>
+        <target>Réponse</target>
+      </segment>
+    </unit>
+    <unit id="resultTime">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:30</note>
+      </notes>
+      <segment state="final">
+        <source>Time</source>
+        <target>Temps</target>
+      </segment>
+    </unit>
+    <unit id="resultMistakes">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:31</note>
+      </notes>
+      <segment state="final">
+        <source>Mistakes</source>
+        <target>Erreurs</target>
       </segment>
     </unit>
     <unit id="startAgainButton">
