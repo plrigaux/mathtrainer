@@ -45,7 +45,6 @@ export class WorkoutPanelComponent implements OnInit {
       }
 
       if (result.breakpoints[Breakpoints.XLarge]) {
-
         document.documentElement.style.setProperty("--equationFontSize", "48px");
       }
     });
@@ -56,12 +55,8 @@ export class WorkoutPanelComponent implements OnInit {
       (cfsi: ConfigServiceInfo) => {
         this.config = cfsi.config;
         this.stacked = this.config.orientation == "VERTICAL";
-        if (cfsi.needReset) {
-          //this.reset();
-        }
       }
-    )
-    );
+    ));
     this.userInput = ""
     this.status = WorkoutStatus.Begin;
   }
@@ -133,5 +128,15 @@ export class WorkoutPanelComponent implements OnInit {
 
   get totalCount() {
     return this.tasks?.length;
+  }
+
+  updateNumberOfQuestions(nbQuestions : number) {
+    if (nbQuestions > 0) {
+      let diff = this.config.nbQuestions != nbQuestions;
+      this.config.nbQuestions = nbQuestions;
+      if (diff) {
+        this.configService.next(this.config, false)
+      }
+    }
   }
 }

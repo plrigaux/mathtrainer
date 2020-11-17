@@ -2,11 +2,18 @@
 <div class="main-div">
   <mat-card class="center">
     <div class="progressBar">
-      <mat-card-title *ngIf="tasks && index < tasks.length">{{index + 1}}<ng-container i18n="@@progressionMessage"> of </ng-container>{{tasks.length}}
+      <mat-card-title *ngIf="tasks && index < tasks.length">{{index + 1}}<ng-container i18n="@@progressionMessage"> of
+        </ng-container>{{tasks.length}}
       </mat-card-title>
     </div>
-    <button mat-raised-button color="accent" *ngIf="status == WorkoutStatusEnum.Begin" (click)="start()"
-      i18n="@@startButton">Start</button>
+    <div *ngIf="status == WorkoutStatusEnum.Begin">
+      <button mat-raised-button color="accent" (click)="start()"
+        i18n="@@startButton">Start</button>
+      <mat-form-field appearance="outline">
+        <mat-label i18n="@@Number of questions">Number of questions</mat-label>
+        <input matInput type="number" [ngModel]="config.nbQuestions" (ngModelChange)="updateNumberOfQuestions($event)">
+      </mat-form-field>
+    </div>
     <div class="mathQuestion" *ngIf="status == WorkoutStatusEnum.Work">
       <span [ngClass]="{'equation':true, 'stacked': stacked}">
         <ng-template ngFor let-num [ngForOf]="currentTask.values" let-i="index" let-last="last">
@@ -14,7 +21,8 @@
           <span *ngIf="last==false" class="operator">{{currentTask.operator}}</span>
         </ng-template>
         <span class="equals">=</span>
-        <input #answerField [(ngModel)]="userInput" autofocus="autofocus" autocomplete="off" placeholder="?"
+        <input #answerField class="answerField" [(ngModel)]="userInput" autofocus="autofocus" autocomplete="off"
+          placeholder="?"
           (keypress)="typeKey($event)" (keyup)="check($event)" type="number" autofocus />
       </span>
     </div>
@@ -42,6 +50,11 @@
       </table>
       <mat-card-actions>
         <button mat-raised-button color="accent" (click)="start()" i18n="@@startAgainButton">Start again</button>
+        <mat-form-field appearance="outline">
+          <mat-label i18n="@@Number of questions">Number of questions</mat-label>
+          <input matInput type="number" [ngModel]="config.nbQuestions"
+            (ngModelChange)="updateNumberOfQuestions($event)">
+        </mat-form-field>
       </mat-card-actions>
     </div>
   </mat-card>

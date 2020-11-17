@@ -87,40 +87,41 @@
     </unit>
     <unit id="progressionMessage">
       <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:5,7</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:5,6</note>
       </notes>
       <segment>
-        <source> <ph id="0" equiv="INTERPOLATION" disp="        {{ind"/> of <ph id="1" equiv="INTERPOLATION_1" disp=" 1}} of {{tasks."/> </source>
+        <source> of </source>
       </segment>
     </unit>
     <unit id="startButton">
       <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:10</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:11</note>
       </notes>
       <segment>
         <source>Start</source>
       </segment>
     </unit>
-    <unit id="340430316261570792">
+    <unit id="Number of questions">
       <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:23</note>
-        <note category="description">finished</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:13</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:54</note>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:2</note>
+      </notes>
+      <segment>
+        <source>Number of questions</source>
+      </segment>
+    </unit>
+    <unit id="finished">
+      <notes>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:30</note>
       </notes>
       <segment>
         <source>Finished</source>
       </segment>
     </unit>
-    <unit id="resultNo">
-      <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:27</note>
-      </notes>
-      <segment>
-        <source>No</source>
-      </segment>
-    </unit>
     <unit id="resultEquation">
       <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:28</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:35</note>
       </notes>
       <segment>
         <source>Equation</source>
@@ -128,7 +129,7 @@
     </unit>
     <unit id="resultAnswer">
       <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:29</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:36</note>
       </notes>
       <segment>
         <source>Answer</source>
@@ -136,7 +137,7 @@
     </unit>
     <unit id="resultTime">
       <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:30</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:37</note>
       </notes>
       <segment>
         <source>Time</source>
@@ -144,7 +145,7 @@
     </unit>
     <unit id="resultMistakes">
       <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:31</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:38</note>
       </notes>
       <segment>
         <source>Mistakes</source>
@@ -152,7 +153,7 @@
     </unit>
     <unit id="startAgainButton">
       <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:45</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:52</note>
       </notes>
       <segment>
         <source>Start again</source>
@@ -231,14 +232,6 @@
       </notes>
       <segment>
         <source>Multiplication</source>
-      </segment>
-    </unit>
-    <unit id="Number of questions">
-      <notes>
-        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:2</note>
-      </notes>
-      <segment>
-        <source>Number of questions</source>
       </segment>
     </unit>
     <unit id="Problems">
