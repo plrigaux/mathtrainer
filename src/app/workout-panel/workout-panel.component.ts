@@ -1,10 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Config } from '../services/config';
 import { Subscription } from 'rxjs';
 import { ConfigService, ConfigServiceInfo } from '../services/config.service'
-import { WorkTask  } from './worktask'
+import { WorkTask } from './worktask'
 import { MathGenerator } from '../math-generator/mathGenerator'
-
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 enum WorkoutStatus {
   Begin,
@@ -18,7 +18,7 @@ enum WorkoutStatus {
   styleUrls: ['./workout-panel.component.scss']
 })
 export class WorkoutPanelComponent implements OnInit {
-  @ViewChild('answerField') answerField: ElementRef; 
+  @ViewChild('answerField') answerField: ElementRef;
 
   config: Config;
   stacked: boolean;
@@ -30,11 +30,25 @@ export class WorkoutPanelComponent implements OnInit {
   WorkoutStatusEnum = WorkoutStatus;
   status: WorkoutStatus;
 
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService,
+    breakpointObserver: BreakpointObserver) {
+    breakpointObserver.observe([
+      Breakpoints.XSmall
+    ]).subscribe(result => {
+      if (result.matches) {
+        this.activateXSmallLayout();
+      }
+    });
+  }
+
+  activateXSmallLayout(): void {
+    console.log("activateXSmallLayout")
+    document.documentElement.style.setProperty("--equationFontSize", "24px");
+  }
 
   ngOnInit(): void {
     this.myEventSubscriptions.push(this.configService.subscribe(
-      (cfsi : ConfigServiceInfo) => {
+      (cfsi: ConfigServiceInfo) => {
         this.config = cfsi.config;
         this.stacked = this.config.orientation == "VERTICAL";
         if (cfsi.needReset) {
@@ -93,7 +107,7 @@ export class WorkoutPanelComponent implements OnInit {
     }
   }
 
-  start()  : void {
+  start(): void {
     this.initTasks();
     this.index = 0;
     this.status = WorkoutStatus.Work;
@@ -102,15 +116,15 @@ export class WorkoutPanelComponent implements OnInit {
     this.setFocus();
   }
 
-  setCurrentTask() : void {
+  setCurrentTask(): void {
     this.currentTask = this.tasks[this.index];
     this.userInput = "";
     this.currentTask.setStartTime();
   }
 
-  setFocus() { 
-    setTimeout(() => this.answerField.nativeElement.focus()); 
-  } 
+  setFocus() {
+    setTimeout(() => this.answerField.nativeElement.focus());
+  }
 
   get totalCount() {
     return this.tasks?.length;

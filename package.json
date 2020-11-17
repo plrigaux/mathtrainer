@@ -12,7 +12,10 @@
     "start:en": "ng serve --configuration=en-US",
     "extract": "ng extract-i18n --output-path=src/locale --format=xlf2 --ivy",
     "extract-merge": "npm run extract && npm run merge",
-    "merge": "xliffmerge --profile xliffmerge.json fr"
+    "merge": "xliffmerge --profile xliffmerge.json fr",
+    "build4git": "ng build --prod --base-href https://plrigaux.github.io/mathtrainer",
+    "deploy4git": "npx angular-cli-ghpages -d dist/mathtrainer",
+    "fulldeploy": "npm run build4git && npm run deploy4git"
   },
   "private": true,
   "dependencies": {

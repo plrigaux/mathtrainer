@@ -1,12 +1,11 @@
 <app-progress-bar [totalCount]="totalCount" [progressCount]="index" ></app-progress-bar>
 <div class="main-div">
 
-  <mat-card class="z-depth center" flex="50">
+  <mat-card class="z-depth center">
     <div class="progressBar">
-      
-      <div *ngIf="tasks && index < tasks.length">
+      <mat-card-title *ngIf="tasks && index < tasks.length">
         {{index + 1}} of {{tasks.length}}
-      </div>
+      </mat-card-title>
     </div>
     <button mat-raised-button color="accent" *ngIf="status == WorkoutStatusEnum.Begin" (click)="start()">Start!</button>
     <div class="mathQuestion" *ngIf="status == WorkoutStatusEnum.Work">

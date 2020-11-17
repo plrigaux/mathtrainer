@@ -1,7 +1,21 @@
 @import "~@angular/material/theming";
 @import "../../assets/styles/themes_variables.scss";
 
-$equation-font-size: 48px;
+//$equation-font-size: 48px;
+
+::ng-deep :root {
+  --equationFontSize: 48px;
+}
+
+.mathQuestion {
+  border-width: 2px;
+  border-style: solid;
+  margin: 0.5em;
+  padding: 1em;
+  border-radius: 15px;
+  font-size: var(--equationFontSize);
+  width: fit-content;
+}
 
 @mixin math-question-theme($theme) {
     // Extract the palettes you need from the theme definition.
@@ -9,14 +23,7 @@ $equation-font-size: 48px;
     $accent: map-get($theme, accent);
 
     .mathQuestion {
-        border-width: 2px;
-        border-style: solid;
         border-color: mat-color($accent);
-        margin: 0.5em;
-        padding: 1em;
-        border-radius: 15px;
-        font-size: $equation-font-size;
-        width: fit-content;
     }
 }
 
@@ -56,14 +63,14 @@ $equation-font-size: 48px;
 }
 
 input {
-  font-size: $equation-font-size;
+  font-size: var(--equationFontSize);
   text-align: right;
   margin-top: 5px;
   width: 4em;
 }
 
 .number{
-  line-height: $equation-font-size * 1.25;
+  line-height: calc(var(--equationFontSize) * 1.25);
   //vertical-align: middle;
 }
 
