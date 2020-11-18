@@ -268,6 +268,119 @@
         <source>Division</source>
       </segment>
     </unit>
+    <unit id="addSingleDigitNumberNoCarry">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:14</note>
+      </notes>
+      <segment>
+        <source>Add Single Digit Number NoCarry</source>
+      </segment>
+    </unit>
+    <unit id="addTowSingleDigitNumberSum10orLess">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:19</note>
+      </notes>
+      <segment>
+        <source>Adding two single-digit numbers - sum 10 or less</source>
+      </segment>
+    </unit>
+    <unit id="addSingleDigitNumber">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:24</note>
+      </notes>
+      <segment>
+        <source>Add Single Digit Number</source>
+      </segment>
+    </unit>
+    <unit id="addDoubleDigitWithSingleDigitNumberNoCarry">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:29</note>
+      </notes>
+      <segment>
+        <source>Add a 2-digit number and a 1-digit number mentally - within the same ten</source>
+      </segment>
+    </unit>
+    <unit id="addTowDoubleDigitNumbersNoCarry">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:35</note>
+      </notes>
+      <segment>
+        <source>Add a 2-digit number and a 1-digit number in columns</source>
+      </segment>
+    </unit>
+    <unit id="addTowDigitNumberWithTowDigitNumberWithCarry">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:41</note>
+      </notes>
+      <segment>
+        <source>Add a 2 digit number with a 2 digit number with carry</source>
+      </segment>
+    </unit>
+    <unit id="addTwoNumbersAnswerBellow20">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:46</note>
+      </notes>
+      <segment>
+        <source>Add Two Numbers Answer Bellow 20</source>
+      </segment>
+    </unit>
+    <unit id="subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:51</note>
+      </notes>
+      <segment>
+        <source>Subtraction facts - numbers up to 10</source>
+      </segment>
+    </unit>
+    <unit id="subtractAnswerbelow10">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:56</note>
+      </notes>
+      <segment>
+        <source>Subtraction facts - answer below 10</source>
+      </segment>
+    </unit>
+    <unit id="subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:61</note>
+      </notes>
+      <segment>
+        <source>Subtract a one-digit number from a two-digit number - without regrouping</source>
+      </segment>
+    </unit>
+    <unit id="4706265683875413623">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:66</note>
+      </notes>
+      <segment>
+        <source>Subtract multiples of 10</source>
+      </segment>
+    </unit>
+    <unit id="subtractOneDigitNumberFromTwoDigitNumberWithRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:71</note>
+      </notes>
+      <segment>
+        <source>Subtract a one-digit number from a two-digit number - with regrouping</source>
+      </segment>
+    </unit>
+    <unit id="subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:76</note>
+      </notes>
+      <segment>
+        <source>Subtract two two-digit numbers - without regrouping</source>
+      </segment>
+    </unit>
+    <unit id="subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:81</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:86</note>
+      </notes>
+      <segment>
+        <source>Subtract two two-digit numbers - with regrouping</source>
+      </segment>
+    </unit>
     <unit id="Multiply_2_single_digits">
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:91</note>

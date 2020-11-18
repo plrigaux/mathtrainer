@@ -11,79 +11,79 @@ export class WorksheetsMap {
     private index : number = 0
     private values : WorksheetsItem[] = [
         this.generateMapItem(
-            "Add Single Digit Number NoCarry",
+            $localize `:@@addSingleDigitNumberNoCarry:Add Single Digit Number NoCarry`,
             Worksheets.addSingleDigitNumberNoCarry,
             MathProblemTypes.ADDITION
         ),
         this.generateMapItem(
-            "Adding two single-digit numbers - sum 10 or less",
+            $localize `:@@addTowSingleDigitNumberSum10orLess:Adding two single-digit numbers - sum 10 or less`,
             Worksheets.addTowSingleDigitNumberSum10orLess,
             MathProblemTypes.ADDITION
         ),
         this.generateMapItem(
-            "Add Single Digit Number",
+            $localize `:@@addSingleDigitNumber:Add Single Digit Number`,
             Worksheets.addSingleDigitNumber,
             MathProblemTypes.ADDITION
         ),
         this.generateMapItem(
-            "Add a 2-digit number and a 1-digit number mentally - within the same ten",
+            $localize `:@@addDoubleDigitWithSingleDigitNumberNoCarry:Add a 2-digit number and a 1-digit number mentally - within the same ten`,
             Worksheets.addDoubleDigitWithSingleDigitNumberNoCarry,
             MathProblemTypes.ADDITION
 
         ),
         this.generateMapItem(
-            "Add a 2-digit number and a 1-digit number in columns",
+            $localize `:@@addTowDoubleDigitNumbersNoCarry:Add a 2-digit number and a 1-digit number in columns`,
             Worksheets.addTowDoubleDigitNumbersNoCarry,
             MathProblemTypes.ADDITION
 
         ),
         this.generateMapItem(
-            "Add a 2 digit number with a 2 digit number with carry",
+            $localize `:@@addTowDigitNumberWithTowDigitNumberWithCarry:Add a 2 digit number with a 2 digit number with carry`,
             Worksheets.addTowDigitNumberWithTowDigitNumberWithCarry,
             MathProblemTypes.ADDITION
         ),
         this.generateMapItem(
-            "Add Two Numbers Answer Bellow 20",
+            $localize `:@@addTwoNumbersAnswerBellow20:Add Two Numbers Answer Bellow 20`,
             Worksheets.addTwoNumbersAnswerBellow20,
             MathProblemTypes.ADDITION
         ),
         this.generateMapItem(
-            "Subtraction facts - numbers up to 10",
+            $localize `:@@subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping:Subtraction facts - numbers up to 10`,
             Worksheets.subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping,
             MathProblemTypes.SUBTRACTION
         ),
         this.generateMapItem(
-            "Subtraction facts - answer below 10",
+            $localize `:@@subtractAnswerbelow10:Subtraction facts - answer below 10`,
             Worksheets.subtractAnswerbelow10,
             MathProblemTypes.SUBTRACTION
         ),
         this.generateMapItem(
-            "Subtract a one-digit number from a two-digit number - without regrouping",
+            $localize `:@@subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping:Subtract a one-digit number from a two-digit number - without regrouping`,
             Worksheets.subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping,
             MathProblemTypes.SUBTRACTION
         ),
         this.generateMapItem(
-            "Subtract multiples of 10",
+            $localize `:@@:Subtract multiples of 10`,
             Worksheets.subtractMultiplesOf10,
             MathProblemTypes.SUBTRACTION
         ),
         this.generateMapItem(
-            "Subtract a one-digit number from a two-digit number - with regrouping",
+            $localize `:@@subtractOneDigitNumberFromTwoDigitNumberWithRegrouping:Subtract a one-digit number from a two-digit number - with regrouping`,
             Worksheets.subtractOneDigitNumberFromTwoDigitNumberWithRegrouping,
             MathProblemTypes.SUBTRACTION
         ),
         this.generateMapItem(
-            "Subtract two two-digit numbers - without regrouping",
+            $localize `:@@subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping:Subtract two two-digit numbers - without regrouping`,
             Worksheets.subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping,
             MathProblemTypes.SUBTRACTION
         ),
         this.generateMapItem(
-            "Subtract two two-digit numbers - with regrouping",
+            $localize `:@@subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping:Subtract two two-digit numbers - with regrouping`,
             Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
             MathProblemTypes.SUBTRACTION
         ),
         this.generateMapItem(
-            "Subtract two two-digit numbers - with regrouping",
+            $localize `:@@subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping:Subtract two two-digit numbers - with regrouping`,
             Worksheets.subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping,
             MathProblemTypes.SUBTRACTION
         ),
