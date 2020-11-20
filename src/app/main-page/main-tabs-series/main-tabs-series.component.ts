@@ -71,7 +71,8 @@ export class MainTabsSeriesComponent implements OnInit {
   }
 
   clear() {
-    //this.params.numbers = [null];
+    this.numberForControl1.setValue("");
+    this.numberForControl2.setValue("");
   }
 
   toDisable(): boolean {
