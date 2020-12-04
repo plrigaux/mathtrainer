@@ -54,7 +54,7 @@
       <notes>
         <note category="location">src/app/problem-panel/problem-panel.component.ts:302</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Excellent</source>
         <target>Excellent</target>
       </segment>
@@ -63,7 +63,7 @@
       <notes>
         <note category="location">src/app/problem-panel/problem-panel.component.ts:304</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Good</source>
         <target>Bien</target>
       </segment>
@@ -198,7 +198,7 @@
       <notes>
         <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:35</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Numbers 1</source>
         <target>Numbers 1</target>
       </segment>
@@ -207,9 +207,9 @@
       <notes>
         <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:42</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Numbers 2</source>
-        <target>Numbers 2</target>
+        <target>Nombre 2</target>
       </segment>
     </unit>
     <unit id="Shuffle">
@@ -304,7 +304,7 @@
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:14</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Add Single Digit Number NoCarry</source>
         <target>Addition de deux nombres à un chiffre sans retenu</target>
       </segment>
@@ -313,7 +313,7 @@
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:19</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Adding two single-digit numbers - sum 10 or less</source>
         <target>Addition de deux nombres à un chiffre dont la sommes est de 10 ou moins</target>
       </segment>
@@ -322,7 +322,7 @@
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:24</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Add Single Digit Number</source>
         <target>Addition de deux nombres à un chiffre</target>
       </segment>
@@ -331,7 +331,7 @@
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:29</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Add a 2-digit number and a 1-digit number mentally - within the same ten</source>
         <target>Addition d'un nombre à deux chiffres avec un nombre à un chiffre - sans retenue</target>
       </segment>
@@ -340,25 +340,25 @@
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:35</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Add a 2-digit number and a 1-digit number in columns</source>
-        <target>Addition d'un nombre à deux chiffres avec un nombre à deux chiffres sans retenue</target>
+        <target>Addition d'un nombre à deux chiffres avec un nombre à deux chiffres - sans retenue</target>
       </segment>
     </unit>
     <unit id="addTowDigitNumberWithTowDigitNumberWithCarry">
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:41</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Add a 2 digit number with a 2 digit number with carry</source>
-        <target>Addition d'un nombre à deux chiffres avec un nombre à un chiffre avec retenue</target>
+        <target>Addition d'un nombre à deux chiffres avec un nombre à un chiffre - avec retenue</target>
       </segment>
     </unit>
     <unit id="addTwoNumbersAnswerBellow20">
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:46</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Add Two Numbers Answer Bellow 20</source>
         <target>Addition de deux nombre dont la réponse est en desous de 20</target>
       </segment>
@@ -367,54 +367,54 @@
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:51</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Subtraction facts - numbers up to 10</source>
-        <target>Subtraction facts - numbers up to 10</target>
+        <target>Soustaction de nombres jusqu'à 10</target>
       </segment>
     </unit>
     <unit id="subtractAnswerbelow10">
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:56</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Subtraction facts - answer below 10</source>
-        <target>Subtraction facts - answer below 10</target>
+        <target>Soustaction dont la réponse est en dessous de 10</target>
       </segment>
     </unit>
     <unit id="subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping">
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:61</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Subtract a one-digit number from a two-digit number - without regrouping</source>
-        <target>Subtract a one-digit number from a two-digit number - without regrouping</target>
+        <target>Soustraction de nombre à un chiffre d'un nombre à deux chiffres - sans emprunt</target>
       </segment>
     </unit>
     <unit id="4706265683875413623">
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:66</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Subtract multiples of 10</source>
-        <target>Subtract multiples of 10</target>
+        <target>Soustraction de multiples de 10</target>
       </segment>
     </unit>
     <unit id="subtractOneDigitNumberFromTwoDigitNumberWithRegrouping">
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:71</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Subtract a one-digit number from a two-digit number - with regrouping</source>
-        <target>Subtract a one-digit number from a two-digit number - with regrouping</target>
+        <target>Soustraction de nombre à un chiffre d'un nombre à deux chiffres - avec emprunt</target>
       </segment>
     </unit>
     <unit id="subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping">
       <notes>
         <note category="location">src/app/math-generator/worksheetsMap.ts:76</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Subtract two two-digit numbers - without regrouping</source>
-        <target>Subtract two two-digit numbers - without regrouping</target>
+        <target>Soustraction de deux nombres à deux chiffres - sans emprunt</target>
       </segment>
     </unit>
     <unit id="subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping">
@@ -422,9 +422,9 @@
         <note category="location">src/app/math-generator/worksheetsMap.ts:81</note>
         <note category="location">src/app/math-generator/worksheetsMap.ts:86</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Subtract two two-digit numbers - with regrouping</source>
-        <target>Subtract two two-digit numbers - with regrouping</target>
+        <target>Soustraction de deux nombres à deux chiffres - avec emprunt</target>
       </segment>
     </unit>
     <unit id="Multiply_2_single_digits">
