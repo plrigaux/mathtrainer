@@ -7,12 +7,20 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+
+    <mat-chip-list aria-label="operations">
+        <mat-chip *ngFor="let problemType of problemTypes" [selectable]="selectable"
+                 [removable]="removable" (removed)="remove(problemType)">
+          {{mathProblemTypesMap[problemType].name}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
 </section>
 
-<section *ngFor="let mpa of mathProplemActions()">
-    <h1 class="sectionHeader">{{mpa.name}}</h1>
+<section *ngFor="let worksheetsItemPerOperation of operationToDisplay()">
+    <h1 class="sectionHeader">{{worksheetsItemPerOperation.mathProblemTypesData.name}}</h1>
     <ul>
-        <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterOperation : mpa">
+        <li *ngFor="let worksheetsItem of worksheetsItemPerOperation.exercises">
             <mat-checkbox [checked]="isSelected(worksheetsItem)"
                 (change)="checkboxChange($event.checked, worksheetsItem)">
                 {{worksheetsItem.label}}</mat-checkbox>

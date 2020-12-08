@@ -8,7 +8,12 @@ import { Subscription } from 'rxjs';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { WorksheetsItem } from '../../math-generator/worksheetsDefinitions'
 import { ButtonPushed, ButtonPushedStatus } from '../main-buttons/main-buttons.component'
-import { MATHProplemActions, MathProblemTypesData } from '../../math-generator/mathProblemTypes'
+import { MATHProplemActions, MathProblemTypesMap, MathProblemTypesData } from '../../math-generator/mathProblemTypes'
+
+export interface WorksheetsItemPerOperation {
+  exercises: WorksheetsItem[];
+  mathProblemTypesData: MathProblemTypesData;
+}
 
 @Component({
   selector: 'app-main-tabs-programs',
@@ -17,19 +22,41 @@ import { MATHProplemActions, MathProblemTypesData } from '../../math-generator/m
 })
 export class MainTabsProgramsComponent implements OnInit {
   exercises: WorksheetsItem[];
+  worksheetsItemPerOperations: WorksheetsItemPerOperation[] = [];
   private worksheetsItems: Map<string, WorksheetsItem> = new Map();
   config: Config;
   private myEventSubscriptions: Subscription[] = [];
   @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
   selectedTabIndex: number = null;
-  problemTypes : string[] = null;
+  problemTypes: MathProblemTypes[] = null;
+  mathProblemTypesMap: MathProblemTypesMap = MATHProplemActions;
+
 
   constructor(private router: Router, private configService: ConfigService) {
+    this.exercises = WorksheetsMap.getWorksheetsItem();
 
+    let exercicesPerOP: Map<MathProblemTypes, WorksheetsItemPerOperation> = new Map();
+    //Fill map
+    Object.values(MATHProplemActions).forEach(x => exercicesPerOP.set(x.code, {
+      exercises: [],
+      mathProblemTypesData: x
+    }));
+
+    this.exercises.forEach((x: WorksheetsItem) => {
+      let a: WorksheetsItemPerOperation = exercicesPerOP.get(x.mathProblemType);
+      a.exercises.push(x);
+    });
+
+    //clean empty
+    exercicesPerOP.forEach((v: WorksheetsItemPerOperation, k: MathProblemTypes) => {
+      if (v.exercises.length != 0) {
+        this.worksheetsItemPerOperations.push(v);
+      }
+    });
   }
 
   ngOnInit(): void {
-    this.exercises = WorksheetsMap.getWorksheetsItem();
+
 
     this.myEventSubscriptions.push(this.configService.subscribe(
       (cfi: ConfigServiceInfo) => {
@@ -42,8 +69,6 @@ export class MainTabsProgramsComponent implements OnInit {
         });
       }
     ));
-
-
   }
 
   ngOnDestroy(): void {
@@ -71,20 +96,7 @@ export class MainTabsProgramsComponent implements OnInit {
     return this.exercises;
   }
 
-  filterAdditions(item: WorksheetsItem): boolean {
-    return item.mathProblemType === MathProblemTypes.ADDITION
-  }
-
-  filterSubtraction(item: WorksheetsItem): boolean {
-    return item.mathProblemType === MathProblemTypes.SUBTRACTION
-  }
-
-  filterMultiplication(item: WorksheetsItem): boolean {
-    return item.mathProblemType === MathProblemTypes.MULTIPLICATION
-  }
-
-  filterOperation(a : any, b : MathProblemTypesData) {
-
+  filterOperation(a: any, b: MathProblemTypesData) {
     return a.mathProblemType === b.code;
   }
 
@@ -137,5 +149,14 @@ export class MainTabsProgramsComponent implements OnInit {
   mathProplemActions(): MathProblemTypesData[] {
     let val: MathProblemTypesData[] = Object.values(MATHProplemActions);
     return val;
+  }
+
+  operationToDisplay(): WorksheetsItemPerOperation[] {
+
+    if (!this.problemTypes) {
+      return this.worksheetsItemPerOperations
+    } else {
+      return this.worksheetsItemPerOperations.filter(x => this.problemTypes.includes(x.mathProblemTypesData.code))
+    }
   }
 }
