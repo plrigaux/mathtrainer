@@ -1,29 +1,23 @@
-<h1 i18n="@@Addition">Addition</h1>
-<ul>
-    <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterAdditions">
-        <mat-checkbox [checked]="isSelected(worksheetsItem)"
-            (change)="checkboxChange($event.checked, worksheetsItem)">
-            {{worksheetsItem.label}}</mat-checkbox>
-    </li>
-</ul>
+<section>
+    <mat-form-field appearance="fill">
+        <mat-label>Operator</mat-label>
+        <mat-select [(value)]="problemTypes" multiple>
+            <mat-option *ngFor="let mpt of mathProplemActions()" value="{{mpt.code}}">
+                {{mpt.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</section>
 
-<h1 i18n="@@Subtraction">Subtraction</h1>
-
-<ul>
-    <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterSubtraction">
-        <mat-checkbox [checked]="isSelected(worksheetsItem)"
-            (change)="checkboxChange($event.checked, worksheetsItem)">
-            {{worksheetsItem.label}}</mat-checkbox>
-    </li>
-</ul>
-
-<h1 i18n="@@Multiplication">Multiplication</h1>
-<ul>
-    <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterMultiplication">
-        <mat-checkbox [checked]="isSelected(worksheetsItem)"
-            (change)="checkboxChange($event.checked, worksheetsItem)">
-            {{worksheetsItem.label}}</mat-checkbox>
-    </li>
-</ul>
+<section *ngFor="let mpa of mathProplemActions()">
+    <h1 class="sectionHeader">{{mpa.name}}</h1>
+    <ul>
+        <li *ngFor="let worksheetsItem of exercises | arrayFilter: filterOperation : mpa">
+            <mat-checkbox [checked]="isSelected(worksheetsItem)"
+                (change)="checkboxChange($event.checked, worksheetsItem)">
+                {{worksheetsItem.label}}</mat-checkbox>
+        </li>
+    </ul>  
+</section>
 
 <app-main-buttons [nbQuestions]="config.nbQuestions" (pushButtonEvent)="pushedButton($event)"></app-main-buttons>

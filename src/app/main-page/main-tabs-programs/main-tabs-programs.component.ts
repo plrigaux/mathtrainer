@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { WorksheetsItem } from '../../math-generator/worksheetsDefinitions'
 import { ButtonPushed, ButtonPushedStatus } from '../main-buttons/main-buttons.component'
+import { MATHProplemActions, MathProblemTypesData } from '../../math-generator/mathProblemTypes'
 
 @Component({
   selector: 'app-main-tabs-programs',
@@ -21,6 +22,7 @@ export class MainTabsProgramsComponent implements OnInit {
   private myEventSubscriptions: Subscription[] = [];
   @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
   selectedTabIndex: number = null;
+  problemTypes : string[] = null;
 
   constructor(private router: Router, private configService: ConfigService) {
 
@@ -40,6 +42,8 @@ export class MainTabsProgramsComponent implements OnInit {
         });
       }
     ));
+
+
   }
 
   ngOnDestroy(): void {
@@ -77,6 +81,11 @@ export class MainTabsProgramsComponent implements OnInit {
 
   filterMultiplication(item: WorksheetsItem): boolean {
     return item.mathProblemType === MathProblemTypes.MULTIPLICATION
+  }
+
+  filterOperation(a : any, b : MathProblemTypesData) {
+
+    return a.mathProblemType === b.code;
   }
 
   checkboxChange(checked: boolean, item: WorksheetsItem) {
@@ -123,5 +132,10 @@ export class MainTabsProgramsComponent implements OnInit {
         this.unCheckAll();
         break;
     }
+  }
+
+  mathProplemActions(): MathProblemTypesData[] {
+    let val: MathProblemTypesData[] = Object.values(MATHProplemActions);
+    return val;
   }
 }
