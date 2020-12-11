@@ -12,7 +12,8 @@ export interface WorksheetsItem extends WorksheetsItemStore {
     label: string
     func: (parameters : Object) => MathProblem
     mathProblemType: MathProblemTypes,
-    _context?: object
+    _context?: object,
+    grade: number
 }
 
 export interface WorksheetsItemStore {

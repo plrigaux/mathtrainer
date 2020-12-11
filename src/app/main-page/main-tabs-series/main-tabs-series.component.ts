@@ -95,6 +95,7 @@ export class MainTabsSeriesComponent implements OnInit {
       func: Worksheets2.multiplicationTable,
       code: "MultiSeries1",
       funcName: Worksheets2.multiplicationTable.name,
+      grade: 3,
       mathProblemType: MathProblemTypes.MULTIPLICATION,
       parameters: { ...this.params }
     };

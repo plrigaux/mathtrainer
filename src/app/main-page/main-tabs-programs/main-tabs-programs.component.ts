@@ -30,6 +30,7 @@ export class MainTabsProgramsComponent implements OnInit {
   selectedTabIndex: number = null;
   problemTypes: MathProblemTypes[] = null;
   mathProblemTypesMap: MathProblemTypesMap = MATHProplemActions;
+  removable = true;
 
 
   constructor(private router: Router, private configService: ConfigService) {
@@ -56,8 +57,6 @@ export class MainTabsProgramsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     this.myEventSubscriptions.push(this.configService.subscribe(
       (cfi: ConfigServiceInfo) => {
         this.config = cfi.config;
