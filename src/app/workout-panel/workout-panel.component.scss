@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "../../assets/styles/themes_variables.scss";
 
 //$equation-font-size: 48px;
@@ -23,7 +23,7 @@
   $accent: map-get($theme, accent);
 
   .mathQuestion {
-    border-color: mat-color($accent);
+    border-color: mat.get-color-from-palette($accent);
   }
 }
 
@@ -86,7 +86,7 @@ input.answerField {
   height: 0;
   padding-bottom: 3px;
   border-bottom: solid 2px;
-  //border-color: mat-color($primary);
+  //border-color: mat.get-color-from-palette($primary);
   overflow: hidden;
 }
 

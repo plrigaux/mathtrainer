@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 @import "../../assets/styles/themes_variables.scss";
 
 .content {
@@ -59,14 +59,14 @@ input[type="number"] {
     float: left;
 }
 
-//$primary: mat-palette($mat-amber);
+//$primary: mat.define-palette(mat.$amber-palette);
 
 .equation.stacked .equals {
     display: block;
     height: 0;
     padding-bottom: 3px;
     border-bottom: solid 2px;
-    //border-color: mat-color($primary);
+    //border-color: mat.get-color-from-palette($primary);
     overflow: hidden;
 }
 
@@ -147,23 +147,23 @@ input[type="number"] {
     $fg: map-get($theme, foreground);
     //$bg: map-get($theme, background);
 
-    $th_text_color: #{mat-color($fg, text)};
+    $th_text_color: #{mat.get-color-from-palette($fg, text)};
 
     //@debug "fg: #{$primary}";
     //@debug "foreground: #{$th_text_color}";
-    //@debug "background: #{mat-color($bg)}";
+    //@debug "background: #{mat.get-color-from-palette($bg)}";
     //@debug "background: #{$bg}";
 
     .mathAnswer:focus {
-        outline-color: mat-color($accent);
+        outline-color: mat.get-color-from-palette($accent);
         outline-width: 15px;
-        caret-color: mat-color($accent);
+        caret-color: mat.get-color-from-palette($accent);
     }
 
     .hr_equals {
         margin: 4px 0;
         border-style: solid;
-        border-color: mat-color($fg);
+        border-color: mat.get-color-from-palette($fg);
 
         background-color: $th_text_color;
         border-color: $th_text_color;

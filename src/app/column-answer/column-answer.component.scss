@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "~@angular/material/theming";
 @import "../../assets/styles/themes_variables.scss";
 
@@ -86,9 +87,9 @@ input[type="number"] {
     $accent: map-get($theme, accent);
 
     .mathAnswer:focus {
-        outline-color: mat-color($accent);
+        outline-color: mat.get-color-from-palette($accent);
         outline-width: 15px;
-        caret-color: mat-color($accent);
+        caret-color: mat.get-color-from-palette($accent);
     }
 }
 

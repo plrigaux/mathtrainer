@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "~@angular/material/theming";
 @import "../../../assets/styles/themes_variables.scss";
 
@@ -13,7 +14,7 @@
         flex-basis: 7%; // investigate to have the same size
         border-width: 2px;
         border-style: solid;
-        border-color: mat-color($accent);
+        border-color: mat.get-color-from-palette($accent);
         margin: 0.5em;
         padding: 1em;
         border-radius: 15px;
