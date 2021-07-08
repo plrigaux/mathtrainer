@@ -52,7 +52,7 @@
     </unit>
     <unit id="excellent">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:302</note>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:303</note>
       </notes>
       <segment state="final">
         <source>Excellent</source>
@@ -61,7 +61,7 @@
     </unit>
     <unit id="good">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:304</note>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:305</note>
       </notes>
       <segment state="final">
         <source>Good</source>
@@ -70,29 +70,29 @@
     </unit>
     <unit id="resultTryAgain">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:306</note>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:307</note>
       </notes>
       <segment state="final">
         <source>Try again</source>
         <target state="initial">Essaie encore</target>
       </segment>
     </unit>
-    <unit id="6804990303797863301">
-      <notes>
-        <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
-      </notes>
-      <segment state="final">
-        <source>{VAR_PLURAL, plural, =0 {ZERO good answer} =1 {one good answer} other {<ph id="0" equiv="INTERPOLATION"/> good answers}}</source>
-        <target>{VAR_PLURAL, plural, =0 {ZERO bonne réponse} =1 {une bonne réponse} other {<ph id="0" equiv="INTERPOLATION"/> bonnes réponses}}</target>
-      </segment>
-    </unit>
     <unit id="congratulationMsg2">
       <notes>
         <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
       </notes>
-      <segment state="final">
-        <source>You got <ph id="0" equiv="ICU" disp="t {data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers"/> from a total of <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/> questions.</source>
+      <segment state="translated">
+        <source>You got <ph id="0" equiv="ICU" disp="{data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers}}"/> from a total of <ph id="1" equiv="INTERPOLATION_1" disp="{{data.total}}"/> questions.</source>
         <target>Tu as <ph id="0" equiv="ICU" disp="t {data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers"/> sur un total de <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/> questions.</target>
+      </segment>
+    </unit>
+    <unit id="6303844340828080653">
+      <notes>
+        <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
+      </notes>
+      <segment state="initial">
+        <source>{VAR_PLURAL, plural, =0 {ZERO good answer} =1 {one good answer} other {<ph id="0" equiv="INTERPOLATION"/> good answers}}</source>
+        <target>{VAR_PLURAL, plural, =0 {ZERO good answer} =1 {one good answer} other {<ph id="0" equiv="INTERPOLATION"/> good answers}}</target>
       </segment>
     </unit>
     <unit id="progressionMessage">
@@ -205,7 +205,7 @@
     </unit>
     <unit id="Number 2">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:42</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:43</note>
       </notes>
       <segment state="final">
         <source>Numbers 2</source>
@@ -214,7 +214,7 @@
     </unit>
     <unit id="Shuffle">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:50</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:52</note>
       </notes>
       <segment state="final">
         <source>Shuffle</source>
@@ -223,7 +223,6 @@
     </unit>
     <unit id="Addition">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:1</note>
         <note category="location">src/app/math-generator/mathProblemTypes.ts:37</note>
       </notes>
       <segment state="final">
@@ -233,7 +232,6 @@
     </unit>
     <unit id="Subtraction">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:10</note>
         <note category="location">src/app/math-generator/mathProblemTypes.ts:46</note>
       </notes>
       <segment state="final">
@@ -243,7 +241,6 @@
     </unit>
     <unit id="Multiplication">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:20</note>
         <note category="location">src/app/math-generator/mathProblemTypes.ts:55</note>
       </notes>
       <segment state="final">
@@ -277,8 +274,8 @@
         <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:8</note>
         <note category="description">to a workout training</note>
       </notes>
-      <segment state="final">
-        <source>Workout</source>
+      <segment state="translated">
+        <source>One by one</source>
         <target>Exercices</target>
       </segment>
     </unit>
@@ -311,7 +308,7 @@
     </unit>
     <unit id="addTowSingleDigitNumberSum10orLess">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:19</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:20</note>
       </notes>
       <segment state="final">
         <source>Adding two single-digit numbers - sum 10 or less</source>
@@ -320,7 +317,7 @@
     </unit>
     <unit id="addSingleDigitNumber">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:24</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:26</note>
       </notes>
       <segment state="final">
         <source>Add Single Digit Number</source>
@@ -329,7 +326,7 @@
     </unit>
     <unit id="addDoubleDigitWithSingleDigitNumberNoCarry">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:29</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:32</note>
       </notes>
       <segment state="final">
         <source>Add a 2-digit number and a 1-digit number mentally - within the same ten</source>
@@ -338,7 +335,7 @@
     </unit>
     <unit id="addTowDoubleDigitNumbersNoCarry">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:35</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:39</note>
       </notes>
       <segment state="final">
         <source>Add a 2-digit number and a 1-digit number in columns</source>
@@ -347,7 +344,7 @@
     </unit>
     <unit id="addTowDigitNumberWithTowDigitNumberWithCarry">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:41</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:46</note>
       </notes>
       <segment state="final">
         <source>Add a 2 digit number with a 2 digit number with carry</source>
@@ -356,7 +353,7 @@
     </unit>
     <unit id="addTwoNumbersAnswerBellow20">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:46</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:52</note>
       </notes>
       <segment state="final">
         <source>Add Two Numbers Answer Bellow 20</source>
@@ -365,7 +362,7 @@
     </unit>
     <unit id="subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:51</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:58</note>
       </notes>
       <segment state="final">
         <source>Subtraction facts - numbers up to 10</source>
@@ -374,7 +371,7 @@
     </unit>
     <unit id="subtractAnswerbelow10">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:56</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:64</note>
       </notes>
       <segment state="final">
         <source>Subtraction facts - answer below 10</source>
@@ -383,16 +380,16 @@
     </unit>
     <unit id="subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:61</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:70</note>
       </notes>
       <segment state="final">
         <source>Subtract a one-digit number from a two-digit number - without regrouping</source>
         <target>Soustraction de nombre à un chiffre d'un nombre à deux chiffres - sans emprunt</target>
       </segment>
     </unit>
-    <unit id="4706265683875413623">
+    <unit id="subtractMultiplesOf10">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:66</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:76</note>
       </notes>
       <segment state="final">
         <source>Subtract multiples of 10</source>
@@ -401,7 +398,7 @@
     </unit>
     <unit id="subtractOneDigitNumberFromTwoDigitNumberWithRegrouping">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:71</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:82</note>
       </notes>
       <segment state="final">
         <source>Subtract a one-digit number from a two-digit number - with regrouping</source>
@@ -410,7 +407,7 @@
     </unit>
     <unit id="subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:76</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:88</note>
       </notes>
       <segment state="final">
         <source>Subtract two two-digit numbers - without regrouping</source>
@@ -419,8 +416,8 @@
     </unit>
     <unit id="subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:81</note>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:86</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:94</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:100</note>
       </notes>
       <segment state="final">
         <source>Subtract two two-digit numbers - with regrouping</source>
@@ -429,7 +426,7 @@
     </unit>
     <unit id="Multiply_2_single_digits">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:91</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:106</note>
       </notes>
       <segment state="final">
         <source>Multiply two single digit numbers</source>
@@ -438,7 +435,7 @@
     </unit>
     <unit id="MultiplicationTable">
       <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:135</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:153</note>
       </notes>
       <segment state="final">
         <source><ph id="0" equiv="PH" disp="i"/> time table</source>

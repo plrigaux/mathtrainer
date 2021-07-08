@@ -45,36 +45,249 @@
         <source>Themes</source>
       </segment>
     </unit>
-    <unit id="excellent">
+    <unit id="Number of questions">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:302</note>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:2</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:13</note>
+        <note category="location">src/app/workout-panel/workout-panel.component.html:54</note>
       </notes>
       <segment>
-        <source>Excellent</source>
+        <source>Number of questions</source>
       </segment>
     </unit>
-    <unit id="good">
+    <unit id="Problems">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:304</note>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:6</note>
+        <note category="description">to a problem</note>
       </notes>
       <segment>
-        <source>Good</source>
+        <source>Problems</source>
       </segment>
     </unit>
-    <unit id="resultTryAgain">
+    <unit id="Workout">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:306</note>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:8</note>
+        <note category="description">to a workout training</note>
       </notes>
       <segment>
-        <source>Try again</source>
+        <source>One by one</source>
       </segment>
     </unit>
-    <unit id="6804990303797863301">
+    <unit id="clearAll">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:10</note>
       </notes>
       <segment>
-        <source>{VAR_PLURAL, plural, =0 {ZERO good answer} =1 {one good answer} other {<ph id="0" equiv="INTERPOLATION"/> good answers}}</source>
+        <source>Clear all</source>
+      </segment>
+    </unit>
+    <unit id="tabPrograms">
+      <notes>
+        <note category="location">src/app/main-page/main-page.component.html:2</note>
+      </notes>
+      <segment>
+        <source>Programs</source>
+      </segment>
+    </unit>
+    <unit id="tabSeries">
+      <notes>
+        <note category="location">src/app/main-page/main-page.component.html:5</note>
+      </notes>
+      <segment>
+        <source>Series</source>
+      </segment>
+    </unit>
+    <unit id="customConfig">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:4</note>
+      </notes>
+      <segment>
+        <source>Custom configuration</source>
+      </segment>
+    </unit>
+    <unit id="Number 1">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:35</note>
+      </notes>
+      <segment>
+        <source>Numbers 1</source>
+      </segment>
+    </unit>
+    <unit id="Number 2">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:43</note>
+      </notes>
+      <segment>
+        <source>Numbers 2</source>
+      </segment>
+    </unit>
+    <unit id="Shuffle">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:52</note>
+      </notes>
+      <segment>
+        <source>Shuffle</source>
+      </segment>
+    </unit>
+    <unit id="Addition">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:37</note>
+      </notes>
+      <segment>
+        <source>Addition</source>
+      </segment>
+    </unit>
+    <unit id="Subtraction">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:46</note>
+      </notes>
+      <segment>
+        <source>Subtraction</source>
+      </segment>
+    </unit>
+    <unit id="Multiplication">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:55</note>
+      </notes>
+      <segment>
+        <source>Multiplication</source>
+      </segment>
+    </unit>
+    <unit id="Division">
+      <notes>
+        <note category="location">src/app/math-generator/mathProblemTypes.ts:64</note>
+      </notes>
+      <segment>
+        <source>Division</source>
+      </segment>
+    </unit>
+    <unit id="addSingleDigitNumberNoCarry">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:14</note>
+      </notes>
+      <segment>
+        <source>Add Single Digit Number NoCarry</source>
+      </segment>
+    </unit>
+    <unit id="addTowSingleDigitNumberSum10orLess">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:20</note>
+      </notes>
+      <segment>
+        <source>Adding two single-digit numbers - sum 10 or less</source>
+      </segment>
+    </unit>
+    <unit id="addSingleDigitNumber">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:26</note>
+      </notes>
+      <segment>
+        <source>Add Single Digit Number</source>
+      </segment>
+    </unit>
+    <unit id="addDoubleDigitWithSingleDigitNumberNoCarry">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:32</note>
+      </notes>
+      <segment>
+        <source>Add a 2-digit number and a 1-digit number mentally - within the same ten</source>
+      </segment>
+    </unit>
+    <unit id="addTowDoubleDigitNumbersNoCarry">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:39</note>
+      </notes>
+      <segment>
+        <source>Add a 2-digit number and a 1-digit number in columns</source>
+      </segment>
+    </unit>
+    <unit id="addTowDigitNumberWithTowDigitNumberWithCarry">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:46</note>
+      </notes>
+      <segment>
+        <source>Add a 2 digit number with a 2 digit number with carry</source>
+      </segment>
+    </unit>
+    <unit id="addTwoNumbersAnswerBellow20">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:52</note>
+      </notes>
+      <segment>
+        <source>Add Two Numbers Answer Bellow 20</source>
+      </segment>
+    </unit>
+    <unit id="subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:58</note>
+      </notes>
+      <segment>
+        <source>Subtraction facts - numbers up to 10</source>
+      </segment>
+    </unit>
+    <unit id="subtractAnswerbelow10">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:64</note>
+      </notes>
+      <segment>
+        <source>Subtraction facts - answer below 10</source>
+      </segment>
+    </unit>
+    <unit id="subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:70</note>
+      </notes>
+      <segment>
+        <source>Subtract a one-digit number from a two-digit number - without regrouping</source>
+      </segment>
+    </unit>
+    <unit id="subtractMultiplesOf10">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:76</note>
+      </notes>
+      <segment>
+        <source>Subtract multiples of 10</source>
+      </segment>
+    </unit>
+    <unit id="subtractOneDigitNumberFromTwoDigitNumberWithRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:82</note>
+      </notes>
+      <segment>
+        <source>Subtract a one-digit number from a two-digit number - with regrouping</source>
+      </segment>
+    </unit>
+    <unit id="subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:88</note>
+      </notes>
+      <segment>
+        <source>Subtract two two-digit numbers - without regrouping</source>
+      </segment>
+    </unit>
+    <unit id="subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:94</note>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:100</note>
+      </notes>
+      <segment>
+        <source>Subtract two two-digit numbers - with regrouping</source>
+      </segment>
+    </unit>
+    <unit id="Multiply_2_single_digits">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:106</note>
+      </notes>
+      <segment>
+        <source>Multiply two single digit numbers</source>
+      </segment>
+    </unit>
+    <unit id="MultiplicationTable">
+      <notes>
+        <note category="location">src/app/math-generator/worksheetsMap.ts:153</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="PH" disp="i"/> time table</source>
       </segment>
     </unit>
     <unit id="congratulationMsg2">
@@ -82,7 +295,39 @@
         <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
       </notes>
       <segment>
-        <source>You got <ph id="0" equiv="ICU" disp="t {data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers"/> from a total of <ph id="1" equiv="INTERPOLATION_1" disp="f {{data.total"/> questions.</source>
+        <source>You got <ph id="0" equiv="ICU" disp="{data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers}}"/> from a total of <ph id="1" equiv="INTERPOLATION_1" disp="{{data.total}}"/> questions.</source>
+      </segment>
+    </unit>
+    <unit id="6303844340828080653">
+      <notes>
+        <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
+      </notes>
+      <segment>
+        <source>{VAR_PLURAL, plural, =0 {ZERO good answer} =1 {one good answer} other {<ph id="0" equiv="INTERPOLATION"/> good answers}}</source>
+      </segment>
+    </unit>
+    <unit id="excellent">
+      <notes>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:303</note>
+      </notes>
+      <segment>
+        <source>Excellent</source>
+      </segment>
+    </unit>
+    <unit id="good">
+      <notes>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:305</note>
+      </notes>
+      <segment>
+        <source>Good</source>
+      </segment>
+    </unit>
+    <unit id="resultTryAgain">
+      <notes>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:307</note>
+      </notes>
+      <segment>
+        <source>Try again</source>
       </segment>
     </unit>
     <unit id="progressionMessage">
@@ -99,16 +344,6 @@
       </notes>
       <segment>
         <source>Start</source>
-      </segment>
-    </unit>
-    <unit id="Number of questions">
-      <notes>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:13</note>
-        <note category="location">src/app/workout-panel/workout-panel.component.html:54</note>
-        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:2</note>
-      </notes>
-      <segment>
-        <source>Number of questions</source>
       </segment>
     </unit>
     <unit id="finished">
@@ -157,244 +392,6 @@
       </notes>
       <segment>
         <source>Start again</source>
-      </segment>
-    </unit>
-    <unit id="tabPrograms">
-      <notes>
-        <note category="location">src/app/main-page/main-page.component.html:2</note>
-      </notes>
-      <segment>
-        <source>Programs</source>
-      </segment>
-    </unit>
-    <unit id="tabSeries">
-      <notes>
-        <note category="location">src/app/main-page/main-page.component.html:5</note>
-      </notes>
-      <segment>
-        <source>Series</source>
-      </segment>
-    </unit>
-    <unit id="customConfig">
-      <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:4</note>
-      </notes>
-      <segment>
-        <source>Custom configuration</source>
-      </segment>
-    </unit>
-    <unit id="Number 1">
-      <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:35</note>
-      </notes>
-      <segment>
-        <source>Numbers 1</source>
-      </segment>
-    </unit>
-    <unit id="Number 2">
-      <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:42</note>
-      </notes>
-      <segment>
-        <source>Numbers 2</source>
-      </segment>
-    </unit>
-    <unit id="Shuffle">
-      <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:50</note>
-      </notes>
-      <segment>
-        <source>Shuffle</source>
-      </segment>
-    </unit>
-    <unit id="Addition">
-      <notes>
-        <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:1</note>
-        <note category="location">src/app/math-generator/mathProblemTypes.ts:37</note>
-      </notes>
-      <segment>
-        <source>Addition</source>
-      </segment>
-    </unit>
-    <unit id="Subtraction">
-      <notes>
-        <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:10</note>
-        <note category="location">src/app/math-generator/mathProblemTypes.ts:46</note>
-      </notes>
-      <segment>
-        <source>Subtraction</source>
-      </segment>
-    </unit>
-    <unit id="Multiplication">
-      <notes>
-        <note category="location">src/app/main-page/main-tabs-programs/main-tabs-programs.component.html:20</note>
-        <note category="location">src/app/math-generator/mathProblemTypes.ts:55</note>
-      </notes>
-      <segment>
-        <source>Multiplication</source>
-      </segment>
-    </unit>
-    <unit id="Problems">
-      <notes>
-        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:6</note>
-        <note category="description">to a problem</note>
-      </notes>
-      <segment>
-        <source>Problems</source>
-      </segment>
-    </unit>
-    <unit id="Workout">
-      <notes>
-        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:8</note>
-        <note category="description">to a workout training</note>
-      </notes>
-      <segment>
-        <source>Workout</source>
-      </segment>
-    </unit>
-    <unit id="clearAll">
-      <notes>
-        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:10</note>
-      </notes>
-      <segment>
-        <source>Clear all</source>
-      </segment>
-    </unit>
-    <unit id="Division">
-      <notes>
-        <note category="location">src/app/math-generator/mathProblemTypes.ts:64</note>
-      </notes>
-      <segment>
-        <source>Division</source>
-      </segment>
-    </unit>
-    <unit id="addSingleDigitNumberNoCarry">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:14</note>
-      </notes>
-      <segment>
-        <source>Add Single Digit Number NoCarry</source>
-      </segment>
-    </unit>
-    <unit id="addTowSingleDigitNumberSum10orLess">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:19</note>
-      </notes>
-      <segment>
-        <source>Adding two single-digit numbers - sum 10 or less</source>
-      </segment>
-    </unit>
-    <unit id="addSingleDigitNumber">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:24</note>
-      </notes>
-      <segment>
-        <source>Add Single Digit Number</source>
-      </segment>
-    </unit>
-    <unit id="addDoubleDigitWithSingleDigitNumberNoCarry">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:29</note>
-      </notes>
-      <segment>
-        <source>Add a 2-digit number and a 1-digit number mentally - within the same ten</source>
-      </segment>
-    </unit>
-    <unit id="addTowDoubleDigitNumbersNoCarry">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:35</note>
-      </notes>
-      <segment>
-        <source>Add a 2-digit number and a 1-digit number in columns</source>
-      </segment>
-    </unit>
-    <unit id="addTowDigitNumberWithTowDigitNumberWithCarry">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:41</note>
-      </notes>
-      <segment>
-        <source>Add a 2 digit number with a 2 digit number with carry</source>
-      </segment>
-    </unit>
-    <unit id="addTwoNumbersAnswerBellow20">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:46</note>
-      </notes>
-      <segment>
-        <source>Add Two Numbers Answer Bellow 20</source>
-      </segment>
-    </unit>
-    <unit id="subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:51</note>
-      </notes>
-      <segment>
-        <source>Subtraction facts - numbers up to 10</source>
-      </segment>
-    </unit>
-    <unit id="subtractAnswerbelow10">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:56</note>
-      </notes>
-      <segment>
-        <source>Subtraction facts - answer below 10</source>
-      </segment>
-    </unit>
-    <unit id="subtractOneDigitNumberFromTwoDigitNumberWithoutRegrouping">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:61</note>
-      </notes>
-      <segment>
-        <source>Subtract a one-digit number from a two-digit number - without regrouping</source>
-      </segment>
-    </unit>
-    <unit id="4706265683875413623">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:66</note>
-      </notes>
-      <segment>
-        <source>Subtract multiples of 10</source>
-      </segment>
-    </unit>
-    <unit id="subtractOneDigitNumberFromTwoDigitNumberWithRegrouping">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:71</note>
-      </notes>
-      <segment>
-        <source>Subtract a one-digit number from a two-digit number - with regrouping</source>
-      </segment>
-    </unit>
-    <unit id="subtractTowDigitNumberFromTwoDigitNumberWithoutRegrouping">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:76</note>
-      </notes>
-      <segment>
-        <source>Subtract two two-digit numbers - without regrouping</source>
-      </segment>
-    </unit>
-    <unit id="subtractTwoDigitNumberFromTwoDigitNumberWithRegrouping">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:81</note>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:86</note>
-      </notes>
-      <segment>
-        <source>Subtract two two-digit numbers - with regrouping</source>
-      </segment>
-    </unit>
-    <unit id="Multiply_2_single_digits">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:91</note>
-      </notes>
-      <segment>
-        <source>Multiply two single digit numbers</source>
-      </segment>
-    </unit>
-    <unit id="MultiplicationTable">
-      <notes>
-        <note category="location">src/app/math-generator/worksheetsMap.ts:135</note>
-      </notes>
-      <segment>
-        <source><ph id="0" equiv="PH" disp="i"/> time table</source>
       </segment>
     </unit>
   </file>
