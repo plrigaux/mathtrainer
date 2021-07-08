@@ -2,12 +2,16 @@ import { MathProblem } from "../math-generator/mathProblem";
 
 export class WorkTask {
     problem: MathProblem;
-    time: number;
+    time: number = 0;
     //userAnswer: number[];
-    startTime: number;
-    endTime: number;
-    errors: number;
+    startTime: number = 0;
+    endTime: number = 0;
+    errors: number = 0;
     
+    constructor(problem: MathProblem) {
+        this.problem = problem
+    }
+
     get answer(): number {
         return this.problem.answer;
     };
@@ -35,7 +39,5 @@ export class WorkTask {
     getTimeInSec() : string {
          return (this.getTime() / 1000).toFixed(1);
     }
-
-
 }
 

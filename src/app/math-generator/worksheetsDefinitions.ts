@@ -10,7 +10,7 @@ export interface MultiParam {
 
 export interface WorksheetsItem extends WorksheetsItemStore {
     label: string
-    func: (parameters : Object) => MathProblem
+    func: (parameters : WorksheetsItem) => MathProblem
     mathProblemType: MathProblemTypes,
     _context?: object,
     grade: number

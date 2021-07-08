@@ -25,7 +25,7 @@ export class WorkoutPanelComponent implements OnInit {
   myEventSubscriptions: Subscription[] = [];
   tasks: WorkTask[];
   currentTask: WorkTask;
-  userInput: string;
+  userInput: string = "";
   index: number;
   WorkoutStatusEnum = WorkoutStatus;
   status: WorkoutStatus;
@@ -65,10 +65,10 @@ export class WorkoutPanelComponent implements OnInit {
     this.tasks = new Array(this.config.nbQuestions);
 
     for (let i = 0; i < this.config.nbQuestions; i++) {
-      let task = new WorkTask();
+      let problem = MathGenerator.generateProblem(this.config);
+      let task = new WorkTask(problem);
       this.tasks[i] = task;
-      task.problem = MathGenerator.generateProblem(this.config);
-      task.errors = 0;
+     
     }
   }
 

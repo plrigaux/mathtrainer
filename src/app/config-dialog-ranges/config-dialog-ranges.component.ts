@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config } from '../services/config';
 import { GenerateRange } from '../math-generator/mathProblemTypes';
 import { MATHProplemActions } from '../math-generator/mathProblemTypes'
-import { FormControl, Validators, FormGroup, FormArray, ValidationErrors, ValidatorFn, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormArray, ValidationErrors, ValidatorFn, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
@@ -95,7 +95,7 @@ export class ConfigDialogRangesComponent implements OnInit {
 }
 
 /** A hero's name can't match the hero's alter ego */
-export const minBiggerThanMaxValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+export const minBiggerThanMaxValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   //console.log(control);
   const min: number = +control.get('min').value;
   const max: number = +control.get('max').value;

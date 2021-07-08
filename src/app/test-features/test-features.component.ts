@@ -121,7 +121,7 @@ export class TestFeaturesComponent implements OnInit {
   onValueChange: ValidateCB = (value: string, index: string): QuestionStatus => {
 
     console.log(`onValueChange ${value} ${index}`)
-    this.answerInputConfigs[index].value = value;
+    this.answerInputConfigs[+index].value = value;
     return QuestionStatus.RIGHT
   }
 
@@ -131,7 +131,7 @@ export class TestFeaturesComponent implements OnInit {
     //console.warn(this)
 
     console.log(`myCallbackFunction ${value} ${index}`);
-    this.answerInputConfigs[index].value = value;
+    this.answerInputConfigs[+index].value = value;
     let val = parseInt(value)
 
     let ret : any = val ? val % 2 == 0 : false
