@@ -2,7 +2,7 @@ import { MathProblem } from "./mathProblem";
 import { MathProblemTypes } from './mathProblemTypes';
 import { Worksheets } from './worksheets'
 import { Worksheets2 } from './worksheets2'
-import { MultiParam, WorksheetsItem } from './worksheetsDefinitions'
+import { MultiParam, WorksheetsItem, GeneratorFunctionCB } from './worksheetsDefinitions'
 
 export class WorksheetsMap {
 
@@ -127,7 +127,7 @@ export class WorksheetsMap {
     }
 
     private generateMapItem(label: string,
-        func: (worksheetsItem: WorksheetsItem) => MathProblem,
+        func: GeneratorFunctionCB,
         grade : number,
         mathProblemType: MathProblemTypes, param? : MultiParam): WorksheetsItem {
 

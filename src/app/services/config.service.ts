@@ -4,8 +4,15 @@ import { Config, CONFIG, MATH_EXERCICISES_STORE, GENERATORS_KEY } from './config
 import { WorksheetsItem, WorksheetsItemStore } from '../math-generator/worksheetsDefinitions';
 import { Worksheets } from '../math-generator/worksheets';
 import { Worksheets2 } from '../math-generator/worksheets2';
+import { MathProblem } from "../math-generator/mathProblem";
 
 export class ConfigServiceInfo {
+  config: Config;
+  needReset: boolean;
+}
+
+
+export interface ConfigServiceMarchelor {
   config: Config;
   needReset: boolean;
 }
@@ -35,16 +42,14 @@ export class ConfigService {
   }
 
   next(config: Config, needReset: boolean) {
-    this.configSource.next({ config: config, needReset: needReset });
+    this.configSource.next({ config: config, needReset: needReset } as ConfigServiceMarchelor);
 
     this.saveConfig(config);
   }
 
   private loadConfig() {
     let storedData = localStorage.getItem(MATH_EXERCICISES_STORE);
-    let sdObject: object;
-
-    sdObject = (storedData == null) ? {} : JSON.parse(storedData);
+    let sdObject : {[index: string]:any} = (storedData == null) ? {} : JSON.parse(storedData);
     console.log("storedData")
     console.log(storedData)
     console.log("storedData")
@@ -58,7 +63,7 @@ export class ConfigService {
         val = CONFIG[key];
       }
 
-      cf[key] = val;
+      cf[key.toString()] = val;
       //console.log(`${cf[key]} = ${sdObject[key]}`);
     }
 
@@ -71,7 +76,7 @@ export class ConfigService {
 
         let worksheetsItem: WorksheetsItem = value as WorksheetsItem
 
-        let func = Worksheets[worksheetsItem.funcName]
+        let func : (parameters: WorksheetsItem) => MathProblem = Worksheets[worksheetsItem.funcName]
 
         if (func === undefined) {
           func = Worksheets2[worksheetsItem.funcName]
@@ -104,15 +109,15 @@ export class ConfigService {
     let cf: Record<string, any> = {};
     //copy
     for (const key of Object.keys(CONFIG)) {
-      cf[key] = config[key];
+      cf[key] = config[key.toString()];
       //console.log(`${cf[key]} = ${sdObject[key]}`);
     }
 
     //transform map to object
     let generators: Object[] = []
-    config.generators.forEach((val) => {
+    config.generators.forEach((val: WorksheetsItem) => {
 
-      let generatorsObj: Object = {}
+      let generatorsObj: { [index: string]: any } = {}
       for (const key of Object.keys(temp)) {
         generatorsObj[key] = val[key];
       }
@@ -129,8 +134,8 @@ export class ConfigService {
     localStorage.setItem(MATH_EXERCICISES_STORE, json);
   }
 
-  static jsonReplacer(key : string, value : any) : any {
-    if(key.startsWith("_")) {
+  static jsonReplacer(key: string, value: any): any {
+    if (key.startsWith("_")) {
       return undefined
     }
 

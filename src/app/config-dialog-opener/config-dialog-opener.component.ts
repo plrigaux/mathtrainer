@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigDialogComponent } from "../config-dialog/config-dialog.component"
 import { MatDialog } from '@angular/material/dialog';
 import { Config } from '../services/config';
-import { ConfigService } from '../services/config.service'
+import { ConfigService, ConfigServiceMarchelor } from '../services/config.service'
 import { Subscription } from 'rxjs';
 
 
@@ -23,7 +23,7 @@ export class ConfigDialogOpenerComponent implements OnInit {
 
   ngOnInit(): void {
     this.myEventSubscriptions.push(this.configService.subscribe(
-      cfi => { this.config = cfi.config; }
+      (cfi : ConfigServiceMarchelor) => { this.config = cfi.config; }
     ));
   }
 

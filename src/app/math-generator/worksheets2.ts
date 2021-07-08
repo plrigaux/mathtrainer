@@ -5,7 +5,7 @@ import { RangeManager, Range } from './rangeManager';
 import { WorksheetsItem, MultiParam } from './worksheetsDefinitions'
 
 export class Worksheets2 {
-
+    static [index: string] : any;
 
     static multiplySingleDigitNumber(): MathProblem {
 

@@ -14,6 +14,7 @@ export const EquationOrientations: EquationOrientation[] = [
     { code: "HORIZONTAL", label: "Horizontal" }];
 
 export interface Config {
+    [index: string]: any;
     nbQuestions: number;
     nbNumbers: number;
     answerMode: ColumnAnswerMode;

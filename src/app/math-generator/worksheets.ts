@@ -3,7 +3,7 @@ import { MathProblem } from "./mathProblem";
 import { GenerateRange, MathProblemTypes, Relation, Answer } from './mathProblemTypes';
 
 export class Worksheets {
-
+    static [index: string]: any
 
     static addSingleDigitNumber(): MathProblem {
 
