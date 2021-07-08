@@ -73,7 +73,7 @@ export class WorksheetsMap {
             MathProblemTypes.SUBTRACTION
         ),
         this.generateMapItem(
-            $localize `:@@:Subtract multiples of 10`,
+            $localize `:@@subtractMultiplesOf10:Subtract multiples of 10`,
             Worksheets.subtractMultiplesOf10,
             2,
             MathProblemTypes.SUBTRACTION
