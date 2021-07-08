@@ -23,7 +23,7 @@ export class MathQuestionComponent implements OnInit {
   private _problem: MathProblem;
   private myEventSubscriptions: Subscription[] = [];
   @Input() config: Config;
-  @Input() readonly questionId: number;
+  @Input() questionId: number;
   @Input() needReset: boolean;
   //controlIndex: number;
   @ViewChild(ColumnAnswerComponent, { static: false }) private columnAnswerComponent: ColumnAnswerComponent;
@@ -193,7 +193,7 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 
-  existFocus() {
+  existFocus(event : any) {
     console.warn(this.log("exitWidget"))
     this.informParent(true, true);
   }

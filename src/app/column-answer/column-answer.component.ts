@@ -21,10 +21,10 @@ import { trigger, transition, state, animate, style, keyframes } from '@angular/
 export class ColumnAnswerComponent implements OnInit {
   @ViewChildren('columninput') inputs: QueryList<ElementRef>;
 
-  @Input() readonly size: number;
-  @Input() readonly mode: ColumnAnswerMode = null;
-  @Input() readonly answerStatus: QuestionStatus;
-  @Input() readonly id: string = null;
+  @Input() size: number;
+  @Input() mode: ColumnAnswerMode = null;
+  @Input() answerStatus: QuestionStatus;
+  @Input() id: string = null;
   @Input() value: string = "";
   @Output() focusChange = new EventEmitter<FocusType>();
   @Output() existFocus = new EventEmitter<any>();
@@ -220,7 +220,7 @@ export class ColumnAnswerComponent implements OnInit {
     }
   }
 
-  onKeydownSimple(event: KeyboardEvent, index: number): void {
+  onKeydownSimple(event: KeyboardEvent): void {
 
     console.debug(this.log(event))
     console.debug(this.log(`inputChar2: "${this.inputchar}" code ${event.code} key ${event.key}`))

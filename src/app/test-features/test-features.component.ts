@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 import { MATH_EXERCICISES_STORE } from '../services/config';
-import { ColumnAnswerComponent, ColumnAnswerMode, ANSWER_MODES } from '../column-answer/column-answer.component'
+import { ColumnAnswerMode, ValidateCB, ANSWER_MODES, FocusType } from '../column-answer/column-answer.component'
 import { QuestionStatus } from '../services/math-question.service';
 
 const testcomponent = 3;
@@ -117,13 +117,15 @@ export class TestFeaturesComponent implements OnInit {
     localStorage.clear();
   }
 
-  onValueChange(value: string, index: number) {
+
+  onValueChange: ValidateCB = (value: string, index: string): QuestionStatus => {
+
     console.log(`onValueChange ${value} ${index}`)
     this.answerInputConfigs[index].value = value;
-    return "TEST"
+    return QuestionStatus.RIGHT
   }
 
-  myCallbackFunction = (value: string, index : number): boolean => {
+  myCallbackFunction : ValidateCB = (value: string, index : string): QuestionStatus => {
     //callback code here
     //console.warn("CALLBACK")
     //console.warn(this)
@@ -131,11 +133,13 @@ export class TestFeaturesComponent implements OnInit {
     console.log(`myCallbackFunction ${value} ${index}`);
     this.answerInputConfigs[index].value = value;
     let val = parseInt(value)
-    return val ? val % 2 == 0 : false;
+
+    let ret : any = val ? val % 2 == 0 : false
+    return  ret as QuestionStatus;
   }
 
-  onFocusChange(focus: boolean, index: number) {
-    console.log(`FOCUS change ${focus ? "FOCUS" : "BLUR"} Widget: ${index}`);
-    this.answerInputConfigs[index].inFocus = focus;
+  onFocusChange(focus: FocusType, index: number) {
+    console.log(`FOCUS change ${focus} Widget: ${index}`);
+    this.answerInputConfigs[index].inFocus = focus == FocusType.FOCUS;
   }
 }

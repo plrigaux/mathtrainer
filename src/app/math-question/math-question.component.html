@@ -30,13 +30,13 @@
 </div>
 
 <ng-template #columns>
-  <div class="number_column" *ngFor="let number of problem.values; i as index; last as last">
+  <div class="number_column" *ngFor="let number of problem.values; index as i; last as last">
     <div class="digit" *ngFor="let digit of number.toString().split('')">{{digit}}</div>
   </div>
 </ng-template>
 
 <ng-template #normal>
-  <div class="number_normal" *ngFor="let number of problem.values; i as index; last as last">
+  <div class="number_normal" *ngFor="let number of problem.values; index as i; last as last">
     {{number}}
   </div>
 </ng-template>
@@ -44,7 +44,7 @@
 <ng-template #answerField>
   <div class="answerField">
     <app-column-answer
-      [id]='questionId'
+      [id]='questionId.toString()'
       [size]='size'
       [mode]='config.answerMode'
       [value]='userInput'

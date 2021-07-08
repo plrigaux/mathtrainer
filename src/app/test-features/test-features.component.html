@@ -5,7 +5,7 @@
         [size]='answer.size'
         [mode]='answer.mode'
         [value]="answer.value"
-        [id]="i"
+        [id]="i.toString()"
         [answerStatus]="answer.status"
         (focusChange)="onFocusChange($event, i)"
         [valueChange]="myCallbackFunction"></app-column-answer>

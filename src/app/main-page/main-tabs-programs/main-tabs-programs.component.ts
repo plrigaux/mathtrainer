@@ -31,6 +31,7 @@ export class MainTabsProgramsComponent implements OnInit {
   problemTypes: MathProblemTypes[] = null;
   mathProblemTypesMap: MathProblemTypesMap = MATHProplemActions;
   removable = true;
+  selectable = true;
 
 
   constructor(private router: Router, private configService: ConfigService) {
@@ -157,5 +158,9 @@ export class MainTabsProgramsComponent implements OnInit {
     } else {
       return this.worksheetsItemPerOperations.filter(x => this.problemTypes.includes(x.mathProblemTypesData.code))
     }
+  }
+
+  remove(problemType : MathProblemTypes) : void {
+    console.log("remove chip : " + problemType)
   }
 }

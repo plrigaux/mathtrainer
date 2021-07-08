@@ -137,6 +137,7 @@ export class ProblemPanelComponent implements OnInit {
       }
       ++i
     }
+    return null
   }
 
   private increaseProgress() {
