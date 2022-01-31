@@ -113,9 +113,27 @@
         <source>Numbers 1</source>
       </segment>
     </unit>
+    <unit id="Field_required">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:37,38</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:46,47</note>
+      </notes>
+      <segment>
+        <source>Field is <pc id="0" equivStart="START_TAG_STRONG" equivEnd="CLOSE_TAG_STRONG" type="other" dispStart="&lt;strong&gt;" dispEnd="&lt;/strong&gt;">required</pc></source>
+      </segment>
+    </unit>
+    <unit id="Field_hint">
+      <notes>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:39</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:48</note>
+      </notes>
+      <segment>
+        <source>Should be 2, or 1-3</source>
+      </segment>
+    </unit>
     <unit id="Number 2">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:43</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:44</note>
       </notes>
       <segment>
         <source>Numbers 2</source>
@@ -123,7 +141,7 @@
     </unit>
     <unit id="Shuffle">
       <notes>
-        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:52</note>
+        <note category="location">src/app/main-page/main-tabs-series/main-tabs-series.component.html:54</note>
       </notes>
       <segment>
         <source>Shuffle</source>
@@ -295,7 +313,7 @@
         <note category="location">src/app/problem-panel/problem-panel-dialog.component.html:3</note>
       </notes>
       <segment>
-        <source>You got <ph id="0" equiv="ICU" disp="{data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers}}"/> from a total of <ph id="1" equiv="INTERPOLATION_1" disp="{{data.total}}"/> questions.</source>
+        <source>You got <ph id="0" equiv="ICU" disp="{data.right, plural, =0 {ZERO good answer} =1 {one good answer} other {{{data.right}} good answers}}" subFlows="685524137358067583"/> from a total of <ph id="1" equiv="INTERPOLATION_1" disp="{{data.total}}"/> questions.</source>
       </segment>
     </unit>
     <unit id="6303844340828080653">
