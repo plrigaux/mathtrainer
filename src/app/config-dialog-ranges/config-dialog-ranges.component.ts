@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config } from '../services/config';
 import { GenerateRange } from '../math-generator/mathProblemTypes';
 import { MATHProplemActions } from '../math-generator/mathProblemTypes'
-import { FormControl, Validators, FormGroup, FormArray, ValidationErrors, ValidatorFn, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
+import { UntypedFormControl, Validators, UntypedFormGroup, UntypedFormArray, ValidationErrors, ValidatorFn, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
@@ -19,10 +19,10 @@ export class ConfigDialogRangesComponent implements OnInit {
 
   displayedColumns: string[] = ["position", 'min', 'max'];
 
-  valueFormControl = new FormControl('', { updateOn: 'blur' });
+  valueFormControl = new UntypedFormControl('', { updateOn: 'blur' });
 
-  equationRangeForm: FormGroup;
-  numbers: FormArray;
+  equationRangeForm: UntypedFormGroup;
+  numbers: UntypedFormArray;
   parentErrorStateMatcher = new ParentErrorStateMatcher();
   
   constructor(
@@ -36,12 +36,12 @@ export class ConfigDialogRangesComponent implements OnInit {
     //console.log(data);
 
     this.config = { ...data };
-    this.numbers = new FormArray([])
-    this.equationRangeForm = new FormGroup({ numbers: this.numbers });
+    this.numbers = new UntypedFormArray([])
+    this.equationRangeForm = new UntypedFormGroup({ numbers: this.numbers });
 
 
 
-    let arr = this.equationRangeForm.get('arr') as FormArray;
+    let arr = this.equationRangeForm.get('arr') as UntypedFormArray;
 
     for (let i = 0; i < this.config.nbNumbers; i++) {
 
@@ -53,9 +53,9 @@ export class ConfigDialogRangesComponent implements OnInit {
       }
 
       this.numbers.push(
-        new FormGroup({
-          min: new FormControl(elem.min, [Validators.required, Validators.min(0)]),
-          max: new FormControl(elem.max, [Validators.required, Validators.min(0)])
+        new UntypedFormGroup({
+          min: new UntypedFormControl(elem.min, [Validators.required, Validators.min(0)]),
+          max: new UntypedFormControl(elem.max, [Validators.required, Validators.min(0)])
         }, { validators: minBiggerThanMaxValidator })
       );
 
@@ -105,7 +105,7 @@ export const minBiggerThanMaxValidator: ValidatorFn = (control: AbstractControl)
 };
 
 export class ParentErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
       const isSubmitted = !!(form && form.submitted);
       const controlTouched = !!(control && (control.dirty || control.touched));
       const controlInvalid = !!(control && control.invalid);

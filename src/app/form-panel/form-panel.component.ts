@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms'
+import { UntypedFormGroup, UntypedFormControl, UntypedFormArray, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-form-panel',
@@ -20,9 +20,9 @@ export class FormPanelComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'level'];
 
   
-  user = new FormGroup({
-    name: new FormControl('tata'),
-    skills: new FormArray([
+  user = new UntypedFormGroup({
+    name: new UntypedFormControl('tata'),
+    skills: new UntypedFormArray([
 
     ])
   });
@@ -31,9 +31,9 @@ export class FormPanelComponent implements OnInit {
   
     this.dataSource.forEach(element => {
       this.skills.push(
-        new FormGroup({
-          name: new FormControl(element.name, Validators.required),
-          level: new FormControl(element.level, [Validators.required, Validators.min(2)])
+        new UntypedFormGroup({
+          name: new UntypedFormControl(element.name, Validators.required),
+          level: new UntypedFormControl(element.level, [Validators.required, Validators.min(2)])
         })
       );
     });
@@ -49,7 +49,7 @@ export class FormPanelComponent implements OnInit {
     console.log(this.user.get("skills.0.name")?.value);
 
 
-    const group0 : FormGroup = this.user.get("skills.0") as FormGroup
+    const group0 : UntypedFormGroup = this.user.get("skills.0") as UntypedFormGroup
     console.log(group0.get("name")?.value);
 
 
@@ -57,7 +57,7 @@ export class FormPanelComponent implements OnInit {
   }
 
   get skills() {
-    return this.user.get('skills') as FormArray;
+    return this.user.get('skills') as UntypedFormArray;
   }
 
   pizza(i : number) : boolean {

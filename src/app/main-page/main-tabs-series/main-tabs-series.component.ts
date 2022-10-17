@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { MathProblemTypes, MathProblemTypesData } from '../../math-generator/mathProblemTypes';
 import { MATHProplemActions } from '../../math-generator/mathProblemTypes'
 import { ButtonPushed, ButtonPushedStatus } from '../main-buttons/main-buttons.component'
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { RangeManager, Range } from '../../math-generator/rangeManager';
 
 @Component({
@@ -21,8 +21,8 @@ export class MainTabsSeriesComponent implements OnInit {
   config: Config;
   private myEventSubscriptions: Subscription[] = [];
 
-  numberForControl1: FormControl;
-  numberForControl2: FormControl;
+  numberForControl1: UntypedFormControl;
+  numberForControl2: UntypedFormControl;
 
   params: MultiParam = {
     problemTypes: MathProblemTypes.MULTIPLICATION,
@@ -42,8 +42,8 @@ export class MainTabsSeriesComponent implements OnInit {
       Validators.required, Validators.pattern(/^(\s*-?\d+\s*\-\s*-?\d+\s*,?|\s*-?\d+\s*,?)+$/)
     ]
 
-    this.numberForControl1 = new FormControl('', vdator);
-    this.numberForControl2 = new FormControl('', vdator);
+    this.numberForControl1 = new UntypedFormControl('', vdator);
+    this.numberForControl2 = new UntypedFormControl('', vdator);
   }
 
   ngOnInit(): void {

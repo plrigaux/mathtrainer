@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Config, EquationOrientation, EquationOrientations } from '../services/config';
 import { MATHProplemActions } from '../math-generator/mathProblemTypes'
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ConfigDialogRangesComponent } from '../config-dialog-ranges/config-dialog-ranges.component';
 
 @Component({
@@ -16,7 +16,7 @@ export class ConfigDialogComponent implements OnInit {
   mathProplemActionsKeys: string[];
   config: Config;
   equationOrientations : EquationOrientation[] = EquationOrientations;
-  configForm: FormGroup;
+  configForm: UntypedFormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<ConfigDialogComponent>,
@@ -31,11 +31,11 @@ export class ConfigDialogComponent implements OnInit {
 
     this.config = { ...data };
 
-    this.configForm = new FormGroup({
-      nbNumbers: new FormControl(this.config.nbNumbers, [Validators.required, Validators.min(2)]),
-      nbProblems: new FormControl(this.config.nbQuestions, [Validators.required, Validators.min(1)]),
-      realTimeValidation: new FormControl(this.config.realTimeValidation, []),
-      orientation: new FormControl(this.config.orientation, [])
+    this.configForm = new UntypedFormGroup({
+      nbNumbers: new UntypedFormControl(this.config.nbNumbers, [Validators.required, Validators.min(2)]),
+      nbProblems: new UntypedFormControl(this.config.nbQuestions, [Validators.required, Validators.min(1)]),
+      realTimeValidation: new UntypedFormControl(this.config.realTimeValidation, []),
+      orientation: new UntypedFormControl(this.config.orientation, [])
     });
   }
 
