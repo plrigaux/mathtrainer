@@ -1,18 +1,30 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  ViewChildren,
+  QueryList,
+} from '@angular/core'
+import { Router } from '@angular/router'
 import { WorksheetsMap } from '../../math-generator/worksheetsMap'
-import { MathProblemTypes } from '../../math-generator/mathProblemTypes';
+import { MathProblemTypes } from '../../math-generator/mathProblemTypes'
 import { ConfigService, ConfigServiceInfo } from '../../services/config.service'
-import { Config } from '../../services/config';
-import { Subscription } from 'rxjs';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { Config } from '../../services/config'
+import { Subscription } from 'rxjs'
+import { MatCheckbox } from '@angular/material/checkbox'
 import { WorksheetsItem } from '../../math-generator/worksheetsDefinitions'
-import { ButtonPushed, ButtonPushedStatus } from '../main-buttons/main-buttons.component'
-import { MATHProplemActions, MathProblemTypesMap, MathProblemTypesData } from '../../math-generator/mathProblemTypes'
+import {
+  ButtonPushed,
+  ButtonPushedStatus
+} from '../main-buttons/main-buttons.component'
+import {
+  MATHProplemActions,
+  MathProblemTypesMap,
+  MathProblemTypesData
+} from '../../math-generator/mathProblemTypes'
 
 export interface WorksheetsItemPerOperation {
-  exercises: WorksheetsItem[];
-  mathProblemTypesData: MathProblemTypesData;
+  exercises: WorksheetsItem[]
+  mathProblemTypesData: MathProblemTypesData
 }
 
 @Component({
@@ -21,146 +33,153 @@ export interface WorksheetsItemPerOperation {
   styleUrls: ['./main-tabs-programs.component.scss']
 })
 export class MainTabsProgramsComponent implements OnInit {
-  exercises: WorksheetsItem[];
-  worksheetsItemPerOperations: WorksheetsItemPerOperation[] = [];
-  private worksheetsItems: Map<string, WorksheetsItem> = new Map();
-  config: Config;
-  private myEventSubscriptions: Subscription[] = [];
-  @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>;
-  selectedTabIndex: number = null;
-  problemTypes: MathProblemTypes[] = null;
-  mathProblemTypesMap: MathProblemTypesMap = MATHProplemActions;
-  removable = true;
-  selectable = true;
+  exercises: WorksheetsItem[]
+  worksheetsItemPerOperations: WorksheetsItemPerOperation[] = []
+  private worksheetsItems: Map<string, WorksheetsItem> = new Map()
+  config: Config
+  private myEventSubscriptions: Subscription[] = []
+  @ViewChildren(MatCheckbox) checkboxes: QueryList<MatCheckbox>
+  selectedTabIndex: number = null
+  problemTypes: MathProblemTypes[] = null
+  mathProblemTypesMap: MathProblemTypesMap = MATHProplemActions
+  removable = true
+  selectable = true
 
+  constructor (private router: Router, private configService: ConfigService) {
+    this.exercises = WorksheetsMap.getWorksheetsItem()
 
-  constructor(private router: Router, private configService: ConfigService) {
-    this.exercises = WorksheetsMap.getWorksheetsItem();
-
-    let exercicesPerOP: Map<MathProblemTypes, WorksheetsItemPerOperation> = new Map();
+    let exercicesPerOP: Map<
+      MathProblemTypes,
+      WorksheetsItemPerOperation
+    > = new Map()
     //Fill map
-    Object.values(MATHProplemActions).forEach(x => exercicesPerOP.set(x.code, {
-      exercises: [],
-      mathProblemTypesData: x
-    }));
+    Object.values(MATHProplemActions).forEach(x =>
+      exercicesPerOP.set(x.code, {
+        exercises: [],
+        mathProblemTypesData: x
+      })
+    )
 
     this.exercises.forEach((x: WorksheetsItem) => {
-      let a: WorksheetsItemPerOperation = exercicesPerOP.get(x.mathProblemType);
-      a.exercises.push(x);
-    });
+      let a: WorksheetsItemPerOperation = exercicesPerOP.get(x.mathProblemType)
+      a.exercises.push(x)
+    })
 
     //clean empty
-    exercicesPerOP.forEach((v: WorksheetsItemPerOperation, k: MathProblemTypes) => {
-      if (v.exercises.length != 0) {
-        this.worksheetsItemPerOperations.push(v);
+    exercicesPerOP.forEach(
+      (v: WorksheetsItemPerOperation, k: MathProblemTypes) => {
+        if (v.exercises.length != 0) {
+          this.worksheetsItemPerOperations.push(v)
+        }
       }
-    });
+    )
   }
 
-  ngOnInit(): void {
-    this.myEventSubscriptions.push(this.configService.subscribe(
-      (cfi: ConfigServiceInfo) => {
-        this.config = cfi.config;
+  ngOnInit (): void {
+    this.myEventSubscriptions.push(
+      this.configService.subscribe((cfi: ConfigServiceInfo) => {
+        this.config = cfi.config
         this.config.generators.forEach(worksheetsItem => {
-
           if (WorksheetsMap.has(worksheetsItem.code)) {
-            this.fillMap(true, worksheetsItem);
+            this.fillMap(true, worksheetsItem)
           }
-        });
-      }
-    ));
+        })
+      })
+    )
   }
 
-  ngOnDestroy(): void {
-    this.myEventSubscriptions.forEach(subscription => subscription.unsubscribe());
-    this.myEventSubscriptions = [];
-    console.log("DEStroy !!!!!!!!!!!!");
+  ngOnDestroy (): void {
+    this.myEventSubscriptions.forEach(subscription =>
+      subscription.unsubscribe()
+    )
+    this.myEventSubscriptions = []
+    console.log('DEStroy !!!!!!!!!!!!')
   }
 
-  setUpConfig() {
+  setUpConfig () {
+    let generators: WorksheetsItem[] = new Array(this.worksheetsItems.size)
 
-    let generators: WorksheetsItem[] = new Array(this.worksheetsItems.size);
-
-    let i = 0;
+    let i = 0
     this.worksheetsItems.forEach((value: WorksheetsItem) => {
       generators[i++] = value
-    });
+    })
 
     this.config.generators = generators
     console.warn(this.config.generators)
     this.configService.next(this.config, true)
   }
 
-  getAdditions(): WorksheetsItem[] {
-    console.log("getAdditions");
-    return this.exercises;
+  getAdditions (): WorksheetsItem[] {
+    console.log('getAdditions')
+    return this.exercises
   }
 
-  filterOperation(a: any, b: MathProblemTypesData) {
-    return a.mathProblemType === b.code;
+  filterOperation (a: any, b: MathProblemTypesData) {
+    return a.mathProblemType === b.code
   }
 
-  checkboxChange(checked: boolean, item: WorksheetsItem) {
-    console.log(checked);
-    console.log(item);
+  checkboxChange (checked: boolean, item: WorksheetsItem) {
+    console.log(checked)
+    console.log(item)
 
-    this.fillMap(checked, item);
+    this.fillMap(checked, item)
   }
 
-  private fillMap(checked: boolean, item: WorksheetsItem) {
+  private fillMap (checked: boolean, item: WorksheetsItem) {
     if (checked) {
-      this.worksheetsItems.set(item.code, item);
+      this.worksheetsItems.set(item.code, item)
     } else {
-      this.worksheetsItems.delete(item.code);
+      this.worksheetsItems.delete(item.code)
     }
     console.log(this.worksheetsItems)
   }
 
-  unCheckAll() {
+  unCheckAll () {
     this.checkboxes.forEach(element => {
       element.checked = false
-    });
-    this.worksheetsItems.clear();
+    })
+    this.worksheetsItems.clear()
   }
 
-  isSelected(worksheetsItem: WorksheetsItem): boolean {
-    let selected = this.worksheetsItems.has(worksheetsItem.code);
-    return selected;
+  isSelected (worksheetsItem: WorksheetsItem): boolean {
+    let selected = this.worksheetsItems.has(worksheetsItem.code)
+    return selected
   }
 
-  pushedButton(buttonPushed: ButtonPushed) {
+  pushedButton (buttonPushed: ButtonPushed) {
     switch (buttonPushed.status) {
       case ButtonPushedStatus.TO_PROBLEMS:
         this.config.nbQuestions = buttonPushed.nbQuestions
-        this.setUpConfig();
-        this.router.navigate(['/problems']);
-        break;
+        this.setUpConfig()
+        this.router.navigate(['/problems'])
+        break
       case ButtonPushedStatus.TO_WORKOUT:
         this.config.nbQuestions = buttonPushed.nbQuestions
-        this.setUpConfig();
-        this.router.navigate(['/workout']);
-        break;
+        this.setUpConfig()
+        this.router.navigate(['/workout'])
+        break
       case ButtonPushedStatus.CLEAR:
-        this.unCheckAll();
-        break;
+        this.unCheckAll()
+        break
     }
   }
 
-  mathProplemActions(): MathProblemTypesData[] {
-    let val: MathProblemTypesData[] = Object.values(MATHProplemActions);
-    return val;
+  mathProplemActions (): MathProblemTypesData[] {
+    let val: MathProblemTypesData[] = Object.values(MATHProplemActions)
+    return val
   }
 
-  operationToDisplay(): WorksheetsItemPerOperation[] {
-
+  operationToDisplay (): WorksheetsItemPerOperation[] {
     if (!this.problemTypes) {
       return this.worksheetsItemPerOperations
     } else {
-      return this.worksheetsItemPerOperations.filter(x => this.problemTypes.includes(x.mathProblemTypesData.code))
+      return this.worksheetsItemPerOperations.filter(x =>
+        this.problemTypes.includes(x.mathProblemTypesData.code)
+      )
     }
   }
 
-  remove(problemType : MathProblemTypes) : void {
-    console.log("remove chip : " + problemType)
+  remove (problemType: MathProblemTypes): void {
+    console.log('remove chip : ' + problemType)
   }
 }

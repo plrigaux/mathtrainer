@@ -1,7 +1,7 @@
 import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioChange as MatRadioChange } from '@angular/material/radio';
 import { ConfigService, ConfigServiceInfo } from './services/config.service'
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxChange as MatCheckboxChange } from '@angular/material/checkbox';
 import { Config, EquationOrientation, EquationOrientations } from './services/config';
 import { RouterOutlet, Router } from '@angular/router';
 import { Subscription } from 'rxjs';

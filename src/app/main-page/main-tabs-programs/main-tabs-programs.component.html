@@ -8,13 +8,13 @@
         </mat-select>
     </mat-form-field>
 <div class="operation-chip-list">
-    <mat-chip-list aria-label="operations" class="operation-chip-list">
-        <mat-chip *ngFor="let problemType of problemTypes" [selectable]="selectable"
+    <mat-chip-listbox aria-label="operations" class="operation-chip-list">
+        <mat-chip-option *ngFor="let problemType of problemTypes" [selectable]="selectable"
                  [removable]="removable" (removed)="remove(problemType)">
           {{mathProblemTypesMap[problemType].name}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+        </mat-chip-option>
+      </mat-chip-listbox>
 </div>      
 </section>
 
