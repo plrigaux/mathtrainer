@@ -31,8 +31,8 @@
             "localize": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-               { "glob": "*.html", "input": "src/locale", "output": "./../" }
+              "src/assets"
+              
             ],
             "styles": [
               "src/assets/styles/themes.scss",
@@ -91,24 +91,24 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mathtrainer:build"
+            "buildTarget": "mathtrainer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mathtrainer:build:production"
+              "buildTarget": "mathtrainer:build:production"
             },
             "fr": {
-              "browserTarget": "mathtrainer:build:fr"
+              "buildTarget": "mathtrainer:build:fr"
             },
             "en-US": {
-              "browserTarget": "mathtrainer:build:en-US"
+              "buildTarget": "mathtrainer:build:en-US"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mathtrainer:build"
+            "buildTarget": "mathtrainer:build"
           }
         },
         "test": {
@@ -165,5 +165,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

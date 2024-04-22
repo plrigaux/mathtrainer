@@ -1,5 +1,7 @@
+@use 'sass:map';
 @use '@angular/material' as mat;
-@import "@angular/material/theming";
+//@use '@angular/material' as mat;
+//@import "@angular/material/theming";
 
 // Include non-theme styles for core.
 // TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
