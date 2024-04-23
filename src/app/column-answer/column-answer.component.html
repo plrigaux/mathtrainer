@@ -1,41 +1,34 @@
-<button mat-icon-button
-    color="accent"
-    aria-label="Clear"
-    (click)="clearInput()"
-    [disabled]="isEmpty()"
-    tabindex="-1">
-    <mat-icon svgIcon="delete-cross"></mat-icon>
-</button>
-<ng-container
-    *ngIf="mode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-container>
+<ng-container *ngIf="mode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-container>
 
 <ng-template #columns>
     <div class="columnAnswer">
-        <input *ngFor="let ipt of userInputs; index as i; last as isLast; trackBy:trackByIdx"
-            #columninput
-            type="number"
-            [(ngModel)]="userInputs[i].value"
-            (keydown)="onKeydown($event, i)"
-            (ngModelChange)="modelChangeFn($event, i)"
-            [tabindex]="userInputs[i].tabindex"
-            [placeholder]="userInputs[i].placeholder"
-            [@answerStatus]="answerStatus"
-            (focus)="onFocusColumns($event, i)"
-            (blur)="onBlurColumns($event, i)">
+        <mat-form-field floatLabel="always">
+      
+            <mat-label>?</mat-label>
+            <input *ngFor="let ipt of userInputs; index as i; last as isLast; trackBy:trackByIdx" #columninput
+                type="number" [(ngModel)]="userInputs[i].value" (keydown)="onKeydown($event, i)"
+                (ngModelChange)="modelChangeFn($event, i)" [tabindex]="userInputs[i].tabindex"
+                [placeholder]="userInputs[i].placeholder" [@answerStatus]="answerStatus"
+                (focus)="onFocusColumns($event, i)" (blur)="onBlurColumns($event, i)">
+                <button mat-icon-button color="accent" aria-label="Clear" (click)="clearInput()" [disabled]="isEmpty()"
+                tabindex="-1">
+                <mat-icon svgIcon="delete-cross"></mat-icon>
+            </button>
+        </mat-form-field>
     </div>
 </ng-template>
 
 <ng-template #normal>
-    <input
-        #columninput
-        class="mathAnswer"
-        [ngModel]="value"
-        (ngModelChange)="modelChangeNormal($event)"
-        [ngStyle]="{'width.rem': size}"
-        type="number"
-        (keydown)="onKeydownSimple($event)"
-        [@answerStatus]="answerStatus"
-        (focus)="onFocusSimple($event)"
-        (blur)="onBlurSimple($event)"
-        placeholder="?">
+    
+    <button mat-icon-button color="accent" aria-label="Clear" (click)="clearInput()" [disabled]="isEmpty()"
+        tabindex="-1">
+        <mat-icon svgIcon="delete-cross"></mat-icon>
+    </button>
+   
+    <input #columninput [ngModel]="value" (ngModelChange)="modelChangeNormal($event)"
+        [ngStyle]="{'width.rem': size}" type="number" (keydown)="onKeydownSimple($event)" [@answerStatus]="answerStatus"
+        (focus)="onFocusSimple($event)" (blur)="onBlurSimple($event)" placeholder="?">
+
+        
+    
 </ng-template>

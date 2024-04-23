@@ -7,7 +7,8 @@ import { Subscription } from 'rxjs';
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../services/math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 import { ColumnAnswerComponent, ValidateCB, FocusType, ColumnAnswerMode } from '../column-answer/column-answer.component'
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 const regexNumVal = /[0-9,-\.]/
 
 @Component({
@@ -32,7 +33,10 @@ export class MathQuestionComponent implements OnInit {
   columnAnswerMode = ColumnAnswerMode;
 
   constructor(
-    private mathQuestionService: MathQuestionService) {
+    private mathQuestionService: MathQuestionService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'delete-cross',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/delete_icon.svg'));
 
   }
 
@@ -71,7 +75,7 @@ export class MathQuestionComponent implements OnInit {
     console.debug(this.log(`onValueChange userInput ${userInput} ${typeof userInput} callerId ${callerId}`))
 
     this.userInput = userInput;
-    let status : QuestionStatus = null;
+    let status: QuestionStatus = null;
     if (this.config.realTimeValidation) {
       status = this.validateAnswer(true)
     } else {
@@ -193,7 +197,7 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 
-  existFocus(event : any) {
+  existFocus(event: any) {
     console.warn(this.log("exitWidget"))
     this.informParent(true, true);
   }

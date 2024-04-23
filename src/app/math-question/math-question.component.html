@@ -6,13 +6,13 @@
       <section class="question_column">
         <section class="operator">{{problem.mathProplemActions.operator}}</section>
         <section class="numbers">
-        
+
           <ng-container *ngIf="config.answerMode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-container>
-          
+
         </section>
       </section>
       <hr class="hr_equals" />
-      <ng-container *ngTemplateOutlet="answerField"></ng-container>
+      <ng-container *ngTemplateOutlet="answerField2"></ng-container>
     </ng-container>
 
     <ng-template #flat>
@@ -24,7 +24,7 @@
         <span class="equals">=</span>
         <ng-container *ngTemplateOutlet="answerField"></ng-container>
       </section>
-      
+
     </ng-template>
   </div>
 </div>
@@ -43,14 +43,28 @@
 
 <ng-template #answerField>
   <div class="answerField">
-    <app-column-answer
-      [id]='questionId.toString()'
-      [size]='size'
-      [mode]='config.answerMode'
-      [value]='userInput'
-      [valueChange]="onValueChange"
-      (focusChange)="onFocusChange($event)"
-      [answerStatus]="status"
+    <app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
+      [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
       (existFocus)="existFocus($event)"></app-column-answer>
+  </div>
+</ng-template>
+
+<ng-template #answerField2>
+  <div class="answerField">
+    <mat-form-field appearance="outline" class="pizza">
+
+      <button mat-icon-button matPrefix color="accent" aria-label="Clear">
+        <mat-icon svgIcon="delete-cross"></mat-icon>
+      </button>
+      <input matInput type="number" class="example-right-align" placeholder="0">
+
+      
+     
+    </mat-form-field>
+
+    <app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
+      [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
+      (existFocus)="existFocus($event)"></app-column-answer>
+
   </div>
 </ng-template>

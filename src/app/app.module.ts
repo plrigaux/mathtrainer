@@ -72,7 +72,7 @@ import { MultiplicationTableComponent } from './multiplication-table/multiplicat
 import { TestPaletteComponent } from './test-features/test-palette/test-palette.component';
 import { MainTabsProgramsComponent } from './main-page/main-tabs-programs/main-tabs-programs.component';
 import { MainButtonsComponent } from './main-page/main-buttons/main-buttons.component';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,6 +124,7 @@ import { MainButtonsComponent } from './main-page/main-buttons/main-buttons.comp
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
+    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
@@ -148,7 +149,7 @@ import { MainButtonsComponent } from './main-page/main-buttons/main-buttons.comp
     MatTreeModule,
     PortalModule,
     ScrollingModule,
-  ],
+  ], 
   providers: [ConfigService],
   bootstrap: [AppComponent]
 })
