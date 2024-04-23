@@ -51,17 +51,8 @@
 
 <ng-template #answerField2>
   <div class="answerField">
-    <mat-form-field appearance="outline" class="pizza">
 
-      <button mat-icon-button matPrefix color="accent" aria-label="Clear">
-        <mat-icon svgIcon="delete-cross"></mat-icon>
-      </button>
-      <input matInput type="number" class="example-right-align" placeholder="0">
-
-      
-     
-    </mat-form-field>
-
+    <app-answer-value  [id]='questionId' [value]='userInput' [valueChange]="onValueChange" ></app-answer-value>
     <app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
       [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
       (existFocus)="existFocus($event)"></app-column-answer>

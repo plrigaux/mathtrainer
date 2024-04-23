@@ -6,7 +6,7 @@ import { ConfigService } from '../services/config.service'
 import { Subscription } from 'rxjs';
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../services/math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
-import { ColumnAnswerComponent, ValidateCB, FocusType, ColumnAnswerMode } from '../column-answer/column-answer.component'
+import { ColumnAnswerComponent, FocusType, ColumnAnswerMode } from '../column-answer/column-answer.component'
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 const regexNumVal = /[0-9,-\.]/
@@ -71,7 +71,7 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 
-  onValueChange: ValidateCB = (userInput: string, callerId: string): QuestionStatus => {
+  onValueChange: ValidateCB = (userInput: string, callerId: number): QuestionStatus => {
     console.debug(this.log(`onValueChange userInput ${userInput} ${typeof userInput} callerId ${callerId}`))
 
     this.userInput = userInput;
@@ -160,7 +160,7 @@ export class MathQuestionComponent implements OnInit {
 
   clear() {
     this.currentFocus = FocusType.BLUR;
-    this.onValueChange(null, "THIS");
+    this.onValueChange(null, 0);
   }
 
   notRight(): boolean {
@@ -186,7 +186,7 @@ export class MathQuestionComponent implements OnInit {
     });
 
     if (focucusingOut) {
-      this.onValueChange(this.userInput, "THIS")
+      this.onValueChange(this.userInput, 0)
     }
   }
 
@@ -241,3 +241,5 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 }
+
+export type ValidateCB = (newValue: string, index: number) => QuestionStatus;

@@ -3,6 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { QuestionStatus } from '../services/math-question.service';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
+import { ValidateCB } from '../math-question/math-question.component';
 
 @Component({
   selector: 'app-column-answer',
@@ -127,7 +128,7 @@ export class ColumnAnswerComponent implements OnInit {
 
     //this.valueChange.emit(this.value);
     let answerStatus = this.answerStatus
-    let newStatus = this.valueChange(this.value, this.id)
+    let newStatus = this.valueChange(this.value, +this.id)
 
 
     let leaveCursorThere: boolean;
@@ -190,7 +191,7 @@ export class ColumnAnswerComponent implements OnInit {
 
     this.value = change;
     //this.valueChange.emit(this.value);
-    let val2 = this.valueChange(this.value, this.id)
+    let val2 = this.valueChange(this.value, +this.id)
     console.log(val2);
   }
 
@@ -248,7 +249,7 @@ export class ColumnAnswerComponent implements OnInit {
       this.inputs.last.nativeElement.focus();
     }
     //this.valueChange.emit(this.value);
-    let val2 = this.valueChange(this.value, this.id)
+    let val2 = this.valueChange(this.value, +this.id)
     console.log(val2);
   }
 
@@ -390,4 +391,3 @@ interface CAContent {
 
 type SwitchFocusCB = (newCol: number, oldCol: number) => void;
 type FillCB = (val: string) => void;
-export type ValidateCB = (newValue: string, index: string) => QuestionStatus;

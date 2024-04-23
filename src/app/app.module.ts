@@ -73,6 +73,7 @@ import { TestPaletteComponent } from './test-features/test-palette/test-palette.
 import { MainTabsProgramsComponent } from './main-page/main-tabs-programs/main-tabs-programs.component';
 import { MainButtonsComponent } from './main-page/main-buttons/main-buttons.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AnswerValueComponent } from './answer-value/answer-value.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,7 +97,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     TestPaletteComponent,
     MainTabsProgramsComponent,
     ProblemPanelComponentDialog,
-    MainButtonsComponent
+    MainButtonsComponent,
+    AnswerValueComponent
   ],
   imports: [
     HttpClientModule,
@@ -149,7 +151,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatTreeModule,
     PortalModule,
     ScrollingModule,
-  ], 
+  ],
   providers: [ConfigService],
   bootstrap: [AppComponent]
 })
