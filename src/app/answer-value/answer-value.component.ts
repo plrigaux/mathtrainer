@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { ValidateCB } from '../math-question/math-question.component';
 import { QuestionStatus } from '../services/math-question.service';
+import { FocusType } from '../column-answer/column-answer.component';
 
 @Component({
   selector: 'app-answer-value',
@@ -12,12 +13,19 @@ export class AnswerValueComponent {
   @Input() value: string = '';
   @Input() id: number = -1;
   @Input() valueChange: ValidateCB;
+  @ViewChildren('answer_input') inputs: QueryList<ElementRef>;
 
-  answerStatus: QuestionStatus = QuestionStatus.EMPTY;
+  private currentFocus = FocusType.BLUR;
+  private isSwitchColunm: boolean = false;
+  @Output() focusChange = new EventEmitter<FocusType>();
+
+  @Input() answerStatus: QuestionStatus = QuestionStatus.EMPTY;
+
   clearInput() {
     this.log(`clearInput`);
-    this.value = '';
-    this.answerStatus = QuestionStatus.EMPTY;
+    //this.value = '';
+    //this.answerStatus = QuestionStatus.EMPTY;
+    this.modelChangeNormal("")
   }
 
 
@@ -30,13 +38,14 @@ export class AnswerValueComponent {
   }
 
   modelChangeNormal(change: string): void {
-    this.log(`change ${change} model val ${this.value}`)
+    this.log(`value change from: ${this.value} to: ${change}`)
 
     this.value = change;
     //this.valueChange.emit(this.value);
     let answerStatus = this.answerStatus
-    let newStatus =  this.valueChange(this.value, this.id)
-    this.log(newStatus);
+   
+    let newStatus = this.valueChange(this.value, this.id)
+    this.log("newStatus: " + newStatus);
 
     let leaveCursorThere: boolean;
     switch (answerStatus) {
@@ -58,6 +67,7 @@ export class AnswerValueComponent {
     this.answerStatus = newStatus
   }
 
+
   set_class() {
     let clazz = ''
     switch (this.answerStatus) {
@@ -68,8 +78,47 @@ export class AnswerValueComponent {
       case QuestionStatus.RIGHT:
         clazz = 'right'
         break;
+
+      case QuestionStatus.FOCUS:
+        clazz = 'focus'
+        break;
     }
 
     return clazz
+  }
+
+  onFocusSimple(e: FocusEvent) {
+    this.setInFocus(FocusType.FOCUS);
+  }
+
+  onBlurSimple(e: FocusEvent) {
+    this.setInFocus(FocusType.BLUR);
+  }
+
+  private setInFocus(newFocus: FocusType) {
+
+    this.log(`newFocus ${newFocus} this.inFocus ${this.currentFocus}  this.isSwitchColunm ${this.isSwitchColunm}`)
+    if (this.currentFocus !== newFocus) {
+      if (this.isSwitchColunm == false) {
+        this.focusChange.emit(newFocus);
+      } else {
+        this.isSwitchColunm = false;
+      }
+
+      if (newFocus == FocusType.FOCUS) {
+        this.answerStatus = QuestionStatus.FOCUS
+      } else if (newFocus == FocusType.BLUR) {
+        if (this.isEmpty()) {
+          this.answerStatus = QuestionStatus.EMPTY
+        }
+      }
+      this.set_class()
+    }
+
+    this.currentFocus = newFocus;
+  }
+
+  focus() {
+    this.inputs.first.nativeElement.focus();
   }
 }

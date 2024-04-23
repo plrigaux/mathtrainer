@@ -1,8 +1,10 @@
-<mat-form-field appearance="outline"   [ngClass]="set_class()">
+<mat-form-field appearance="outline" [ngClass]="set_class()" class="answer_input">
 
-    <button mat-icon-button matPrefix color="accent" aria-label="Clear" color="accent" aria-label="Clear" (click)="clearInput()" [disabled]="isEmpty()">
-      <mat-icon svgIcon="delete-cross"></mat-icon>
+    <button mat-icon-button matPrefix color="accent" aria-label="Clear" color="accent" aria-label="Clear"
+        (click)="clearInput()" [disabled]="isEmpty()">
+        <mat-icon svgIcon="delete-cross"></mat-icon>
     </button>
-    <input matInput type="number" class="num-align" placeholder="?" [ngModel]="value" (ngModelChange)="modelChangeNormal($event)">
+    <input matInput #answer_input type="number" class="num-align" placeholder="?" [ngModel]="value" (focus)="onFocusSimple($event)"
+        (blur)="onBlurSimple($event)" (ngModelChange)="modelChangeNormal($event)">
 
-  </mat-form-field>
+</mat-form-field>

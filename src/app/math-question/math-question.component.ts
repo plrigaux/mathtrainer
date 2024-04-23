@@ -9,6 +9,7 @@ import { trigger, transition, state, animate, style, keyframes } from '@angular/
 import { ColumnAnswerComponent, FocusType, ColumnAnswerMode } from '../column-answer/column-answer.component'
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
+import { AnswerValueComponent } from '../answer-value/answer-value.component';
 const regexNumVal = /[0-9,-\.]/
 
 @Component({
@@ -28,6 +29,7 @@ export class MathQuestionComponent implements OnInit {
   @Input() needReset: boolean;
   //controlIndex: number;
   @ViewChild(ColumnAnswerComponent, { static: false }) private columnAnswerComponent: ColumnAnswerComponent;
+  @ViewChild(AnswerValueComponent, { static: false }) private answer_value_component: AnswerValueComponent;
   currentFocus = FocusType.BLUR;
   size = 3;
   columnAnswerMode = ColumnAnswerMode;
@@ -72,7 +74,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   onValueChange: ValidateCB = (userInput: string, callerId: number): QuestionStatus => {
-    console.debug(this.log(`onValueChange userInput ${userInput} ${typeof userInput} callerId ${callerId}`))
+    console.log(this.log(`onValueChange userInput ${userInput} ${typeof userInput} callerId: ${callerId} config_rt: ${this.config.realTimeValidation}`))
 
     this.userInput = userInput;
     let status: QuestionStatus = null;
@@ -102,11 +104,11 @@ export class MathQuestionComponent implements OnInit {
 
   validateAnswer(informParent: boolean): QuestionStatus {
     let answer = this.problem.answer;
-    console.debug(this.log(`User Input: ${this.userInput} Answer: ${answer}`));
+    console.log(this.log(`User Input: ${this.userInput} Answer: ${answer}`));
 
     let userAnswer = parseInt(this.userInput);
 
-    console.debug(this.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`))
+    console.log(this.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`))
     let status = this.status;
     if (userAnswer === answer) {
       console.debug(this.log("R"))
@@ -207,7 +209,11 @@ export class MathQuestionComponent implements OnInit {
     console.debug(this.log(this.columnAnswerComponent));
     //this.inFocus = true;
     setTimeout(() => {
-      this.columnAnswerComponent.focus();
+      if (this.columnAnswerComponent) {
+        this.columnAnswerComponent.focus();
+      } else if (this.answer_value_component) {
+        this.answer_value_component.focus();
+      }
     })
   }
 

@@ -22,7 +22,7 @@
           <span *ngIf="last==false" class="operator">{{problem.mathProplemActions.operator}}</span>
         </ng-template>
         <span class="equals">=</span>
-        <ng-container *ngTemplateOutlet="answerField"></ng-container>
+        <ng-container *ngTemplateOutlet="answerField2"></ng-container>
       </section>
 
     </ng-template>
@@ -52,10 +52,12 @@
 <ng-template #answerField2>
   <div class="answerField">
 
-    <app-answer-value  [id]='questionId' [value]='userInput' [valueChange]="onValueChange" ></app-answer-value>
-    <app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
+    <app-answer-value [id]='questionId' [value]='userInput' [valueChange]="onValueChange"
+      (focusChange)="onFocusChange($event)" [answerStatus]="status"
+      (existFocus)="existFocus($event)"></app-answer-value>
+    <!-- app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
       [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
-      (existFocus)="existFocus($event)"></app-column-answer>
+      (existFocus)="existFocus($event)"></app-column-answer -->
 
   </div>
 </ng-template>

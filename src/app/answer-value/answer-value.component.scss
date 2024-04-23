@@ -1,8 +1,13 @@
 $font-size-var: 24px;
 
+.answer_input {
+    width: 120px
+}
+
 .num-align {
     text-align: right;
     font-size: $font-size-var;
+ 
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -24,5 +29,9 @@ input[type=number] {
 
 
 ::ng-deep .right .mat-mdc-text-field-wrapper {
-    background-color: green;
+    background-color: limegreen;
+}
+
+::ng-deep .focus .mat-mdc-text-field-wrapper {
+    background-color: lightyellow;
 }
