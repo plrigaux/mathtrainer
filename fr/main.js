@@ -456,7 +456,7 @@ class AppComponent {
         const MSG_EXTERNAL_title$$SRC_APP_APP_COMPONENT_TS_0 = goog.getMsg("Trainer for Camellia");
         i18n_0 = MSG_EXTERNAL_title$$SRC_APP_APP_COMPONENT_TS_0;
       } else {
-        i18n_0 = "Pratique pour Camellia";
+        i18n_0 = "Pratique d'arithmetique";
       }
       let i18n_1;
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
