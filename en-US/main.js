@@ -453,10 +453,10 @@ class AppComponent {
         /**
          * @suppress {msgDescriptions}
          */
-        const MSG_EXTERNAL_title$$SRC_APP_APP_COMPONENT_TS_0 = goog.getMsg("Trainer for Camellia");
+        const MSG_EXTERNAL_title$$SRC_APP_APP_COMPONENT_TS_0 = goog.getMsg("Arithmetic practice");
         i18n_0 = MSG_EXTERNAL_title$$SRC_APP_APP_COMPONENT_TS_0;
       } else {
-        i18n_0 = "Trainer for Camellia";
+        i18n_0 = "Arithmetic practice";
       }
       let i18n_1;
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
