@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, SimpleChanges, OnDestroy } from '@angular/core';
 import { MathGenerator } from '../math-generator/mathGenerator'
 import { MathProblem } from "../math-generator/mathProblem";
 import { Config } from '../services/config';
@@ -18,7 +18,7 @@ const regexNumVal = /[0-9,-\.]/
   styleUrls: ['./math-question.component.scss']
 })
 
-export class MathQuestionComponent implements OnInit {
+export class MathQuestionComponent implements OnInit, OnDestroy {
   userInput: string
   status: QuestionStatus = QuestionStatus.EMPTY;
   stacked: boolean = true;
@@ -36,14 +36,15 @@ export class MathQuestionComponent implements OnInit {
 
   constructor(
     private mathQuestionService: MathQuestionService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
+    
+      iconRegistry.addSvgIcon(
       'delete-cross',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/delete_icon.svg'));
 
   }
 
   ngOnInit(): void {
-    console.debug(this.log("QID " + this.id));
+    this.debug("QID " + this.id);
   }
 
   get id(): string {
@@ -56,7 +57,7 @@ export class MathQuestionComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.myEventSubscriptions.forEach(subscription => {
-      console.debug(this.log(`subscription.unsubscribe() ${subscription}`))
+      this.debug(`subscription.unsubscribe() ${subscription}`)
       subscription.unsubscribe()
     });
   }
@@ -74,7 +75,7 @@ export class MathQuestionComponent implements OnInit {
   }
 
   onValueChange: ValidateCB = (userInput: string, callerId: number): QuestionStatus => {
-    console.log(this.log(`onValueChange userInput ${userInput} ${typeof userInput} callerId: ${callerId} config_rt: ${this.config.realTimeValidation}`))
+    this.log(`onValueChange userInput ${userInput} ${typeof userInput} callerId: ${callerId} config_rt: ${this.config.realTimeValidation}`)
 
     this.userInput = userInput;
     let status: QuestionStatus = null;
@@ -104,33 +105,33 @@ export class MathQuestionComponent implements OnInit {
 
   validateAnswer(informParent: boolean): QuestionStatus {
     let answer = this.problem.answer;
-    console.log(this.log(`User Input: ${this.userInput} Answer: ${answer}`));
+    this.log(`User Input: ${this.userInput} Answer: ${answer}`);
 
     let userAnswer = parseInt(this.userInput);
 
-    console.log(this.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`))
+    this.log(`User Input: ${this.userInput} userAnswer: ${userAnswer}`)
     let status = this.status;
     if (userAnswer === answer) {
-      console.debug(this.log("R"))
+      this.debug("R")
       status = QuestionStatus.RIGHT;
     }
     else if (isNaN(userAnswer)) {
-      console.debug(this.log("Void"))
+      this.debug("Void")
       status = this.currentFocus == FocusType.FOCUS ? QuestionStatus.FOCUS : QuestionStatus.EMPTY;
     }
     else if (this.currentFocus == FocusType.FOCUS) {
       let userAnswerLength = userAnswer.toString().length; //this to ensure raw string length (it trims)
       let answerLength = answer.toString().length
       if (userAnswerLength >= answerLength) {
-        console.debug(this.log("W Length"))
+        this.debug("W Length")
         status = QuestionStatus.WRONG;
       } else {
-        console.debug(this.log("Infocus"))
+        this.debug("Infocus")
         status = QuestionStatus.FOCUS;
       }
     }
     else {
-      console.debug(this.log("W"))
+      this.debug("W")
       status = QuestionStatus.WRONG;
     }
 
@@ -146,16 +147,16 @@ export class MathQuestionComponent implements OnInit {
   }
 
   typeKey(event: KeyboardEvent) {
-    console.debug(this.log("typeKey"));
-    console.debug(this.log(event));
+    this.debug("typeKey");
+    this.debug(event);
   }
 
   reset() {
     this._problem = MathGenerator.generateProblemNext(this.config, this.questionId);
     this.size = Math.max(this.problem.displaySize + 1, 3);
-    console.debug(this.log("PROBLEM !!!"));
-    console.debug(this.log(this._problem));
-    console.debug(this.log(this.config));
+    this.debug("PROBLEM !!!");
+    this.debug(this._problem);
+    this.debug(this.config);
     this.changeStatus(QuestionStatus.EMPTY, false, false)
     this.userInput = null;
   }
@@ -171,7 +172,7 @@ export class MathQuestionComponent implements OnInit {
 
   onFocusChange(newFocus: FocusType) {
     let focucusingOut = this.currentFocus == FocusType.FOCUS && newFocus == FocusType.BLUR;
-    console.debug(this.log(`onFocusChange ${newFocus} currentFocus ${this.currentFocus} focusingOut: ${focucusingOut} UserIinput: "${this.userInput}"`))
+    this.log(`onFocusChange ${newFocus} currentFocus ${this.currentFocus} focusingOut: ${focucusingOut} UserIinput: "${this.userInput}"`)
 
     this.currentFocus = newFocus;
 
@@ -192,8 +193,26 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 
-  on_status_change(newStatus :QuestionStatus) {
-    this.changeStatus(newStatus, true, true)
+  on_status_change(new_status: QuestionStatus) {
+    let forceExitFocus = true
+
+    switch (new_status) {
+      case QuestionStatus.EMPTY:
+        forceExitFocus = false;
+        break;
+
+      case QuestionStatus.WRONG:
+        forceExitFocus = false;
+        break;
+
+      case QuestionStatus.FOCUS:
+        forceExitFocus = false;
+        break;
+    }
+
+    this.debug(`on_status_change new: ${new_status} old: ${this.status}`)
+
+    this.changeStatus(new_status, forceExitFocus, true)
   }
 
   private changeStatus(newStatus: QuestionStatus, forceExitFocus: boolean, isParentCanValidate: boolean) {
@@ -209,8 +228,8 @@ export class MathQuestionComponent implements OnInit {
   }
 
   focus() {
-    console.debug(this.log(`focus  ${this.id} `));
-    console.debug(this.log(this.columnAnswerComponent));
+    this.debug(`focus  ${this.id} `);
+    this.debug(this.columnAnswerComponent);
     //this.inFocus = true;
     setTimeout(() => {
       if (this.columnAnswerComponent) {
@@ -243,6 +262,14 @@ export class MathQuestionComponent implements OnInit {
   }
 
   private log(message: any): any {
+    console.log(this.format_trace(message))
+  }
+
+  private debug(message: any): any {
+    console.debug(this.format_trace(message))
+  }
+
+  private format_trace(message: any): any {
     let type = typeof message;
     if (type == 'string' || type == 'number') {
       return `MQ${this.questionId} - ${message}`

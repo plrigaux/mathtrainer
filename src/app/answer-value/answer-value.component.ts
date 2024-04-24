@@ -44,7 +44,7 @@ export class AnswerValueComponent {
 
 
   log(msg: any) {
-    console.log("ASW", this.id, " - ", msg)
+    console.log(`ASW - ${this.id} -`, msg)
   }
 
   isEmpty(): boolean {
@@ -52,31 +52,14 @@ export class AnswerValueComponent {
   }
 
   modelChangeNormal(change: string): void {
-    this.log(`value change from: ${this.user_input_value} to: ${change}`)
+    this.log(`value change from: "${this.user_input_value}" to: "${change}"`)
 
     this.user_input_value = change;
     //this.valueChange.emit(this.value);
     let answerStatus = this.answerStatus
 
     let newStatus = this.validate_value_change()
-    this.log("newStatus: " + newStatus);
-
-    let leaveCursorThere: boolean;
-    switch (answerStatus) {
-      case QuestionStatus.EMPTY:
-      case QuestionStatus.FOCUS:
-        leaveCursorThere = newStatus == QuestionStatus.WRONG || newStatus == QuestionStatus.RIGHT;
-        break;
-      case QuestionStatus.WRONG:
-        leaveCursorThere = newStatus == QuestionStatus.RIGHT;
-        break;
-      case QuestionStatus.RIGHT:
-        leaveCursorThere = false;
-        break;
-      case QuestionStatus.ANSWERED:
-        leaveCursorThere = false;
-        break;
-    }
+    this.log("New status: " + newStatus);
 
     this.answerStatus = newStatus
   }
@@ -151,7 +134,7 @@ export class AnswerValueComponent {
     return this.answerStatus
   }
 
-  set_class() {
+  get_class() : string {
     let clazz = ''
     switch (this.answerStatus) {
 
@@ -178,8 +161,8 @@ export class AnswerValueComponent {
   }
 
   private setInFocus(newFocus: FocusType) {
+    this.log(`Focus ${newFocus} this.inFocus ${this.currentFocus}  this.isSwitchColunm ${this.isSwitchColunm}`)
 
-    this.log(`newFocus ${newFocus} this.inFocus ${this.currentFocus}  this.isSwitchColunm ${this.isSwitchColunm}`)
     if (this.currentFocus !== newFocus) {
       if (this.isSwitchColunm == false) {
         //this.focusChange.emit(newFocus);
@@ -188,13 +171,14 @@ export class AnswerValueComponent {
       }
 
       if (newFocus == FocusType.FOCUS) {
-        this.answerStatus = QuestionStatus.FOCUS
+        if (this.isEmpty()) {
+          this.answerStatus = QuestionStatus.FOCUS
+        }
       } else if (newFocus == FocusType.BLUR) {
         if (this.isEmpty()) {
           this.answerStatus = QuestionStatus.EMPTY
         }
       }
-      this.set_class()
     }
 
     this.currentFocus = newFocus;

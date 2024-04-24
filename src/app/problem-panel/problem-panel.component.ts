@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewChildren,
   QueryList,
-  Inject
+  Inject,
+  OnDestroy
 } from '@angular/core'
 import { MathProblem } from '../math-generator/mathProblem'
 import { ConfigService, ConfigServiceInfo } from '../services/config.service'
@@ -35,7 +36,7 @@ import {
   templateUrl: './problem-panel.component.html',
   styleUrls: ['./problem-panel.component.scss']
 })
-export class ProblemPanelComponent implements OnInit {
+export class ProblemPanelComponent implements OnInit, OnDestroy {
   problems: MathProblem[]
   @ViewChildren(MathQuestionComponent)
   private mathQuestionComponents: QueryList<MathQuestionComponent>
@@ -48,7 +49,7 @@ export class ProblemPanelComponent implements OnInit {
   needReset: boolean = false
   dialogRef: MatDialogRef<ProblemPanelComponentDialog> = null
 
-  constructor (
+  constructor(
     private configService: ConfigService,
     private mathQuestionService: MathQuestionService,
     private dialog: MatDialog
@@ -56,7 +57,7 @@ export class ProblemPanelComponent implements OnInit {
     this.resetProgress()
   }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.substriptions.push(
       this.configService.subscribe((cfsi: ConfigServiceInfo) => {
         this.config = { ...cfsi.config } //to force the change detection
@@ -79,7 +80,14 @@ export class ProblemPanelComponent implements OnInit {
     )
   }
 
-  private manageNotification (notification: MathQuestionNotifier) {
+  ngOnDestroy(): void {
+    this.substriptions.forEach(substription => substription.unsubscribe())
+  }
+
+  private manageNotification(notification: MathQuestionNotifier) {
+
+    console.log(`manageNotification`, notification)
+
     let currentStatus = this.manageStatus(notification)
 
     if (this.config.realTimeValidation) {
@@ -88,7 +96,7 @@ export class ProblemPanelComponent implements OnInit {
         case QuestionStatus.RIGHT:
           if (currentStatus !== QuestionStatus.RIGHT) {
             this.increaseProgress()
-            console.debug(`SC: ${this.successCount} PC: ${this.problemsCount}`)
+            console.log(`SC: ${this.successCount} PC: ${this.problemsCount}`)
 
             next = true
           }
@@ -99,7 +107,10 @@ export class ProblemPanelComponent implements OnInit {
           break
       }
 
-      if (next || notification.forceExitFocus) {
+      if (this.successCount >= this.problems.length) {
+        console.warn("FINISH")
+        this.openDialog()
+      } else if (next || notification.forceExitFocus) {
         this.nextComponentFocus(notification.index)
       }
     } else if (notification.isParentCanValidate) {
@@ -124,7 +135,7 @@ export class ProblemPanelComponent implements OnInit {
     }
   }
 
-  private nextComponentFocus (index: number) {
+  private nextComponentFocus(index: number) {
     let array = this.mathQuestionComponents.toArray()
 
     let mathQuestionComponent: MathQuestionComponent
@@ -147,24 +158,24 @@ export class ProblemPanelComponent implements OnInit {
     }
   }
 
-  private manageStatus (notification: MathQuestionNotifier): QuestionStatus {
+  private manageStatus(notification: MathQuestionNotifier): QuestionStatus {
     let currentStatus = this.answerMap.get(notification.id)
     this.answerMap.set(notification.id, notification.status) //There is a race condition here TODO find a way to sync
     console.debug(notification)
     console.debug(
       "Notification Status '" +
-        notification.status +
-        "' currentStatus: '" +
-        currentStatus +
-        "' notification.id '" +
-        notification.id +
-        "'"
+      notification.status +
+      "' currentStatus: '" +
+      currentStatus +
+      "' notification.id '" +
+      notification.id +
+      "'"
     )
 
     return currentStatus
   }
 
-  private runOverCommponents (
+  private runOverCommponents(
     i: number,
     limit: number,
     mqcArray: MathQuestionComponent[]
@@ -179,55 +190,51 @@ export class ProblemPanelComponent implements OnInit {
     return null
   }
 
-  private increaseProgress () {
+  private increaseProgress() {
     this.successCount++
   }
 
-  private decreaseProgress (currentStatus: QuestionStatus): void {
+  private decreaseProgress(currentStatus: QuestionStatus): void {
     if (currentStatus === QuestionStatus.RIGHT) {
       this.successCount--
     }
   }
 
-  ngAfterViewInit () {
+  ngAfterViewInit() {
     //focus on the first child
     this.focusFirst()
   }
 
-  ngOnDestroy (): void {
-    this.substriptions.forEach(substription => substription.unsubscribe())
-  }
-
-  clearAll () {
+  clearAll() {
     this.mathQuestionComponents?.forEach(c => c.clear())
     this.focusFirst()
     this.resetProgress()
   }
 
-  reset () {
+  reset() {
     this.mathQuestionComponents?.forEach(c => c.reset())
     this.focusFirst()
     this.resetProgress()
   }
 
-  resetProgress () {
+  resetProgress() {
     this.successCount = 0
   }
 
-  get problemsCount (): number {
+  get problemsCount(): number {
     return this.problems.length
   }
 
-  padding (padSize: number): any[] {
+  padding(padSize: number): any[] {
     return new Array(padSize)
   }
 
-  invert () {
+  invert() {
     this.mathQuestionComponents.forEach(c => c.invert())
     this.focusFirst()
   }
 
-  focusFirst () {
+  focusFirst() {
     if (this.mathQuestionComponents?.length > 0) {
       //Wrapped to avoid error ExpressionChangedAfterItHasBeenCheckedError
       Promise.resolve(null).then(() =>
@@ -236,13 +243,13 @@ export class ProblemPanelComponent implements OnInit {
     }
   }
 
-  orientationChangeFn (orientation: string) {
+  orientationChangeFn(orientation: string) {
     console.log(`New orientation: ${orientation} ${typeof orientation}`)
     this.config.orientation = orientation as OrientationTypesKey
     this.configService.next(this.config, false)
   }
 
-  realTimeValidationChangeFn (realTimeValidation: boolean) {
+  realTimeValidationChangeFn(realTimeValidation: boolean) {
     this.config.realTimeValidation = realTimeValidation
     this.configService.next(this.config, false)
 
@@ -257,17 +264,17 @@ export class ProblemPanelComponent implements OnInit {
     }
   }
 
-  selectedAnswerModeChangeFn (selectedAnswerMode: ColumnAnswerMode) {
+  selectedAnswerModeChangeFn(selectedAnswerMode: ColumnAnswerMode) {
     this.config.answerMode = selectedAnswerMode
     this.configService.next(this.config, false)
   }
 
-  nbProblemsChangeFn (nbProblems: number) {
+  nbProblemsChangeFn(nbProblems: number) {
     this.config.nbQuestions = nbProblems
     this.configService.next(this.config, false)
   }
 
-  validate (): void {
+  validate(): void {
     this.mathQuestionComponents.forEach((m: MathQuestionComponent) => {
       let informParent = false
 
@@ -280,7 +287,7 @@ export class ProblemPanelComponent implements OnInit {
     this.openDialog()
   }
 
-  openDialog (): void {
+  openDialog(): void {
     if (this.dialogRef != null) {
       return
     }
@@ -339,7 +346,7 @@ export class ProblemPanelComponentDialog {
   public dialogRef: MatDialogRef<ProblemPanelComponentDialog>
 
   congratulationMsg: string = null
-  constructor (@Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
     let result = data.right / data.total
 
     if (result == 1) {
