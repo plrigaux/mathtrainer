@@ -162,7 +162,6 @@ class AnswerValueComponent {
           this.answerStatus = _services_math_question_service__WEBPACK_IMPORTED_MODULE_0__.QuestionStatus.EMPTY;
         }
       }
-      this.get_class();
     }
     this.currentFocus = newFocus;
   }
@@ -359,7 +358,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function AppComponent_a_16_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "a", 21);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "a", 22);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
   }
@@ -370,9 +369,9 @@ function AppComponent_a_16_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", loc_r2.label, " ");
   }
 }
-function AppComponent_div_45_Template(rf, ctx) {
+function AppComponent_div_46_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 22)(1, "mat-radio-button", 23);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 18)(1, "mat-radio-button", 23);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
   }
@@ -384,9 +383,9 @@ function AppComponent_div_45_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](theme_r3.label);
   }
 }
-function AppComponent_div_49_Template(rf, ctx) {
+function AppComponent_div_50_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 22)(1, "mat-radio-button", 23);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 18)(1, "mat-radio-button", 23);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
   }
@@ -492,7 +491,7 @@ class AppComponent {
   static #_2 = this.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
     type: AppComponent,
     selectors: [["app-root"]],
-    decls: 50,
+    decls: 51,
     vars: 11,
     consts: () => {
       let i18n_0;
@@ -545,7 +544,7 @@ class AppComponent {
       } else {
         i18n_4 = "Th\xE8mes";
       }
-      return [["routerOutlet", "outlet"], ["menuLang", "matMenu"], ["menu", "matMenu"], ["menuTheme", "matMenu"], ["menuEquationOrientation", "matMenu"], i18n_0, i18n_1, i18n_2, i18n_3, i18n_4, ["color", "primary"], ["mat-icon-button", "", 3, "matMenuTriggerFor"], [1, "example-fill-remaining-space"], ["mat-button", "", 3, "matMenuTriggerFor"], ["id", "contentPanel"], ["mat-menu-item", "", 3, "href", 4, "ngFor", "ngForOf"], ["mat-menu-item", "", 3, "click"], ["mat-menu-item", "", 3, "matMenuTriggerFor"], ["labelPosition", "before", 1, "mat-menu-item", 3, "ngModelChange", "change", "ngModel"], ["aria-label", "Select an option", 1, "menu-radio-group", 3, "ngModelChange", "change", "ngModel"], ["mat-menu-item", "", 4, "ngFor", "ngForOf"], ["mat-menu-item", "", 3, "href"], ["mat-menu-item", ""], [3, "value"]];
+      return [["routerOutlet", "outlet"], ["menuLang", "matMenu"], ["menu", "matMenu"], ["menuTheme", "matMenu"], ["menuEquationOrientation", "matMenu"], i18n_0, i18n_1, i18n_2, i18n_3, i18n_4, ["color", "primary"], ["mat-icon-button", "", 3, "matMenuTriggerFor"], [1, "example-fill-remaining-space"], ["mat-button", "", 3, "matMenuTriggerFor"], ["id", "contentPanel"], ["mat-menu-item", "", 3, "href", 4, "ngFor", "ngForOf"], ["mat-menu-item", "", 3, "click"], ["mat-menu-item", "", 3, "matMenuTriggerFor"], ["mat-menu-item", ""], ["labelPosition", "before", 3, "ngModelChange", "change", "ngModel"], ["aria-label", "Select an option", 1, "menu-radio-group", 3, "ngModelChange", "change", "ngModel"], ["mat-menu-item", "", 4, "ngFor", "ngForOf"], ["mat-menu-item", "", 3, "href"], [3, "value"]];
     },
     template: function AppComponent_Template(rf, ctx) {
       if (rf & 1) {
@@ -606,48 +605,48 @@ class AppComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](37, "button", 17)(38, "span");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](39, "Equation Orientation");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](40, "mat-checkbox", 18);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayListener"]("ngModelChange", function AppComponent_Template_mat_checkbox_ngModelChange_40_listener($event) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](40, "div", 18)(41, "mat-checkbox", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayListener"]("ngModelChange", function AppComponent_Template_mat_checkbox_ngModelChange_41_listener($event) {
           _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r1);
           _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayBindingSet"](ctx.config.realTimeValidation, $event) || (ctx.config.realTimeValidation = $event);
           return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵresetView"]($event);
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("change", function AppComponent_Template_mat_checkbox_change_40_listener($event) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("change", function AppComponent_Template_mat_checkbox_change_41_listener($event) {
           _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r1);
           return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵresetView"](ctx.realTimeValidationChange($event));
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](41, " Realtime Validation ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](42, "mat-menu", null, 3)(44, "mat-radio-group", 19);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayListener"]("ngModelChange", function AppComponent_Template_mat_radio_group_ngModelChange_44_listener($event) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](42, " Realtime Validation ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()()();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](43, "mat-menu", null, 3)(45, "mat-radio-group", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayListener"]("ngModelChange", function AppComponent_Template_mat_radio_group_ngModelChange_45_listener($event) {
           _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r1);
           _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayBindingSet"](ctx.config.theme, $event) || (ctx.config.theme = $event);
           return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵresetView"]($event);
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("change", function AppComponent_Template_mat_radio_group_change_44_listener($event) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("change", function AppComponent_Template_mat_radio_group_change_45_listener($event) {
           _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r1);
           return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵresetView"](ctx.menuThemeRadioChange($event));
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](45, AppComponent_div_45_Template, 3, 2, "div", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](46, AppComponent_div_46_Template, 3, 2, "div", 21);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](46, "mat-menu", null, 4)(48, "mat-radio-group", 19);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayListener"]("ngModelChange", function AppComponent_Template_mat_radio_group_ngModelChange_48_listener($event) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](47, "mat-menu", null, 4)(49, "mat-radio-group", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayListener"]("ngModelChange", function AppComponent_Template_mat_radio_group_ngModelChange_49_listener($event) {
           _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r1);
           _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayBindingSet"](ctx.config.orientation, $event) || (ctx.config.orientation = $event);
           return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵresetView"]($event);
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("change", function AppComponent_Template_mat_radio_group_change_48_listener() {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("change", function AppComponent_Template_mat_radio_group_change_49_listener() {
           _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r1);
           return _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵresetView"](ctx.menuEquationOrientationChange());
         });
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](49, AppComponent_div_49_Template, 3, 2, "div", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](50, AppComponent_div_50_Template, 3, 2, "div", 21);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
       }
       if (rf & 2) {
         const menuLang_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](15);
         const menu_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](18);
-        const menuTheme_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](43);
-        const menuEquationOrientation_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](47);
+        const menuTheme_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](44);
+        const menuEquationOrientation_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](48);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("matMenuTriggerFor", menu_r6);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](6);
@@ -660,7 +659,7 @@ class AppComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("matMenuTriggerFor", menuTheme_r7);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("matMenuTriggerFor", menuEquationOrientation_r8);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayProperty"]("ngModel", ctx.config.realTimeValidation);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtwoWayProperty"]("ngModel", ctx.config.theme);
@@ -2282,12 +2281,12 @@ class MainButtonsComponent {
       let i18n_1;
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
         /**
-         * @desc to a problem
+         * @desc open the worksheet
          */
-        const MSG_EXTERNAL_Problems$$SRC_APP_MAIN_PAGE_MAIN_BUTTONS_MAIN_BUTTONS_COMPONENT_TS_1 = goog.getMsg("Problems");
-        i18n_1 = MSG_EXTERNAL_Problems$$SRC_APP_MAIN_PAGE_MAIN_BUTTONS_MAIN_BUTTONS_COMPONENT_TS_1;
+        const MSG_EXTERNAL_math_worksheet$$SRC_APP_MAIN_PAGE_MAIN_BUTTONS_MAIN_BUTTONS_COMPONENT_TS_1 = goog.getMsg("Math Worksheet");
+        i18n_1 = MSG_EXTERNAL_math_worksheet$$SRC_APP_MAIN_PAGE_MAIN_BUTTONS_MAIN_BUTTONS_COMPONENT_TS_1;
       } else {
-        i18n_1 = "Probl\xE8mes";
+        i18n_1 = "Feuille d'exercices";
       }
       let i18n_2;
       if (typeof ngI18nClosureMode !== "undefined" && ngI18nClosureMode) {
@@ -5229,7 +5228,7 @@ class ProblemPanelComponentDialog {
         const MSG_EXTERNAL_6804990303797863301$$SRC_APP_PROBLEM_PANEL_PROBLEM_PANEL_COMPONENT_TS_0 = goog.getMsg("{VAR_PLURAL, plural, =0 {ZERO good answer} =1 {one good answer} other {{INTERPOLATION} good answers}}");
         i18n_0 = MSG_EXTERNAL_6804990303797863301$$SRC_APP_PROBLEM_PANEL_PROBLEM_PANEL_COMPONENT_TS_0;
       } else {
-        i18n_0 = "{VAR_PLURAL, plural, =0 {ZERO good answer} =1 {one good answer} other {{INTERPOLATION} good answers}}";
+        i18n_0 = "{VAR_PLURAL, plural, =0 {AUCUNE bonne r\xE9ponse} =1 {une bonne r\xE9ponse} other {{INTERPOLATION} bonnes r\xE9ponses}}";
       }
       i18n_0 = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵi18nPostprocess"](i18n_0, {
         "INTERPOLATION": "\uFFFD1\uFFFD",
@@ -5251,19 +5250,19 @@ class ProblemPanelComponentDialog {
         });
         i18n_1 = MSG_EXTERNAL_congratulationMsg2$$SRC_APP_PROBLEM_PANEL_PROBLEM_PANEL_COMPONENT_TS_1;
       } else {
-        i18n_1 = "Tu as " + i18n_0 + " sur un total de " + "\uFFFD2\uFFFD" + " questions.";
+        i18n_1 = "Tu as " + i18n_0 + "\n          sur un total de " + "\uFFFD2\uFFFD" + " questions.";
       }
-      return [i18n_1, ["align", "end"], ["mat-button", "", "cdkFocusInitial", "", 3, "mat-dialog-close"]];
+      return [i18n_1, ["mat-dialog-title", ""], ["align", "end"], ["mat-button", "", "cdkFocusInitial", "", 3, "mat-dialog-close"]];
     },
     template: function ProblemPanelComponentDialog_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "h1");
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](0, "h2", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](2, "mat-dialog-content");
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵi18n"](3, 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](4, "mat-dialog-actions", 1)(5, "button", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementStart"](4, "mat-dialog-actions", 2)(5, "button", 3);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵtext"](6, "Close");
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵelementEnd"]()();
       }
@@ -5277,7 +5276,7 @@ class ProblemPanelComponentDialog {
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("mat-dialog-close", true);
       }
     },
-    dependencies: [_angular_material_button__WEBPACK_IMPORTED_MODULE_11__.MatButton, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__.MatDialogClose, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__.MatDialogContent],
+    dependencies: [_angular_material_button__WEBPACK_IMPORTED_MODULE_11__.MatButton, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__.MatDialogClose, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__.MatDialogTitle, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__.MatDialogActions, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__.MatDialogContent],
     styles: [_c0]
   });
 }
