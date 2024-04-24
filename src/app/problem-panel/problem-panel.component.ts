@@ -139,7 +139,7 @@ export class ProblemPanelComponent implements OnInit {
       mathQuestionComponent = this.runOverCommponents(0, index + 1, array)
     }
 
-    if (mathQuestionComponent !== undefined) {
+    if (mathQuestionComponent) {
       mathQuestionComponent.focus()
     } else {
       let nextOne = index + 1 >= array.length ? 0 : index + 1

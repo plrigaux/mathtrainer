@@ -1,7 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { ValidateCB } from '../math-question/math-question.component';
-import { QuestionStatus } from '../services/math-question.service';
+import { MathQuestionNotifier, QuestionStatus } from '../services/math-question.service';
 import { FocusType } from '../column-answer/column-answer.component';
+import { Subscription } from 'rxjs';
+import { Config } from '../services/config';
 
 @Component({
   selector: 'app-answer-value',
@@ -10,16 +12,28 @@ import { FocusType } from '../column-answer/column-answer.component';
   styleUrl: './answer-value.component.scss'
 })
 export class AnswerValueComponent {
-  @Input() value: string = '';
-  @Input() id: number = -1;
-  @Input() valueChange: ValidateCB;
+  @Input() user_input_value: string = '';
+  @Input() id: string = "NO_ID";
+  @Input() real_answer: number;
+  @Input() config: Config;
+  @Output() status_change = new EventEmitter<QuestionStatus>();
+
   @ViewChildren('answer_input') inputs: QueryList<ElementRef>;
 
+  private myEventSubscriptions: Subscription[] = [];
   private currentFocus = FocusType.BLUR;
   private isSwitchColunm: boolean = false;
-  @Output() focusChange = new EventEmitter<FocusType>();
+  //@Output() focusChange = new EventEmitter<FocusType>();
 
-  @Input() answerStatus: QuestionStatus = QuestionStatus.EMPTY;
+  private answerStatus: QuestionStatus = QuestionStatus.EMPTY;
+
+  ngOnDestroy(): void {
+    this.myEventSubscriptions.forEach(subscription => {
+      console.debug(this.log(`subscription.unsubscribe() ${subscription}`))
+      subscription.unsubscribe()
+    });
+  }
+
 
   clearInput() {
     this.log(`clearInput`);
@@ -34,17 +48,17 @@ export class AnswerValueComponent {
   }
 
   isEmpty(): boolean {
-    return this.value == null || this.value.length === 0;
+    return this.user_input_value == null || this.user_input_value.length === 0;
   }
 
   modelChangeNormal(change: string): void {
-    this.log(`value change from: ${this.value} to: ${change}`)
+    this.log(`value change from: ${this.user_input_value} to: ${change}`)
 
-    this.value = change;
+    this.user_input_value = change;
     //this.valueChange.emit(this.value);
     let answerStatus = this.answerStatus
-   
-    let newStatus = this.valueChange(this.value, this.id)
+
+    let newStatus = this.validate_value_change()
     this.log("newStatus: " + newStatus);
 
     let leaveCursorThere: boolean;
@@ -67,6 +81,75 @@ export class AnswerValueComponent {
     this.answerStatus = newStatus
   }
 
+  validate_value_change(): QuestionStatus {
+    let status: QuestionStatus = null;
+    if (this.config.realTimeValidation) {
+      status = this.validate_answer_real_time(true)
+    } else {
+      status = this.validate_answer_on_blur();
+    }
+    return status;
+  }
+
+
+  validate_answer_on_blur(): QuestionStatus {
+
+    let empty = this.isEmpty()
+    let status = this.answerStatus;
+
+    if (this.currentFocus == FocusType.FOCUS) {
+      status = QuestionStatus.FOCUS
+    } else {
+      status = empty ? QuestionStatus.EMPTY : QuestionStatus.ANSWERED
+    }
+
+    return this.changeStatus(status, false, true)
+
+  }
+
+  validate_answer_real_time(informParent: boolean): QuestionStatus {
+
+    this.log(`User Input: ${this.user_input_value} Answer: ${this.real_answer}`);
+
+    let userAnswer = parseInt(this.user_input_value);
+
+    this.log(`User Input: ${this.user_input_value} userAnswer: ${userAnswer}`)
+    let status = this.answerStatus;
+    if (userAnswer === this.real_answer) {
+      console.debug(this.log("R"))
+      status = QuestionStatus.RIGHT;
+    }
+    else if (isNaN(userAnswer)) {
+      console.debug(this.log("Void"))
+      status = this.currentFocus == FocusType.FOCUS ? QuestionStatus.FOCUS : QuestionStatus.EMPTY;
+    }
+    else if (this.currentFocus == FocusType.FOCUS) {
+      let userAnswerLength = userAnswer.toString().length; //this to ensure raw string length (it trims)
+      let answerLength = this.real_answer.toString().length
+      if (userAnswerLength >= answerLength) {
+        console.debug(this.log("W Length"))
+        status = QuestionStatus.WRONG;
+      } else {
+        console.debug(this.log("Infocus"))
+        status = QuestionStatus.FOCUS;
+      }
+    }
+    else {
+      console.debug(this.log("W"))
+      status = QuestionStatus.WRONG;
+    }
+
+    return this.changeStatus(status, false, informParent)
+  }
+
+  private changeStatus(newStatus: QuestionStatus, forceExitFocus: boolean, isParentCanValidate: boolean): QuestionStatus {
+    if (this.answerStatus !== newStatus) {
+      this.answerStatus = newStatus
+      this.status_change.emit(this.answerStatus)
+    }
+
+    return this.answerStatus
+  }
 
   set_class() {
     let clazz = ''
@@ -78,7 +161,6 @@ export class AnswerValueComponent {
       case QuestionStatus.RIGHT:
         clazz = 'right'
         break;
-
       case QuestionStatus.FOCUS:
         clazz = 'focus'
         break;
@@ -100,7 +182,7 @@ export class AnswerValueComponent {
     this.log(`newFocus ${newFocus} this.inFocus ${this.currentFocus}  this.isSwitchColunm ${this.isSwitchColunm}`)
     if (this.currentFocus !== newFocus) {
       if (this.isSwitchColunm == false) {
-        this.focusChange.emit(newFocus);
+        //this.focusChange.emit(newFocus);
       } else {
         this.isSwitchColunm = false;
       }

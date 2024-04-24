@@ -192,6 +192,10 @@ export class MathQuestionComponent implements OnInit {
     }
   }
 
+  on_status_change(newStatus :QuestionStatus) {
+    this.changeStatus(newStatus, true, true)
+  }
+
   private changeStatus(newStatus: QuestionStatus, forceExitFocus: boolean, isParentCanValidate: boolean) {
     if (this.status !== newStatus) {
       this.status = newStatus

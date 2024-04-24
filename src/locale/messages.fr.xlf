@@ -6,8 +6,8 @@
         <note category="location">src/app/app.component.html:5</note>
       </notes>
       <segment state="final">
-        <source>Trainer for Camellia</source>
-        <target state="initial">Pratique pour Camellia</target>
+        <source>Arithmetic practice</source>
+        <target state="initial">Pratique d'arithmetique</target>
       </segment>
     </unit>
     <unit id="home">

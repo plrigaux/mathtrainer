@@ -1,3 +1,7 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@import "../../assets/styles/themes_variables.scss";
+
 $font-size-var: 24px;
 
 .answer_input {
@@ -27,11 +31,25 @@ input[type=number] {
     background-color: red;
 }
 
-
 ::ng-deep .right .mat-mdc-text-field-wrapper {
     background-color: limegreen;
 }
 
-::ng-deep .focus .mat-mdc-text-field-wrapper {
-    background-color: lightyellow;
+@mixin widget-theme($theme) {
+    $type: mat.get-theme-type($theme);
+    $custom-background: if($type == dark,#3d3d29,lightyellow);
+
+    ::ng-deep .focus .mat-mdc-text-field-wrapper {
+        background-color: $custom-background;
+    }
+}
+
+@each $thclass, $theme in $all_themes {
+    @if $thclass == "" {
+        @include widget-theme($theme);
+    } @else {
+        :host-context(.#{$thclass}) {
+            @include widget-theme($theme);
+        }
+    }
 }

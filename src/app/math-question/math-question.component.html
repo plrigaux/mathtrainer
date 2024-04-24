@@ -52,9 +52,7 @@
 <ng-template #answerField2>
   <div class="answerField">
 
-    <app-answer-value [id]='questionId' [value]='userInput' [valueChange]="onValueChange"
-      (focusChange)="onFocusChange($event)" [answerStatus]="status"
-      (existFocus)="existFocus($event)"></app-answer-value>
+    <app-answer-value [id]='questionId.toString()' [real_answer]='problem.answer' (status_change)="on_status_change($event)" [config]="config"></app-answer-value>
     <!-- app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
       [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
       (existFocus)="existFocus($event)"></app-column-answer -->
