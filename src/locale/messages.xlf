@@ -55,18 +55,18 @@
         <source>Number of questions</source>
       </segment>
     </unit>
-    <unit id="Problems">
+    <unit id="math_worksheet">
       <notes>
-        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:6</note>
-        <note category="description">to a problem</note>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:7</note>
+        <note category="description">open the worksheet</note>
       </notes>
       <segment>
-        <source>Problems</source>
+        <source>Math Worksheet</source>
       </segment>
     </unit>
     <unit id="Workout">
       <notes>
-        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:8</note>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:10</note>
         <note category="description">to a workout training</note>
       </notes>
       <segment>
@@ -75,7 +75,7 @@
     </unit>
     <unit id="clearAll">
       <notes>
-        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:10</note>
+        <note category="location">src/app/main-page/main-buttons/main-buttons.component.html:12</note>
       </notes>
       <segment>
         <source>Clear all</source>
@@ -326,7 +326,7 @@
     </unit>
     <unit id="excellent">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:303</note>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:353</note>
       </notes>
       <segment>
         <source>Excellent</source>
@@ -334,7 +334,7 @@
     </unit>
     <unit id="good">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:305</note>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:355</note>
       </notes>
       <segment>
         <source>Good</source>
@@ -342,7 +342,7 @@
     </unit>
     <unit id="resultTryAgain">
       <notes>
-        <note category="location">src/app/problem-panel/problem-panel.component.ts:307</note>
+        <note category="location">src/app/problem-panel/problem-panel.component.ts:357</note>
       </notes>
       <segment>
         <source>Try again</source>
