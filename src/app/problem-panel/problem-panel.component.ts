@@ -25,11 +25,7 @@ import {
   ColumnAnswerMode,
   ANSWER_MODES
 } from '../column-answer/column-answer.component'
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog'
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-problem-panel',
