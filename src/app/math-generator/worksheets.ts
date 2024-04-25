@@ -30,7 +30,7 @@ export class Worksheets {
 
         let prog = {
             answer: [{ min: 1, max: 9 }],
-            number: [{ min: 1, max: 9 }],
+            number: [{ min: 0, max: 9 }],
             mathProblemType: MathProblemTypes.ADDITION
         };
 
@@ -84,20 +84,20 @@ export class Worksheets {
         return Worksheets.addTowXDigitNumbersNoCarryProg(prog);
     }
 
-    static addTowXDigitNumbersNoCarryProg(prog: WorksheetProgram): MathProblem {
+    static addTowXDigitNumbersNoCarryProg(program: WorksheetProgram): MathProblem {
 
         let answer: number = 0;
         let number2: number = 0;
-        let xDigit = prog.answer.length;
+        let xDigit = program.answer.length;
 
 
         for (let i = 0; i < xDigit;) {
             let first = i == 0;
 
-            let a = MathGenerator.getRandomIntInclusive(prog.answer[i].min, prog.answer[i].max);
+            let a = MathGenerator.getRandomIntInclusive(program.answer[i].min, program.answer[i].max);
 
-            let valmax = Math.min(first ? a - 1 : a, prog.number[i].max)
-            let valmin = first ? 1 : prog.number[i].min
+            let valmax = Math.min(first ? a - 1 : a, program.number[i].max)
+            let valmin = first ? 1 : program.number[i].min
 
             let n = MathGenerator.getRandomIntInclusive(valmin, valmax);
 
@@ -108,7 +108,7 @@ export class Worksheets {
 
         let number1: number = answer - number2;
 
-        let mp: MathProblem = new MathProblem(prog.mathProblemType, [number1, number2], answer);
+        let mp: MathProblem = new MathProblem(program.mathProblemType, [number1, number2], answer);
 
         //mp.shuffle();
 

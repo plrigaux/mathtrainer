@@ -2,10 +2,8 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, 
 import { MathGenerator } from '../math-generator/mathGenerator'
 import { MathProblem } from "../math-generator/mathProblem";
 import { Config } from '../services/config';
-import { ConfigService } from '../services/config.service'
 import { Subscription } from 'rxjs';
 import { MathQuestionService, QuestionStatus, MathQuestionNotifier } from '../services/math-question.service';
-import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 import { ColumnAnswerComponent, FocusType, ColumnAnswerMode } from '../column-answer/column-answer.component'
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
@@ -51,7 +49,7 @@ export class MathQuestionComponent implements OnInit, OnDestroy {
     return "mq" + this.questionId
   }
 
-  get problem() {
+  get problem() : MathProblem {
     return this._problem;
   }
 

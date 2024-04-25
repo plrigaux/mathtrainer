@@ -10,6 +10,7 @@ import { DisplayTestComponent } from './test-features/display-test/display-test.
 import { InputTestComponent } from './test-features/inputtest/input-test.component';
 import { MultiplicationTableComponent } from './multiplication-table/multiplication-table.component';
 import { TestPaletteComponent } from "./test-features/test-palette/test-palette.component";
+import { TestGeneratorComponent } from './test-features/test-generator/test-generator.component';
 
 const appRoutes: Routes = [
   { path: 'workout', component: WorkoutPanelComponent },
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
   { path: 'test1', component: InputTestComponent },
   { path: 'test2', component: DisplayTestComponent },
   { path: 'test3', component: TestPaletteComponent },
+  { path: 'testgen', component: TestGeneratorComponent },
   { path: 'multiplicationtable', component: MultiplicationTableComponent },
   { path: 'additiontable', component: MultiplicationTableComponent },
   { path: '', component: MainPageComponent},
