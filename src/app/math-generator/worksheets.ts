@@ -28,14 +28,43 @@ export class Worksheets {
 
     static addSingleDigitNumberNoCarry(): MathProblem {
 
-        let prog = {
+/*         let prog = {
             answer: [{ min: 1, max: 9 }],
             number: [{ min: 0, max: 9 }],
             mathProblemType: MathProblemTypes.ADDITION
         };
 
-        return Worksheets.addTowXDigitNumbersNoCarryProg(prog);
+        return Worksheets.addTowXDigitNumbersNoCarryProg(prog); */
+
+        return Worksheets.addSingleDigitNumberNoCarry2()
     }
+
+    static addSingleDigitNumberNoCarry2(): MathProblem {
+
+        let program: WorksheetProgram = {
+            answer: [{ min: 1, max: 9 }],
+            number: [{ min: 0, max: 9 }],
+            mathProblemType: MathProblemTypes.ADDITION
+        };
+
+        const answer_matrice = MathGenerator.getRandomIntInclusive(0, 99);
+        let number1 = answer_matrice % 10
+        let number2 = Math.trunc(answer_matrice / 10)
+
+        let answer = number1 + number2
+
+        const max_answer = program.answer[0].max
+        if (answer > max_answer) {
+            number1 = Math.abs(number1 - max_answer)
+            number2 = Math.abs(number2 - max_answer)
+            answer = number1 + number2
+        }
+
+        let math_problem: MathProblem = new MathProblem(program.mathProblemType, [number1, number2], answer);
+
+        return math_problem;
+    }
+
 
     //Adding two single-digit numbers - sum 10 or less
     static addTowSingleDigitNumberSum10orLess(): MathProblem {
