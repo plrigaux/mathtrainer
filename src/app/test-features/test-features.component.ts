@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, state, animate, style, keyframes } from '@angular/animations';
 import { MATH_EXERCICISES_STORE } from '../services/config';
-import { ColumnAnswerMode, ValidateCB, ANSWER_MODES, FocusType } from '../column-answer/column-answer.component'
+import { ColumnAnswerMode,  ANSWER_MODES, FocusType } from '../column-answer/column-answer.component'
 import { QuestionStatus } from '../services/math-question.service';
+import { ValidateCB } from '../math-question/math-question.component';
 
 const testcomponent = 3;
 interface AnswerInputConfig {
@@ -118,14 +119,14 @@ export class TestFeaturesComponent implements OnInit {
   }
 
 
-  onValueChange: ValidateCB = (value: string, index: string): QuestionStatus => {
+  onValueChange: ValidateCB = (value: string, index: number): QuestionStatus => {
 
     console.log(`onValueChange ${value} ${index}`)
     this.answerInputConfigs[+index].value = value;
     return QuestionStatus.RIGHT
   }
 
-  myCallbackFunction : ValidateCB = (value: string, index : string): QuestionStatus => {
+  myCallbackFunction : ValidateCB = (value: string, index : number): QuestionStatus => {
     //callback code here
     //console.warn("CALLBACK")
     //console.warn(this)

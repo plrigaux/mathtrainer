@@ -2,7 +2,7 @@
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>menu</mat-icon>
   </button>
-  <h1 i18n="@@title">Trainer for Camellia</h1>
+  <h1 i18n="@@title">Arithmetic practice</h1>
 
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
@@ -43,10 +43,12 @@
   <button mat-menu-item [matMenuTriggerFor]="menuEquationOrientation">
     <span>Equation Orientation</span>
   </button>
-  <mat-checkbox class="mat-menu-item" labelPosition="before" [(ngModel)]="config.realTimeValidation"
-    (change)='realTimeValidationChange($event)'>
-    Realtime Validation
-  </mat-checkbox>
+  <div mat-menu-item>
+    <mat-checkbox labelPosition="before" [(ngModel)]="config.realTimeValidation"
+      (change)='realTimeValidationChange($event)'>
+      Realtime Validation
+    </mat-checkbox>
+  </div>
 </mat-menu>
 
 
@@ -60,8 +62,8 @@
 </mat-menu>
 
 <mat-menu #menuEquationOrientation="matMenu">
-  <mat-radio-group aria-label="Select an option"
-    class="menu-radio-group" [(ngModel)]="config.orientation" (change)='menuEquationOrientationChange()'>
+  <mat-radio-group aria-label="Select an option" class="menu-radio-group" [(ngModel)]="config.orientation"
+    (change)='menuEquationOrientationChange()'>
     <div mat-menu-item *ngFor="let orientation of equationOrientations">
       <mat-radio-button [value]="orientation.code">{{orientation.label}}</mat-radio-button>
     </div>

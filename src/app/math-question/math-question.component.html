@@ -6,13 +6,13 @@
       <section class="question_column">
         <section class="operator">{{problem.mathProplemActions.operator}}</section>
         <section class="numbers">
-        
+
           <ng-container *ngIf="config.answerMode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-container>
-          
+
         </section>
       </section>
       <hr class="hr_equals" />
-      <ng-container *ngTemplateOutlet="answerField"></ng-container>
+      <ng-container *ngTemplateOutlet="answerField2"></ng-container>
     </ng-container>
 
     <ng-template #flat>
@@ -22,9 +22,9 @@
           <span *ngIf="last==false" class="operator">{{problem.mathProplemActions.operator}}</span>
         </ng-template>
         <span class="equals">=</span>
-        <ng-container *ngTemplateOutlet="answerField"></ng-container>
+        <ng-container *ngTemplateOutlet="answerField2"></ng-container>
       </section>
-      
+
     </ng-template>
   </div>
 </div>
@@ -43,14 +43,19 @@
 
 <ng-template #answerField>
   <div class="answerField">
-    <app-column-answer
-      [id]='questionId.toString()'
-      [size]='size'
-      [mode]='config.answerMode'
-      [value]='userInput'
-      [valueChange]="onValueChange"
-      (focusChange)="onFocusChange($event)"
-      [answerStatus]="status"
+    <app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
+      [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
       (existFocus)="existFocus($event)"></app-column-answer>
+  </div>
+</ng-template>
+
+<ng-template #answerField2>
+  <div class="answerField">
+
+    <app-answer-value [id]='questionId.toString()' [real_answer]='problem.answer' (status_change)="on_status_change($event)" [config]="config"></app-answer-value>
+    <!-- app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
+      [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
+      (existFocus)="existFocus($event)"></app-column-answer -->
+
   </div>
 </ng-template>

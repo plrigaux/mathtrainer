@@ -72,7 +72,8 @@ import { MultiplicationTableComponent } from './multiplication-table/multiplicat
 import { TestPaletteComponent } from './test-features/test-palette/test-palette.component';
 import { MainTabsProgramsComponent } from './main-page/main-tabs-programs/main-tabs-programs.component';
 import { MainButtonsComponent } from './main-page/main-buttons/main-buttons.component';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AnswerValueComponent } from './answer-value/answer-value.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,7 +97,8 @@ import { MainButtonsComponent } from './main-page/main-buttons/main-buttons.comp
     TestPaletteComponent,
     MainTabsProgramsComponent,
     ProblemPanelComponentDialog,
-    MainButtonsComponent
+    MainButtonsComponent,
+    AnswerValueComponent
   ],
   imports: [
     HttpClientModule,
@@ -124,6 +126,7 @@ import { MainButtonsComponent } from './main-page/main-buttons/main-buttons.comp
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
+    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,

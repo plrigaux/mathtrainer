@@ -1,0 +1,55 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@import "../../assets/styles/themes_variables.scss";
+
+$font-size-var: 24px;
+
+.answer_input {
+    width: 120px
+}
+
+.num-align {
+    text-align: right;
+    font-size: $font-size-var;
+ 
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    appearance: textfield;
+}
+
+
+::ng-deep .wrong .mat-mdc-text-field-wrapper {
+    background-color: red;
+}
+
+::ng-deep .right .mat-mdc-text-field-wrapper {
+    background-color: limegreen;
+}
+
+@mixin widget-theme($theme) {
+    $type: mat.get-theme-type($theme);
+    $custom-background: if($type == dark,#3d3d29,lightyellow);
+
+    ::ng-deep .focus .mat-mdc-text-field-wrapper {
+        background-color: $custom-background;
+    }
+}
+
+@each $thclass, $theme in $all_themes {
+    @if $thclass == "" {
+        @include widget-theme($theme);
+    } @else {
+        :host-context(.#{$thclass}) {
+            @include widget-theme($theme);
+        }
+    }
+}

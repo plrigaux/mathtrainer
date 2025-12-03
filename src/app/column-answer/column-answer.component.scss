@@ -1,6 +1,8 @@
+@use 'sass:map';
 @use '@angular/material' as mat;
-@import "@angular/material/theming";
 @import "../../assets/styles/themes_variables.scss";
+@include mat.all-component-typographies();
+@include mat.core();
 
 $font-size-var: 24px;
 $radius: 7px;

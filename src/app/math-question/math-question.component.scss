@@ -33,6 +33,7 @@ input[type="number"] {
     text-align: right;
     margin-top: 5px;
 }
+
 /*
 .wrong {
     background-color: red;
@@ -90,11 +91,11 @@ input[type="number"] {
     align-items: center;
 }
 
-.question_flat > *:not(:last-child) {
+.question_flat>*:not(:last-child) {
     padding-right: 0.2em;
 }
 
-.question_column > *:not(:last-child) {
+.question_column>*:not(:last-child) {
     padding-right: 0.2em;
 }
 
@@ -171,11 +172,37 @@ input[type="number"] {
 }
 
 @each $thclass, $th in $all_themes {
-    @if $thclass == "" {
+    @if $thclass =="" {
         @include math-question-theme($th);
-    } @else {
+    }
+
+    @else {
         :host-context(.#{$thclass}) {
             @include math-question-theme($th);
         }
     }
 }
+
+.example-right-align {
+    text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+}
+
+input.example-right-align {
+    -moz-appearance: textfield;
+}
+
+.mdc-notched-outline{
+    background-color: blue;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+  }
+    
+  //mat-mdc-form-field pizza ng-tns-c3736059725-39 mat-mdc-form-field-type-mat-input mat-mdc-form-field-has-icon-prefix mat-form-field-appearance-outline mat-primary ng-star-inserted
