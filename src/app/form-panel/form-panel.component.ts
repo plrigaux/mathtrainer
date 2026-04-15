@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, UntypedFormArray, Validators } from '@angular/forms'
 
 @Component({
-  selector: 'app-form-panel',
-  templateUrl: './form-panel.component.html',
-  styleUrls: ['./form-panel.component.scss']
+    selector: 'app-form-panel',
+    templateUrl: './form-panel.component.html',
+    styleUrls: ['./form-panel.component.scss'],
+    standalone: false
 })
 export class FormPanelComponent implements OnInit {
 

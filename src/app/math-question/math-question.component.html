@@ -2,50 +2,52 @@
   <h2 class="mat-h2">Question&nbsp;{{questionId + 1}}</h2>
   <div class="mathQuestion">
 
-    <ng-container *ngIf="stacked else flat">
+    @if (stacked) {
       <section class="question_column">
         <section class="operator">{{problem.mathProplemActions.operator}}</section>
         <section class="numbers">
-
-          <ng-container *ngIf="config.answerMode==columnAnswerMode.COLUMNS; then columns; else normal"></ng-container>
-
+          @if (config.answerMode==columnAnswerMode.COLUMNS) {
+            @for (number of problem.values; track number; let i = $index; let last = $last) {
+              <div class="number_column">
+                @for (digit of number.toString().split(''); track digit) {
+                  <div class="digit">{{digit}}</div>
+                }
+              </div>
+            }
+          } @else {
+            @for (number of problem.values; track number; let i = $index; let last = $last) {
+              <div class="number_normal">
+                {{number}}
+              </div>
+            }
+          }
         </section>
       </section>
       <hr class="hr_equals" />
       <ng-container *ngTemplateOutlet="answerField2"></ng-container>
-    </ng-container>
-
-    <ng-template #flat>
+    } @else {
       <section class="question_flat">
-        <ng-template ngFor let-num [ngForOf]="problem.values" let-i="index" let-last="last">
+        @for (num of problem.values; track num; let i = $index; let last = $last) {
           <span class="number_flat">{{num}}</span>
-          <span *ngIf="last==false" class="operator">{{problem.mathProplemActions.operator}}</span>
-        </ng-template>
+          @if (last==false) {
+            <span class="operator">{{problem.mathProplemActions.operator}}</span>
+          }
+        }
         <span class="equals">=</span>
         <ng-container *ngTemplateOutlet="answerField2"></ng-container>
       </section>
+    }
 
-    </ng-template>
   </div>
 </div>
 
-<ng-template #columns>
-  <div class="number_column" *ngFor="let number of problem.values; index as i; last as last">
-    <div class="digit" *ngFor="let digit of number.toString().split('')">{{digit}}</div>
-  </div>
-</ng-template>
 
-<ng-template #normal>
-  <div class="number_normal" *ngFor="let number of problem.values; index as i; last as last">
-    {{number}}
-  </div>
-</ng-template>
 
 <ng-template #answerField>
   <div class="answerField">
     <app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
       [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
-      (existFocus)="existFocus($event)"></app-column-answer>
+    (existFocus)="existFocus($event)"></app-column-answer>
   </div>
 </ng-template>
 
@@ -54,8 +56,8 @@
 
     <app-answer-value [id]='questionId.toString()' [real_answer]='problem.answer' (status_change)="on_status_change($event)" [config]="config"></app-answer-value>
     <!-- app-column-answer [id]='questionId.toString()' [size]='size' [mode]='config.answerMode' [value]='userInput'
-      [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
-      (existFocus)="existFocus($event)"></app-column-answer -->
+    [valueChange]="onValueChange" (focusChange)="onFocusChange($event)" [answerStatus]="status"
+    (existFocus)="existFocus($event)"></app-column-answer -->
 
   </div>
 </ng-template>

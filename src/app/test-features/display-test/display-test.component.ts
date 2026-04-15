@@ -10,9 +10,10 @@ import { MathProblemTypes, GenerateRange } from '../../math-generator/mathProble
 import { MathGenerator } from '../../math-generator/mathGenerator';
 
 @Component({
-  selector: 'app-display-test',
-  templateUrl: './display-test.component.html',
-  styleUrls: ['./display-test.component.scss']
+    selector: 'app-display-test',
+    templateUrl: './display-test.component.html',
+    styleUrls: ['./display-test.component.scss'],
+    standalone: false
 })
 export class DisplayTestComponent implements OnInit {
   progress: number;

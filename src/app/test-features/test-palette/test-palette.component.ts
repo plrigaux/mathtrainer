@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'app-test-palette',
-  templateUrl: './test-palette.component.html',
-  styleUrls: ['./test-palette.component.scss']
+    selector: 'app-test-palette',
+    templateUrl: './test-palette.component.html',
+    styleUrls: ['./test-palette.component.scss'],
+    standalone: false
 })
 export class TestPaletteComponent implements OnInit {
 

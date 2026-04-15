@@ -2,60 +2,72 @@
 <div class="main-div">
   <mat-card class="center">
     <div class="progressBar">
-      <mat-card-title *ngIf="tasks && index < tasks.length">{{index + 1}}<ng-container i18n="@@progressionMessage"> of
+      @if (tasks && index < tasks.length) {
+        <mat-card-title>{{index + 1}}<ng-container i18n="@@progressionMessage"> of
         </ng-container>{{tasks.length}}
       </mat-card-title>
-    </div>
-    <div *ngIf="status == WorkoutStatusEnum.Begin">
+    }
+  </div>
+  @if (status == WorkoutStatusEnum.Begin) {
+    <div>
       <button mat-raised-button color="accent" (click)="start()"
-        i18n="@@startButton">Start</button>
+      i18n="@@startButton">Start</button>
       <mat-form-field appearance="outline">
         <mat-label i18n="@@Number of questions">Number of questions</mat-label>
         <input matInput type="number" [ngModel]="config.nbQuestions" (ngModelChange)="updateNumberOfQuestions($event)">
       </mat-form-field>
     </div>
-    <div class="mathQuestion" *ngIf="status == WorkoutStatusEnum.Work">
+  }
+  @if (status == WorkoutStatusEnum.Work) {
+    <div class="mathQuestion">
       <span [ngClass]="{'equation':true, 'stacked': stacked}">
-        <ng-template ngFor let-num [ngForOf]="currentTask.values" let-i="index" let-last="last">
+        @for (num of currentTask.values; track num; let i = $index; let last = $last) {
           <span class="number">{{num}}</span>
-          <span *ngIf="last==false" class="operator">{{currentTask.operator}}</span>
-        </ng-template>
+          @if (last==false) {
+            <span class="operator">{{currentTask.operator}}</span>
+          }
+        }
         <span class="equals">=</span>
         <input #answerField class="answerField" [(ngModel)]="userInput" autofocus="autofocus" autocomplete="off"
           placeholder="?"
           (keypress)="typeKey($event)" (keyup)="check($event)" type="number" autofocus />
       </span>
     </div>
-    <div *ngIf="status == WorkoutStatusEnum.Finish">
+  }
+  @if (status == WorkoutStatusEnum.Finish) {
+    <div>
       <mat-card-title i18n="@@finished">Finished</mat-card-title>
       <table class="results">
         <thead>
           <tr>
             <th i18n="@@resultNo"></th>
             <th i18n="@@resultEquation">Equation</th>
-            <th i18n="@@resultAnswer">Answer</th>
-            <th i18n="@@resultTime">Time</th>
-            <th i18n="@@resultMistakes">Mistakes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let task of tasks, let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{task.problem.question}}</td>
-            <td>{{task.answer}}</td>
-            <td>{{task.getTimeInSec()}} sec.</td>
-            <td>{{task.errors}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <mat-card-actions>
-        <button mat-raised-button color="accent" (click)="start()" i18n="@@startAgainButton">Start again</button>
-        <mat-form-field appearance="outline">
-          <mat-label i18n="@@Number of questions">Number of questions</mat-label>
-          <input matInput type="number" [ngModel]="config.nbQuestions"
-            (ngModelChange)="updateNumberOfQuestions($event)">
-        </mat-form-field>
-      </mat-card-actions>
-    </div>
-  </mat-card>
-</div>
+              <th i18n="@@resultAnswer">Answer</th>
+                <th i18n="@@resultTime">Time</th>
+                  <th i18n="@@resultMistakes">Mistakes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (task of tasks; track task; let i = $index) {
+                    <tr>
+                      <td>{{i + 1}}</td>
+                      <td>{{task.problem.question}}</td>
+                      <td>{{task.answer}}</td>
+                      <td>{{task.getTimeInSec()}} sec.</td>
+                      <td>{{task.errors}}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+              <mat-card-actions>
+                <button mat-raised-button color="accent" (click)="start()" i18n="@@startAgainButton">Start again</button>
+                  <mat-form-field appearance="outline">
+                    <mat-label i18n="@@Number of questions">Number of questions</mat-label>
+                      <input matInput type="number" [ngModel]="config.nbQuestions"
+                        (ngModelChange)="updateNumberOfQuestions($event)">
+                    </mat-form-field>
+                  </mat-card-actions>
+                </div>
+              }
+            </mat-card>
+          </div>

@@ -148,7 +148,7 @@ input[type="number"] {
     $fg: map-get($theme, foreground);
     //$bg: map-get($theme, background);
 
-    $th_text_color: #{mat.get-color-from-palette($fg, text)};
+    $th_text_color: #{mat.m2-get-color-from-palette($fg, text)};
 
     //@debug "fg: #{$primary}";
     //@debug "foreground: #{$th_text_color}";
@@ -156,15 +156,15 @@ input[type="number"] {
     //@debug "background: #{$bg}";
 
     .mathAnswer:focus {
-        outline-color: mat.get-color-from-palette($accent);
+        outline-color: mat.m2-get-color-from-palette($accent);
         outline-width: 15px;
-        caret-color: mat.get-color-from-palette($accent);
+        caret-color: mat.m2-get-color-from-palette($accent);
     }
 
     .hr_equals {
         margin: 4px 0;
         border-style: solid;
-        border-color: mat.get-color-from-palette($fg);
+        border-color: mat.m2-get-color-from-palette($fg);
 
         background-color: $th_text_color;
         border-color: $th_text_color;

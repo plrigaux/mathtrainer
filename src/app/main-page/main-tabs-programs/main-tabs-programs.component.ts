@@ -28,9 +28,10 @@ export interface WorksheetsItemPerOperation {
 }
 
 @Component({
-  selector: 'app-main-tabs-programs',
-  templateUrl: './main-tabs-programs.component.html',
-  styleUrls: ['./main-tabs-programs.component.scss']
+    selector: 'app-main-tabs-programs',
+    templateUrl: './main-tabs-programs.component.html',
+    styleUrls: ['./main-tabs-programs.component.scss'],
+    standalone: false
 })
 export class MainTabsProgramsComponent implements OnInit {
   exercises: WorksheetsItem[]

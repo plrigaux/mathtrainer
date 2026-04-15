@@ -15,7 +15,7 @@
         flex-basis: 7%; // investigate to have the same size
         border-width: 2px;
         border-style: solid;
-        border-color: mat.get-color-from-palette($accent);
+        border-color: mat.m2-get-color-from-palette($accent);
         margin: 0.5em;
         padding: 1em;
         border-radius: 15px;

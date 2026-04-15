@@ -11,9 +11,10 @@ import { AnswerValueComponent } from '../answer-value/answer-value.component';
 const regexNumVal = /[0-9,-\.]/
 
 @Component({
-  selector: 'app-math-question',
-  templateUrl: './math-question.component.html',
-  styleUrls: ['./math-question.component.scss']
+    selector: 'app-math-question',
+    templateUrl: './math-question.component.html',
+    styleUrls: ['./math-question.component.scss'],
+    standalone: false
 })
 
 export class MathQuestionComponent implements OnInit, OnDestroy {

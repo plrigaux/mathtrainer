@@ -28,9 +28,10 @@ import {
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 
 @Component({
-  selector: 'app-problem-panel',
-  templateUrl: './problem-panel.component.html',
-  styleUrls: ['./problem-panel.component.scss']
+    selector: 'app-problem-panel',
+    templateUrl: './problem-panel.component.html',
+    styleUrls: ['./problem-panel.component.scss'],
+    standalone: false
 })
 export class ProblemPanelComponent implements OnInit, OnDestroy {
   problems: MathProblem[]
@@ -334,9 +335,10 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-problem-panel-dialog',
-  templateUrl: './problem-panel-dialog.component.html',
-  styleUrls: ['./problem-panel.component.scss']
+    selector: 'app-problem-panel-dialog',
+    templateUrl: './problem-panel-dialog.component.html',
+    styleUrls: ['./problem-panel.component.scss'],
+    standalone: false
 })
 export class ProblemPanelComponentDialog {
   public dialogRef: MatDialogRef<ProblemPanelComponentDialog>

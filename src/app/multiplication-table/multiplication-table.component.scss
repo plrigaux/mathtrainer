@@ -27,31 +27,31 @@ th {
     $accent: map-get($theme, accent);
     $fg: map-get($theme, foreground);
 
-    $th_text_color: #{mat.get-color-from-palette($fg, text)};
+    $th_text_color: #{mat.m2-get-color-from-palette($fg, text)};
 
     td,
     th {
-        border-color: mat.get-color-from-palette($fg);
+        border-color: mat.m2-get-color-from-palette($fg);
     }
 
     th {
-        background-color: mat.get-color-from-palette($primary, lighter);
-        color: mat.get-color-from-palette($primary, lighter-contrast);
+        background-color: mat.m2-get-color-from-palette($primary, lighter);
+        color: mat.m2-get-color-from-palette($primary, lighter-contrast);
     }
 
     td.inPath {
-        background-color: mat.get-color-from-palette($accent, lighter);
-        color: mat.get-color-from-palette($accent, default-contrast);
+        background-color: mat.m2-get-color-from-palette($accent, lighter);
+        color: mat.m2-get-color-from-palette($accent, default-contrast);
     }
 
     th.inPath {
-        background-color: mat.get-color-from-palette($primary);
-        color: mat.get-color-from-palette($primary, default-contrast);
+        background-color: mat.m2-get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
     }
 
     td.onHover {
-        background-color: mat.get-color-from-palette($accent);
-        color: mat.get-contrast-color-from-palette($accent, lighter);
+        background-color: mat.m2-get-color-from-palette($accent);
+        color: mat.m2-get-contrast-color-from-palette($accent, lighter);
     }
 }
 

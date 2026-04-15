@@ -13,9 +13,10 @@ enum WorkoutStatus {
 }
 
 @Component({
-  selector: 'app-workout-panel',
-  templateUrl: './workout-panel.component.html',
-  styleUrls: ['./workout-panel.component.scss']
+    selector: 'app-workout-panel',
+    templateUrl: './workout-panel.component.html',
+    styleUrls: ['./workout-panel.component.scss'],
+    standalone: false
 })
 export class WorkoutPanelComponent implements OnInit {
   @ViewChild('answerField') answerField: ElementRef;

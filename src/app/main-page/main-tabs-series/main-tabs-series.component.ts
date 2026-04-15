@@ -12,9 +12,10 @@ import { UntypedFormControl, FormGroupDirective, NgForm, Validators } from '@ang
 import { RangeManager, Range } from '../../math-generator/rangeManager';
 
 @Component({
-  selector: 'app-main-tabs-series',
-  templateUrl: './main-tabs-series.component.html',
-  styleUrls: ['./main-tabs-series.component.scss']
+    selector: 'app-main-tabs-series',
+    templateUrl: './main-tabs-series.component.html',
+    styleUrls: ['./main-tabs-series.component.scss'],
+    standalone: false
 })
 export class MainTabsSeriesComponent implements OnInit {
   tables: number[]

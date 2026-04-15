@@ -23,7 +23,7 @@
   $accent: map-get($theme, accent);
 
   .mathQuestion {
-    border-color: mat.get-color-from-palette($accent);
+    border-color: mat.m2-get-color-from-palette($accent);
   }
 }
 

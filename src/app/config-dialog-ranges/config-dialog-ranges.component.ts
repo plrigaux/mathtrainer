@@ -7,9 +7,10 @@ import { UntypedFormControl, Validators, UntypedFormGroup, UntypedFormArray, Val
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
-  selector: 'app-config-dialog-ranges',
-  templateUrl: './config-dialog-ranges.component.html',
-  styleUrls: ['./config-dialog-ranges.component.scss']
+    selector: 'app-config-dialog-ranges',
+    templateUrl: './config-dialog-ranges.component.html',
+    styleUrls: ['./config-dialog-ranges.component.scss'],
+    standalone: false
 })
 export class ConfigDialogRangesComponent implements OnInit {
 

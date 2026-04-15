@@ -3,9 +3,10 @@ import { Subscription } from 'rxjs';
 
 
 @Component({
-  selector: 'app-main-buttons',
-  templateUrl: './main-buttons.component.html',
-  styleUrls: ['./main-buttons.component.scss']
+    selector: 'app-main-buttons',
+    templateUrl: './main-buttons.component.html',
+    styleUrls: ['./main-buttons.component.scss'],
+    standalone: false
 })
 export class MainButtonsComponent implements OnInit {
 

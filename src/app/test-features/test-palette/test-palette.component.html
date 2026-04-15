@@ -1,6 +1,10 @@
-<section *ngFor="let hue of hues">
+@for (hue of hues; track hue) {
+  <section>
     <h1>{{hue}}</h1>
-    <section *ngFor="let shade of shades">
+    @for (shade of shades; track shade) {
+      <section>
         <div class="tp-{{hue}}-{{shade}}">{{shade}}</div>
-    </section>
-</section>
+      </section>
+    }
+  </section>
+}

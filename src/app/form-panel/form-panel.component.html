@@ -1,51 +1,55 @@
 <p>form-panel works!</p>
 <!--<form [formGroup]="user">
-    <input formControlName="name" />
-    <ng-container formArrayName="skills">
-        <div *ngFor="let _ of skills.controls; index as i">
-            <ng-container [formGroupName]="i">
-                <label for="{{'name_' + i}}">name</label>
-                <input id="{{'name_' + i}}" name="{{'name_' + i}}" formControlName="name" />
-                <label for="{{'level_' + i}}">level</label>
-                <input name="{{'level_' + i}}" id="{{'level_' + i}}" formControlName="level" />
-            </ng-container>
-        </div>
+<input formControlName="name" />
+<ng-container formArrayName="skills">
+  <div *ngFor="let _ of skills.controls; index as i">
+    <ng-container [formGroupName]="i">
+      <label for="{{'name_' + i}}">name</label>
+      <input id="{{'name_' + i}}" name="{{'name_' + i}}" formControlName="name" />
+      <label for="{{'level_' + i}}">level</label>
+      <input name="{{'level_' + i}}" id="{{'level_' + i}}" formControlName="level" />
     </ng-container>
+  </div>
+</ng-container>
 </form>-->
 <form [formGroup]="user">
 
-    <table mat-table [dataSource]="skills.controls"  formArrayName="skills">
+  <table mat-table [dataSource]="skills.controls"  formArrayName="skills">
 
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Equation number </th>
-            <td mat-cell *matCellDef="let element; let i = index"> {{dataSource[i].id}} </td>
-        </ng-container>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Equation number </th>
+      <td mat-cell *matCellDef="let element; let i = index"> {{dataSource[i].id}} </td>
+    </ng-container>
 
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element; let i = index" [formGroupName]='i'>
-                <mat-form-field>
-                    <input matInput type="text" formControlName="name" placeholder="name">
-                </mat-form-field>
-            </td>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element; let i = index" [formGroupName]='i'>
+        <mat-form-field>
+          <input matInput type="text" formControlName="name" placeholder="name">
+        </mat-form-field>
+      </td>
 
-        </ng-container>
+    </ng-container>
 
-        <ng-container matColumnDef="level">
-            <th mat-header-cell *matHeaderCellDef> Level </th>
-            <td mat-cell *matCellDef="let element; let i = index; let fg = formGroup" [formGroupName]='i'>
-                <mat-form-field>
-                    <input matInput  type="text" formControlName="level" placeholder="level">
-                    <mat-error *ngIf="skills.controls[i].getError('required', 'level')">
-                        Max value is <strong>required</strong>
-                    </mat-error>
-                    <mat-error *ngIf="skills.controls[i].getError('min', 'level')">
-                        Min value is <strong>2</strong>
-                    </mat-error>
-                </mat-form-field>
-            </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i=index"></tr>
-    </table>
-</form> 
+    <ng-container matColumnDef="level">
+      <th mat-header-cell *matHeaderCellDef> Level </th>
+      <td mat-cell *matCellDef="let element; let i = index; let fg = formGroup" [formGroupName]='i'>
+        <mat-form-field>
+          <input matInput  type="text" formControlName="level" placeholder="level">
+          @if (skills.controls[i].getError('required', 'level')) {
+            <mat-error>
+              Max value is <strong>required</strong>
+            </mat-error>
+          }
+          @if (skills.controls[i].getError('min', 'level')) {
+            <mat-error>
+              Min value is <strong>2</strong>
+            </mat-error>
+          }
+        </mat-form-field>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i=index"></tr>
+  </table>
+</form>

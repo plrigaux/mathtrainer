@@ -18,9 +18,11 @@
 </div>
 
 <mat-menu #menuLang="matMenu">
-  <a *ngFor="let loc of localesList" mat-menu-item href="../{{loc.code}}">
-    {{loc.label}}
-  </a>
+  @for (loc of localesList; track loc) {
+    <a mat-menu-item href="../{{loc.code}}">
+      {{loc.label}}
+    </a>
+  }
 </mat-menu>
 
 <mat-menu #menu="matMenu">
@@ -55,17 +57,21 @@
 <mat-menu #menuTheme="matMenu">
   <mat-radio-group aria-label="Select an option" class="menu-radio-group" [(ngModel)]="config.theme"
     (change)="menuThemeRadioChange($event)">
-    <div mat-menu-item *ngFor="let theme of themes">
-      <mat-radio-button [value]="theme.value">{{theme.label}}</mat-radio-button>
-    </div>
+    @for (theme of themes; track theme) {
+      <div mat-menu-item>
+        <mat-radio-button [value]="theme.value">{{theme.label}}</mat-radio-button>
+      </div>
+    }
   </mat-radio-group>
 </mat-menu>
 
 <mat-menu #menuEquationOrientation="matMenu">
   <mat-radio-group aria-label="Select an option" class="menu-radio-group" [(ngModel)]="config.orientation"
     (change)='menuEquationOrientationChange()'>
-    <div mat-menu-item *ngFor="let orientation of equationOrientations">
-      <mat-radio-button [value]="orientation.code">{{orientation.label}}</mat-radio-button>
-    </div>
+    @for (orientation of equationOrientations; track orientation) {
+      <div mat-menu-item>
+        <mat-radio-button [value]="orientation.code">{{orientation.label}}</mat-radio-button>
+      </div>
+    }
   </mat-radio-group>
 </mat-menu>

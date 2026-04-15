@@ -2,7 +2,8 @@
 @use '@angular/material' as mat;
 @import "../../assets/styles/themes_variables.scss";
 @include mat.all-component-typographies();
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 $font-size-var: 24px;
 $radius: 7px;
@@ -89,9 +90,9 @@ input[type="number"] {
     $accent: map-get($theme, accent);
 
     .mathAnswer:focus {
-        outline-color: mat.get-color-from-palette($accent);
+        outline-color: mat.m2-get-color-from-palette($accent);
         outline-width: 15px;
-        caret-color: mat.get-color-from-palette($accent);
+        caret-color: mat.m2-get-color-from-palette($accent);
     }
 }
 

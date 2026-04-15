@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-input-test',
-  templateUrl: './input-test.component.html',
-  styleUrls: ['./input-test.component.scss']
+    selector: 'app-input-test',
+    templateUrl: './input-test.component.html',
+    styleUrls: ['./input-test.component.scss'],
+    standalone: false
 })
 export class InputTestComponent implements OnInit {
 

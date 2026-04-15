@@ -6,18 +6,19 @@ import { trigger, transition, state, animate, style, keyframes } from '@angular/
 import { ValidateCB } from '../math-question/math-question.component';
 
 @Component({
-  selector: 'app-column-answer',
-  templateUrl: './column-answer.component.html',
-  styleUrls: ['./column-answer.component.scss'],
-  animations: [
-    trigger('answerStatus', [
-      state(QuestionStatus.RIGHT, style({ backgroundColor: 'limegreen' })),
-      state(QuestionStatus.WRONG, style({ backgroundColor: 'red' })),
-      state(QuestionStatus.EMPTY, style({ backgroundColor: 'white' })),
-      state(QuestionStatus.FOCUS, style({ backgroundColor: 'lightyellow' })),
-      state(QuestionStatus.ANSWERED, style({ backgroundColor: 'lightgray' })),
-    ])
-  ],
+    selector: 'app-column-answer',
+    templateUrl: './column-answer.component.html',
+    styleUrls: ['./column-answer.component.scss'],
+    animations: [
+        trigger('answerStatus', [
+            state(QuestionStatus.RIGHT, style({ backgroundColor: 'limegreen' })),
+            state(QuestionStatus.WRONG, style({ backgroundColor: 'red' })),
+            state(QuestionStatus.EMPTY, style({ backgroundColor: 'white' })),
+            state(QuestionStatus.FOCUS, style({ backgroundColor: 'lightyellow' })),
+            state(QuestionStatus.ANSWERED, style({ backgroundColor: 'lightgray' })),
+        ])
+    ],
+    standalone: false
 })
 export class ColumnAnswerComponent implements OnInit {
   @ViewChildren('columninput') inputs: QueryList<ElementRef>;

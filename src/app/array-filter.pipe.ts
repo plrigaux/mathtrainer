@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'arrayFilter',
-  pure: true
+    name: 'arrayFilter',
+    pure: true,
+    standalone: false
 })
 export class ArrayFilterPipe implements PipeTransform {
 

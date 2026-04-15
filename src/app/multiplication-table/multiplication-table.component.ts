@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap, UrlSegment } from '@angular/router';
 
 @Component({
-  selector: 'app-multiplication-table',
-  templateUrl: './multiplication-table.component.html',
-  styleUrls: ['./multiplication-table.component.scss']
+    selector: 'app-multiplication-table',
+    templateUrl: './multiplication-table.component.html',
+    styleUrls: ['./multiplication-table.component.scss'],
+    standalone: false
 })
 export class MultiplicationTableComponent implements OnInit {
 

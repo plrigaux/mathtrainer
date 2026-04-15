@@ -7,9 +7,10 @@ import { Subscription } from 'rxjs';
 
 
 @Component({
-  selector: 'app-config-dialog-opener',
-  templateUrl: './config-dialog-opener.component.html',
-  styleUrls: ['./config-dialog-opener.component.scss']
+    selector: 'app-config-dialog-opener',
+    templateUrl: './config-dialog-opener.component.html',
+    styleUrls: ['./config-dialog-opener.component.scss'],
+    standalone: false
 })
 
 

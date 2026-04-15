@@ -1,5 +1,7 @@
 <div class="problems">
-    <div *ngFor="let config of configs; index as i" class="mathQuestionWrapper">
-        <app-math-question [questionId]='i' [config]="config" [needReset]="needReset"></app-math-question>
+  @for (config of configs; track config; let i = $index) {
+    <div class="mathQuestionWrapper">
+      <app-math-question [questionId]='i' [config]="config" [needReset]="needReset"></app-math-question>
     </div>
+  }
 </div>

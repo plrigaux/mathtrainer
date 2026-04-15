@@ -1,18 +1,24 @@
 <app-progress-bar [totalCount]="problemsCount" [progressCount]="successCount"></app-progress-bar>
 <div class="problems">
-  <div *ngFor="let problem of problems; index as i" class="mathQuestionWrapper">
-    <app-math-question [questionId]='i' [config]="config" [needReset]="needReset"></app-math-question>
-  </div>
-  <div *ngFor="let problem of padding(0)" class="mathQuestionWrapper">
-  </div>
+  @for (problem of problems; track problem; let i = $index) {
+    <div class="mathQuestionWrapper">
+      <app-math-question [questionId]='i' [config]="config" [needReset]="needReset"></app-math-question>
+    </div>
+  }
+  @for (problem of padding(0); track problem) {
+    <div class="mathQuestionWrapper">
+    </div>
+  }
 </div>
 <br />
 
-<button mat-raised-button color="accent" (click)=validate() *ngIf="!config.realTimeValidation">Validate</button>
+@if (!config.realTimeValidation) {
+  <button mat-raised-button color="accent" (click)=validate()>Validate</button>
+}
 
 <br /><button mat-button (click)="clearAll()">
-  <mat-icon>clear_all</mat-icon>
-  <span>Clear All</span>
+<mat-icon>clear_all</mat-icon>
+<span>Clear All</span>
 </button>
 &nbsp;
 <button mat-button (click)="reset()">
@@ -31,10 +37,12 @@
     class="orientation-radio-group"
     [ngModel]="config.orientation"
     (ngModelChange)="orientationChangeFn($event)">
-    <mat-radio-button class="orientation-radio-button" *ngFor="let orientation of equationOrientations"
-      [value]="orientation.code">
-      {{orientation.label}}
-    </mat-radio-button>
+    @for (orientation of equationOrientations; track orientation) {
+      <mat-radio-button class="orientation-radio-button"
+        [value]="orientation.code">
+        {{orientation.label}}
+      </mat-radio-button>
+    }
   </mat-radio-group>
 </p>
 <mat-checkbox labelPosition="before"
@@ -48,9 +56,11 @@
   <mat-select
     [ngModel]="config.answerMode"
     (ngModelChange)='selectedAnswerModeChangeFn($event)'>
-    <mat-option *ngFor="let answerMode of ANSWER_MODES" [value]="answerMode.code">
-      {{answerMode.label}}
-    </mat-option>
+    @for (answerMode of ANSWER_MODES; track answerMode) {
+      <mat-option [value]="answerMode.code">
+        {{answerMode.label}}
+      </mat-option>
+    }
   </mat-select>
 </mat-form-field>&nbsp;
 <mat-form-field appearance="outline">

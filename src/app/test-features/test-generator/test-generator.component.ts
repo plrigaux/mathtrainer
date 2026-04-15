@@ -7,11 +7,10 @@ import { MathProblem } from 'src/app/math-generator/mathProblem';
 import { Worksheets } from 'src/app/math-generator/worksheets';
 
 @Component({
-  selector: 'app-test-generator',
-  standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatSortModule],
-  templateUrl: './test-generator.component.html',
-  styleUrl: './test-generator.component.scss'
+    selector: 'app-test-generator',
+    imports: [MatButtonModule, MatTableModule, MatSortModule],
+    templateUrl: './test-generator.component.html',
+    styleUrl: './test-generator.component.scss'
 })
 export class TestGeneratorComponent implements OnInit , AfterViewInit{
 

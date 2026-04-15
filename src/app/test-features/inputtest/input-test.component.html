@@ -1,4 +1,6 @@
 
 <input type="number" (keydown)="onKeydown($event)" >
 
-<p *ngFor="let line of lines">{{line}}</p>
+@for (line of lines; track line) {
+  <p>{{line}}</p>
+}

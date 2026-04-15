@@ -4,31 +4,41 @@
     <mat-form-field appearance="outline">
       <mat-label>Number of numbers:</mat-label>
       <input matInput class="form-control" type='number'  formControlName="nbNumbers" />
-      <mat-error *ngIf="configForm.get('nbNumbers').errors?.required">
-        The value is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="configForm.get('nbNumbers').errors?.min">
-        The value shall be greater or equals to <strong>2</strong>
-      </mat-error>
+      @if (configForm.get('nbNumbers').errors?.required) {
+        <mat-error>
+          The value is <strong>required</strong>
+        </mat-error>
+      }
+      @if (configForm.get('nbNumbers').errors?.min) {
+        <mat-error>
+          The value shall be greater or equals to <strong>2</strong>
+        </mat-error>
+      }
     </mat-form-field>
     &nbsp;
     <button mat-raised-button (click)="setRanges()" color="accent">Set ranges</button>
     <mat-form-field appearance="outline">
       <mat-label>Number of problems:</mat-label>
       <input matInput class="form-control" type='number'  formControlName="nbProblems" />
-      <mat-error *ngIf="configForm.get('nbProblems').errors?.required">
-        The value is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="configForm.get('nbProblems').errors?.min">
-        The value shall be greater or equals to <strong>1</strong>
-      </mat-error>
+      @if (configForm.get('nbProblems').errors?.required) {
+        <mat-error>
+          The value is <strong>required</strong>
+        </mat-error>
+      }
+      @if (configForm.get('nbProblems').errors?.min) {
+        <mat-error>
+          The value shall be greater or equals to <strong>1</strong>
+        </mat-error>
+      }
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Math problem Type:</mat-label>
       <mat-select formControlName="mathProblemTypes">
-        <mat-option *ngFor="let mpt of mathProplemActionsKeys" [value]="mpt">
-          {{mathProplemActions[mpt].name}} <strong>{{mathProplemActions[mpt].op}} </strong>
-        </mat-option>
+        @for (mpt of mathProplemActionsKeys; track mpt) {
+          <mat-option [value]="mpt">
+            {{mathProplemActions[mpt].name}} <strong>{{mathProplemActions[mpt].op}} </strong>
+          </mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </form>

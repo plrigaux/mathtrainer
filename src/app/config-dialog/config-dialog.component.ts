@@ -18,9 +18,10 @@ import {
 import { ConfigDialogRangesComponent } from '../config-dialog-ranges/config-dialog-ranges.component'
 
 @Component({
-  selector: 'app-config-dialog',
-  templateUrl: './config-dialog.component.html',
-  styleUrls: ['./config-dialog.component.scss']
+    selector: 'app-config-dialog',
+    templateUrl: './config-dialog.component.html',
+    styleUrls: ['./config-dialog.component.scss'],
+    standalone: false
 })
 export class ConfigDialogComponent implements OnInit {
   mathProplemActions: any
