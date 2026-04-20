@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@import "../../assets/styles/themes_variables.scss";
+@use "../../assets/styles/themes_variables.scss" as tv;
 @include mat.all-component-typographies();
 @include mat.elevation-classes();
 @include mat.app-background();
@@ -86,8 +86,8 @@ input[type="number"] {
 }
 
 @mixin math-theme($theme) {
-    $primary: map-get($theme, primary);
-    $accent: map-get($theme, accent);
+    $primary: map.get($theme, primary);
+    $accent: map.get($theme, accent);
 
     .mathAnswer:focus {
         outline-color: mat.m2-get-color-from-palette($accent);
@@ -96,7 +96,7 @@ input[type="number"] {
     }
 }
 
-@each $thclass, $th in $all_themes {
+@each $thclass, $th in tv.$all_themes {
     @if $thclass == "" {
         @include math-theme($th);
     } @else {

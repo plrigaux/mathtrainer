@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@import 'themes_variables';
+@use 'themes_variables' as tv;
 @include mat.elevation-classes();
 @include mat.app-background();
 // TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
@@ -12,7 +12,7 @@
 //    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
 
 
-@each $thclass, $th in $all_themes {
+@each $thclass, $th in tv.$all_themes {
     @if $thclass == "" {
         @include mat.all-component-themes($th);
     } @else {

@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@import "../../assets/styles/themes_variables.scss";
+@use "../../assets/styles/themes_variables.scss" as tv;
 
 $font-size-var: 24px;
 
@@ -37,14 +37,14 @@ input[type=number] {
 
 @mixin widget-theme($theme) {
     $type: mat.get-theme-type($theme);
-    $custom-background: if($type == dark,#3d3d29,lightyellow);
+    $custom-background: if(sass($type == dark):#3d3d29; else:lightyellow);
 
     ::ng-deep .focus .mat-mdc-text-field-wrapper {
         background-color: $custom-background;
     }
 }
 
-@each $thclass, $theme in $all_themes {
+@each $thclass, $theme in tv.$all_themes {
     @if $thclass == "" {
         @include widget-theme($theme);
     } @else {

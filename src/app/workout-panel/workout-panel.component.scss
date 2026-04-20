@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
-@import "../../assets/styles/themes_variables.scss";
+@use "../../assets/styles/themes_variables.scss" as tv;
+@use "sass:map";
 
 //$equation-font-size: 48px;
 
@@ -19,15 +20,15 @@
 
 @mixin math-question-theme($theme) {
   // Extract the palettes you need from the theme definition.
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
+  $primary: map.get($theme, primary);
+  $accent: map.get($theme, accent);
 
   .mathQuestion {
     border-color: mat.m2-get-color-from-palette($accent);
   }
 }
 
-@each $thclass, $th in $all_themes {
+@each $thclass, $th in tv.$all_themes {
   @if $thclass == "" {
     @include math-question-theme($th);
   } @else {

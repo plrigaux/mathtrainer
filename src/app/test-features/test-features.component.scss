@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@import "../../assets/styles/themes_variables.scss";
+@use "../../assets/styles/themes_variables.scss" as tv;
 
 .box {
   width: 200px;
@@ -22,9 +22,9 @@ $fweigth: bold;
 }
 
 @mixin math-theme($theme) {
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  $warn: map-get($theme, warn);
+  $primary: map.get($theme, primary);
+  $accent: map.get($theme, accent);
+  $warn: map.get($theme, warn);
 
   .primary {
     background-color: mat.m2-get-color-from-palette($primary);
@@ -48,7 +48,7 @@ $fweigth: bold;
   
 }
 
-@each $thclass, $th in $all_themes {
+@each $thclass, $th in tv.$all_themes {
   @if $thclass == "" {
     @include math-theme($th);
   } @else {

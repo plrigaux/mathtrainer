@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
-@import "../../assets/styles/themes_variables.scss";
+@use "sass:map";
+@use "../../assets/styles/themes_variables.scss" as tv;
 
 .content {
     margin: auto;
@@ -143,9 +144,9 @@ input[type="number"] {
 }
 
 @mixin math-question-theme($theme) {
-    $primary: map-get($theme, primary);
-    $accent: map-get($theme, accent);
-    $fg: map-get($theme, foreground);
+    $primary: map.get($theme, primary);
+    $accent: map.get($theme, accent);
+    $fg: map.get($theme, foreground);
     //$bg: map-get($theme, background);
 
     $th_text_color: #{mat.m2-get-color-from-palette($fg, text)};
@@ -171,7 +172,7 @@ input[type="number"] {
     }
 }
 
-@each $thclass, $th in $all_themes {
+@each $thclass, $th in tv.$all_themes {
     @if $thclass =="" {
         @include math-question-theme($th);
     }
