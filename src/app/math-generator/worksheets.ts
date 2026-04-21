@@ -2,6 +2,7 @@ import { W } from '@angular/cdk/keycodes';
 import { MathGenerator } from './mathGenerator';
 import { MathProblem } from "./mathProblem";
 import { GenerateRange, MathProblemTypes, Relation, Answer } from './mathProblemTypes';
+import { MultiParam, WorksheetsItem } from './worksheetsDefinitions';
 
 export class Worksheets {
     static [index: string]: any
@@ -29,13 +30,13 @@ export class Worksheets {
 
     static addSingleDigitNumberNoCarry(): MathProblem {
 
-/*         let prog = {
-            answer: [{ min: 1, max: 9 }],
-            number: [{ min: 0, max: 9 }],
-            mathProblemType: MathProblemTypes.ADDITION
-        };
-
-        return Worksheets.addTowXDigitNumbersNoCarryProg(prog); */
+        /*         let prog = {
+                    answer: [{ min: 1, max: 9 }],
+                    number: [{ min: 0, max: 9 }],
+                    mathProblemType: MathProblemTypes.ADDITION
+                };
+        
+                return Worksheets.addTowXDigitNumbersNoCarryProg(prog); */
 
         return Worksheets.addSingleDigitNumberNoCarry2()
     }
@@ -209,6 +210,25 @@ export class Worksheets {
 
     static addAnswer8(): MathProblem {
         let answer = MathGenerator.getRandomIntInclusive(5, 8);
+        let number2 = MathGenerator.getRandomIntInclusive(0, answer);
+
+        let number1: number = answer - number2;
+
+        let mp: MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2], answer);
+
+        mp.shuffle();
+        return mp;
+    }
+
+    static addAnswer(worksheetsItem: WorksheetsItem): MathProblem {
+
+        let value = worksheetsItem.value;
+
+        if (!value) {
+            console.warn(`Value == null or undefined`, worksheetsItem);
+        }
+
+        let answer = MathGenerator.getRandomIntInclusive(value, value);
         let number2 = MathGenerator.getRandomIntInclusive(0, answer);
 
         let number1: number = answer - number2;

@@ -128,6 +128,29 @@ export class MathGenerator {
         return list;
     }
 
+    static getSeries3(type: MathProblemTypes, range1: Range, range2: Range, shuffle: boolean = false): MathProblem[] {
+
+        let list: MathProblem[] = new Array();
+
+        for (let number1 = range1.start; number1 <= range1.end; number1++) {
+
+            for (let number2 = range2.start; number2 <= range2.end; number2++) {
+                let mathProblem: MathProblem;
+
+                mathProblem = new MathProblem(type, [number1, number2]);
+
+                list.push(mathProblem);
+            }
+        }
+
+
+        if (shuffle) {
+            list = MathProblem.shuffle(list);
+        }
+
+        return list;
+    }
+
     static getSeries2(type: MathProblemTypes, numbers: number[], start: number, end: number, shuffle: boolean = false): MathProblem[] {
 
         let size = (end - start + 1) * numbers.length;
