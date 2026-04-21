@@ -55,6 +55,14 @@ export class WorksheetsMap {
             MathProblemTypes.ADDITION
         ),
         this.generateMapItem(
+           "8 et moins",
+            Worksheets.addAnswer8,
+            2,
+            MathProblemTypes.ADDITION
+        ),
+        
+
+        this.generateMapItem(
             $localize `:@@subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping:Subtraction facts - numbers up to 10`,
             Worksheets.subtractOneDigitNumberFromOneDigitNumberWithoutRegrouping,
             2,
@@ -103,11 +111,18 @@ export class WorksheetsMap {
             MathProblemTypes.SUBTRACTION
         ),
         this.generateMapItem(
+            "8 et moins",
+            Worksheets.subtract8,
+            2,
+            MathProblemTypes.SUBTRACTION
+        ),
+        this.generateMapItem(
             $localize `:@@Multiply_2_single_digits:Multiply two single digit numbers`,
             Worksheets2.multiplySingleDigitNumber,
             3,
             MathProblemTypes.MULTIPLICATION
-        )
+        ),
+
 
     ];
 

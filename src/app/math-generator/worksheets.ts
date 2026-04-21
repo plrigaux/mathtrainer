@@ -1,3 +1,4 @@
+import { W } from '@angular/cdk/keycodes';
 import { MathGenerator } from './mathGenerator';
 import { MathProblem } from "./mathProblem";
 import { GenerateRange, MathProblemTypes, Relation, Answer } from './mathProblemTypes';
@@ -205,6 +206,19 @@ export class Worksheets {
         return mp;
     }
 
+
+    static addAnswer8(): MathProblem {
+        let answer = MathGenerator.getRandomIntInclusive(5, 8);
+        let number2 = MathGenerator.getRandomIntInclusive(0, answer);
+
+        let number1: number = answer - number2;
+
+        let mp: MathProblem = new MathProblem(MathProblemTypes.ADDITION, [number1, number2], answer);
+
+        mp.shuffle();
+        return mp;
+    }
+
     static addTwoNumbersAnswerBetwen10And20(): MathProblem {
         let answer = MathGenerator.getRandomIntInclusive(10, 20);
         let number2 = MathGenerator.getRandomIntInclusive(0, answer);
@@ -257,7 +271,15 @@ export class Worksheets {
 
         return mp;
     }
+    static subtract8(): MathProblem {
+        let answer = MathGenerator.getRandomIntInclusive(0, 8);
+        let number1 = MathGenerator.getRandomIntInclusive(7, 8);
+        let number2 = number1 - answer;
 
+        let mp: MathProblem = new MathProblem(MathProblemTypes.SUBTRACTION, [number1, number2], answer);
+
+        return mp;
+    }
     //Subtract multiples of 10
     static subtractMultiplesOf10(): MathProblem {
 
