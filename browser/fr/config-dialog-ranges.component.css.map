@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/config-dialog-ranges/config-dialog-ranges.component.scss"],
-  "sourcesContent": ["table {\n    width: 100%;\n}\n\ninput[type=number] {\n    width: 3em;\n}"],
-  "mappings": ";AAAA;AACI,SAAA;;AAGJ,KAAA,CAAA;AACI,SAAA;;",
-  "names": []
-}
