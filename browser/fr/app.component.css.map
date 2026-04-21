@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/app.component.scss"],
-  "sourcesContent": [".example-fill-remaining-space {\n  /* This fills the remaining space, by using flexbox. \n     Every toolbar row uses a flexbox row layout. */\n  flex: 1 1 auto;\n}\n\n#contentPanel{\n  padding: 2em;\n}\n\n.menu-radio-group {\n  display: flex;\n  flex-direction: column;\n  margin: 15px 0;\n}\n/*\n.menu-radio-button {\n  //margin: 5px;\n  //padding: 0 16px;\n  //height: 48px;\n}\n*/\nsection {\n    display: table;\n    margin: 8px;\n  }\n  \n  .example-label {\n    display: table-cell;\n    font-size: 14px;\n    margin-left: 8px;\n    width: 120px;\n  }\n  \n  .example-button-row {\n    display: table-cell;\n  }\n  \n  .example-button-row button {\n    display: table-cell;\n    margin-right: 8px;\n  }\n  \n  .example-flex-container {\n    display: flex;\n    justify-content: space-between;\n    width: 480px;\n  }\n  \n  .example-button-container {\n    display: flex;\n    justify-content: center;\n    width: 120px;\n  }"],
-  "mappings": ";AAAA,CAAA;AAGE,QAAA,EAAA,EAAA;;AAGF,CAAA;AACE,WAAA;;AAGF,CAAA;AACE,WAAA;AACA,kBAAA;AACA,UAAA,KAAA;;AASF;AACI,WAAA;AACA,UAAA;;AAGF,CAAA;AACE,WAAA;AACA,aAAA;AACA,eAAA;AACA,SAAA;;AAGF,CAAA;AACE,WAAA;;AAGF,CAJA,mBAIA;AACE,WAAA;AACA,gBAAA;;AAGF,CAAA;AACE,WAAA;AACA,mBAAA;AACA,SAAA;;AAGF,CAAA;AACE,WAAA;AACA,mBAAA;AACA,SAAA;;",
-  "names": []
-}
