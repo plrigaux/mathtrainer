@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../../services/config.service'
 import { MathQuestionService, MathQuestionNotifier, QuestionStatus } from '../../services/math-question.service';
 import { Config, CONFIG, MATH_EXERCICISES_STORE, GENERATORS_KEY } from '../../services/config';
-import { ColumnAnswerMode } from 'src/app/column-answer/column-answer.component';
+import { ColumnAnswerMode } from '../../column-answer/column-answer.component';
 import { WorksheetsItem } from '../../math-generator/worksheetsDefinitions';
 import { Worksheets } from '../../math-generator/worksheets';
 import { MathProblem } from "../../math-generator/mathProblem";

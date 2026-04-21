@@ -39,6 +39,8 @@
     "@angular/compiler-cli": "^21.2.8",
     "@angular/localize": "^21.2.8",
     "@types/jasmine": "~6.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^25.6.0",
     "jasmine-core": "~6.2.0",
     "karma": "~6.4.4",

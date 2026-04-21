@@ -115,7 +115,7 @@ describe('Worksheets', () => {
       let va2unit = mathProblem.values[1] % 10
 
       //No carry on unit
-      expect(va1unit + va2unit).toBeLessThan(10, `${va1unit} + ${va2unit} NOT less than 10`);
+      expect(va1unit + va2unit).toBeLessThan(10);
     });
   }
 
@@ -134,7 +134,7 @@ describe('Worksheets', () => {
       let va2unit = mathProblem.values[1] % 10
 
       //With carry on unit
-      expect(va1unit + va2unit).toBeGreaterThanOrEqual(10, `${va1unit} + ${va2unit} NOT greater or equal than 10`);
+      expect(va1unit + va2unit).toBeGreaterThanOrEqual(10);
     });
   }
 
@@ -172,7 +172,7 @@ describe('Worksheets', () => {
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];
 
-      expect(mathProblem.answer).toBeGreaterThanOrEqual(0, `${number1} - ${number2} NOT greater or equals than 0`);
+      expect(mathProblem.answer).toBeGreaterThanOrEqual(0);
       
       TestHelper.isBetweenInbound(number1, 10, 99);
       TestHelper.isBetweenInbound(number2, 0, 9);
@@ -218,9 +218,9 @@ describe('Worksheets', () => {
       let val1 = mathProblem.values[0];
       let val2 = mathProblem.values[1];
 
-      expect(val1 % 10).toBe(0, `${val1} NOT multibl of 10`);
-      expect(val2 % 10).toBe(0, `${val2} NOT multibl of 10`);
-      expect(mathProblem.answer).toBeGreaterThanOrEqual(0, `${val1} - ${val2} NOT greater or equals than 0`);
+      expect(val1 % 10).toBe(0);
+      expect(val2 % 10).toBe(0);
+      expect(mathProblem.answer).toBeGreaterThanOrEqual(0);
     });
   }
 
@@ -235,7 +235,7 @@ describe('Worksheets', () => {
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];
 
-      expect(mathProblem.answer).toBeGreaterThanOrEqual(0, `${number1} - ${number2} NOT greater or equals than 0`);
+      expect(mathProblem.answer).toBeGreaterThanOrEqual(0);
 
       TestHelper.isBetweenInbound(number1, 10, 99);
       TestHelper.isBetweenInbound(number2, 0, 9);
@@ -243,7 +243,7 @@ describe('Worksheets', () => {
       let answerTen = mathProblem.answer < 10 ? 0 : parseInt(mathProblem.answer.toString()[0]);
       let number1Ten = parseInt(number1.toString()[0]);
 
-      expect(number1Ten - answerTen).toBe(1, `Not different ten! number1Ten ${number1Ten} - answerTen ${answerTen} != 1`);
+      expect(number1Ten - answerTen).toBe(1);
     });
   }
 
@@ -258,7 +258,7 @@ describe('Worksheets', () => {
       let number1 = mathProblem.values[0];
       let number2 = mathProblem.values[1];
 
-      expect(mathProblem.answer).toBeGreaterThanOrEqual(0, `${number1} - ${number2} NOT greater or equals than 0`);
+      expect(mathProblem.answer).toBeGreaterThanOrEqual(0);
 
       TestHelper.isBetweenInbound(number1, 10, 99);
       TestHelper.isBetweenInbound(number2, 10, 99);
@@ -267,7 +267,7 @@ describe('Worksheets', () => {
       let number1Ten = parseInt(number1.toString()[0]);
       let number2Ten = parseInt(number2.toString()[0]);
 
-      expect(number1Ten - number2Ten).toBe(answerTen + 1, `Test Failed! ${number1Ten} - ${number2Ten} != ${answerTen} + 1`);
+      expect(number1Ten - number2Ten).toBe(answerTen + 1);
     });
   }
 
@@ -278,8 +278,8 @@ describe('Worksheets', () => {
 class TestHelper {
 
   static isBetweenInbound(val: number, min: number, max: number) {
-    expect(val >= min).toBe(true, `Test Failed! ${val} is not between ${min} and ${max}! ${val} not greater equals than ${min}`);
-    expect(val <= max).toBe(true, `Test Failed! ${val} is not between ${min} and ${max}! ${val} not smaller equals than ${max}`);
+    expect(val >= min).toBe(true);
+    expect(val <= max).toBe(true);
   }
 
 

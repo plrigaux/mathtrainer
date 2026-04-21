@@ -17,6 +17,7 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .answerField {
@@ -195,6 +196,7 @@ input.example-right-align::-webkit-inner-spin-button {
 
 input.example-right-align {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .mdc-notched-outline{

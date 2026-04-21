@@ -3,8 +3,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MathProblem } from 'src/app/math-generator/mathProblem';
-import { Worksheets } from 'src/app/math-generator/worksheets';
+import { MathProblem } from '../../math-generator/mathProblem';
+import { Worksheets } from '../../math-generator/worksheets';
 
 @Component({
     selector: 'app-test-generator',
