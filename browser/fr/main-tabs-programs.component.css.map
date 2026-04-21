@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/main-page/main-tabs-programs/main-tabs-programs.component.scss"],
+  "sourcesContent": [".space {\r\n    width: 1em;\r\n    display: inline-block;\r\n}\r\n\r\nul {\r\n    list-style-type: none;\r\n    margin-top: 4px;\r\n}\r\n\r\n//wrap to remove the scrolbar\r\n.operation-chip-list {\r\n    width: 98%;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAA;AACI,SAAA;AACA,WAAA;;AAGJ;AACI,mBAAA;AACA,cAAA;;AAIJ,CAAA;AACI,SAAA;;",
+  "names": []
+}

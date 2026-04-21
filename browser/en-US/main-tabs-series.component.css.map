@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/main-page/main-tabs-series/main-tabs-series.component.scss"],
+  "sourcesContent": [".numbers {\r\n    margin-left: 1em;\r\n}\r\n\r\n.numberSelect {\r\n    margin: 1em 0em;\r\n}\r\n\r\n.mat-form-field + .mat-form-field,\r\n.mat-raised-button {\r\n    margin-left: 12px;\r\n}\r\n\r\n.mat-input-element {\r\n    font-size: 16px;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAA;AACI,eAAA;;AAGJ,CAAA;AACI,UAAA,IAAA;;AAGJ,CAAA,eAAA,EAAA,CAAA;AAAA,CAAA;AAEI,eAAA;;AAGJ,CAAA;AACI,aAAA;;",
+  "names": []
+}
